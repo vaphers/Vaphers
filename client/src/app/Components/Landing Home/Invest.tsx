@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useRef } from 'react'
+import Image from 'next/image'
 import { motion, useScroll, useTransform, Variants } from 'framer-motion'
 import { TrendingUp } from 'lucide-react'
 
@@ -89,9 +90,11 @@ const Invest: React.FC = () => {
           >
             {/* Main Image */}
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none">
-              <img
+              <Image
                 src="/agency-guy.png"
                 alt="Digital marketing analytics dashboard showing online marketing performance"
+                width={600}
+                height={600}
                 className="w-full h-auto object-contain"
               />
 
@@ -110,7 +113,13 @@ const Invest: React.FC = () => {
                   }}
                   className="absolute top-2 left-1 sm:top-4 sm:left-2 lg:top-8 lg:left-18 p-1 sm:p-2 lg:p-3"
                 >
-                  <img src="/google.png" alt="Google" className="w-12 h-12 sm:w-10 sm:h-10 lg:w-14 lg:h-14 object-contain" />
+                  <Image 
+                    src="/google.png" 
+                    alt="Google" 
+                    width={56} 
+                    height={56} 
+                    className="w-12 h-12 sm:w-10 sm:h-10 lg:w-14 lg:h-14 object-contain" 
+                  />
                 </motion.div>
 
                 {/* Rank 1  */}
@@ -120,7 +129,13 @@ const Invest: React.FC = () => {
                   animate="animate"
                   className="absolute -top-2 right-1 sm:top-0 sm:right-2 lg:-top-4 lg:-right-12"
                 >
-                  <img src="/seo-rank.png" alt="SEO Rank" className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain" />
+                  <Image 
+                    src="/seo-rank.png" 
+                    alt="SEO Rank" 
+                    width={176} 
+                    height={176} 
+                    className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain" 
+                  />
                 </motion.div>
 
                 {/* Competitor */}
@@ -130,7 +145,13 @@ const Invest: React.FC = () => {
                   animate="animate"
                   className="absolute bottom-4 left-1 sm:bottom-8 sm:left-2 lg:bottom-30 lg:-left-10"
                 >
-                  <img src="/competitor.png" alt="Competitor" className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain" />
+                  <Image 
+                    src="/competitor.png" 
+                    alt="Competitor" 
+                    width={176} 
+                    height={176} 
+                    className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain" 
+                  />
                 </motion.div>
               </div>
             </div>

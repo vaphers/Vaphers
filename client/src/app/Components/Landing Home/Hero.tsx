@@ -1,40 +1,38 @@
 "use client";
 
-
 import { motion } from "framer-motion";
+import Image from "next/image";
 
- function Hero() {
+function Hero() {
   return (
     <div className="relative mx-auto mb-10 flex max-w-full flex-col items-center justify-center bg-gradient-to-b from-[#01091c] via-[#0a244d] to-[#0f3064] lg:-mt-28 lg:pt-40 lg:mx-3 lg:rounded-4xl">
       <div className="mt-5"></div>
-          <div
-            className="border border-indigo-600 p-1 w-75 mx-auto rounded-full flex items-center justify-between mb-7 "
+      <div className="border border-indigo-600 p-1 w-75 mx-auto rounded-full flex items-center justify-between mb-7">
+        <span className="font-inter text-base font-medium text-gray-300 ml-3">
+          Explore how to use for brands.
+        </span>
+        <a
+          href="#"
+          className="w-8 h-8 rounded-full flex justify-center items-center bg-indigo-600"
+        >
+          <svg
+            width="17"
+            height="16"
+            viewBox="0 0 17 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <span className="font-inter text-base font-medium text-gray-300 ml-3">
-              Explore how to use for brands.
-            </span>
-            <a
-              href="#"
-              className="w-8 h-8 rounded-full flex justify-center items-center bg-indigo-600"
-            >
-              <svg
-                width="17"
-                height="16"
-                viewBox="0 0 17 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M2.83398 8.00019L12.9081 8.00019M9.75991 11.778L13.0925 8.44541C13.3023 8.23553 13.4073 8.13059 13.4073 8.00019C13.4073 7.86979 13.3023 7.76485 13.0925 7.55497L9.75991 4.22241"
-                  stroke="white"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
-          </div>
-      <div className="px-4 pb-10 ">
+            <path
+              d="M2.83398 8.00019L12.9081 8.00019M9.75991 11.778L13.0925 8.44541C13.3023 8.23553 13.4073 8.13059 13.4073 8.00019C13.4073 7.86979 13.3023 7.76485 13.0925 7.55497L9.75991 4.22241"
+              stroke="white"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </a>
+      </div>
+      <div className="px-4 pb-10">
         <h1 className="relative z-10 mx-auto max-w-4xl text-center text-2xl font-bold text-slate-200 md:text-4xl lg:text-7xl dark:text-slate-300 bungee-inline-regular">
           {"Digital Marketing That Transforms Your Business"
             .split(" ")
@@ -107,7 +105,7 @@ import { motion } from "framer-motion";
           className="relative z-10 mt-20 rounded-3xl border border-neutral-300 bg-neutral-200 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900"
         >
           <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
-            <img
+            <Image
               src="https://assets.aceternity.com/pro/aceternity-landing.webp"
               alt="Landing page preview"
               className="aspect-[16/9] h-auto w-full object-cover"
@@ -122,5 +120,3 @@ import { motion } from "framer-motion";
 }
 
 export default Hero;
-
-

@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { TrendingUp } from 'lucide-react'
 
@@ -15,16 +16,15 @@ const WhatsSEO: React.FC = () => {
           {/* Image Left with Hand */}
           <div className="w-full lg:w-1/2 flex justify-center">
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none">
-              <img
+              <Image
                 src={Tools}
                 alt="Digital marketing analytics dashboard showing online marketing performance"
+                width={600}
+                height={600}
                 className="w-full h-auto object-contain"
               />
 
-              <motion.img
-                src={Hand}
-                alt="Hand pointing"
-                className="absolute bottom-0 right-4 w-32 h-48 sm:w-36 sm:h-52 sm:bottom-2 sm:-right-4 lg:w-79 lg:h-79 lg:-bottom-29 lg:-right-25 object-contain z-10"
+              <motion.div
                 animate={{
                   x: [-10, 10, -10],
                   y: [-10, 10, -10],
@@ -34,7 +34,16 @@ const WhatsSEO: React.FC = () => {
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
-              />
+                className="absolute bottom-0 right-4 sm:bottom-2 sm:-right-4 lg:-bottom-29 lg:-right-25 z-10"
+              >
+                <Image
+                  src={Hand}
+                  alt="Hand pointing"
+                  width={316}
+                  height={316}
+                  className="w-32 h-48 sm:w-36 sm:h-52 lg:w-79 lg:h-79 object-contain"
+                />
+              </motion.div>
             </div>
           </div>
 

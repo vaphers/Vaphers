@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { Eye, Search, RotateCcw, Rocket, TrendingUp } from 'lucide-react'
 
 type TabId = 'visibility' | 'search' | 'refresh' | 'growth'
@@ -109,13 +110,15 @@ const AiSection: React.FC = () => {
               </div>
             </div>
           </div>
+          
           <div className="group relative rounded-[2rem] p-4 text-gray-700 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden border border-[#70a597]">
             <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0">
-              <img
+              <Image
                 src="/chat-gpt-logo.png"
                 alt="ChatGPT bg"
-                className="w-full h-full object-contain grayscale opacity-10"
-                style={{ filter: 'grayscale(1800%)' }}
+                fill
+                className="object-contain grayscale opacity-10"
+                style={{ filter: 'grayscale(100%)' }}
               />
             </div>
             <div className="relative z-10 text-center">
@@ -129,12 +132,14 @@ const AiSection: React.FC = () => {
               </div>
             </div>
           </div>
+          
           <div className="group relative rounded-[2rem] p-4 text-gray-700 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden border border-[#4281f4]">
             <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0">
-              <img
+              <Image
                 src="/gemini-logo.png"
                 alt="Gemini bg"
-                className="w-[120%] h-[120%] object-contain opacity-25"
+                fill
+                className="object-contain opacity-25"
                 style={{ filter: 'grayscale(100%)' }}
               />
             </div>
@@ -149,12 +154,14 @@ const AiSection: React.FC = () => {
               </div>
             </div>
           </div>
+          
           <div className="group relative rounded-[2rem] p-4 text-gray-700 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden border border-[#21b2c7]">
             <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0">
-              <img
+              <Image
                 src="/perplexity-logo.png"
                 alt="Perplexity bg"
-                className="w-full h-full object-contain opacity-25"
+                fill
+                className="object-contain opacity-25"
                 style={{ filter: 'grayscale(100%)' }}
               />
             </div>

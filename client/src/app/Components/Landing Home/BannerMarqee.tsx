@@ -1,6 +1,7 @@
 'use client'
 
 import React, { CSSProperties } from "react"
+import Image from "next/image"
 import { motion, Variants } from "framer-motion"
 
 // Use public folder image path
@@ -91,12 +92,6 @@ const imageContainerStyle: CSSProperties = {
   zIndex: 1,
 }
 
-const imageStyle: CSSProperties = {
-  height: "100%",
-  width: "auto",
-  objectFit: "cover",
-}
-
 const BannerMarqee: React.FC = () => {
   return (
     <section style={containerStyle}>
@@ -111,7 +106,18 @@ const BannerMarqee: React.FC = () => {
 
       {/* Full height image */}
       <div style={imageContainerStyle}>
-        <img src={SpiralUp} alt="Agency Girl" style={imageStyle} />
+        <Image 
+          src={SpiralUp} 
+          alt="Agency Girl" 
+          width={600}
+          height={800}
+          style={{
+            height: "100%",
+            width: "auto",
+            objectFit: "cover",
+          }}
+          priority
+        />
       </div>
 
       {/* Bottom Marquee - in front of image */}
