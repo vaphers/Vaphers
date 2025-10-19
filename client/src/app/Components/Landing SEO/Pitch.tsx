@@ -82,12 +82,12 @@ const AiSection: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <div className="text-center mb-16">
-          <h1 className="text-3xl md:text-3xl lg:text-6xl font-sans text-gray-700 mb-4 bungee-inline-regular">
-            The Best AI SEO Agency for {' '}
-            <span className="bg-gradient-to-r from-orange-400 via-pink-400 to-purple-500 bg-clip-text text-transparent ">
-                 Ai Visibility
+          <h2 className="text-3xl md:text-3xl lg:text-7xl font-sans text-gray-700 mb-4 bungee-inline-regular">
+            The Best AI SEO Agency for <br/>{' '}
+            <span className="bg-blue-500 bg-clip-text text-transparent ">
+                 AI Visibility
             </span>
-          </h1>
+          </h2>
           <p className="text-base md:text-2xl text-blue-600 font-semibold">
             Helping Businesses Dominate Large Language Model AI Search
           </p>
@@ -189,11 +189,11 @@ const AiSection: React.FC = () => {
               to optimize for AI-first discovery.
             </p>
             <p className="text-lg sm:text-lg lg:text-xl text-gray-700 leading-relaxed">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio, dolorem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, tenetur.
+              AI-powered search engines like ChatGPT, Google Gemini, and Perplexity are fundamentally changing how users find information. These platforms prioritize authoritative, well-structured content that directly answers questions with context and depth. Our AI SEO strategies ensure your business captures visibility across both traditional search engines and emerging AI platforms, positioning you as the trusted answer source in your industry.
             </p>
             <div className="mt-4 pb-4 flex justify-center sm:justify-start">
               <div className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
-                <span className="mr-3">Get a Free Consultation</span>
+                <span className="mr-3">Get a Free AI SEO Consultation</span>
                 <TrendingUp className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </div>
             </div>

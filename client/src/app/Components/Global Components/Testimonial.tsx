@@ -65,7 +65,7 @@ const Testimonial04 = () => (
   <div className=" flex justify-center items-center py-12">
     <div className="h-full w-full">
       <h3 className="text-3xl md:text-4xl lg:text-6xl font-base text-center tracking-[-0.03em] px-6 text-pretty bungee-inline-regular">
-        What Our <span className="bg-gradient-to-r from-orange-400 via-pink-400 to-purple-500 bg-clip-text text-transparent">Client's Say?</span>
+        What Our <span className="bg-blue-600 bg-clip-text text-transparent">Client's Say?</span>
       </h3>
       <p className="mt-3 text-center text-muted-foreground text-xl">
         Real stories from people who use and love our product every day

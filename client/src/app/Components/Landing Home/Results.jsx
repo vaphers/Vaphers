@@ -50,12 +50,12 @@ const CenterImage = ({ progress }) => {
       }}
     >
       <div className="text-center text-blue-600 px-8 font-['Bungee_Shade']">
-        <h1 className="text-6xl md:text-9xl font-black leading-none tracking-tight">
+        <h4 className="text-6xl md:text-9xl font-black leading-none tracking-tight">
           We Give
-        </h1>
-        <h1 className="text-6xl md:text-9xl font-black leading-none tracking-tight">
+        </h4>
+        <h5 className="text-6xl md:text-9xl font-black leading-none tracking-tight">
           Results!
-        </h1>
+        </h5>
       </div>
     </motion.div>
   );
