@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useRef } from 'react'
-import Image from 'next/image'
 import { motion, useScroll, useTransform, Variants } from 'framer-motion'
 import { TrendingUp } from 'lucide-react'
 
@@ -45,7 +44,7 @@ const WhatsSEO: React.FC = () => {
         backgroundImage: `url(${PatternBG})`,
       }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-16 pb- sm:pb-12 lg:pb-0">
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 sm:gap-10 lg:gap-12">
           <motion.div
             style={{
@@ -55,9 +54,9 @@ const WhatsSEO: React.FC = () => {
             className="w-full lg:w-2/3 space-y-4 sm:space-y-6"
           >
             <div>
-              <h2 className="text-4xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-start font-montserrat text-gray-700 mb-3 sm:mb-4 lg:mb-5 bungee-inline-regular">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-start font-montserrat text-gray-700 mb-3 sm:mb-4 lg:mb-5">
                 Grow Your Business With{' '}
-                <span className="bg-gradient-to-r from-orange-400 via-pink-400 to-purple-500 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-orange-400 via-pink-400 to-purple-500 bg-clip-text text-transparent font-['Playfair_Display',serif] italic">
                   SEO Services
                 </span>
               </h2>
@@ -92,11 +91,9 @@ const WhatsSEO: React.FC = () => {
             className="w-full lg:w-1/2 flex justify-center relative"
           >
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none">
-              <Image
+              <img
                 src={Grow}
                 alt="Digital marketing analytics dashboard showing online marketing performance"
-                width={600}
-                height={600}
                 className="w-full h-auto object-contain"
               />
 
@@ -113,13 +110,7 @@ const WhatsSEO: React.FC = () => {
                   }}
                   className="absolute top-2 left-1 sm:top-4 sm:left-2 lg:top-8 lg:-left-1 p-1 sm:p-2 lg:p-3"
                 >
-                  <Image 
-                    src={Google} 
-                    alt="Google" 
-                    width={56} 
-                    height={56} 
-                    className="w-12 h-12 sm:w-10 sm:h-10 lg:w-14 lg:h-14 object-contain" 
-                  />
+                  <img src={Google} alt="Google" className="w-12 h-12 sm:w-10 sm:h-10 lg:w-14 lg:h-14 object-contain" />
                 </motion.div>
 
                 <motion.div
@@ -128,13 +119,7 @@ const WhatsSEO: React.FC = () => {
                   animate="animate"
                   className="absolute -top-2 right-1 sm:top-0 sm:right-2 lg:-top-4 lg:-right-12"
                 >
-                  <Image 
-                    src={Rank} 
-                    alt="SEO Rank" 
-                    width={176} 
-                    height={176} 
-                    className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain" 
-                  />
+                  <img src={Rank} alt="SEO Rank" className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain" />
                 </motion.div>
 
                 <motion.div
@@ -143,13 +128,7 @@ const WhatsSEO: React.FC = () => {
                   animate="animate"
                   className="absolute bottom-4 left-1 sm:bottom-8 sm:left-2 lg:bottom-30 lg:-left-10"
                 >
-                  <Image 
-                    src={Competitor} 
-                    alt="Competitor" 
-                    width={176} 
-                    height={176} 
-                    className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain" 
-                  />
+                  <img src={Competitor} alt="Competitor" className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain" />
                 </motion.div>
               </div>
             </div>

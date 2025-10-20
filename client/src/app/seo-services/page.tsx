@@ -2,21 +2,21 @@
 
 import React, { useEffect, useRef, useMemo } from 'react'
 import Lenis from '@studio-freight/lenis'
-import Hero from "@/app/Components/Landing SEO/Hero"
-import AiSection from '../Components/Landing SEO/Pitch'
-import Results from "@/app/Components/Landing Home/Results"
-import GrowWithSEO from '../Components/Landing SEO/Grow'
-import SeoNeed from '../Components/Landing SEO/Need'
-import Banner from '../Components/Global Components/Banner'
-import Testimonial from "@/app/Components/Global Components/Testimonial"
-import SeoLeads from '../Components/Landing SEO/MoreLeads'
-import Filler from '../Components/Landing SEO/Filler'
-import SEOContentSection from '../Components/Landing SEO/SEO'
-import Stats from '../Components/Global Components/Stats'
-import WhyUs from '../Components/Global Components/WhyUs'
-import SeoFaq from '../Components/Landing SEO/FAQ'
-import ContactForm from '../Components/Global Components/Contact'
-import ServicesAccordion from '../Components/Landing SEO/Service'
+import Hero from "@/PageComponents/Landing SEO/Hero"
+import AiSection from '@/PageComponents/Landing SEO/Pitch'
+import Results from "@/PageComponents/Landing Home/Results"
+import GrowWithSEO from '@/PageComponents/Landing SEO/Grow'
+import SeoNeed from '@/PageComponents/Landing SEO/Need'
+import Banner from '@/PageComponents/Global Components/Banner'
+import Testimonial from "@/PageComponents/Global Components/Testimonial"
+import SeoLeads from '@/PageComponents/Landing SEO/MoreLeads'
+import Filler from '@/PageComponents/Landing SEO/Filler'
+import SEOContentSection from '@/PageComponents/Landing SEO/SEO'
+import Stats from '@/PageComponents/Global Components/Stats'
+import WhyUs from '@/PageComponents/Global Components/WhyUs'
+import SeoFaq from '@/PageComponents/Landing SEO/FAQ'
+import ContactForm from '@/PageComponents/Global Components/Contact'
+import ServicesAccordion from '@/PageComponents/Landing SEO/Service'
 
 // FAQ Data for schema
 export const seoFaqData = [

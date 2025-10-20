@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import BlogList from '../Components/Blogs Components/BlogList'
-import Testimonial from '../Components/Global Components/Testimonial'
-import ContactForm from '../Components/Global Components/Contact'
+import BlogList from '@/PageComponents/Blogs Components/BlogList'
+import Testimonial from '@/PageComponents/Global Components/Testimonial'
+import ContactForm from '@/PageComponents/Global Components/Contact'
 
 export const metadata: Metadata = {
   title: 'Blog',

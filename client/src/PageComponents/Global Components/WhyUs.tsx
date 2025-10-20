@@ -55,8 +55,8 @@ const features = [
 
 const WhyUs = () => {
   return (
-    <div className="flex items-center justify-center bg-gray-50">
-      <div className="max-w-7xl w-full py-12 lg:py-20 px-6">
+    <div className="flex items-center justify-center ">
+      <div className="max-w-7xl w-full py-12 px-6">
         <div className="text-center lg:text-left mb-8 lg:mb-12">
           <h4 className="text-3xl md:text-4xl lg:text-6xl font-base text-center tracking-[-0.03em] px-6 text-pretty bungee-inline-regular">
             Why Choose Us <span className="bg-blue-600 bg-clip-text text-transparent">For Your Business?</span>

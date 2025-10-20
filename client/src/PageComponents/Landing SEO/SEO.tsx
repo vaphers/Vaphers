@@ -20,7 +20,7 @@ export default function SEOContentSection() {
         {/* Content */}
         <div className="space-y-8 order-1 lg:order-2">
           <div className="space-y-4">
-            <h3 className="text-3xl md:text-4xl lg:text-6xl font-base  tracking-[-0.03em] px-6 text-pretty bungee-inline-regular">
+            <h3 className="text-3xl md:text-4xl lg:text-6xl font-base  tracking-[-0.03em] text-pretty bungee-inline-regular">
               What Is <span className="bg-blue-600 bg-clip-text text-transparent">Modern SEO?</span>
             </h3>
             <p className="text-lg text-gray-600 leading-relaxed">

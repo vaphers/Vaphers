@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
-import OurStorySection from '@/app/Components/About Components/Story'
-import Mission from "@/app/Components/About Components/Mission"
-import CTA from '../Components/Global Components/CTA'
-import Hero from '../Components/About Components/Hero'
-import ContactForm from '../Components/Global Components/Contact'
+import OurStorySection from '@/PageComponents/About Components/Story'
+import Mission from "@/PageComponents/About Components/Mission"
+import CTA from '@/PageComponents/Global Components/CTA'
+import Hero from '@/PageComponents/About Components/Hero'
+import ContactForm from '@/PageComponents/Global Components/Contact'
 
 export const metadata: Metadata = {
   title: 'About Us',

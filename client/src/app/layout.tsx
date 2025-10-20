@@ -1,7 +1,7 @@
 // app/layout.tsx
 import './globals.css'
-import Header from '@/app/Components/Global Components/Header'
-import Footer from './Components/Global Components/Footer'
+import Header from '@/PageComponents/Global Components/Header'
+import Footer from '@/PageComponents/Global Components/Footer'
 
 export const metadata = {
   title: { default: 'Vaphers', template: '%s | Virtual Orbit' },

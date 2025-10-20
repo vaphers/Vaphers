@@ -1,3 +1,5 @@
+'use client'
+
 import React from "react"
 import CountUp from "react-countup"
 import { useInView } from "react-intersection-observer"
@@ -10,7 +12,7 @@ const Stats = () => {
 
   return (
     <div className="flex items-center justify-center" ref={ref}>
-      <div className="max-w-(--breakpoint-xl) mx-auto w-full pb-12 px-6 xl:px-0">
+      <div className="max-w-(--breakpoint-xl) mx-auto w-full px-6 xl:px-0">
         <div className="mt-16 sm:mt-18 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-10 gap-y-16 justify-center">
           <div>
             <span className="text-5xl md:text-6xl tracking-tight text-blue-700 font-semibold">

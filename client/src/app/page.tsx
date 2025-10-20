@@ -2,21 +2,21 @@
 
 import React, { useEffect, useRef, useMemo } from 'react'
 import Lenis from '@studio-freight/lenis'
-import Hero from "@/app/Components/Landing Home/Hero"
-import Pitch from "@/app/Components/Landing Home/Pitch"
-import Result from "@/app/Components/Landing Home/Results"
-import Grow from "@/app/Components/Landing Home/Grow"
-import Need from "@/app/Components/Landing Home/Need"
-import Banner from "@/app/Components/Global Components/Banner"
-import Testimonial from './Components/Global Components/Testimonial'
-import DMvalue from './Components/Landing Home/DMvalue'
-import Services from './Components/Landing Home/Services'
-import WhyUs from './Components/Global Components/WhyUs'
-import Stats from './Components/Global Components/Stats'
-import BannerMarqee from './Components/Landing Home/BannerMarqee'
-import Invest from './Components/Landing Home/Invest'
-import Faq from './Components/Landing Home/Faq'
-import ContactForm from './Components/Global Components/Contact'
+import Hero from "@/PageComponents/Landing Home/Hero"
+import Pitch from "@/PageComponents/Landing Home/Pitch"
+import Result from "@/PageComponents/Landing Home/Results"
+import Grow from "@/PageComponents/Landing Home/Grow"
+import Need from "@/PageComponents/Landing Home/Need"
+import Banner from "@/PageComponents/Global Components/Banner"
+import Testimonial from '@/PageComponents/Global Components/Testimonial'
+import DMvalue from '@/PageComponents/Landing Home/DMvalue'
+import Services from '@/PageComponents/Landing Home/Services'
+import WhyUs from '@/PageComponents/Global Components/WhyUs'
+import Stats from '@/PageComponents/Global Components/Stats'
+import BannerMarqee from '@/PageComponents/Landing Home/BannerMarqee'
+import Invest from '@/PageComponents/Landing Home/Invest'
+import Faq from '@/PageComponents/Landing Home/Faq'
+import ContactForm from '@/PageComponents/Global Components/Contact'
 
 import { SwatchBookIcon, SearchIcon, StarIcon, SmartphoneIcon, LockKeyholeIcon, ShieldBanIcon } from 'lucide-react'
 
