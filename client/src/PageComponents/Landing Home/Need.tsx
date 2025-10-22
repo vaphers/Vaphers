@@ -14,11 +14,13 @@ const DmNeed: React.FC = () => {
           <div className="w-full lg:w-1/2 flex justify-center">
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none">
               <Image
-                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047492/Tools_aktfkk.png"
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761047492/Tools_aktfkk.png"
                 alt="Digital marketing analytics dashboard showing online marketing performance"
                 width={600}
                 height={600}
+                sizes="(max-width: 640px) 384px, (max-width: 768px) 448px, 600px"
                 className="w-full h-auto object-contain"
+                priority
               />
 
               <motion.div
@@ -34,10 +36,11 @@ const DmNeed: React.FC = () => {
                 className="absolute bottom-0 right-4 sm:bottom-2 sm:-right-4 lg:-bottom-29 lg:-right-25 z-10"
               >
                 <Image
-                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047482/hand_scbtao.png"
+                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_316/v1761047482/hand_scbtao.png"
                   alt="Hand pointing"
                   width={316}
                   height={316}
+                  sizes="(max-width: 640px) 128px, (max-width: 768px) 144px, 316px"
                   className="w-32 h-48 sm:w-36 sm:h-52 lg:w-79 lg:h-79 object-contain"
                 />
               </motion.div>

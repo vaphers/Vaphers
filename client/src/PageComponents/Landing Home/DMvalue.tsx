@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { motion, useScroll, useTransform, Variants } from 'framer-motion'
 import { TrendingUp } from 'lucide-react'
 
-const PatternBG = 'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047483/PatternBG_kv4ubo.jpg'
+const PatternBG = 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047483/PatternBG_kv4ubo.jpg'
 
 const floatingVariants: Variants = {
   animate: (custom: number) => ({
@@ -19,7 +19,6 @@ const floatingVariants: Variants = {
   }),
 }
 
-// Custom hook for responsive detection
 const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(false)
 
@@ -30,10 +29,7 @@ const useIsMobile = () => {
       setIsMobile(mql.matches)
     }
     
-    // Set initial value
     setIsMobile(mql.matches)
-    
-    // Listen for changes
     mql.addEventListener('change', handleChange)
     
     return () => mql.removeEventListener('change', handleChange)
@@ -122,11 +118,13 @@ const DMvalue: React.FC = () => {
           >
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none">
               <Image 
-                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047475/girl-laptop_kwggux.png"
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761047475/girl-laptop_kwggux.png"
                 alt="Digital marketing analytics dashboard showing online marketing performance" 
                 width={600}
                 height={600}
-                className="w-full h-auto object-contain" 
+                sizes="(max-width: 640px) 384px, (max-width: 768px) 448px, 600px"
+                className="w-full h-auto object-contain"
+                priority
               />
 
               <div className="absolute inset-0">
@@ -143,10 +141,11 @@ const DMvalue: React.FC = () => {
                   className="absolute top-2 left-1 sm:top-4 sm:left-2 lg:top-18 lg:-left-1 p-1 sm:p-2 lg:p-3"
                 >
                   <Image 
-                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047482/google_jze9mq.png"
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_80/v1761047482/google_jze9mq.png"
                     alt="Google" 
                     width={80} 
-                    height={80} 
+                    height={80}
+                    sizes="(max-width: 640px) 48px, (max-width: 1024px) 40px, 80px"
                     className="w-12 h-12 sm:w-10 sm:h-10 lg:w-20 lg:h-20 object-contain" 
                   />
                 </motion.div>
@@ -158,10 +157,11 @@ const DMvalue: React.FC = () => {
                   className="absolute -top-2 right-1 sm:top-0 sm:right-2 lg:top-54 lg:-right-18"
                 >
                   <Image 
-                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047484/seo-rank_l7ekja.png" 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_176/v1761047484/seo-rank_l7ekja.png" 
                     alt="SEO Rank" 
                     width={176} 
-                    height={176} 
+                    height={176}
+                    sizes="(max-width: 1024px) 112px, 176px"
                     className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain" 
                   />
                 </motion.div>
@@ -173,10 +173,11 @@ const DMvalue: React.FC = () => {
                   className="absolute bottom-4 left-1 sm:bottom-8 sm:left-2 lg:bottom-40 lg:-left-5"
                 >
                   <Image 
-                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047474/competitor_co9leg.png"
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_176/v1761047474/competitor_co9leg.png"
                     alt="Competitor" 
                     width={176} 
-                    height={176} 
+                    height={176}
+                    sizes="(max-width: 1024px) 112px, 176px"
                     className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain" 
                   />
                 </motion.div>

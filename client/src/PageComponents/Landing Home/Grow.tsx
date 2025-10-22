@@ -1,10 +1,11 @@
 'use client'
 
 import React, { useRef, useState, useEffect } from 'react'
+import Image from 'next/image'
 import { motion, useScroll, useTransform, Variants } from 'framer-motion'
 import { TrendingUp } from 'lucide-react'
 
-const PatternBG = 'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047483/PatternBG_kv4ubo.jpg'
+const PatternBG = 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047483/PatternBG_kv4ubo.jpg'
 
 const floatingVariants: Variants = {
   animate: (custom: number) => ({
@@ -18,7 +19,6 @@ const floatingVariants: Variants = {
   }),
 }
 
-// Custom hook for responsive detection
 const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(false)
 
@@ -29,10 +29,7 @@ const useIsMobile = () => {
       setIsMobile(mql.matches)
     }
     
-    // Set initial value
     setIsMobile(mql.matches)
-    
-    // Listen for changes
     mql.addEventListener('change', handleChange)
     
     return () => mql.removeEventListener('change', handleChange)
@@ -109,10 +106,14 @@ const WhatsSEO: React.FC = () => {
             className="w-full lg:w-1/2 flex justify-center relative"
           >
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none">
-              <img
-                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047482/grow_ur7efq.png"
+              <Image
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761047482/grow_ur7efq.png"
                 alt="Digital marketing analytics dashboard showing online marketing performance"
+                width={600}
+                height={721}
+                sizes="(max-width: 640px) 384px, (max-width: 768px) 448px, 600px"
                 className="w-full h-auto object-contain"
+                priority
               />
 
               <div className="absolute inset-0">
@@ -128,7 +129,14 @@ const WhatsSEO: React.FC = () => {
                   }}
                   className="absolute top-2 left-1 sm:top-4 sm:left-2 lg:top-8 lg:-left-1 p-1 sm:p-2 lg:p-3"
                 >
-                  <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047482/google_jze9mq.png" alt="Google" className="w-12 h-12 sm:w-10 sm:h-10 lg:w-14 lg:h-14 object-contain" />
+                  <Image 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_80/v1761047482/google_jze9mq.png" 
+                    alt="Google" 
+                    width={80}
+                    height={80}
+                    sizes="(max-width: 640px) 48px, (max-width: 1024px) 40px, 56px"
+                    className="w-12 h-12 sm:w-10 sm:h-10 lg:w-14 lg:h-14 object-contain" 
+                  />
                 </motion.div>
 
                 <motion.div
@@ -137,7 +145,14 @@ const WhatsSEO: React.FC = () => {
                   animate="animate"
                   className="absolute -top-2 right-1 sm:top-0 sm:right-2 lg:-top-4 lg:-right-12"
                 >
-                  <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047484/seo-rank_l7ekja.png" alt="SEO Rank" className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain" />
+                  <Image 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_176/v1761047484/seo-rank_l7ekja.png" 
+                    alt="SEO Rank" 
+                    width={176}
+                    height={176}
+                    sizes="(max-width: 1024px) 112px, 176px"
+                    className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain" 
+                  />
                 </motion.div>
 
                 <motion.div
@@ -146,7 +161,14 @@ const WhatsSEO: React.FC = () => {
                   animate="animate"
                   className="absolute bottom-4 left-1 sm:bottom-8 sm:left-2 lg:bottom-30 lg:-left-10"
                 >
-                  <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047474/competitor_co9leg.png" alt="Competitor" className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain" />
+                  <Image 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_176/v1761047474/competitor_co9leg.png" 
+                    alt="Competitor" 
+                    width={176}
+                    height={176}
+                    sizes="(max-width: 1024px) 112px, 176px"
+                    className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain" 
+                  />
                 </motion.div>
               </div>
             </div>
