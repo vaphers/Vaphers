@@ -139,12 +139,12 @@ export default function NavBar() {
                                 <div key={item.name} className="group">
                                   <Link href={item.href} onClick={() => close()} className="flex items-start space-x-3 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-200">
                                     <div className="flex-shrink-0">
-                                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#4f39f6] group-hover:bg-[#3d2bc4] transition-colors duration-200">
+                                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500 group-hover:bg-blue-600 transition-colors duration-200">
                                         <item.icon className="h-4 w-4 text-white" aria-hidden="true" />
                                       </div>
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                      <p className="text-sm font-medium text-gray-900 group-hover:text-[#4f39f6] transition-colors duration-200">
+                                      <p className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
                                         {item.name}
                                       </p>
                                       <p className="text-xs text-gray-600 mt-1">
@@ -165,12 +165,12 @@ export default function NavBar() {
                                 <div key={item.name} className="group">
                                   <a href={item.href} onClick={() => close()} className="flex items-start space-x-3 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-200">
                                     <div className="flex-shrink-0">
-                                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#4f39f6] group-hover:bg-[#3d2bc4] transition-colors duration-200">
+                                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500 group-hover:bg-blue-600 transition-colors duration-200">
                                         <item.icon className="h-4 w-4 text-white" aria-hidden="true" />
                                       </div>
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                      <p className="text-sm font-medium text-gray-900 group-hover:text-[#4f39f6] transition-colors duration-200">
+                                      <p className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
                                         {item.name}
                                       </p>
                                       <p className="text-xs text-gray-600 mt-1">
@@ -195,12 +195,12 @@ export default function NavBar() {
                                 <div key={item.name} className="group">
                                   <Link href={item.href} onClick={() => close()} className="flex items-start space-x-3 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-200">
                                     <div className="flex-shrink-0">
-                                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#4f39f6] group-hover:bg-[#3d2bc4] transition-colors duration-200">
+                                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500 group-hover:bg-blue-600 transition-colors duration-200">
                                         <item.icon className="h-4 w-4 text-white" aria-hidden="true" />
                                       </div>
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                      <p className="text-sm font-medium text-gray-900 group-hover:text-[#4f39f6] transition-colors duration-200">
+                                      <p className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
                                         {item.name}
                                       </p>
                                       <p className="text-xs text-gray-600 mt-1">
@@ -227,7 +227,7 @@ export default function NavBar() {
                                         className="w-full h-20 object-cover rounded-lg"
                                       />
                                     </div>
-                                    <p className="text-sm font-medium text-gray-900 group-hover:text-[#4f39f6] transition-colors duration-200">
+                                    <p className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
                                       {item.name}
                                     </p>
                                     <p className="text-xs text-gray-600 mt-1">
@@ -248,7 +248,7 @@ export default function NavBar() {
                                 key={item.name}
                                 href={item.href}
                                 onClick={() => close()}
-                                className="flex items-center space-x-2 text-sm font-medium text-gray-700 hover:text-[#4f39f6] transition-colors duration-200"
+                                className="flex items-center space-x-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors duration-200"
                               >
                                 <item.icon className="h-5 w-5" aria-hidden="true" />
                                 <span>{item.name}</span>
@@ -264,22 +264,22 @@ export default function NavBar() {
             )}
           </Popover>
 
-          <Link href="#" className="text-base font-semibold text-gray-800 hover:text-[#4f39f6] transition-colors duration-200">
+          <Link href="#" className="text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
             Pricing
           </Link>
-          <Link href="/blogs" className="text-base font-semibold text-gray-800 hover:text-[#4f39f6] transition-colors duration-200">
+          <Link href="/blogs" className="text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
             Blogs
           </Link>
-          <Link href="/about-us" className="text-base font-semibold text-gray-800 hover:text-[#4f39f6] transition-colors duration-200">
+          <Link href="/about-us" className="text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
             About Us
           </Link>
-          <Link href="/Contact-Us" className="text-base font-semibold text-gray-800 hover:text-[#4f39f6] transition-colors duration-200">
+          <Link href="/Contact-Us" className="text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
             Contact Us
           </Link>
         </PopoverGroup>
 
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link href="/Contact-us" className="text-base font-semibold text-gray-800 hover:text-[#4f39f6] transition-colors duration-200">
+          <Link href="/Contact-us" className="text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
             Become a Client <span aria-hidden="true">&rarr;</span>
           </Link>
         </div>
@@ -288,15 +288,17 @@ export default function NavBar() {
       {/* Mobile Menu */}
       <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
         <div className="fixed inset-0 z-50" />
-        <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-[#8FA31E] p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10">
+        <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gradient-to-b from-[#061d40] to-[#1a4d8f] p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10">
           <div className="flex items-center justify-between">
             <Link href="#" className="-m-1.5 p-1.5">
-              <p className="text-white text-3xl font-extrabold cursor-pointer">Virtual Orbit</p>
+            <p className="text-white text-4xl font-extrabold transition duration-300 bungee-shade cursor-pointer">
+              V<span className="text-white font-extrabold text-3xl -mb-4  transition duration-300 tracking-wider cursor-pointer">aphers</span>
+            </p>
             </Link>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
-              className="-m-2.5 rounded-md p-2.5 text-gray-400"
+              className="-m-2.5 rounded-md p-2.5 text-gray-200"
             >
               <span className="sr-only">Close menu</span>
               <XMarkIcon aria-hidden="true" className="size-6" />
