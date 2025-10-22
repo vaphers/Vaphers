@@ -33,7 +33,7 @@ import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/
 
 const digitalMarketingServices = [
   { name: 'AI SEO', description: 'Drive targeted traffic with ads', href: '/seo-services/ai-seo-services', icon: ChartPieIcon },
-  { name: 'Local SEO', description: 'Boost your search engine rankings', href: '/seo-services/local-seo', icon: MagnifyingGlassIcon },
+  { name: 'Local SEO', description: 'Boost your search engine rankings', href: '/seo-services/local-seo-services', icon: MagnifyingGlassIcon },
   { name: 'Ecommerce SEO', description: 'Create compelling content strategies', href: '/seo-services/ecommerce-seo', icon: PencilSquareIcon },
   { name: 'Technical SEO', description: 'Engage your audience on social platforms', href: '/seo-services/technical-seo', icon: CursorArrowRaysIcon },
   { name: 'SEO Audits', description: 'Reach customers directly in their inbox', href: '/seo-services/seo-audit', icon: MegaphoneIcon },
@@ -103,149 +103,165 @@ export default function NavBar() {
         <PopoverGroup className="hidden lg:flex lg:gap-x-12">
           {/* Services Mega Menu */}
           <Popover className="relative">
-            <PopoverButton className="flex items-center gap-x-1 text-base font-semibold text-gray-800 hover:text-[#4f39f6] transition-colors duration-200">
-              Services
-              <ChevronDownIcon aria-hidden="true" className="size-5 flex-none text-gray-500" />
-            </PopoverButton>
+            {({ open, close }) => (
+              <>
+                <PopoverButton className="flex items-center gap-x-1 text-base font-semibold text-gray-800 hover:text-[#4f39f6] transition-colors duration-200">
+                  Services
+                  <ChevronDownIcon aria-hidden="true" className="size-5 flex-none text-gray-500" />
+                </PopoverButton>
 
-            <PopoverPanel
-              transition
-              className="border border-blue-500 absolute left-6/2 ml-2 z-20 mt-10 w-screen max-w-6xl -translate-x-1/2 transform overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-gray-900/5 transition data-closed:translate-y-1 data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in"
-            >
-              <div className="p-8">
-                {/* Services Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-8">
-                  {/* SEO Column */}
-                  <div>
-                    <Link href="/seo-services">
-                      <h4 className="text-lg font-semibold text-gray-900 mb-4 border-b border-gray-200 pb-2 hover:text-blue-700">
-                        Search Engine Optimization
-                      </h4>
-                    </Link>
-                    <div className="space-y-3">
-                      {digitalMarketingServices.map((item) => (
-                        <div key={item.name} className="group">
-                          <Link href={item.href} className="flex items-start space-x-3 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-200">
-                            <div className="flex-shrink-0">
-                              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#4f39f6] group-hover:bg-[#3d2bc4] transition-colors duration-200">
-                                <item.icon className="h-4 w-4 text-white" aria-hidden="true" />
-                              </div>
+                {open && (
+                  <>
+                    {/* Outside click catch backdrop */}
+                    <div
+                      className="fixed inset-0 z-10"
+                      onClick={close}
+                      aria-hidden="true"
+                    />
+
+                    <PopoverPanel
+                      static
+                      onClick={(e) => e.stopPropagation()} // Prevent closing on panel clicks
+                      className="border border-blue-500 absolute left-6/2 ml-2 z-20 mt-10 w-screen max-w-6xl -translate-x-1/2 transform overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-gray-900/5"
+                    >
+                      <div className="p-8">
+                        {/* Services Grid */}
+                        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-8">
+                          {/* SEO Column */}
+                          <div>
+                            <Link href="/seo-services" onClick={() => close()}>
+                              <h4 className="text-lg font-semibold text-gray-900 mb-4 border-b border-gray-200 pb-2 hover:text-blue-700">
+                                Search Engine Optimization
+                              </h4>
+                            </Link>
+                            <div className="space-y-3">
+                              {digitalMarketingServices.map((item) => (
+                                <div key={item.name} className="group">
+                                  <Link href={item.href} onClick={() => close()} className="flex items-start space-x-3 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-200">
+                                    <div className="flex-shrink-0">
+                                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#4f39f6] group-hover:bg-[#3d2bc4] transition-colors duration-200">
+                                        <item.icon className="h-4 w-4 text-white" aria-hidden="true" />
+                                      </div>
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                      <p className="text-sm font-medium text-gray-900 group-hover:text-[#4f39f6] transition-colors duration-200">
+                                        {item.name}
+                                      </p>
+                                      <p className="text-xs text-gray-600 mt-1">
+                                        {item.description}
+                                      </p>
+                                    </div>
+                                  </Link>
+                                </div>
+                              ))}
                             </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-gray-900 group-hover:text-[#4f39f6] transition-colors duration-200">
-                                {item.name}
-                              </p>
-                              <p className="text-xs text-gray-600 mt-1">
-                                {item.description}
-                              </p>
+                          </div>
+
+                          {/* Web Development Column */}
+                          <div>
+                            <h4 className="text-lg font-semibold text-gray-900 mb-4 border-b border-gray-200 pb-2">Web Development</h4>
+                            <div className="space-y-3">
+                              {webDevelopmentServices.map((item) => (
+                                <div key={item.name} className="group">
+                                  <a href={item.href} onClick={() => close()} className="flex items-start space-x-3 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-200">
+                                    <div className="flex-shrink-0">
+                                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#4f39f6] group-hover:bg-[#3d2bc4] transition-colors duration-200">
+                                        <item.icon className="h-4 w-4 text-white" aria-hidden="true" />
+                                      </div>
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                      <p className="text-sm font-medium text-gray-900 group-hover:text-[#4f39f6] transition-colors duration-200">
+                                        {item.name}
+                                      </p>
+                                      <p className="text-xs text-gray-600 mt-1">
+                                        {item.description}
+                                      </p>
+                                    </div>
+                                  </a>
+                                </div>
+                              ))}
                             </div>
-                          </Link>
+                          </div>
+
+                          {/* PPC Marketing */}
+                          <div>
+                            <Link href="/ppc-marketing-services" onClick={() => close()}>
+                              <h4 className="text-lg font-semibold text-gray-900 mb-4 border-b border-gray-200 pb-2 hover:text-blue-700">
+                                Pay Per Click (PPC) Marketing
+                              </h4>
+                            </Link>
+                            <div className="space-y-3">
+                              {creativeServices.map((item) => (
+                                <div key={item.name} className="group">
+                                  <Link href={item.href} onClick={() => close()} className="flex items-start space-x-3 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-200">
+                                    <div className="flex-shrink-0">
+                                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#4f39f6] group-hover:bg-[#3d2bc4] transition-colors duration-200">
+                                        <item.icon className="h-4 w-4 text-white" aria-hidden="true" />
+                                      </div>
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                      <p className="text-sm font-medium text-gray-900 group-hover:text-[#4f39f6] transition-colors duration-200">
+                                        {item.name}
+                                      </p>
+                                      <p className="text-xs text-gray-600 mt-1">
+                                        {item.description}
+                                      </p>
+                                    </div>
+                                  </Link>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Featured Services Column */}
+                          <div>
+                            <h4 className="text-lg font-semibold text-gray-900 mb-4 border-b border-gray-200 pb-2">Featured</h4>
+                            <div className="space-y-4">
+                              {featuredServices.map((item) => (
+                                <div key={item.name} className="group">
+                                  <a href={item.href} onClick={() => close()} className="block rounded-lg p-3 hover:bg-gray-50 transition-colors duration-200">
+                                    <div className="aspect-w-3 aspect-h-2 mb-3">
+                                      <img
+                                        src={item.image}
+                                        alt={item.name}
+                                        className="w-full h-20 object-cover rounded-lg"
+                                      />
+                                    </div>
+                                    <p className="text-sm font-medium text-gray-900 group-hover:text-[#4f39f6] transition-colors duration-200">
+                                      {item.name}
+                                    </p>
+                                    <p className="text-xs text-gray-600 mt-1">
+                                      {item.description}
+                                    </p>
+                                  </a>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
                         </div>
-                      ))}
-                    </div>
-                  </div>
 
-                  {/* Web Development Column */}
-                  <div>
-                    <h4 className="text-lg font-semibold text-gray-900 mb-4 border-b border-gray-200 pb-2">Web Development</h4>
-                    <div className="space-y-3">
-                      {webDevelopmentServices.map((item) => (
-                        <div key={item.name} className="group">
-                          {/* These are placeholders (“#”); leave as anchors or make real routes later */}
-                          <a href={item.href} className="flex items-start space-x-3 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-200">
-                            <div className="flex-shrink-0">
-                              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#4f39f6] group-hover:bg-[#3d2bc4] transition-colors duration-200">
-                                <item.icon className="h-4 w-4 text-white" aria-hidden="true" />
-                              </div>
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-gray-900 group-hover:text-[#4f39f6] transition-colors duration-200">
-                                {item.name}
-                              </p>
-                              <p className="text-xs text-gray-600 mt-1">
-                                {item.description}
-                              </p>
-                            </div>
-                          </a>
+                        {/* Call to Actions Footer */}
+                        <div className="border-t border-gray-200 pt-6">
+                          <div className="flex justify-center space-x-8">
+                            {callsToAction.map((item) => (
+                              <Link
+                                key={item.name}
+                                href={item.href}
+                                onClick={() => close()}
+                                className="flex items-center space-x-2 text-sm font-medium text-gray-700 hover:text-[#4f39f6] transition-colors duration-200"
+                              >
+                                <item.icon className="h-5 w-5" aria-hidden="true" />
+                                <span>{item.name}</span>
+                              </Link>
+                            ))}
+                          </div>
                         </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* PPC Marketing */}
-                  <div>
-                    <Link href="/ppc-marketing-services">
-                      <h4 className="text-lg font-semibold text-gray-900 mb-4 border-b border-gray-200 pb-2 hover:text-blue-700">
-                        Pay Per Click (PPC) Marketing
-                      </h4>
-                    </Link>
-                    <div className="space-y-3">
-                      {creativeServices.map((item) => (
-                        <div key={item.name} className="group">
-                          <Link href={item.href} className="flex items-start space-x-3 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-200">
-                            <div className="flex-shrink-0">
-                              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#4f39f6] group-hover:bg-[#3d2bc4] transition-colors duration-200">
-                                <item.icon className="h-4 w-4 text-white" aria-hidden="true" />
-                              </div>
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-gray-900 group-hover:text-[#4f39f6] transition-colors duration-200">
-                                {item.name}
-                              </p>
-                              <p className="text-xs text-gray-600 mt-1">
-                                {item.description}
-                              </p>
-                            </div>
-                          </Link>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Featured Services Column */}
-                  <div>
-                    <h4 className="text-lg font-semibold text-gray-900 mb-4 border-b border-gray-200 pb-2">Featured</h4>
-                    <div className="space-y-4">
-                      {featuredServices.map((item) => (
-                        <div key={item.name} className="group">
-                          <a href={item.href} className="block rounded-lg p-3 hover:bg-gray-50 transition-colors duration-200">
-                            <div className="aspect-w-3 aspect-h-2 mb-3">
-                              <img
-                                src={item.image}
-                                alt={item.name}
-                                className="w-full h-20 object-cover rounded-lg"
-                              />
-                            </div>
-                            <p className="text-sm font-medium text-gray-900 group-hover:text-[#4f39f6] transition-colors duration-200">
-                              {item.name}
-                            </p>
-                            <p className="text-xs text-gray-600 mt-1">
-                              {item.description}
-                            </p>
-                          </a>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Call to Actions Footer */}
-                <div className="border-t border-gray-200 pt-6">
-                  <div className="flex justify-center space-x-8">
-                    {callsToAction.map((item) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className="flex items-center space-x-2 text-sm font-medium text-gray-700 hover:text-[#4f39f6] transition-colors duration-200"
-                      >
-                        <item.icon className="h-5 w-5" aria-hidden="true" />
-                        <span>{item.name}</span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </PopoverPanel>
+                      </div>
+                    </PopoverPanel>
+                  </>
+                )}
+              </>
+            )}
           </Popover>
 
           <Link href="#" className="text-base font-semibold text-gray-800 hover:text-[#4f39f6] transition-colors duration-200">
@@ -345,7 +361,7 @@ export default function NavBar() {
                         className="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-white hover:bg-white/5"
                       >
                         {item.name}
-                      </DisclosureButton>
+                      </DisclosureButton>   
                     ))}
                   </DisclosurePanel>
                 </Disclosure>
@@ -379,6 +395,3 @@ export default function NavBar() {
     </header>
   )
 }
-
-
-

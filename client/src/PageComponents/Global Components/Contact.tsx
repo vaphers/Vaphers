@@ -13,7 +13,7 @@ const ContactForm: React.FC = () => {
     <section className="py-16 px-4 flex flex-col md:flex-row gap-10 max-w-7xl mx-auto w-full">
       {/* Left contact info */}
       <div className="flex-1">
-          <h4 className="text-3xl md:text-4xl lg:text-6xl font-base  tracking-[-0.03em] px-6 text-pretty bungee-inline-regular">
+          <h4 className="text-3xl md:text-4xl lg:text-6xl font-base  tracking-[-0.03em] text-pretty bungee-inline-regular">
             Get A <span className="bg-blue-600 bg-clip-text text-transparent">Free Consultation</span>
           </h4>       
           <p className="text-lg text-muted-foreground mb-10">
