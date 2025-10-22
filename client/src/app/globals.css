@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bungee+Inline&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap'); */
+
 
 @import "tailwindcss";
-/* @import "tw-animate-css"; */
 
 @custom-variant dark (&:is(.dark *));
 
@@ -144,15 +144,22 @@
 }
 
 .bungee-inline-regular {
-  font-family: "Bungee Inline", sans-serif;
+  font-family: var(--font-bungee-inline), sans-serif;
   font-weight: 400;
   font-style: normal;
 }
 
-
 .montserrat {
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
   font-optical-sizing: auto;
   font-weight: 500;
   font-style: normal;
 }
+
+.bungee-shade {
+  font-family: var(--font-bungee-shade), sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+  

@@ -83,8 +83,8 @@ export default function NavBar() {
       <nav aria-label="Global" className="mx-auto sm:bg-white lg:border border-blue-500 sm:rounded-4xl flex max-w-6xl items-center justify-between p-4 lg:px-8">
         <div className="flex lg:flex-1">
           <Link href="/" className="flex -m-1.5 p-1.5 space-x-0">
-            <p className="text-blue-600 text-4xl font-extrabold transition duration-300 font-['Bungee_Shade'] cursor-pointer">
-              V<span className="text-gray-800 text-3xl -mb-4 font-extrabold transition duration-300 font-['Bungee_Shade'] cursor-pointer">aphers</span>
+            <p className="text-blue-600 text-4xl font-extrabold transition duration-300 bungee-shade cursor-pointer">
+              V<span className="text-gray-800 text-3xl -mb-4 font-extrabold transition duration-300  cursor-pointer">aphers</span>
             </p>
           </Link>
         </div>
