@@ -151,7 +151,7 @@ function Hero() {
             >
               <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
                 <Image
-                  src="https://assets.aceternity.com/pro/aceternity-landing.webp"
+                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761121505/aceternity-landing_ou3duw.webp"
                   alt="Landing page preview"
                   className="aspect-[16/9] h-auto w-full object-cover"
                   height={1000}
