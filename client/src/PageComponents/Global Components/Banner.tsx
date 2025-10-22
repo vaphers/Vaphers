@@ -1,9 +1,10 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
 import { Phone } from 'lucide-react'
 
-const BannerBG = 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047473/banner-bg_vebtpx.png'
+const BannerBG = 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,w_1920/v1761047473/banner-bg_vebtpx.png'
 
 const Banner: React.FC = () => {
   return (
@@ -13,8 +14,15 @@ const Banner: React.FC = () => {
         backgroundImage: `url(${BannerBG})`,
       }}
     >
-      <div className="hidden sm:block absolute left-4 sm:left-8 lg:left-55 -top-8 sm:-top-12 lg:-top-15 h-[140px] sm:h-[180px] lg:h-[220px] w-auto z-30">
-        <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047475/BannerGuy_cxrrbv.png" alt="Customer service representative" className="h-full w-auto object-contain" />
+      <div className="hidden sm:block absolute left-4 sm:left-8 lg:left-55 2xl:left-75 -top-8 sm:-top-12 lg:-top-15 h-[140px] sm:h-[180px] lg:h-[220px] w-auto z-30">
+        <Image 
+          src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_300/v1761047475/BannerGuy_cxrrbv.png" 
+          alt="Customer service representative" 
+          width={300}
+          height={220}
+          sizes="(max-width: 640px) 0px, (max-width: 1024px) 180px, 220px"
+          className="h-full w-auto object-contain" 
+        />
       </div>
 
       {/* Mobile Layout */}
@@ -60,9 +68,16 @@ const Banner: React.FC = () => {
         </a>
       </div>
 
-      {/* Hand Image */}
+      {/* Hand Image - OPTIMIZED */}
       <div className="absolute right-5 sm:right-4 lg:right-8 -bottom-2 w-14 h-14 sm:w-20 sm:h-20 lg:w-28 lg:h-28 z-20">
-        <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047482/hand_scbtao.png" alt="Hand pointing" className="w-full h-full object-contain" />
+        <Image 
+          src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_112/v1761047482/hand_scbtao.png" 
+          alt="Hand pointing" 
+          width={112}
+          height={112}
+          sizes="(max-width: 640px) 56px, (max-width: 1024px) 80px, 112px"
+          className="w-full h-full object-contain" 
+        />
       </div>
     </section>
   )

@@ -1,9 +1,11 @@
-    'use client'
+'use client'
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, useMotionTemplate, useScroll, useTransform } from "framer-motion";
 
-const SECTION_HEIGHT = 1300;
+const SECTION_HEIGHT_MOBILE = 600;  // Smaller height for mobile
+const SECTION_HEIGHT_DESKTOP = 1300; // Full height for desktop
 
 export default function SmoothScrollHero() {
   return (
@@ -15,6 +17,22 @@ export default function SmoothScrollHero() {
 
 const Hero = () => {
   const ref = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia("(max-width: 768px)");
+    
+    const handleChange = () => {
+      setIsMobile(mql.matches);
+    };
+    
+    setIsMobile(mql.matches);
+    mql.addEventListener("change", handleChange);
+    
+    return () => mql.removeEventListener("change", handleChange);
+  }, []);
+
+  const sectionHeight = isMobile ? SECTION_HEIGHT_MOBILE : SECTION_HEIGHT_DESKTOP;
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -24,11 +42,11 @@ const Hero = () => {
   return (
     <div
       ref={ref}
-      style={{ height: `calc(${SECTION_HEIGHT}px + 100vh)` }}
+      style={{ height: `calc(${sectionHeight}px + 100vh)` }}
       className="relative bg-white w-full"
     >
       <CenterImage progress={scrollYProgress} />
-      <ParallaxImages />
+      <ParallaxImages isMobile={isMobile} />
     </div>
   );
 };
@@ -50,10 +68,10 @@ const CenterImage = ({ progress }) => {
       }}
     >
       <div className="text-center text-blue-600 px-8 font-['Bungee_Shade']">
-        <h4 className="text-6xl md:text-9xl font-black leading-none tracking-tight">
+        <h4 className="text-5xl sm:text-6xl md:text-9xl font-black leading-none tracking-tight">
           We Give
         </h4>
-        <h5 className="text-6xl md:text-9xl font-black leading-none tracking-tight">
+        <h5 className="text-5xl sm:text-6xl md:text-9xl font-black leading-none tracking-tight">
           Results!
         </h5>
       </div>
@@ -61,40 +79,48 @@ const CenterImage = ({ progress }) => {
   );
 };
 
-const ParallaxImages = () => (
-  <div className="relative z-20 mx-auto max-w-5xl px-4 pt-[200px]">
+const ParallaxImages = ({ isMobile }) => (
+  <div className={`relative z-20 mx-auto max-w-5xl px-4 ${isMobile ? 'pt-[100px]' : 'pt-[200px]'}`}>
     <ParallaxImg
-      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047482/GSC-Dashboard_ilqkvd.jpg"
+      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761047482/GSC-Dashboard_ilqkvd.jpg"
       alt="Example launch"
-      start={-200}
-      end={200}
+      start={isMobile ? -100 : -200}
+      end={isMobile ? 100 : 200}
       className="w-2/4"
+      width={600}
+      height={338}
     />
     <ParallaxImg
-      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047482/GSC-Dashboard_ilqkvd.jpg"
+      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_800/v1761047482/GSC-Dashboard_ilqkvd.jpg"
       alt="Example launch 2"
-      start={200}
-      end={-250}
+      start={isMobile ? 100 : 200}
+      end={isMobile ? -125 : -250}
       className="mx-auto w-2/3"
+      width={800}
+      height={450}
     />
     <ParallaxImg
-      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047472/Analytics_nqehtk.png"
+      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_900/v1761047472/Analytics_nqehtk.png"
       alt="Orbiting satellite"
-      start={-200}
-      end={200}
+      start={isMobile ? -100 : -200}
+      end={isMobile ? 100 : 200}
       className="ml-auto w-3/4"
+      width={900}
+      height={506}
     />
     <ParallaxImg
-      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047472/Analytics_nqehtk.png"
+      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_700/v1761047472/Analytics_nqehtk.png"
       alt="Orbiting satellite 2"
       start={0}
-      end={-500}
+      end={isMobile ? -250 : -500}
       className="ml-24 w-7/12"
+      width={700}
+      height={394}
     />
   </div>
 );
 
-const ParallaxImg = ({ className, alt, src, start, end }) => {
+const ParallaxImg = ({ className, alt, src, start, end, width, height }) => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -107,12 +133,16 @@ const ParallaxImg = ({ className, alt, src, start, end }) => {
 
   return (
     <div className={`relative ${className}`} ref={ref}>
-      <motion.img
-        src={src}
-        alt={alt}
-        style={{ transform, opacity, filter: "brightness(1.1)" }}
-        className="w-full h-auto"
-      />
+      <motion.div style={{ transform, opacity, filter: "brightness(1.1)" }}>
+        <Image
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 75vw, 900px"
+          className="w-full h-auto"
+        />
+      </motion.div>
     </div>
   );
 };
