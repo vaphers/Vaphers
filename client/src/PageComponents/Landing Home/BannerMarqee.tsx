@@ -4,10 +4,6 @@ import React, { CSSProperties } from "react"
 import Image from "next/image"
 import { motion, Variants } from "framer-motion"
 
-// Use public folder image path
-const SpiralUp = '/agancy-girl.png'
-
-// Animation variants for infinite horizontal scroll
 const marqueeVariants: Variants = {
   animateLeft: {
     x: ["0%", "-50%"],
@@ -95,7 +91,7 @@ const imageContainerStyle: CSSProperties = {
 const BannerMarqee: React.FC = () => {
   return (
     <section style={containerStyle}>
-      {/* Top Marquee - behind image */}
+      {/* Top Marquee */}
       <div style={topMarqueeStyle}>
         <motion.div variants={marqueeVariants} animate="animateRight" style={{ display: 'inline-block' }}>
           <span style={textStyleTop}>
@@ -104,10 +100,10 @@ const BannerMarqee: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* Full height image */}
+      {/* image */}
       <div style={imageContainerStyle}>
         <Image 
-          src={SpiralUp} 
+          src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047473/agancy-girl_zwh79q.png"
           alt="Agency Girl" 
           width={600}
           height={800}
@@ -120,7 +116,7 @@ const BannerMarqee: React.FC = () => {
         />
       </div>
 
-      {/* Bottom Marquee - in front of image */}
+      {/* Bottom Marquee */}
       <div style={bottomMarqueeStyle}>
         <motion.div variants={marqueeVariants} animate="animateLeft" style={{ display: 'inline-block' }}>
           <span style={textStyleBottom}>

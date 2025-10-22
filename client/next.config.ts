@@ -21,6 +21,12 @@ const nextConfig: NextConfig = {
         hostname: 'assets.aceternity.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        port: '',
+        pathname: '/**',
+      }
     ],
   },
 }

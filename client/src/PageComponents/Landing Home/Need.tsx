@@ -5,19 +5,16 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { TrendingUp } from 'lucide-react'
 
-const Tools = '/Tools.png' // public folder paths
-const Hand = '/hand.png'
-
 const DmNeed: React.FC = () => {
   return (
     <section className="max-w-full bg-[#0b254f] lg:overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-16 pb-8 sm:pb-12 lg:pb-6">
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 sm:gap-10 lg:gap-35">
-          {/* Image Left with Hand */}
+          {/* Image */}
           <div className="w-full lg:w-1/2 flex justify-center">
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none">
               <Image
-                src={Tools}
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047492/Tools_aktfkk.png"
                 alt="Digital marketing analytics dashboard showing online marketing performance"
                 width={600}
                 height={600}
@@ -37,7 +34,7 @@ const DmNeed: React.FC = () => {
                 className="absolute bottom-0 right-4 sm:bottom-2 sm:-right-4 lg:-bottom-29 lg:-right-25 z-10"
               >
                 <Image
-                  src={Hand}
+                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047482/hand_scbtao.png"
                   alt="Hand pointing"
                   width={316}
                   height={316}
@@ -71,7 +68,7 @@ const DmNeed: React.FC = () => {
               . The goal is to reach your target audience where they're already spending their time.
             </p>
 
-            {/* Button - Responsive sizing */}
+            {/* Button */}
             <div className="pt-4 sm:pt-4 lg:pb-4 flex justify-center lg:justify-start">
               <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                 <span className="mr-2 sm:mr-3">Ready to Get Started?</span>

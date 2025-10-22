@@ -3,9 +3,7 @@
 import React from 'react'
 import { Phone } from 'lucide-react'
 
-const BannerGuy = '/BannerGuy.png'
-const Hand = '/hand.png'
-const BannerBG = '/banner-bg.png'
+const BannerBG = 'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047473/banner-bg_vebtpx.png'
 
 const Banner: React.FC = () => {
   return (
@@ -15,19 +13,16 @@ const Banner: React.FC = () => {
         backgroundImage: `url(${BannerBG})`,
       }}
     >
-      {/*  Image */}
       <div className="hidden sm:block absolute left-4 sm:left-8 lg:left-55 -top-8 sm:-top-12 lg:-top-15 h-[140px] sm:h-[180px] lg:h-[220px] w-auto z-30">
-        <img src={BannerGuy} alt="Customer service representative" className="h-full w-auto object-contain" />
+        <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047475/BannerGuy_cxrrbv.png" alt="Customer service representative" className="h-full w-auto object-contain" />
       </div>
 
       {/* Mobile Layout */}
       <div className="sm:hidden relative z-10 h-full flex flex-col items-center justify-center gap-3 px-4">
-        {/* Text */}
         <h2 className="text-white text-sm font-bold leading-tight text-center">
           Need SEO Service for growing your Business? Just Call Us.
         </h2>
 
-        {/* Call - for mobile*/}
         <a href="tel:+919641861932" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
           <div className="bg-white rounded-full p-2 shadow-md">
             <Phone className="w-4 h-4 text-blue-600" />
@@ -41,7 +36,6 @@ const Banner: React.FC = () => {
 
       {/* Desktop Layout */}
       <div className="hidden sm:block">
-        {/* Content */}
         <div className="relative z-10 h-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
           <div className="text-center lg:text-center lg:mt-14 max-w-2xl">
             <h2 className="text-white text-base md:text-lg lg:text-2xl font-bold leading-tight">
@@ -52,7 +46,6 @@ const Banner: React.FC = () => {
           </div>
         </div>
 
-        {/* Call - for desktopp */}
         <a
           href="tel:+919641861932"
           className="absolute right-4 sm:right-8 lg:right-38 top-1/2 -translate-y-1/2 flex items-center gap-2 sm:gap-3 z-20 hover:opacity-90 transition-opacity cursor-pointer"
@@ -69,7 +62,7 @@ const Banner: React.FC = () => {
 
       {/* Hand Image */}
       <div className="absolute right-5 sm:right-4 lg:right-8 -bottom-2 w-14 h-14 sm:w-20 sm:h-20 lg:w-28 lg:h-28 z-20">
-        <img src={Hand} alt="Hand pointing" className="w-full h-full object-contain" />
+        <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047482/hand_scbtao.png" alt="Hand pointing" className="w-full h-full object-contain" />
       </div>
     </section>
   )

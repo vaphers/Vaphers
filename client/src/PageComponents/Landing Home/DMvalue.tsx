@@ -1,15 +1,11 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, useScroll, useTransform, Variants } from 'framer-motion'
 import { TrendingUp } from 'lucide-react'
 
-const MainImage = '/girl-laptop.png'
-const Google = '/google.png'
-const Competitor = '/competitor.png'
-const Rank = '/rocket.png'
-const PatternBG = '/PatternBG.jpg'
+const PatternBG = 'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047483/PatternBG_kv4ubo.jpg'
 
 const floatingVariants: Variants = {
   animate: (custom: number) => ({
@@ -23,10 +19,32 @@ const floatingVariants: Variants = {
   }),
 }
 
+// Custom hook for responsive detection
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 1024px)')
+    
+    const handleChange = () => {
+      setIsMobile(mql.matches)
+    }
+    
+    // Set initial value
+    setIsMobile(mql.matches)
+    
+    // Listen for changes
+    mql.addEventListener('change', handleChange)
+    
+    return () => mql.removeEventListener('change', handleChange)
+  }, [])
+
+  return isMobile
+}
+
 const DMvalue: React.FC = () => {
   const ref = useRef<HTMLElement | null>(null)
-
-  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 1024px)').matches
+  const isMobile = useIsMobile()
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -35,7 +53,7 @@ const DMvalue: React.FC = () => {
 
   const xLeft = useTransform(scrollYProgress, [0, 0.5], isMobile ? [0, 0] : [-200, 0])
   const xRight = useTransform(scrollYProgress, [0, 0.5], isMobile ? [0, 0] : [200, 0])
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0])
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], isMobile ? [1, 1, 1, 1] : [0, 1, 1, 0])
 
   return (
     <section
@@ -48,12 +66,12 @@ const DMvalue: React.FC = () => {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-16 pb- sm:pb-12 lg:pb-0">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-16 pb-8 sm:pb-12 lg:pb-0">
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 sm:gap-10 lg:gap-12">
           <motion.div
             style={{
               x: xLeft,
-              opacity: isMobile ? 1 : opacity,
+              opacity,
             }}
             className="w-full lg:w-2/3 space-y-4 sm:space-y-6"
           >
@@ -98,13 +116,13 @@ const DMvalue: React.FC = () => {
           <motion.div
             style={{
               x: xRight,
-              opacity: isMobile ? 1 : opacity,
+              opacity,
             }}
             className="w-full lg:w-1/2 flex justify-center relative"
           >
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none">
               <Image 
-                src={MainImage} 
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047475/girl-laptop_kwggux.png"
                 alt="Digital marketing analytics dashboard showing online marketing performance" 
                 width={600}
                 height={600}
@@ -125,7 +143,7 @@ const DMvalue: React.FC = () => {
                   className="absolute top-2 left-1 sm:top-4 sm:left-2 lg:top-18 lg:-left-1 p-1 sm:p-2 lg:p-3"
                 >
                   <Image 
-                    src={Google} 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047482/google_jze9mq.png"
                     alt="Google" 
                     width={80} 
                     height={80} 
@@ -140,7 +158,7 @@ const DMvalue: React.FC = () => {
                   className="absolute -top-2 right-1 sm:top-0 sm:right-2 lg:top-54 lg:-right-18"
                 >
                   <Image 
-                    src={Rank} 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047484/seo-rank_l7ekja.png" 
                     alt="SEO Rank" 
                     width={176} 
                     height={176} 
@@ -155,7 +173,7 @@ const DMvalue: React.FC = () => {
                   className="absolute bottom-4 left-1 sm:bottom-8 sm:left-2 lg:bottom-40 lg:-left-5"
                 >
                   <Image 
-                    src={Competitor} 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047474/competitor_co9leg.png"
                     alt="Competitor" 
                     width={176} 
                     height={176} 

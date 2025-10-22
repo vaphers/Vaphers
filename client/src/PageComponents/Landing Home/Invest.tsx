@@ -80,7 +80,7 @@ const Invest: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Image Section */}
+          {/* Image */}
           <motion.div
             style={{
               x: xRight,
@@ -88,10 +88,9 @@ const Invest: React.FC = () => {
             }}
             className="w-full lg:w-1/2 flex justify-center relative"
           >
-            {/* Main Image */}
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg">
               <Image
-                src="/agency-guy.png"
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047473/agency-guy_nspqsz.png"
                 alt="Digital marketing analytics dashboard showing online marketing performance"
                 width={600}
                 height={600}
@@ -114,7 +113,7 @@ const Invest: React.FC = () => {
                   className="absolute top-2 left-2 sm:top-4 sm:left-4 lg:top-8 lg:left-4 p-1 sm:p-2 lg:p-3"
                 >
                   <Image 
-                    src="/google.png" 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047482/google_jze9mq.png" 
                     alt="Google" 
                     width={56} 
                     height={56} 
@@ -122,7 +121,7 @@ const Invest: React.FC = () => {
                   />
                 </motion.div>
 
-                {/* Rank 1 */}
+                {/* Rank */}
                 <motion.div
                   custom={1}
                   variants={floatingVariants}
@@ -130,7 +129,7 @@ const Invest: React.FC = () => {
                   className="absolute -top-2 right-2 sm:top-0 sm:right-4 lg:top-0 lg:right-0"
                 >
                   <Image 
-                    src="/seo-rank.png" 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047484/seo-rank_l7ekja.png" 
                     alt="SEO Rank" 
                     width={176} 
                     height={176} 
@@ -146,7 +145,7 @@ const Invest: React.FC = () => {
                   className="absolute bottom-4 left-2 sm:bottom-8 sm:left-4 lg:bottom-8 lg:left-0"
                 >
                   <Image 
-                    src="/competitor.png" 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047474/competitor_co9leg.png" 
                     alt="Competitor" 
                     width={176} 
                     height={176} 

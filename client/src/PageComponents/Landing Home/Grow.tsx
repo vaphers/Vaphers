@@ -1,14 +1,10 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { motion, useScroll, useTransform, Variants } from 'framer-motion'
 import { TrendingUp } from 'lucide-react'
 
-const Grow = '/grow.png' 
-const Google = '/google.png'
-const Competitor = '/competitor.png'
-const Rank = '/seo-rank.png'
-const PatternBG = '/PatternBG.jpg'
+const PatternBG = 'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047483/PatternBG_kv4ubo.jpg'
 
 const floatingVariants: Variants = {
   animate: (custom: number) => ({
@@ -22,10 +18,32 @@ const floatingVariants: Variants = {
   }),
 }
 
+// Custom hook for responsive detection
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 1024px)')
+    
+    const handleChange = () => {
+      setIsMobile(mql.matches)
+    }
+    
+    // Set initial value
+    setIsMobile(mql.matches)
+    
+    // Listen for changes
+    mql.addEventListener('change', handleChange)
+    
+    return () => mql.removeEventListener('change', handleChange)
+  }, [])
+
+  return isMobile
+}
+
 const WhatsSEO: React.FC = () => {
   const ref = useRef<HTMLElement | null>(null)
-
-  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 1024px)').matches
+  const isMobile = useIsMobile()
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -34,7 +52,7 @@ const WhatsSEO: React.FC = () => {
 
   const xLeft = useTransform(scrollYProgress, [0, 0.5], isMobile ? [0, 0] : [-200, 0])
   const xRight = useTransform(scrollYProgress, [0, 0.5], isMobile ? [0, 0] : [200, 0])
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0])
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], isMobile ? [1, 1, 1, 1] : [0, 1, 1, 0])
 
   return (
     <section
@@ -44,12 +62,12 @@ const WhatsSEO: React.FC = () => {
         backgroundImage: `url(${PatternBG})`,
       }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-16 pb- sm:pb-12 lg:pb-0">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-16 pb-8 sm:pb-12 lg:pb-0">
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 sm:gap-10 lg:gap-12">
           <motion.div
             style={{
               x: xLeft,
-              opacity: isMobile ? 1 : opacity,
+              opacity,
             }}
             className="w-full lg:w-2/3 space-y-4 sm:space-y-6"
           >
@@ -86,13 +104,13 @@ const WhatsSEO: React.FC = () => {
           <motion.div
             style={{
               x: xRight,
-              opacity: isMobile ? 1 : opacity,
+              opacity,
             }}
             className="w-full lg:w-1/2 flex justify-center relative"
           >
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none">
               <img
-                src={Grow}
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047482/grow_ur7efq.png"
                 alt="Digital marketing analytics dashboard showing online marketing performance"
                 className="w-full h-auto object-contain"
               />
@@ -110,7 +128,7 @@ const WhatsSEO: React.FC = () => {
                   }}
                   className="absolute top-2 left-1 sm:top-4 sm:left-2 lg:top-8 lg:-left-1 p-1 sm:p-2 lg:p-3"
                 >
-                  <img src={Google} alt="Google" className="w-12 h-12 sm:w-10 sm:h-10 lg:w-14 lg:h-14 object-contain" />
+                  <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047482/google_jze9mq.png" alt="Google" className="w-12 h-12 sm:w-10 sm:h-10 lg:w-14 lg:h-14 object-contain" />
                 </motion.div>
 
                 <motion.div
@@ -119,7 +137,7 @@ const WhatsSEO: React.FC = () => {
                   animate="animate"
                   className="absolute -top-2 right-1 sm:top-0 sm:right-2 lg:-top-4 lg:-right-12"
                 >
-                  <img src={Rank} alt="SEO Rank" className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain" />
+                  <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047484/seo-rank_l7ekja.png" alt="SEO Rank" className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain" />
                 </motion.div>
 
                 <motion.div
@@ -128,7 +146,7 @@ const WhatsSEO: React.FC = () => {
                   animate="animate"
                   className="absolute bottom-4 left-1 sm:bottom-8 sm:left-2 lg:bottom-30 lg:-left-10"
                 >
-                  <img src={Competitor} alt="Competitor" className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain" />
+                  <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047474/competitor_co9leg.png" alt="Competitor" className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain" />
                 </motion.div>
               </div>
             </div>
