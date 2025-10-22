@@ -103,7 +103,7 @@ function Hero() {
             <div className="relative z-10 mt-20 rounded-3xl border border-neutral-300 bg-neutral-200 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900">
               <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
                 <Image
-                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_80,c_limit,w_800/v1761121505/aceternity-landing_ou3duw.webp"
+                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_60,c_limit,w_800/v1761121505/aceternity-landing_ou3duw.webp"
                   alt="Landing page preview"
                   className="aspect-[16/9] h-auto w-full object-cover"
                   width={800}
