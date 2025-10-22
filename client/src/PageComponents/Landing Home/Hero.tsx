@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-// Custom hook for mobile detection
+// hook for mobile detection
 const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -103,12 +103,12 @@ function Hero() {
             <div className="relative z-10 mt-20 rounded-3xl border border-neutral-300 bg-neutral-200 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900">
               <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
                 <Image
-                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761121505/aceternity-landing_ou3duw.webp"
+                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_80,c_limit,w_800/v1761121505/aceternity-landing_ou3duw.webp"
                   alt="Landing page preview"
                   className="aspect-[16/9] h-auto w-full object-cover"
-                  height={1000}
-                  width={1000}
-                  sizes="(max-width: 768px) 100vw, 1000px"
+                  width={800}
+                  height={450}
+                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 640px, 800px"
                   priority
                   loading="eager"
                 />
@@ -151,12 +151,12 @@ function Hero() {
             >
               <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
                 <Image
-                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761121505/aceternity-landing_ou3duw.webp"
+                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_80,c_limit,w_1200/v1761121505/aceternity-landing_ou3duw.webp"
                   alt="Landing page preview"
                   className="aspect-[16/9] h-auto w-full object-cover"
-                  height={1000}
-                  width={1000}
-                  sizes="(max-width: 768px) 100vw, 1000px"
+                  width={1200}
+                  height={675}
+                  sizes="(max-width: 768px) 100vw, 1200px"
                   priority
                 />
               </div>
