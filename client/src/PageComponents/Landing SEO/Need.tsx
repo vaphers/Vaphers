@@ -5,19 +5,17 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { TrendingUp } from 'lucide-react'
 
-const Tools = '/Tools.png'
-const Hand = '/hand.png'
 
 const SeoNeed: React.FC = () => {
   return (
     <section className="max-w-full bg-[#0b254f] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-16 pb-8 sm:pb-12 lg:pb-16">
-        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 sm:gap-10 lg:gap-16">
+        <div className="flex flex-col lg:flex-row items-center lg:items-center gap-8 sm:gap-10 lg:gap-16">
           {/* Image Left with Hand */}
           <div className="w-full lg:w-1/2 flex justify-center">
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg">
               <Image
-                src={Tools}
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761047492/Tools_aktfkk.png"
                 alt="SEO tools and digital marketing analytics platform"
                 width={600}
                 height={600}
@@ -37,7 +35,7 @@ const SeoNeed: React.FC = () => {
                 className="absolute bottom-0 right-4 sm:bottom-4 sm:right-0 lg:bottom-0 lg:right-0 z-10"
               >
                 <Image
-                  src={Hand}
+                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_316/v1761047482/hand_scbtao.png"
                   alt="Hand pointing to SEO tools"
                   width={200}
                   height={300}

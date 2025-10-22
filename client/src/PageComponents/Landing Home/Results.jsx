@@ -64,28 +64,28 @@ const CenterImage = ({ progress }) => {
 const ParallaxImages = () => (
   <div className="relative z-20 mx-auto max-w-5xl px-4 pt-[200px]">
     <ParallaxImg
-      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047482/GSC-Dashboard_ilqkvd.jpg"
+      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047482/GSC-Dashboard_ilqkvd.jpg"
       alt="Example launch"
       start={-200}
       end={200}
       className="w-2/4"
     />
     <ParallaxImg
-      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047482/GSC-Dashboard_ilqkvd.jpg"
+      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047482/GSC-Dashboard_ilqkvd.jpg"
       alt="Example launch 2"
       start={200}
       end={-250}
       className="mx-auto w-2/3"
     />
     <ParallaxImg
-      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047472/Analytics_nqehtk.png"
+      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047472/Analytics_nqehtk.png"
       alt="Orbiting satellite"
       start={-200}
       end={200}
       className="ml-auto w-3/4"
     />
     <ParallaxImg
-      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047472/Analytics_nqehtk.png"
+      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047472/Analytics_nqehtk.png"
       alt="Orbiting satellite 2"
       start={0}
       end={-500}

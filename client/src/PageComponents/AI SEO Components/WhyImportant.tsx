@@ -8,7 +8,6 @@ import { TrendingUp } from 'lucide-react';
 const WhyAIAgentsSEO: React.FC = () => {
   const ref = useRef<HTMLElement>(null);
 
-  // Floating animation variants for badges
   const floatingVariants: Variants = {
     animate: (custom: number) => ({
       y: [0, -20, 0],
@@ -26,26 +25,27 @@ const WhyAIAgentsSEO: React.FC = () => {
       ref={ref}
       className="max-w-full bg-white bg-cover bg-center bg-no-repeat" 
       style={{
-        backgroundImage: `url(/PatternBG.jpg)`,
+        backgroundImage: `url(https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit/v1761047483/PatternBG_kv4ubo.jpg)`,
       }}
     >
       <div className='max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-12 pb-8 sm:pb-12 lg:pb-12'>
-        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 sm:gap-10 lg:gap-12">
+        <div className="flex flex-col lg:flex-row items-center lg:items-center gap-8 sm:gap-10 lg:gap-12">
 
           {/* Image Section */}
           <div className="w-full lg:w-1/2 flex justify-center relative">
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none">
-              <Image 
-                src="/Ai-Seo-Services.png" 
-                alt="AI SEO Services dashboard showing AI agent optimization" 
-                width={600}
-                height={600}
-                className="w-full h-auto object-contain"
-                priority
-              />
-              {/* Floating Elements */}
+            <Image 
+              src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761047473/Ai-Seo-Services_nuxdts.png" 
+              alt="AI SEO Services dashboard showing AI agent optimization" 
+              width={600}
+              height={600}
+              sizes="(max-width: 640px) 384px, (max-width: 768px) 448px, 600px"
+              className="w-full h-auto object-contain"
+              priority
+            />
+              {/* Floating Icons */}
               <div className="absolute inset-0">
-                {/* ChatGPT - Diagonal Animation */}
+                {/* ChatGPT */}
                 <motion.div
                   animate={{
                     x: [0, 10, 0],
@@ -59,7 +59,7 @@ const WhyAIAgentsSEO: React.FC = () => {
                   className="absolute top-2 left-1 sm:top-4 sm:left-2 lg:top-2 lg:-left-1 p-1 sm:p-2 lg:p-3"
                 >
                   <Image 
-                    src="/chat-gpt-logo.png" 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_100/v1761047474/chat-gpt-logo_qf83fb.png" 
                     alt="ChatGPT" 
                     width={100}
                     height={100}
@@ -74,7 +74,7 @@ const WhyAIAgentsSEO: React.FC = () => {
                   className="absolute -top-2 right-1 sm:top-0 sm:right-2 lg:top-40 lg:right-1"
                 >
                   <Image 
-                    src="/perplexity-logo.png" 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_112/v1761047484/perplexity-logo_zqmnzf.png" 
                     alt="Perplexity AI" 
                     width={112}
                     height={112}
@@ -89,7 +89,7 @@ const WhyAIAgentsSEO: React.FC = () => {
                   className="absolute bottom-4 left-1 sm:bottom-8 sm:left-2 lg:bottom-20 lg:left-8"
                 >
                   <Image 
-                    src="/gemini-logo.png" 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_112/v1761047475/gemini-logo_yes1g8.png" 
                     alt="Google Gemini" 
                     width={112}
                     height={112}

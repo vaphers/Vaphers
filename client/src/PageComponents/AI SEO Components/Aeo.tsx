@@ -8,7 +8,6 @@ import { TrendingUp, Search, Brain } from 'lucide-react';
 const WhatsAEO: React.FC = () => {
   const ref = useRef<HTMLElement>(null);
 
-  // Floating animation variants for badges
   const floatingVariants: Variants = {
     animate: (custom: number) => ({
       y: [0, -20, 0],
@@ -21,7 +20,7 @@ const WhatsAEO: React.FC = () => {
     })
   };
 
-  // Stats data
+  // Stats
   const stats = [
     {
       icon: <Search className="w-6 h-6 text-blue-600" />,
@@ -42,11 +41,11 @@ const WhatsAEO: React.FC = () => {
       ref={ref}
       className="max-w-full bg-white bg-cover bg-center bg-no-repeat" 
       style={{
-        backgroundImage: `url(/GraphBG.png)`,
+        backgroundImage: `url(https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit/v1761047482/GraphBG_pr6cri.png)`,
       }}
     >
       <div className='max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-16 pb-8 sm:pb-12 lg:pb-16'>
-        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 sm:gap-10 lg:gap-12">
+        <div className="flex flex-col lg:flex-row items-center lg:items-center gap-8 sm:gap-10 lg:gap-12">
 
           {/* Content */}
           <div className="w-full lg:w-2/3 space-y-4 sm:space-y-6 order-2 lg:order-1">
@@ -109,7 +108,7 @@ const WhatsAEO: React.FC = () => {
           <div className="w-full h-auto lg:w-1/2 flex justify-center items-center relative order-1 lg:order-2">
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-full">
               <Image 
-                src="/AEO.png" 
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761047472/AEO_tqqaku.png" 
                 alt="Answer Engine Optimization dashboard showing AI search optimization" 
                 width={600}
                 height={600}
@@ -132,7 +131,7 @@ const WhatsAEO: React.FC = () => {
                   className="absolute top-2 left-1 sm:top-4 sm:left-2 lg:top-8 lg:-left-1 p-1 sm:p-2 lg:p-3"
                 >
                   <Image 
-                    src="/google.png" 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_56/v1761047482/google_jze9mq.png" 
                     alt="Google" 
                     width={56}
                     height={56}
@@ -147,7 +146,7 @@ const WhatsAEO: React.FC = () => {
                   className="absolute -top-2 right-1 sm:top-0 sm:right-2 lg:-top-4 lg:-right-12"
                 >
                   <Image 
-                    src="/seo-rank.png" 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_176/v1761047484/seo-rank_l7ekja.png" 
                     alt="SEO Rank" 
                     width={176}
                     height={176}
@@ -162,7 +161,7 @@ const WhatsAEO: React.FC = () => {
                   className="absolute bottom-4 left-1 sm:bottom-8 sm:left-2 lg:bottom-30 lg:-left-10"
                 >
                   <Image 
-                    src="/competitor.png" 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_176/v1761047474/competitor_co9leg.png" 
                     alt="Competitor Analysis" 
                     width={176}
                     height={176}

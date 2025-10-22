@@ -103,7 +103,7 @@ const BannerMarqee: React.FC = () => {
       {/* image */}
       <div style={imageContainerStyle}>
         <Image 
-          src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047473/agancy-girl_zwh79q.png"
+          src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047473/agancy-girl_zwh79q.png"
           alt="Agency Girl" 
           width={600}
           height={800}

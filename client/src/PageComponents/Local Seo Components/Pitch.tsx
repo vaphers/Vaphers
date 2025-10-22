@@ -2,11 +2,7 @@
 
 import React from 'react'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { TrendingUp } from 'lucide-react'
-
-const Tools = '/Tools.png'
-const Hand = '/hand.png'
 
 const LocalPitch: React.FC = () => {
   return (
@@ -17,7 +13,7 @@ const LocalPitch: React.FC = () => {
           <div className="w-full lg:w-1/2 flex justify-center">
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg">
               <Image
-                src={Tools}
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047492/Tools_aktfkk.png"
                 alt="SEO tools and digital marketing analytics platform"
                 width={600}
                 height={600}

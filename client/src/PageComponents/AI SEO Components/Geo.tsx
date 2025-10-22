@@ -32,7 +32,7 @@ const WhatsGEO: React.FC = () => {
           <div className="w-full lg:w-1/2 flex justify-center relative hidden lg:block">
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none">
               <Image 
-                src="/Gen-SEO.png" 
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761047475/Gen-SEO_be0q4y.png" 
                 alt="Generative Engine Optimization showing AI content generation" 
                 width={600}
                 height={600}
@@ -55,7 +55,7 @@ const WhatsGEO: React.FC = () => {
                   className="absolute top-2 left-1 sm:top-4 sm:left-2 lg:top-12 lg:-left-1 p-1 sm:p-2 lg:p-3"
                 >
                   <Image 
-                    src="/perplexity-logo.png" 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_96/v1761047484/perplexity-logo_zqmnzf.png" 
                     alt="Perplexity AI" 
                     width={96}
                     height={96}
@@ -70,7 +70,7 @@ const WhatsGEO: React.FC = () => {
                   className="absolute -top-2 right-1 sm:top-0 sm:right-2 lg:top-55 lg:-right-1"
                 >
                   <Image 
-                    src="/seo-rank.png" 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_176/v1761047484/seo-rank_l7ekja.png" 
                     alt="SEO Rank" 
                     width={176}
                     height={176}
@@ -85,7 +85,7 @@ const WhatsGEO: React.FC = () => {
                   className="absolute bottom-4 left-1 sm:bottom-8 sm:left-2 lg:bottom-30 lg:-left-10"
                 >
                   <Image 
-                    src="/competitor.png" 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_176/v1761047474/competitor_co9leg.png" 
                     alt="Competitor Analysis" 
                     width={176}
                     height={176}

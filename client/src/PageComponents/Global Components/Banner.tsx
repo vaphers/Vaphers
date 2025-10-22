@@ -3,7 +3,7 @@
 import React from 'react'
 import { Phone } from 'lucide-react'
 
-const BannerBG = 'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047473/banner-bg_vebtpx.png'
+const BannerBG = 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047473/banner-bg_vebtpx.png'
 
 const Banner: React.FC = () => {
   return (

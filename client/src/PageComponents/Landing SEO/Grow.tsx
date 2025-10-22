@@ -5,12 +5,6 @@ import Image from 'next/image'
 import { motion, useScroll, useTransform, Variants } from 'framer-motion'
 import { TrendingUp } from 'lucide-react'
 
-const Grow = '/seo-page-girl.webp' 
-const Google = '/google.png'
-const Competitor = '/competitor.png'
-const Rank = '/seo-rank.png'
-const PatternBG = '/PatternBG.jpg'
-
 const floatingVariants: Variants = {
   animate: (custom: number) => ({
     y: [0, -20, 0],
@@ -42,7 +36,7 @@ const GrowWithSEO: React.FC = () => {
       ref={ref}
       className="max-w-full bg-white bg-cover bg-center bg-no-repeat overflow-hidden"
       style={{
-        backgroundImage: `url(${PatternBG})`,
+        backgroundImage: "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047483/PatternBG_kv4ubo.jpg",
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-16 pb-8 sm:pb-12 lg:pb-0">
@@ -91,7 +85,7 @@ const GrowWithSEO: React.FC = () => {
           >
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg">
               <Image
-                src={Grow}
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761047484/seo-page-girl_ccqj2r.webp"
                 alt="SEO analytics showing business growth and increased website traffic"
                 width={600}
                 height={600}
@@ -112,7 +106,7 @@ const GrowWithSEO: React.FC = () => {
                   className="absolute top-2 left-2 sm:top-4 sm:left-4 lg:top-8 lg:left-4 p-1 sm:p-2 lg:p-3"
                 >
                   <Image 
-                    src={Google} 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_80/v1761047482/google_jze9mq.png" 
                     alt="Google search engine" 
                     width={56} 
                     height={56} 
@@ -127,7 +121,7 @@ const GrowWithSEO: React.FC = () => {
                   className="absolute -top-2 right-2 sm:top-0 sm:right-4 lg:top-0 lg:right-0"
                 >
                   <Image 
-                    src={Rank} 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_176/v1761047484/seo-rank_l7ekja.png" 
                     alt="First page SEO rankings" 
                     width={176} 
                     height={176} 
@@ -142,7 +136,7 @@ const GrowWithSEO: React.FC = () => {
                   className="absolute bottom-4 left-2 sm:bottom-8 sm:left-4 lg:bottom-8 lg:left-0"
                 >
                   <Image 
-                    src={Competitor} 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_176/v1761047474/competitor_co9leg.png" 
                     alt="Outrank competitors" 
                     width={176} 
                     height={176} 
