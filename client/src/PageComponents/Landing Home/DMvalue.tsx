@@ -65,7 +65,7 @@ const DMvalue: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-16 pb-8 sm:pb-12 lg:pb-0">
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 sm:gap-10 lg:gap-12">
           <motion.div
-            style={isMobile ? {} : {
+            style={isMobile ? { opacity: 1 } : {
               x: xLeft,
               opacity,
             }}
@@ -107,7 +107,7 @@ const DMvalue: React.FC = () => {
           </motion.div>
 
           <motion.div
-            style={isMobile ? {} : {
+            style={isMobile ? { opacity: 1 } : {
               x: xRight,
               opacity,
             }}

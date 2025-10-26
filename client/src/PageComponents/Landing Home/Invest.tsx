@@ -61,7 +61,7 @@ const Invest: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 sm:gap-10 lg:gap-12">
           {/* Content */}
           <motion.div
-            style={isMobile ? {} : {
+            style={isMobile ? { opacity: 1 } : {
               x: xLeft,
               opacity
             }}
@@ -98,7 +98,7 @@ const Invest: React.FC = () => {
 
           {/* Image */}
           <motion.div
-            style={isMobile ? {} : {
+            style={isMobile ? { opacity: 1 } : {
               x: xRight,
               opacity
             }}

@@ -62,14 +62,14 @@ const WhatsSEO: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-16 pb-8 sm:pb-12 lg:pb-0">
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 sm:gap-10 lg:gap-12">
           <motion.div
-            style={isMobile ? {} : {
+            style={{
               x: xLeft,
               opacity,
             }}
             className="w-full lg:w-2/3 space-y-4 sm:space-y-6"
           >
             <div>
-              <h2 className="text-3xl md:text-3xl lg:text-5xl font-sans text-gray-700 mb-4 bungee-inline-regular">
+              <h2 className="text-3xl md:text-3xl lg:text-5xl text-center lg:text-start font-sans text-gray-700 mb-4 bungee-inline-regular">
                 Grow With{' '}
                 <span className="bg-blue-600 bg-clip-text text-transparent">
                   Affordable Digital Marketing
@@ -99,7 +99,7 @@ const WhatsSEO: React.FC = () => {
           </motion.div>
 
           <motion.div
-            style={isMobile ? {} : {
+            style={{
               x: xRight,
               opacity,
             }}
@@ -118,11 +118,11 @@ const WhatsSEO: React.FC = () => {
 
               <div className="absolute inset-0">
                 <motion.div
-                  animate={isMobile ? {} : {
+                  animate={{
                     x: [0, 10, 0],
                     y: [0, 10, 0],
                   }}
-                  transition={isMobile ? {} : {
+                  transition={{
                     duration: 4,
                     repeat: Infinity,
                     ease: 'easeInOut',
@@ -142,7 +142,7 @@ const WhatsSEO: React.FC = () => {
                 <motion.div
                   custom={1}
                   variants={floatingVariants}
-                  animate={isMobile ? undefined : "animate"}
+                  animate="animate"
                   className="absolute -top-2 right-1 sm:top-0 sm:right-2 lg:-top-4 lg:-right-12"
                 >
                   <Image 
@@ -158,7 +158,7 @@ const WhatsSEO: React.FC = () => {
                 <motion.div
                   custom={2}
                   variants={floatingVariants}
-                  animate={isMobile ? undefined : "animate"}
+                  animate="animate"
                   className="absolute bottom-4 left-1 sm:bottom-8 sm:left-2 lg:bottom-30 lg:-left-10"
                 >
                   <Image 

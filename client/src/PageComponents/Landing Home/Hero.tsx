@@ -58,10 +58,8 @@ function Hero() {
       <div className="px-4 pb-10">
         <h1 className="relative z-10 mx-auto max-w-4xl text-center text-2xl font-bold text-slate-200 md:text-4xl lg:text-7xl dark:text-slate-300 bungee-inline-regular">
           {isMobile ? (
-            // No animation on mobile - instant render
             "Digital Marketing That Transforms Your Business"
           ) : (
-            // Animated text only on desktop
             "Digital Marketing That Transforms Your Business"
               .split(" ")
               .map((word, index) => (
@@ -100,7 +98,7 @@ function Hero() {
               </button>
             </div>
             
-            <div className="relative z-10 mt-20 rounded-3xl border border-neutral-300 bg-neutral-200 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900">
+            <div className="relative z-10 mt-20 rounded-3xl border border-neutral-300 bg-neutral-200 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900 hidden ">
               <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
                 <Image
                   src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_60,c_limit,w_800/v1761213572/hero_landing_rhywrd.jpg"
