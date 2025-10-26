@@ -14,7 +14,7 @@ const Banner: React.FC = () => {
         backgroundImage: `url(${BannerBG})`,
       }}
     >
-      <div className="hidden sm:block absolute left-4 sm:left-8 lg:left-55 2xl:left-75 -top-8 sm:-top-12 lg:-top-15 h-[140px] sm:h-[180px] lg:h-[220px] w-auto z-30">
+      <div className="hidden sm:block absolute left-4 sm:left-8 lg:left-50 2xl:left-59 -top-8 sm:-top-12 lg:-top-15 h-[140px] sm:h-[180px] lg:h-[220px] w-auto z-30">
         <Image 
           src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_300/v1761047475/BannerGuy_cxrrbv.png" 
           alt="Customer service representative" 

@@ -25,7 +25,7 @@ const LocalPitch: React.FC = () => {
           {/* Content */}
           <div className="w-full lg:w-3/4 space-y-4 sm:space-y-6">
             <div>
-              <h2 className="text-4xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-start text-gray-900 mb-3 sm:mb-4 lg:mb-5 leading-tight bungee-inline-regular">
+              <h2 className="text-4xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-start text-gray-700 mb-3 sm:mb-4 lg:mb-5 leading-tight bungee-inline-regular">
                 Affordable {' '}
                 <span className="bg-blue-600 bg-clip-text text-transparent ">
                   Local SEO Service
@@ -36,7 +36,7 @@ const LocalPitch: React.FC = () => {
               </p>
             </div>
 
-            <p className="text-sm sm:text-base lg:text-xl text-gray-900 leading-relaxed text-center lg:text-left">
+            <p className="text-sm sm:text-base lg:text-lg text-gray-900 leading-relaxed text-center lg:text-left">
               Without expert Local SEO, your business risks invisibility among the 8.5 billion daily Google searches by your potential customers. Competitors offering superior services are capturing valuable market share where you should be ranking. Our affordable local SEO service positions your business prominently in{' '}
               <a href="#" className="text-blue-500 underline hover:text-blue-400 duration-200 font-medium">
                 local searches, mobile results, and voice queries

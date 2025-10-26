@@ -50,11 +50,9 @@ const DmNeed: React.FC = () => {
           {/* Content */}
           <div className="w-full lg:w-3/4 space-y-4 sm:space-y-6">
             <div>
-              <h2 className="text-4xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-start text-gray-200 mb-3 sm:mb-4 lg:mb-5 leading-tight bungee-inline-regular">
-                Why You Need{' '}
-                <span className="bg-gradient-to-r from-orange-400 via-pink-400 to-purple-500 bg-clip-text text-transparent ">
-                  Digital Marketing Service?
-                </span>{' '}
+              <h2 className="text-3xl md:text-3xl lg:text-5xl font-sans text-gray-200 mb-4 bungee-inline-regular">
+                 Why You Need
+                <span className="bg-blue-400 bg-clip-text text-transparent"> Digital Marketing Services?</span>{' '}
               </h2>
               <p className="text-sm sm:text-base lg:text-lg text-center lg:text-start text-blue-200 font-medium">
                 Connect with Your Customers Where They Spend Their Time Online

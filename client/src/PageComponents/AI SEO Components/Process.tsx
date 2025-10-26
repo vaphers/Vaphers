@@ -31,7 +31,7 @@ export default function SEOApproach() {
         {/* Left Content */}
         <div className="space-y-8">
           <div className="space-y-4">
-            <h4 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight bungee-inline-regular">
+            <h4 className="text-4xl lg:text-5xl font-bold text-gray-700 leading-tight bungee-inline-regular">
               How We Get You{' '}
               <span className="bg-blue-600 bg-clip-text text-transparent">
                 Found by AI

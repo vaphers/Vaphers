@@ -50,15 +50,15 @@ const WhatsAEO: React.FC = () => {
           {/* Content */}
           <div className="w-full lg:w-2/3 space-y-4 sm:space-y-6 order-2 lg:order-1">
             <div>
-                <h2 className="text-4xl md:text-4xl lg:text-6xl text-center lg:text-start font-base tracking-[-0.03em] text-pretty bungee-inline-regular">
+                <h2 className="text-4xl md:text-4xl lg:text-6xl text-center lg:text-start font-base tracking-[-0.03em] text-gray-700 bungee-inline-regular">
                     What's <br/><span className="bg-blue-600 bg-clip-text text-transparent">AEO Service?</span>
                 </h2>
-              <p className="text-base md:text-xl text-center lg:text-start text-blue-600 font-medium">
+              <p className="text-base md:text-lg text-center lg:text-start text-blue-600 font-medium">
                 Optimize for Direct Answers, Not Just Rankings
               </p>
             </div>
             
-            <p className="text-lg lg:text-xl text-gray-700 leading-relaxed text-center lg:text-left">
+            <p className="text-lg text-gray-700 leading-relaxed text-center lg:text-left">
               Answer Engine Optimization (AEO) is the practice of structuring and optimizing your content to appear as 
               direct answers in AI-powered search engines, voice assistants, and featured snippets. Unlike traditional SEO 
               that focuses on ranking in search results, AEO ensures your content is selected and cited by{' '}

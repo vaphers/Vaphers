@@ -162,4 +162,11 @@
   font-style: normal;
 }
 
-  
+.font-spectral {
+  font-family: var(--font-spectral);
+  font-weight: 800;
+}
+
+p {
+  font-family: var(--font-montserrat), sans-serif;
+}

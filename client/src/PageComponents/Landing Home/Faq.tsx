@@ -12,65 +12,66 @@ import { useState } from "react";
 
 const faq = [
   {
-    question: "What is your return policy?",
+    question: "What is digital marketing?",
     answer:
-      "You can return unused items in their original packaging within 30 days for a refund or exchange. Contact support for assistance.",
+      "Digital marketing is the promotion of your business through online channels like search engines, social media, email, and websites. It helps you reach your target audience where they spend their time online and is more cost-effective than traditional marketing.",
   },
   {
-    question: "How do I track my order?",
+    question: "How long does it take to see SEO results?",
     answer:
-      "Track your order using the link provided in your confirmation email, or log into your account to view tracking details.",
+      "SEO typically takes 3-6 months to show significant results. However, you may notice small improvements within the first few weeks. SEO is a long-term investment that delivers sustainable organic traffic and continues working for your business over time.",
   },
   {
-    question: "Do you ship internationally?",
+    question: "What is the difference between SEO and PPC?",
     answer:
-      "Yes, we ship worldwide. Shipping fees and delivery times vary by location, and customs duties may apply for some countries.",
+      "SEO (Search Engine Optimization) focuses on improving organic search rankings and provides long-term results. PPC (Pay-Per-Click) delivers immediate visibility through paid ads but stops when you stop paying. Both strategies work best when used together.",
   },
   {
-    question: "What payment methods do you accept?",
+    question: "How much should I budget for digital marketing?",
     answer:
-      "We accept Visa, MasterCard, American Express, PayPal, Apple Pay, and Google Pay, ensuring secure payment options for all customers.",
+      "Most small businesses allocate 7-12% of their revenue to marketing. The exact budget depends on your goals, industry, and competition. We offer affordable packages starting with essential services and scaling up as your business grows.",
   },
   {
-    question: "What if I receive a damaged item?",
+    question: "Do I need social media for my business?",
     answer:
-      "Please contact our support team within 48 hours of delivery with photos of the damaged item. We’ll arrange a replacement or refund.",
+      "Yes, social media helps you connect with customers, build brand awareness, and drive website traffic. Focus on platforms where your target audience spends time, whether that's Facebook, Instagram, LinkedIn, or others relevant to your industry.",
   },
   {
-    question: "Can I cancel or change my order?",
+    question: "What is local SEO and why does it matter?",
     answer:
-      "Yes, you can cancel or change your order within 24 hours of placing it. Contact customer support to make updates.",
+      "Local SEO helps your business appear in local search results when people search for services near them. It's crucial for businesses with physical locations or serving specific areas, helping you attract nearby customers actively looking for your services.",
   },
   {
-    question: "Do you offer discounts for bulk purchases?",
+    question: "How do Google Ads work?",
     answer:
-      "Yes, we provide special discounts for bulk orders. Contact our sales team with your requirements for a customized quote.",
+      "Google Ads displays your ads when people search for keywords related to your business. You only pay when someone clicks your ad. With proper targeting and optimization, Google Ads can generate qualified leads and provide immediate visibility at the top of search results.",
   },
   {
-    question: "How long does shipping take?",
+    question: "What is a conversion rate?",
     answer:
-      "Shipping usually takes 3-7 business days domestically and 7-14 business days internationally, depending on your location and selected shipping method.",
+      "Conversion rate is the percentage of website visitors who complete a desired action, like making a purchase or filling out a contact form. A higher conversion rate means your marketing efforts are effectively turning visitors into customers or leads.",
   },
   {
-    question: "Are your products eco-friendly?",
+    question: "Can I do digital marketing myself?",
     answer:
-      "Many of our products are made with sustainable materials and eco-friendly practices to reduce environmental impact while maintaining quality.",
+      "While basic digital marketing is possible on your own, effective campaigns require expertise, time, and ongoing optimization. An experienced agency provides strategy, tools, and knowledge to maximize your ROI while you focus on running your business.",
   },
   {
-    question: "How can I contact customer support?",
+    question: "How do you measure digital marketing success?",
     answer:
-      "Reach out via email at support@example.com or call us at 1-800-123-4567 for assistance with any inquiries.",
+      "We track key metrics like website traffic, search rankings, conversion rates, cost per lead, click-through rates, and ROI. You'll receive regular reports showing exactly how your campaigns perform and the real business results we're delivering for your investment.",
   },
 ];
+
 const Faq = () => {
   const [value, setValue] = useState<string>();
 
   return (
     <div className="flex items-center justify-center px-6 py-12">
       <div className="w-full max-w-(--breakpoint-xl)">
-              <h4 className="text-4xl sm:text-3xl md:text-4xl lg:text-5xl text-center font-montserrat text-gray-700 mb-3 sm:mb-4 lg:mb-5 bungee-inline-regular">
-                Faq's About Digital Marketing
-              </h4>
+        <h4 className="text-3xl md:text-4xl lg:text-6xl font-base text-center tracking-[-0.03em] px-6 text-gray-700 bungee-inline-regular">
+          FAQS About <span className="bg-blue-600 bg-clip-text text-transparent">Digital Marketing</span>
+        </h4>
         <div className="mt-6 w-full grid md:grid-cols-2 gap-x-10">
           <Accordion
             type="single"

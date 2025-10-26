@@ -55,7 +55,7 @@ const topMarqueeStyle: CSSProperties = {
 
 const bottomMarqueeStyle: CSSProperties = {
   ...marqueeContainerStyle,
-  bottom: '22%',
+  bottom: '18%',
   zIndex: 2,
 }
 
@@ -95,7 +95,7 @@ const BannerMarqee: React.FC = () => {
       <div style={topMarqueeStyle}>
         <motion.div variants={marqueeVariants} animate="animateRight" style={{ display: 'inline-block' }}>
           <span style={textStyleTop}>
-            Virtual Orbit * SEO * Virtual Orbit * SEO * Virtual Orbit * SEO *
+            Virtual Orbit - SEO - Virtual Orbit - SEO - Virtual Orbit - SEO -
           </span>
         </motion.div>
       </div>
@@ -120,7 +120,7 @@ const BannerMarqee: React.FC = () => {
       <div style={bottomMarqueeStyle}>
         <motion.div variants={marqueeVariants} animate="animateLeft" style={{ display: 'inline-block' }}>
           <span style={textStyleBottom}>
-            Local SEO * AI SEO * Technical SEO * Ecommerce SEO *
+            SEO - Paid Ads - Website Dev - Social Media - Ai SEO -
           </span>
         </motion.div>
       </div>

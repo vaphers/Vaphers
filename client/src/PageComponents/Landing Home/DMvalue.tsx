@@ -54,7 +54,7 @@ const DMvalue: React.FC = () => {
   return (
     <section
       ref={ref}
-      className="max-w-full bg-white bg-cover bg-center bg-no-repeat"
+      className="max-w-full bg-white bg-cover bg-center bg-no-repeat overflow-hidden"
       style={{
         backgroundImage: `url(${PatternBG})`,
         backgroundSize: 'cover',
@@ -65,39 +65,36 @@ const DMvalue: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-16 pb-8 sm:pb-12 lg:pb-0">
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 sm:gap-10 lg:gap-12">
           <motion.div
-            style={{
+            style={isMobile ? {} : {
               x: xLeft,
               opacity,
             }}
             className="w-full lg:w-2/3 space-y-4 sm:space-y-6"
           >
             <div>
-              <h2 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-start font-montserrat text-gray-700 mb-3 sm:mb-4 lg:mb-5 bungee-inline-regular">
-                Why Your Business Need{' '}
-                <span className="bg-gradient-to-r from-orange-400 via-pink-400 to-purple-500 bg-clip-text text-transparent ">
-                  SEO Services
-                </span>
-              </h2>
+              <h3 className="text-3xl md:text-3xl lg:text-5xl font-sans text-gray-700 mb-4 bungee-inline-regular">
+                How Digital Marketing
+                <span className="bg-blue-600 bg-clip-text text-transparent"> Generate More Leads?</span>{' '}
+              </h3>
               <p className="text-sm sm:text-base lg:text-lg text-center lg:text-start text-blue-600 font-medium">
-                Connect with Your Customers Where They Spend Their Time Online
+                Turn Online Visitors Into Qualified Leads for Your Business
               </p>
             </div>
 
             <p className="text-sm sm:text-base lg:text-xl text-gray-700 leading-relaxed text-center lg:text-left">
-              Digital marketing is the use of online channels, platforms, and technologies to promote your business, products, or services
-              to potential customers. It encompasses everything from search engine optimization (SEO) and social media marketing to{' '}
+              Digital marketing generates more leads by targeting potential customers where they actively search for solutions. Through strategic SEO, your business appears at the top of search results when prospects need your services. Combined with{' '}
               <a href="#" className="text-blue-700 underline hover:text-blue-800 font-medium">
-                email campaigns and pay-per-click advertising
+                compelling content and targeted paid ads
               </a>
-              . The goal is to reach your target audience where they're already spending their time - online.
+              , you attract high-quality leads already interested in what you offer, significantly increasing conversion rates.
             </p>
 
             <p className="text-sm sm:text-base lg:text-xl text-gray-700 leading-relaxed text-center lg:text-left">
-              Digital marketing is the use of online channels, platforms, and technologies to promote your business, products, or services
-              to potential customers. It encompasses everything from search engine optimization (SEO) and social media marketing to{' '}
+              Effective lead generation strategies use personalized email campaigns, social media engagement, and landing pages optimized for conversions. By capturing visitor information through valuable offers and nurturing these prospects with relevant content, businesses transform anonymous website visitors into{' '}
               <a href="#" className="text-blue-700 underline hover:text-blue-800 font-medium">
-                email campaigns and pay-per-click advertising
+                qualified leads ready to purchase
               </a>
+              , creating a predictable pipeline of potential customers.
             </p>
 
             {/* button */}
@@ -110,13 +107,13 @@ const DMvalue: React.FC = () => {
           </motion.div>
 
           <motion.div
-            style={{
+            style={isMobile ? {} : {
               x: xRight,
               opacity,
             }}
             className="w-full lg:w-1/2 flex justify-center relative"
           >
-            <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none">
+            <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none overflow-hidden">
               <Image 
                 src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761047475/girl-laptop_kwggux.png"
                 alt="Digital marketing analytics dashboard showing online marketing performance" 
@@ -129,16 +126,16 @@ const DMvalue: React.FC = () => {
 
               <div className="absolute inset-0">
                 <motion.div
-                  animate={{
+                  animate={isMobile ? {} : {
                     x: [0, 10, 0],
                     y: [0, 10, 0],
                   }}
-                  transition={{
+                  transition={isMobile ? {} : {
                     duration: 5,
                     repeat: Infinity,
                     ease: 'easeInOut',
                   }}
-                  className="absolute top-2 left-1 sm:top-4 sm:left-2 lg:top-18 lg:-left-1 p-1 sm:p-2 lg:p-3"
+                  className="absolute top-2 left-1 sm:top-4 sm:left-2 lg:top-18 lg:left-4 p-1 sm:p-2 lg:p-3"
                 >
                   <Image 
                     src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_80/v1761047482/google_jze9mq.png"
@@ -153,8 +150,8 @@ const DMvalue: React.FC = () => {
                 <motion.div 
                   custom={1} 
                   variants={floatingVariants} 
-                  animate="animate" 
-                  className="absolute -top-2 right-1 sm:top-0 sm:right-2 lg:top-54 lg:-right-18"
+                  animate={isMobile ? undefined : "animate"}
+                  className="absolute -top-2 right-1 sm:top-0 sm:right-2 lg:top-10 lg:right-4"
                 >
                   <Image 
                     src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_176/v1761047484/seo-rank_l7ekja.png" 
@@ -169,8 +166,8 @@ const DMvalue: React.FC = () => {
                 <motion.div 
                   custom={2} 
                   variants={floatingVariants} 
-                  animate="animate" 
-                  className="absolute bottom-4 left-1 sm:bottom-8 sm:left-2 lg:bottom-40 lg:-left-5"
+                  animate={isMobile ? undefined : "animate"}
+                  className="absolute bottom-4 left-1 sm:bottom-8 sm:left-2 lg:bottom-40 lg:left-4"
                 >
                   <Image 
                     src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_176/v1761047474/competitor_co9leg.png"

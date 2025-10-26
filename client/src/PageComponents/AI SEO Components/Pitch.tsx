@@ -181,7 +181,7 @@ const AiSection: React.FC = () => {
         {/* Main content and changing cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div className="space-y-6">
-            <p className="text-lg sm:text-lg lg:text-xl text-gray-700 leading-relaxed">
+            <p className="text-lg sm:text-lg text-gray-700 leading-relaxed">
               Rapid advances in generative artificial intelligence (AI) models have reshaped
               how content is discovered and consumed. Traditional search engine
               optimization (SEO) is no longer enough to reach those looking for your

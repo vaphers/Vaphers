@@ -34,9 +34,9 @@ import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/
 const digitalMarketingServices = [
   { name: 'AI SEO', description: 'Drive targeted traffic with ads', href: '/seo-services/ai-seo-services', icon: ChartPieIcon },
   { name: 'Local SEO', description: 'Boost your search engine rankings', href: '/seo-services/local-seo-services', icon: MagnifyingGlassIcon },
-  { name: 'Ecommerce SEO', description: 'Create compelling content strategies', href: '/seo-services/ecommerce-seo', icon: PencilSquareIcon },
-  { name: 'Technical SEO', description: 'Engage your audience on social platforms', href: '/seo-services/technical-seo', icon: CursorArrowRaysIcon },
-  { name: 'SEO Audits', description: 'Reach customers directly in their inbox', href: '/seo-services/seo-audit', icon: MegaphoneIcon },
+  { name: 'Ecommerce SEO', description: 'Create compelling content strategies', href: '/seo-services/ecommerce-seo-services', icon: PencilSquareIcon },
+  { name: 'Technical SEO', description: 'Engage your audience on social platforms', href: '/seo-services/technical-seo-services', icon: CursorArrowRaysIcon },
+  { name: 'SEO Audits', description: 'Reach customers directly in their inbox', href: '/seo-services/seo-audit-services', icon: MegaphoneIcon },
 ]
 
 const webDevelopmentServices = [
@@ -84,7 +84,7 @@ export default function NavBar() {
         <div className="flex lg:flex-1">
           <Link href="/" className="flex -m-1.5 p-1.5 space-x-0">
             <p className="text-blue-600 text-4xl font-extrabold transition duration-300 bungee-shade cursor-pointer">
-              V<span className="text-gray-800 text-3xl -mb-4 font-extrabold transition duration-300  cursor-pointer">aphers</span>
+              V<span className="text-gray-700 text-3xl -mb-4 font-extrabold transition duration-300  cursor-pointer">aphers</span>
             </p>
           </Link>
         </div>

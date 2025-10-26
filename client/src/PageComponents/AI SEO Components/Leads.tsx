@@ -20,7 +20,7 @@ export default function AiSectionLeads() {
         {/* Content */}
         <div className="space-y-8 order-1 lg:order-2">
           <div className="space-y-4">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-base tracking-[-0.03em] text-pretty bungee-inline-regular">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-base tracking-[-0.03em] text-gray-700 bungee-inline-regular">
               How AI SEO <br/><span className="bg-blue-600 bg-clip-text text-transparent">Generates Leads?</span>
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed montserrat">

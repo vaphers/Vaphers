@@ -103,15 +103,15 @@ const WhyAIAgentsSEO: React.FC = () => {
           {/* Content Section */}
           <div className="w-full lg:w-2/3 space-y-4 sm:space-y-6">
             <div>
-                <h2 className="text-4xl md:text-4xl text-center lg:text-start lg:text-6xl font-base tracking-[-0.03em] text-pretty bungee-inline-regular">
+                <h2 className="text-4xl md:text-4xl text-center lg:text-start lg:text-6xl font-base tracking-[-0.03em] text-gray-700 bungee-inline-regular">
                     Why You Need <br/><span className="bg-blue-600 bg-clip-text text-transparent">Ai Agents SEO?</span>
                 </h2>
-              <p className="text-base md:text-xl text-center lg:text-start text-blue-600 font-medium">
+              <p className="text-base md:text-lg text-center lg:text-start text-blue-600 font-medium">
                 Future-Proof Your Business for the AI-Powered Search Revolution
               </p>
             </div>
             
-            <p className="text-lg lg:text-xl text-gray-700 leading-relaxed text-center lg:text-left">
+            <p className="text-lg  text-gray-700 leading-relaxed text-center lg:text-left">
               AI agents like ChatGPT, Perplexity, and Google Gemini are fundamentally changing how customers discover 
               businesses and make purchasing decisions. Unlike traditional search engines that show a list of links, 
               AI agents provide direct answers and recommendations by synthesizing information from across the web. 
@@ -121,7 +121,7 @@ const WhyAIAgentsSEO: React.FC = () => {
               </a>
               , you're invisible to millions of potential customers.
             </p>
-            <p className="text-lg lg:text-xl text-gray-700 leading-relaxed text-center lg:text-left">
+            <p className="text-lg lg:text-lg text-gray-700 leading-relaxed text-center lg:text-left">
               Our AI Agent SEO services ensure your business appears in conversational AI responses, voice search results, 
               and AI-generated recommendations. We optimize your content using semantic markup, entity optimization, and 
               natural language patterns that AI models understand and trust, positioning your brand as the authoritative 

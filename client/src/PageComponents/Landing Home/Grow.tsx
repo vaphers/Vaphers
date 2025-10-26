@@ -62,18 +62,19 @@ const WhatsSEO: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-16 pb-8 sm:pb-12 lg:pb-0">
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 sm:gap-10 lg:gap-12">
           <motion.div
-            style={{
+            style={isMobile ? {} : {
               x: xLeft,
               opacity,
             }}
             className="w-full lg:w-2/3 space-y-4 sm:space-y-6"
           >
             <div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-start font-montserrat text-gray-700 mb-3 sm:mb-4 lg:mb-5">
-                Grow Your Business With{' '}
-                <span className="bg-gradient-to-r from-orange-400 via-pink-400 to-purple-500 bg-clip-text text-transparent font-['Playfair_Display',serif] italic">
-                  SEO Services
-                </span>
+              <h2 className="text-3xl md:text-3xl lg:text-5xl font-sans text-gray-700 mb-4 bungee-inline-regular">
+                Grow With{' '}
+                <span className="bg-blue-600 bg-clip-text text-transparent">
+                  Affordable Digital Marketing
+                </span>{' '}
+                Services
               </h2>
               <p className="text-sm sm:text-base lg:text-lg text-center lg:text-start text-blue-600 font-medium">
                 Connect with Your Customers Where They Spend Their Time Online
@@ -81,13 +82,12 @@ const WhatsSEO: React.FC = () => {
             </div>
 
             <p className="text-sm sm:text-base lg:text-xl text-gray-700 leading-relaxed text-center lg:text-left">
-              Digital marketing is the use of online channels, platforms, and technologies to promote your
-              business, products, or services to potential customers. It encompasses everything from search
-              engine optimization (SEO) and social media marketing to{' '}
+              Affordable digital marketing services help businesses reach their target audience without breaking the bank. 
+              Through strategic SEO, targeted social media campaigns, and cost-effective{' '}
               <a href="#" className="text-blue-700 underline hover:text-blue-800 font-medium">
-                email campaigns and pay-per-click advertising
+                pay-per-click advertising
               </a>
-              . The goal is to reach your target audience where they're already spending their time - online.
+              , we maximize your online visibility and drive qualified leads. Our data-driven approach ensures every dollar spent delivers measurable results and sustainable growth for your business.
             </p>
 
             <div className="pt-4 sm:pt-6 lg:pt-10 pb-4 flex justify-center lg:justify-start">
@@ -99,7 +99,7 @@ const WhatsSEO: React.FC = () => {
           </motion.div>
 
           <motion.div
-            style={{
+            style={isMobile ? {} : {
               x: xRight,
               opacity,
             }}
@@ -118,11 +118,11 @@ const WhatsSEO: React.FC = () => {
 
               <div className="absolute inset-0">
                 <motion.div
-                  animate={{
+                  animate={isMobile ? {} : {
                     x: [0, 10, 0],
                     y: [0, 10, 0],
                   }}
-                  transition={{
+                  transition={isMobile ? {} : {
                     duration: 4,
                     repeat: Infinity,
                     ease: 'easeInOut',
@@ -142,7 +142,7 @@ const WhatsSEO: React.FC = () => {
                 <motion.div
                   custom={1}
                   variants={floatingVariants}
-                  animate="animate"
+                  animate={isMobile ? undefined : "animate"}
                   className="absolute -top-2 right-1 sm:top-0 sm:right-2 lg:-top-4 lg:-right-12"
                 >
                   <Image 
@@ -158,7 +158,7 @@ const WhatsSEO: React.FC = () => {
                 <motion.div
                   custom={2}
                   variants={floatingVariants}
-                  animate="animate"
+                  animate={isMobile ? undefined : "animate"}
                   className="absolute bottom-4 left-1 sm:bottom-8 sm:left-2 lg:bottom-30 lg:-left-10"
                 >
                   <Image 

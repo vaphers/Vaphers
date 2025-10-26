@@ -100,7 +100,7 @@ const ServicesAccordion: React.FC = () => {
             <p className="text-blue-600 text-sm sm:text-base font-semibold mb-2 uppercase tracking-wider">
               SERVICES .
             </p>
-            <h4 className="text-gray-900 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase leading-tight bungee-inline-regular">
+            <h4 className="text-gray-700 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase leading-tight bungee-inline-regular">
               Explore Our
               <br />
               <span className="bg-blue-600 bg-clip-text text-transparent">

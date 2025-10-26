@@ -11,12 +11,12 @@ const Footer: React.FC = () => {
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-8 py-10 max-sm:max-w-sm max-sm:mx-auto gap-y-8">
             <div className="col-span-full mb-10 lg:col-span-2 lg:mb-0">
               <a href="#" className="flex -m-1.5 p-1.5 space-x-2">
-                <p className="text-blue-600 text-4xl font-extrabold transition duration-300 font-['Bungee_Shade'] cursor-pointer">
+                <h6 className="text-blue-600 text-4xl font-extrabold transition duration-300 font-['Bungee_Shade'] cursor-pointer">
                   V
                   <span className="text-gray-800 text-3xl -mb-4 font-extrabold transition duration-300 font-['Bungee_Shade'] cursor-pointer">
                     aphers
                   </span>
-                </p>
+                </h6>
               </a>
               <p className="py-8 text-sm text-gray-500 lg:max-w-xs text-center lg:text-left">
                 Trusted in more than 100 countries & 5 million customers. Have any query ?
@@ -30,26 +30,26 @@ const Footer: React.FC = () => {
             </div>
             {/* End Col */}
             <div className="lg:mx-auto text-left ">
-              <h4 className="text-lg text-gray-900 font-medium mb-7">Vaphers</h4>
+              <h4 className="text-lg text-gray-900 font-medium mb-7">Explore</h4>
               <ul className="text-sm transition-all duration-500">
                 <li className="mb-6">
-                  <a href="javascript:;" className="text-gray-600 hover:text-gray-900">
+                  <a href="/" className="text-gray-600 hover:text-gray-900">
                     Home
                   </a>
                 </li>
                 <li className="mb-6">
-                  <a href="javascript:;" className="text-gray-600 hover:text-gray-900">
+                  <a href="/about-us" className="text-gray-600 hover:text-gray-900">
                     About
                   </a>
                 </li>
                 <li className="mb-6">
-                  <a href="javascript:;" className="text-gray-600 hover:text-gray-900">
+                  <a href="/pricing" className="text-gray-600 hover:text-gray-900">
                     Pricing
                   </a>
                 </li>
                 <li>
-                  <a href="javascript:;" className="text-gray-600 hover:text-gray-900">
-                    Features
+                  <a href="/contact" className="text-gray-600 hover:text-gray-900">
+                    Contact Us
                   </a>
                 </li>
               </ul>

@@ -86,7 +86,7 @@ const AiServicesAccordion: React.FC = () => {
             <p className="text-blue-600 text-sm sm:text-base font-semibold mb-2 uppercase tracking-wider">
               SERVICES .
             </p>
-            <h2 className="text-gray-900 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase leading-tight bungee-inline-regular">
+            <h2 className="text-gray-700 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase leading-tight bungee-inline-regular">
               Explore Our
               <br />
               <span className="bg-blue-600 bg-clip-text text-transparent">
@@ -119,7 +119,7 @@ const AiServicesAccordion: React.FC = () => {
                 } overflow-hidden transition-all duration-300`}
                 initial={false}
               >
-                {/* Header - Always Visible */}
+                {/* Head */}
                 <button
                   onClick={() => setExpandedIndex(expandedIndex === index ? null : index)}
                   className="w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-6 flex items-center justify-between hover:bg-gray-50 transition-colors duration-300"

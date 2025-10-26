@@ -102,12 +102,12 @@ const WhatsGEO: React.FC = () => {
                 <h2 className="text-4xl md:text-4xl lg:text-6xl text-center lg:text-start text-gray-200 font-base tracking-[-0.03em] text-pretty bungee-inline-regular">
                     What's <br/><span className="bg-blue-400 bg-clip-text text-transparent">Geo Service?</span>
                 </h2>
-              <p className="text-base md:text-xl text-center lg:text-start text-gray-300 font-medium">
+              <p className="text-base md:text-lg text-center lg:text-start text-gray-300 font-medium">
                 Dominate ChatGPT, Perplexity, and Gemini Search Results
               </p>
             </div>
             
-            <p className="text-lg lg:text-xl text-white leading-relaxed text-center lg:text-left">
+            <p className="text-lg text-white leading-relaxed text-center lg:text-left">
               Generative Engine Optimization (GEO) is the cutting-edge practice of optimizing your content specifically 
               for large language models and AI chatbots like ChatGPT, Google Gemini, Claude, and Perplexity. While 
               traditional SEO targets search engine rankings, GEO ensures your business is{' '}

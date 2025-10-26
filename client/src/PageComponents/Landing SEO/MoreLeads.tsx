@@ -52,7 +52,7 @@ const SeoLeads: React.FC = () => {
             className="w-full lg:w-2/3 space-y-4 sm:space-y-6"
           >
             <div>
-              <h3 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-start font-montserrat text-gray-900 mb-3 sm:mb-4 lg:mb-5 bungee-inline-regular">
+              <h3 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-start font-montserrat text-gray-700 mb-3 sm:mb-4 lg:mb-5 bungee-inline-regular">
                 How {' '}
                 <span className="bg-blue-600 bg-clip-text text-transparent ">
                   SEO Services
@@ -63,7 +63,7 @@ const SeoLeads: React.FC = () => {
               </p>
             </div>
 
-            <p className="text-sm sm:text-base lg:text-xl text-gray-700 leading-relaxed text-center lg:text-left">
+            <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed text-center lg:text-left">
               SEO drives consistent, qualified leads by positioning your business in front of customers actively searching for your products or services. Unlike paid advertising that stops when your budget runs out, SEO builds sustainable visibility that compounds over time. When potential customers search for solutions you provide, strategic{' '}
               <a href="#" className="text-blue-700 underline hover:text-blue-800 font-medium">
                 keyword optimization and content strategy
@@ -71,7 +71,7 @@ const SeoLeads: React.FC = () => {
               {' '}ensures your business appears prominently in search results, capturing high-intent traffic ready to convert.
             </p>
 
-            <p className="text-sm sm:text-base lg:text-xl text-gray-700 leading-relaxed text-center lg:text-left">
+            <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed text-center lg:text-left">
               Professional SEO services target every stage of the customer journey—from awareness through decision-making. By ranking for informational queries early in the buyer's journey, you build trust and establish authority. As prospects progress to commercial and transactional searches, your optimized landing pages and service pages capture ready-to-buy customers. This multi-layered approach generates 14.6% close rate on average, compared to just 1.7% for outbound marketing tactics.
             </p>
 

@@ -59,7 +59,7 @@ const SeoNeed: React.FC = () => {
               </p>
             </div>
 
-            <p className="text-sm sm:text-base lg:text-xl text-white leading-relaxed text-center lg:text-left">
+            <p className="text-sm sm:text-base lg:text-lg text-white leading-relaxed text-center lg:text-left">
               Without SEO, your business is invisible to the 8.5 billion daily Google searches from potential customers actively looking for your products and services. Every day you delay, competitors capture market share by ranking where you should be. Professional SEO services level the playing field—positioning your business prominently in{' '}
               <a href="#" className="text-blue-200 underline hover:text-blue-400 duration-200 font-medium">
                 local searches, mobile results, and voice queries

@@ -46,7 +46,7 @@ function SubHero({
         </a>
       </div>
       <div className="px-4 pb-10">
-        <h1 className="relative z-10 mx-auto max-w-4xl text-center text-2xl font-bold text-slate-200 md:text-4xl lg:text-7xl dark:text-slate-300 bungee-inline-regular">
+        <h1 className="relative z-10 mx-auto max-w-5xl text-center text-2xl font-bold text-slate-200 md:text-4xl lg:text-7xl dark:text-slate-300 bungee-inline-regular">
           {heading
             .split(" ")
             .map((word, index) => (

@@ -4,13 +4,25 @@ import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useMotionTemplate, useScroll, useTransform } from "framer-motion";
 
-const SECTION_HEIGHT_MOBILE = 600;  // Smaller height for mobile
-const SECTION_HEIGHT_DESKTOP = 1300; // Full height for desktop
+const SECTION_HEIGHT_MOBILE = 600; 
+const SECTION_HEIGHT_DESKTOP = 1300; 
 
 export default function SmoothScrollHero() {
   return (
-    <div className="bg-zinc-900">
-      <Hero />
+    <div className="min-h-screen w-full bg-white relative">
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          background: "#ffffff",
+          backgroundImage: "radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.35) 1px, transparent 0)",
+          backgroundSize: "20px 20px",
+        }}
+      />
+      
+      {/* Content */}
+      <div className="relative z-10">
+        <Hero />
+      </div>
     </div>
   );
 }
@@ -43,7 +55,7 @@ const Hero = () => {
     <div
       ref={ref}
       style={{ height: `calc(${sectionHeight}px + 100vh)` }}
-      className="relative bg-white w-full"
+      className="relative w-full"
     >
       <CenterImage progress={scrollYProgress} />
       <ParallaxImages isMobile={isMobile} />
