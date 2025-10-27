@@ -70,7 +70,7 @@ const testimonials = [
 ];
 
 const Testimonial = () => (
-  <div className="min-h-screen w-full relative">
+  <div className="w-full relative">
     {/* Dashed Grid Background */}
     <div
       className="absolute inset-0 z-0"

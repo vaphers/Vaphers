@@ -45,7 +45,7 @@ const AttractCustomers: React.FC = () => {
       }}
     >
       <div className='max-w-7xl mx-auto  pt-8 sm:pt-12 lg:pt-16 pb-8 sm:pb-12 lg:pb-16'>
-        <div className="flex flex-col lg:flex-row items-center lg:items-center gap-8 sm:gap-10 lg:gap-12">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 sm:gap-10 lg:gap-12">
 
           {/* Content */}
           <div className="w-full lg:w-2/3 space-y-4 sm:space-y-6 order-2 lg:order-1">
@@ -105,13 +105,13 @@ const AttractCustomers: React.FC = () => {
           </div>
 
           {/* Image Section - Right side on desktop */}
-          <div className="w-full h-auto lg:w-1/2 flex justify-center items-center relative order-1 lg:order-2">
+          <div className="w-full h-auto lg:w-1/2 flex justify-start items-start relative order-1 lg:order-2">
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-full">
               <Image 
-                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761047472/AEO_tqqaku.png" 
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761569143/Frame_1_s7kydx.png" 
                 alt="Ecommerce SEO dashboard showing product optimization and rankings" 
                 width={600}
-                height={600}
+                height={7000}
                 className="w-full h-auto object-contain"
                 priority
               />
@@ -131,11 +131,11 @@ const AttractCustomers: React.FC = () => {
                   className="absolute top-2 left-1 sm:top-4 sm:left-2 lg:top-8 lg:-left-1 p-1 sm:p-2 lg:p-3"
                 >
                   <Image 
-                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_56/v1761047482/google_jze9mq.png" 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_56/v1761047484/Shopify-Bag_ewully.png" 
                     alt="Google" 
                     width={56}
                     height={56}
-                    className="w-12 h-12 sm:w-10 sm:h-10 lg:w-14 lg:h-14 object-contain" 
+                    className="w-18 h-18 sm:w-10 sm:h-10 lg:w-24 lg:h-24 object-contain" 
                   />
                 </motion.div>
                 {/* Rank 1 Badge - Float Up/Down */}

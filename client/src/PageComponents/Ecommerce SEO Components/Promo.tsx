@@ -14,7 +14,7 @@ const EcommercePromo: React.FC = () => {
           <div className="w-full lg:w-1/2 flex justify-center">
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg">
               <Image
-                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761047492/Tools_aktfkk.png"
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761549097/why-ecommerce-seo_scnbgg.png"
                 alt="Ecommerce platforms including Shopify, WooCommerce, OpenCart, and Squarespace"
                 width={600}
                 height={600}

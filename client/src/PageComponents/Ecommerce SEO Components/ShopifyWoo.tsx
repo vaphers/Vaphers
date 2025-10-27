@@ -20,7 +20,7 @@ const features = [
         </p>
       </>
     ),
-    image: "https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761565925/Get_Customers_With_shopifySEO_1_bylphq.png",
     imageAlt: "Person working on Shopify store optimization with laptop and shopping analytics",
     tutorialLink: "#",
   },
@@ -36,7 +36,7 @@ const features = [
         </p>
       </>
     ),
-    image: "https://images.pexels.com/photos/6214476/pexels-photo-6214476.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit/v1761558398/Get_Customers_With_Ecommerce_SEO_5_xhfnzo.png",
     imageAlt: "Ecommerce analytics dashboard showing sales growth and conversion data",
     tutorialLink: "#",
   }
@@ -115,12 +115,12 @@ const ShopifyWoo = () => {
       >
         {/* Main Heading */}
         <motion.div className="text-center mb-12 md:mb-16" variants={headingVariants}>
-          <h2 className="text-4xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-3 sm:mb-4 lg:mb-5 leading-tight bungee-inline-regular">
-            Why Choose Vaphers for{' '}
-            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              Ecommerce SEO?
+          <h3 className="text-4xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-3 sm:mb-4 lg:mb-5 leading-tight bungee-inline-regular">
+            Optimize Your Store With{' '}
+            <span className="text-blue-600 ">
+              Affordable Ecommerce SEO?
             </span>
-          </h2>
+          </h3>
         </motion.div>
 
         <div className="mt-8 md:mt-16 w-full mx-auto space-y-20">
@@ -139,7 +139,7 @@ const ShopifyWoo = () => {
                   src={feature.image}
                   alt={feature.imageAlt}
                   fill
-                  className="object-cover"
+                  className="object-contain object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </motion.div>

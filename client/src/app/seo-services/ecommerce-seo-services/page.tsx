@@ -13,6 +13,7 @@ import Testimonials from '@/PageComponents/Global Components/Testimonial';
 import EcommerceServicesAccordion from '@/PageComponents/Ecommerce SEO Components/Services';
 import ContactForm from '@/PageComponents/Global Components/Contact';
 import EcommerceFaq from '@/PageComponents/Ecommerce SEO Components/FAQ';
+import PromoFiller from '@/PageComponents/Ecommerce SEO Components/PromoFiller';
 
 export default function Page() {
   const lenisRef = useRef<Lenis | null>(null)
@@ -159,6 +160,7 @@ export default function Page() {
         <Banner/>
         <ShopifyWoo/>
         <Testimonials/>
+        <PromoFiller/>
         <EcommerceServicesAccordion/>
         <EcommerceFaq/>
         <ContactForm/>

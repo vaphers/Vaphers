@@ -34,8 +34,55 @@ const spectral = Spectral({
 })
 
 export const metadata = {
-  title: { default: 'Vaphers', template: '%s | Virtual Orbit' },
-  description: 'Digital marketing, SEO, PPC, and web development services.',
+  title: {
+    default: 'Affordable Digital Marketing Agency | Vaphers - SEO, PPC & Web Development',
+  },
+  description: 'Vaphers is an affordable digital marketing agency offering expert SEO, PPC advertising, and web development services. Drive qualified traffic and grow your revenue with data-driven strategies that deliver measurable results.',
+  keywords: ['affordable digital marketing agency', 'digital marketing services', 'SEO services', 'PPC advertising', 'web development', 'ecommerce SEO', 'content marketing', 'online marketing agency'],
+  authors: [{ name: 'Vaphers' }],
+  creator: 'Vaphers',
+  publisher: 'Vaphers',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://vaphers.com',
+    siteName: 'Vaphers',
+    title: 'Affordable Digital Marketing Agency | Vaphers',
+    description: 'Expert SEO, PPC, and web development services that grow your revenue. Get data-driven digital marketing strategies without the premium agency price tag.',
+    images: [
+      {
+        url: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047482/vaphers-og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Vaphers - Affordable Digital Marketing Agency',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Affordable Digital Marketing Agency | Vaphers',
+    description: 'Expert SEO, PPC, and web development services that deliver measurable results and grow your revenue.',
+    images: ['https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047482/vaphers-og-image.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'your-google-verification-code',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
