@@ -117,7 +117,7 @@ const AttractCustomers: React.FC = () => {
               />
               {/* Floating Elements */}
               <div className="absolute inset-0">
-                {/* Google - Diagonal Animation */}
+                {/* Shopify  */}
                 <motion.div
                   animate={{
                     x: [0, 10, 0],
@@ -131,14 +131,14 @@ const AttractCustomers: React.FC = () => {
                   className="absolute top-2 left-1 sm:top-4 sm:left-2 lg:top-8 lg:-left-1 p-1 sm:p-2 lg:p-3"
                 >
                   <Image 
-                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_56/v1761047484/Shopify-Bag_ewully.png" 
-                    alt="Google" 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761658327/Adobe_Express_-_file_p0mimj.png" 
+                    alt="Shopify Logo"
                     width={56}
                     height={56}
-                    className="w-18 h-18 sm:w-10 sm:h-10 lg:w-24 lg:h-24 object-contain" 
+                    className="w-18 h-18 sm:w-10 sm:h-10 lg:w-29 lg:h-29 object-contain" 
                   />
                 </motion.div>
-                {/* Rank 1 Badge - Float Up/Down */}
+                {/* Woo Commerce  */}
                 <motion.div
                   custom={1}
                   variants={floatingVariants}
@@ -146,14 +146,14 @@ const AttractCustomers: React.FC = () => {
                   className="absolute -top-2 right-1 sm:top-0 sm:right-2 lg:-top-4 lg:-right-12"
                 >
                   <Image 
-                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_176/v1761047484/seo-rank_l7ekja.png" 
-                    alt="SEO Rank" 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761657677/WooCommerce-Logo_ef4x1p.png" 
+                    alt="Woo Commerce Logo" 
                     width={176}
                     height={176}
                     className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain" 
                   />
                 </motion.div>
-                {/* Competitor Badge - Float Up/Down */}
+                {/* wix */}
                 <motion.div
                   custom={2}
                   variants={floatingVariants}
@@ -161,8 +161,8 @@ const AttractCustomers: React.FC = () => {
                   className="absolute bottom-4 left-1 sm:bottom-8 sm:left-2 lg:bottom-30 lg:-left-10"
                 >
                   <Image 
-                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_176/v1761047474/competitor_co9leg.png" 
-                    alt="Competitor Analysis" 
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761657746/png-clipart-wix-newest-logo-tech_1_omfyj6.png" 
+                    alt="Wix Logo" 
                     width={176}
                     height={176}
                     className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain" 

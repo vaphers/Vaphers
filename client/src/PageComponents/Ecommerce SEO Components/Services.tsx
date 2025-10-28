@@ -30,7 +30,7 @@ const EcommerceServicesAccordion: React.FC = () => {
         'Collection page SEO and internal linking strategies',
         'Rich snippets and schema markup for Google Shopping visibility'
       ],
-      image: 'https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg?auto=compress&cs=tinysrgb&w=800',
+      image: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761644674/ShopifyAccordian_fn0flk.png',
       color: 'from-green-500 to-emerald-600'
     },
     {
@@ -44,7 +44,7 @@ const EcommerceServicesAccordion: React.FC = () => {
         'WooCommerce-specific schema markup for products and reviews',
         'Mobile-first optimization and Core Web Vitals improvement'
       ],
-      image: 'https://images.pexels.com/photos/6214476/pexels-photo-6214476.jpeg?auto=compress&cs=tinysrgb&w=800',
+      image: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761651895/WooAccordian_lgywdu.png',
       color: 'from-purple-500 to-violet-600'
     },
     {
@@ -58,7 +58,7 @@ const EcommerceServicesAccordion: React.FC = () => {
         'Image optimization with alt tags and compression for speed',
         'Meta titles and descriptions crafted for click-through rates'
       ],
-      image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800',
+      image: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761651901/ProductPageOptimization_wllf6g.png',
       color: 'from-orange-500 to-amber-600'
     },
     {
@@ -72,7 +72,7 @@ const EcommerceServicesAccordion: React.FC = () => {
         'Structured data validation and implementation for rich results',
         'Mobile optimization and responsive design analysis'
       ],
-      image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800',
+      image: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761651889/ecommerceAudit_ihoylg.png',
       color: 'from-blue-500 to-cyan-600'
     },
   ]
@@ -189,9 +189,6 @@ const EcommerceServicesAccordion: React.FC = () => {
                               sizes="(max-width: 768px) 100vw, 50vw"
                               className="object-cover"
                             />
-                            <div
-                              className={`absolute inset-0 bg-gradient-to-tr ${service.color} opacity-10`}
-                            ></div>
                           </motion.div>
                         </div>
                       </div>
