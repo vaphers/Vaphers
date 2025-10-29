@@ -32,7 +32,7 @@ const Promo: React.FC = () => {
           <div className="w-full lg:w-1/2 flex  relative hidden lg:block">
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none">
               <Image
-                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761047473/Ai-Seo-Services_nuxdts.png"
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761746360/Master_Local_SEO_cofn00.png"
                 alt="Local SEO Dashboard Illustration"
                 width={600}
                 height={600}
@@ -42,22 +42,7 @@ const Promo: React.FC = () => {
 
               {/* Floating Google Maps, Local Listings */}
               <div className="absolute inset-0">
-                {/* Google Maps Icon */}
-                <motion.div
-                  animate={{ x: [0, 10, 0], y: [0, 10, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute top-2 left-1 sm:top-4 sm:left-2 lg:top-12 lg:-left-1"
-                >
-                  <Image
-                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_100/v1761047474/google-maps-icon.png"
-                    alt="Google Maps"
-                    width={100}
-                    height={100}
-                    className="w-12 h-12 sm:w-10 sm:h-10 lg:w-24 lg:h-24 object-contain"
-                  />
-                </motion.div>
-
-                {/* Local Listings & Citations */}
+                {/* Google rank 1 */}
                 <motion.div
                   custom={1}
                   variants={floatingVariants}
@@ -65,27 +50,27 @@ const Promo: React.FC = () => {
                   className="absolute -top-2 right-1 sm:top-0 sm:right-2 lg:top-55 lg:-right-1"
                 >
                   <Image
-                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_176/v1761047484/seo-rank_l7ekja.png"
-                    alt="Local Rankings"
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_176/v1761747669/Rank_One_On_Google_v7q5as.png"
+                    alt="Rank one on google"
                     width={176}
                     height={176}
                     className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain"
                   />
                 </motion.div>
 
-                {/* Local Business Reviews */}
+                {/* Google Logo  */}
                 <motion.div
                   custom={2}
                   variants={floatingVariants}
                   animate="animate"
-                  className="absolute bottom-4 left-1 sm:bottom-8 sm:left-2 lg:bottom-30 lg:-left-10"
+                  className="absolute bottom-4 left-1 sm:bottom-8 sm:left-2 lg:bottom-55 lg:-left-6"
                 >
                   <Image
-                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w-176/v1761047474/competitor_co9leg.png"
-                    alt="Local Business Reviews"
-                    width={176}
-                    height={176}
-                    className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain"
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_100/v1761747776/Google-G-icon-favicon-PNG-large_lcye0c.png"
+                    alt="Google Logo"
+                    width={100}
+                    height={100}
+                    className="w-12 h-12 sm:w-10 sm:h-10 lg:w-18 lg:h-18 object-contain"
                   />
                 </motion.div>
               </div>
