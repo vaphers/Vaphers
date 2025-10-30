@@ -2,14 +2,59 @@ import Image from 'next/image'
 
 export default function GMB() {
   return (
-    <section className="max-w-7xl mx-auto px-6 py-8">
-      <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <section className="relative max-w-full px-6 py-8">
+      <div
+        className="pointer-events-none absolute inset-0 z-0 rounded-3xl"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, #e7e5e4 1px, transparent 1px),
+            linear-gradient(to bottom, #e7e5e4 1px, transparent 1px)
+          `,
+          backgroundSize: '20px 20px',
+          backgroundPosition: '0 0, 0 0',
+          maskImage: `
+            repeating-linear-gradient(
+              to right,
+              black 0px,
+              black 3px,
+              transparent 3px,
+              transparent 8px
+            ),
+            repeating-linear-gradient(
+              to bottom,
+              black 0px,
+              black 3px,
+              transparent 3px,
+              transparent 8px
+            )
+          `,
+          WebkitMaskImage: `
+            repeating-linear-gradient(
+              to right,
+              black 0px,
+              black 3px,
+              transparent 3px,
+              transparent 8px
+            ),
+            repeating-linear-gradient(
+              to bottom,
+              black 0px,
+              black 3px,
+              transparent 3px,
+              transparent 8px
+            )
+          `,
+          maskComposite: 'intersect',
+          WebkitMaskComposite: 'source-in',
+        }}
+      />
 
-        {/* Left Image */}
+      <div className="relative max-w-7xl mx-auto z-10 grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+        {/* Image */}
         <div className="relative order-2 lg:order-1">
-          <div className="relative w-full h-[500px] lg:h-[800px] rounded-3xl overflow-hidden bg-gradient-to-br from-blue-100 via-indigo-100 to-cyan-100">
+          <div className="relative w-full h-[500px] lg:h-[800px] rounded-3xl overflow-hidden">
             <Image
-              src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=800"
+              src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761830525/Why_GMB___2_pdsgri.png"
               alt="Google Business Profile optimization dashboard"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -40,7 +85,6 @@ export default function GMB() {
               When potential customers search for services nearby, your Google Business Profile decides whether you show up first or not at all. 
               An optimized profile featuring accurate NAP (Name, Address, Phone), customer reviews, and updated business details 
               ensures you capture high-intent, local leads that are already looking to buy. 
-              With a perfected GBP, customers can easily find directions, call you, or visit your website instantly.
             </p>
           </div>
 
@@ -67,3 +111,7 @@ export default function GMB() {
     </section>
   )
 }
+
+
+
+
