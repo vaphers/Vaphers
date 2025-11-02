@@ -49,9 +49,9 @@ const webDevelopmentServices = [
 
 const creativeServices = [
   { name: 'Google Ads Management', description: 'Create memorable brand identities', href: '/ppc-marketing/google-ads-management-services', icon: CameraIcon },
-  { name: 'Meta Ads', description: 'Professional video content creation', href: '/meta-ads-management-services', icon: PlayCircleIcon },
-  { name: 'Search Engine Marketing', description: 'Capture your brand in the best light', href: '/search-engine-marketing ', icon: CameraIcon },
-  { name: 'Lead Generation Service', description: 'Visual designs that communicate', href: '/lead-generation-services', icon: SquaresPlusIcon },
+  { name: 'Meta Ads', description: 'Professional video content creation', href: '/ppc-marketing//meta-ads-management-services', icon: PlayCircleIcon },
+  { name: 'Search Engine Marketing', description: 'Capture your brand in the best light', href: '/ppc-marketing//search-engine-marketing ', icon: CameraIcon },
+  { name: 'Lead Generation Service', description: 'Visual designs that communicate', href: '/ppc-marketing//lead-generation-services', icon: SquaresPlusIcon },
 ]
 
 const featuredServices = [
@@ -185,7 +185,7 @@ export default function NavBar() {
 
                           {/* PPC Marketing */}
                           <div>
-                            <Link href="/ppc-marketing-services" onClick={() => close()}>
+                            <Link href="/ppc-marketing" onClick={() => close()}>
                               <h4 className="text-lg font-semibold text-gray-900 mb-4 border-b border-gray-200 pb-2 hover:text-blue-700">
                                 Pay Per Click (PPC) Marketing
                               </h4>
