@@ -10,7 +10,7 @@ import { Mail, Phone, MapPin, Globe, Twitter, Instagram, Dribbble, Linkedin } fr
 
 const ContactForm: React.FC = () => {
   return (
-    <div className=" w-full relative">
+    <div className=" w-full relative ">
       {/* Dashed Grid Background */}
       <div
         className="absolute inset-0 z-0"
@@ -165,7 +165,7 @@ const ContactForm: React.FC = () => {
                   <label className="font-medium mb-2 block">Message</label>
                   <Textarea placeholder="Your message" rows={4} />
                 </div>
-                <div className="md:col-span-2">
+                <div className="md:col-span-2 ">
                   <Button className="w-full mt-2 rounded-lg px-6 bg-blue-600">
                     Send Message
                   </Button>

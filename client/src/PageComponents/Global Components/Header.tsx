@@ -159,8 +159,11 @@ export default function NavBar() {
 
                           {/* Web Development Column */}
                           <div>
-                            <h4 className="text-lg font-semibold text-gray-900 mb-4 border-b border-gray-200 pb-2">Web Development</h4>
-                            <div className="space-y-3">
+                            <Link href="/website-development-services" onClick={() => close()}>
+                              <h4 className="text-lg font-semibold text-gray-900 mb-4 border-b border-gray-200 pb-2 hover:text-blue-700">
+                                Website Development
+                              </h4>
+                            </Link>                            <div className="space-y-3">
                               {webDevelopmentServices.map((item) => (
                                 <div key={item.name} className="group">
                                   <a href={item.href} onClick={() => close()} className="flex items-start space-x-3 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-200">
