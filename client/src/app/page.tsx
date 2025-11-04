@@ -267,8 +267,9 @@ export default function Page() {
         <Banner/>
         <Testimonial/>
         <DMvalue/>
+
+        {/* Filler & Services */}
         <div className="min-h-screen w-full relative">
-          {/* Dashed Grid */}
           <div
             className="absolute inset-0 z-0"
             style={{
@@ -314,20 +315,21 @@ export default function Page() {
               WebkitMaskComposite: "source-in",
             }}
           />
-          
-          {/* Your Content/Components */}
           <div className="relative z-10">
             <HomeFiller />
             <Services featuresList={featuresList} />
           </div>
         </div>
+
         <div className='hidden lg:block'>
           <BannerMarqee/>
         </div>
+
         <WhyUs/>
         <Invest/>
+
+        {/* Paid Ads % Faq & Stats */}
         <div className="min-h-screen w-full relative">
-          {/* Dashed Grid Background */}
           <div
             className="absolute inset-0 z-0"
             style={{
@@ -374,13 +376,13 @@ export default function Page() {
             }}
           />
           
-          {/* Content */}
           <div className="relative z-10">
             <HomePaidAds/>
             <Stats />
             <Faq />
           </div>
         </div>
+
         <ContactForm />
       </main>
     </>
