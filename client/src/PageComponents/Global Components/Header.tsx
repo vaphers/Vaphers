@@ -40,7 +40,7 @@ const digitalMarketingServices = [
 ]
 
 const webDevelopmentServices = [
-  { name: 'Custom Websites', description: 'Tailored web solutions for your business', href: '#', icon: GlobeAltIcon },
+  { name: 'Next JS Website', description: 'Tailored web solutions for your business', href: '/website-development-services/nextjs-website-development', icon: GlobeAltIcon },
   { name: 'E-commerce Development', description: 'Build powerful online stores', href: '#', icon: ShoppingCartIcon },
   { name: 'Mobile App Development', description: 'Native and cross-platform apps', href: '#', icon: DevicePhoneMobileIcon },
   { name: 'Landing Page Development', description: 'Track and measure your success', href: '#', icon: PresentationChartBarIcon },
