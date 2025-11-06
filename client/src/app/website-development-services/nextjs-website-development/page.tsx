@@ -13,6 +13,64 @@ import Testimonial from '@/PageComponents/Global Components/Testimonial'
 import ReactVsNext from '@/PageComponents/NextJS Page Components/NextvsReact'
 import NextServices from '@/PageComponents/NextJS Page Components/Service'
 import NextVsWpVsShopify from '@/PageComponents/NextJS Page Components/NextvsWordpressvsShopify'
+import NextJsProcess from '@/PageComponents/NextJS Page Components/Process'
+import Stats from '@/PageComponents/Global Components/Stats'
+import NextJsFaq from '@/PageComponents/NextJS Page Components/FAQ'
+
+type FaqItem = { question: string; answer: string }
+
+const nextJsFaqData: FaqItem[] = [
+  {
+    question: 'What is Next.js and why should my business use it?',
+    answer:
+      'Next.js is a modern way to build fast, Google‑friendly websites that look great on mobile and desktop. It helps you get better SEO, quicker load times, and pages that convert more visitors into leads.',
+  },
+  {
+    question: 'Is Next.js good for SEO?',
+    answer:
+      'Yes. Next.js creates clean, search‑friendly pages that load quickly, which helps rankings and clicks from Google. It also supports structured data and best practices by default.',
+  },
+  {
+    question: 'Can I easily update my Next.js website?',
+    answer:
+      'Absolutely. You’ll get reusable sections and simple content workflows, so adding pages, blogs, or landing pages is easy without breaking your site’s speed.',
+  },
+  {
+    question: 'How fast can a Next.js site launch?',
+    answer:
+      'Most sites launch faster than traditional builds because many performance and SEO features are built‑in. Timelines depend on pages, design, and content readiness.',
+  },
+  {
+    question: 'Is Next.js only for big companies?',
+    answer:
+      'No. It’s perfect for startups and local businesses too. You get enterprise‑grade speed and SEO without the complexity—great value for growth-focused teams.',
+  },
+  {
+    question: 'What about ecommerce—does Next.js work for stores?',
+    answer:
+      'Yes. Next.js powers high‑speed product pages and supports popular backends and checkouts. It’s ideal if you want a custom storefront with strong SEO.',
+  },
+  {
+    question: 'How does Next.js compare to WordPress or Shopify?',
+    answer:
+      'Next.js gives you more speed and design control for lead generation. WordPress is great for blogs; Shopify is great for built‑in ecommerce. Many brands combine them with Next.js for the best results.',
+  },
+  {
+    question: 'What does your Next.js service include?',
+    answer:
+      'Strategy, design, development, SEO setup, analytics, form integrations, and launch support. You’ll get a fast, secure site ready to rank and convert.',
+  },
+  {
+    question: 'Is this affordable for small businesses?',
+    answer:
+      'Yes. Packages are tailored to your goals and budget, focusing on high‑impact pages first. Ask about affordable next js development to get a clear, fixed quote.',
+  },
+  {
+    question: 'How do we get started?',
+    answer:
+      'Book a quick call. Share your goals and pages needed, and you’ll get a simple plan, timeline, and pricing—no tech talk, just outcomes.',
+  },
+]
 
 const portfolioImages = [
   {
@@ -46,8 +104,6 @@ const portfolioImages = [
     title: 'Fitness Landing Page',
   },
 ];
-
-
 
 export default function Page() {
   const lenisRef = useRef<Lenis | null>(null)
@@ -90,22 +146,43 @@ export default function Page() {
     <>
       <div>
         <SubHero
-        heading="Build a Website That Performs and Converts"
-        subtext="Transform your online presence with a modern, responsive, and high-performing website. From custom designs to lightning-fast code, we deliver websites that look amazing and drive real business results."
-        badgeText="Start Your Project"
+          heading="Build a Website That Performs and Converts"
+          subtext="Transform your online presence with a modern, responsive, and high-performing website. From custom designs to lightning-fast code, we deliver websites that look amazing and drive real business results."
+          badgeText="Start Your Project"
         />
-        <WhatsNextJS    />
+        <WhatsNextJS />
         <PortfolioMarquee images={portfolioImages} pxPerSec={140} />
-        <Performance/>
-        <NextJsComapny/>
-        <Banner/>
-        <Testimonial/>
-        <ReactVsNext/>
-        <NextServices/>
-        <NextVsWpVsShopify/>
+        <Performance />
+        <NextJsComapny />
+        <Banner />
+        <Testimonial />
+        <ReactVsNext />
+        <NextServices />
+        <NextVsWpVsShopify />
+        <NextJsProcess />
+        <Stats />
+        <NextJsFaq />
         <ContactForm />
       </div>
+
+      {/* JSON-LD FAQ Schema (kept in sync with nextJsFaqData above) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": nextJsFaqData.map(({ question, answer }) => ({
+              "@type": "Question",
+              "name": question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": answer,
+              },
+            })),
+          }),
+        }}
+      />
     </>
   )
 }
-
