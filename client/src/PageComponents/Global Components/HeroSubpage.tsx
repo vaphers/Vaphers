@@ -20,12 +20,12 @@ function SubHero({
   return (
     <div className="relative mx-auto mb-10 flex max-w-full flex-col items-center justify-center bg-gradient-to-b from-[#01091c] via-[#0a244d] to-[#0f3064] lg:-mt-28 lg:pt-40 lg:pb-15 lg:mx-3 lg:rounded-4xl">
       <div className="mt-5"></div>
-      <div className="border border-indigo-600 p-1 w-75 mx-auto rounded-full flex items-center justify-between mb-7">
-        <span className="font-inter text-base font-medium text-gray-300 ml-3">
+      <div className="border border-indigo-600 p-1 w-75 mx-auto rounded-full flex items-center justify-between mb-7 w-fit">
+        <span className="font-inter text-base font-medium text-gray-300 ml-3 mr-3">
           {badgeText}
         </span>
         <a
-          href="#"
+          href="/contact"
           className="w-8 h-8 rounded-full flex justify-center items-center bg-indigo-600"
         >
           <svg

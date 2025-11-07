@@ -125,7 +125,7 @@ const AiSection: React.FC = () => {
             <div className="group relative rounded-[2rem] p-4 text-gray-700 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden border border-[#70a597] bg-white">
               <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0">
                 <Image
-                  src="/chat-gpt-logo.png"
+                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047474/chat-gpt-logo_qf83fb.png"
                   alt="ChatGPT bg"
                   fill
                   className="object-contain grayscale opacity-10"
@@ -147,7 +147,7 @@ const AiSection: React.FC = () => {
             <div className="group relative rounded-[2rem] p-4 text-gray-700 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden border border-[#4281f4] bg-white">
               <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0">
                 <Image
-                  src="/gemini-logo.png"
+                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047475/gemini-logo_yes1g8.png"
                   alt="Gemini bg"
                   fill
                   className="object-contain opacity-25"
@@ -169,7 +169,7 @@ const AiSection: React.FC = () => {
             <div className="group relative rounded-[2rem] p-4 text-gray-700 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden border border-[#21b2c7] bg-white">
               <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0">
                 <Image
-                  src="/perplexity-logo.png"
+                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047484/perplexity-logo_zqmnzf.png"
                   alt="Perplexity bg"
                   fill
                   className="object-contain opacity-25"

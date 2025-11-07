@@ -12,6 +12,9 @@ import Banner from '@/PageComponents/Global Components/Banner'
 import Testimonial from '@/PageComponents/Global Components/Testimonial'
 import EcommerceVsNon from '@/PageComponents/Ecommerce Website Componenets/Comparison'
 import EcommerceServices from '@/PageComponents/Ecommerce Website Componenets/Services'
+import EcommerceProcess from '@/PageComponents/Ecommerce Website Componenets/Process'
+import Stats from '@/PageComponents/Global Components/Stats'
+import EcommerceDevFaq from '@/PageComponents/Ecommerce Website Componenets/FAQ'
 
 const portfolioImages = [
   {
@@ -44,7 +47,7 @@ const portfolioImages = [
     alt: 'Website Design 5',
     title: 'Fitness Landing Page',
   },
-];
+]
 
 export default function Page() {
   const lenisRef = useRef<Lenis | null>(null)
@@ -83,6 +86,45 @@ export default function Page() {
     }
   }, [lenisConfig])
 
+  // Sample FAQ items (replace this array with your actual FAQ data used in EcommerceDevFaq)
+  const faqItems = [
+    {
+      question: 'Why invest in a custom eCommerce website?',
+      answer:
+        'A custom eCommerce site maximizes your brand impact, streamlines customer experience, and gives you control over design, features, and performance.',
+    },
+    {
+      question: 'How do you build eCommerce sites for better SEO?',
+      answer:
+        'We use clean code, mobile-first layouts, fast page loads, and SEO best practices like schema markup and keyword optimization.',
+    },
+    // Add all your FAQ items here matching EcommerceDevFaq questions and answers
+  ]
+
+  // Generate JSON-LD for FAQ schema
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map(({ question, answer }) => ({
+      "@type": "Question",
+      "name": question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": answer,
+      },
+    })),
+  }
+
+  useEffect(() => {
+    const script = document.createElement('script')
+    script.type = 'application/ld+json'
+    script.innerHTML = JSON.stringify(faqSchema)
+    document.head.appendChild(script)
+    return () => {
+      document.head.removeChild(script)
+    }
+  }, [faqSchema])
+
   return (
     <>
       <div>
@@ -91,14 +133,17 @@ export default function Page() {
           subtext="Transform your online presence with a modern, responsive, and high-performing website. From custom designs to lightning-fast code, we deliver websites that look amazing and drive real business results."
           badgeText="Start Your Project"
         />
-        <EcommercePitch/>
+        <EcommercePitch />
         <PortfolioMarquee images={portfolioImages} pxPerSec={140} />
-        <WhyOnline/>
-        <ProfessionalDesigners/>
-        <Banner/>
-        <Testimonial/>
-        <EcommerceVsNon/>
-        <EcommerceServices/>
+        <WhyOnline />
+        <ProfessionalDesigners />
+        <Banner />
+        <Testimonial />
+        <EcommerceVsNon />
+        <EcommerceServices />
+        <EcommerceProcess />
+        <Stats />
+        <EcommerceDevFaq />
         <ContactForm />
       </div>
     </>

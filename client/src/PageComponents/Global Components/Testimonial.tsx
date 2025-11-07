@@ -146,7 +146,7 @@ const TestimonialList = () =>
   testimonials.map((testimonial) => (
     <div
       key={testimonial.id}
-      className="min-w-96 max-w-sm bg-accent rounded-xl p-6"
+      className="min-w-[260px] max-w-xs bg-accent rounded-xl p-4 sm:p-6 m-2"
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
@@ -161,7 +161,7 @@ const TestimonialList = () =>
           </div>
         </div>
       </div>
-      <p className="mt-5 text-[17px]">{testimonial.testimonial}</p>
+      <p className="mt-5 text-sm sm:text-base leading-relaxed">{testimonial.testimonial}</p>
     </div>
   ));
 
