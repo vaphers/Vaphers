@@ -11,6 +11,7 @@ import ProfessionalDesigners from '@/PageComponents/Ecommerce Website Componenet
 import Banner from '@/PageComponents/Global Components/Banner'
 import Testimonial from '@/PageComponents/Global Components/Testimonial'
 import EcommerceVsNon from '@/PageComponents/Ecommerce Website Componenets/Comparison'
+import EcommerceServices from '@/PageComponents/Ecommerce Website Componenets/Services'
 
 const portfolioImages = [
   {
@@ -97,6 +98,7 @@ export default function Page() {
         <Banner/>
         <Testimonial/>
         <EcommerceVsNon/>
+        <EcommerceServices/>
         <ContactForm />
       </div>
     </>
