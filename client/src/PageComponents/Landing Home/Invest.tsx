@@ -183,6 +183,8 @@
 // }
 
 // export default Invest
+
+
 'use client'
 
 import React, { useRef, useState, useEffect } from 'react'
@@ -252,9 +254,7 @@ const Invest: React.FC = () => {
             <div>
               <h3 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-start font-montserrat text-gray-700 mb-3 sm:mb-4 lg:mb-5 bungee-inline-regular break-words">
                 Why You Need{' '}
-                <span className="bg-blue-600 bg-clip-text text-transparent ">
-                  Affordable SEO Services
-                </span>
+                <span className="bg-blue-600 bg-clip-text text-transparent ">Affordable SEO Services</span>
               </h3>
               <p className="text-sm sm:text-base lg:text-lg text-center lg:text-start text-blue-600 font-medium break-words">
                 Build Your Online Presence Without Breaking Your Budget
@@ -281,23 +281,22 @@ const Invest: React.FC = () => {
             style={isMobile ? { opacity: 1 } : { x: xRight, opacity }}
             className="w-full lg:w-1/2 flex justify-center relative"
           >
-            <div className="relative w-full max-w-[280px] sm:max-w-sm lg:max-w-lg overflow-hidden"> {/* Tighter max width on mobile */}
+            <div className="relative w-full max-w-[280px] sm:max-w-sm lg:max-w-lg overflow-hidden">
               <Image
                 src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761047473/agency-guy_nspqsz.png"
                 alt="Digital marketing analytics dashboard showing online marketing performance"
                 width={600}
                 height={600}
-                sizes="(max-width: 640px) 280px, (max-width: 768px) 448px, 600px" 
+                sizes="(max-width: 640px) 280px, (max-width: 768px) 448px, 600px"
                 className="w-full h-auto object-contain"
                 priority
               />
 
               <div className="absolute inset-0">
-                {/* Google */}
                 <motion.div
                   animate={isMobile ? {} : { x: [0, 10, 0], y: [0, 10, 0] }}
                   transition={isMobile ? {} : { duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                  className="absolute top-1 left-1 sm:top-4 sm:left-4 lg:top-8 lg:left-4 p-1 sm:p-2 lg:p-3"
+                  className="absolute top-1 left-1 sm:top-4 sm:left-2 lg:top-8 lg:left-4 p-1 sm:p-2 lg:p-3"
                 >
                   <Image
                     src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_80/v1761047482/google_jze9mq.png"
@@ -309,12 +308,11 @@ const Invest: React.FC = () => {
                   />
                 </motion.div>
 
-                {/* Rank */}
                 <motion.div
                   custom={1}
                   variants={floatingVariants}
-                  animate={isMobile ? undefined : 'animate'}
-                  className="absolute -top-1 right-1 sm:top-0 sm:right-4 lg:top-0 lg:right-4"
+                  animate={isMobile ? {} : 'animate'}
+                  className="absolute -top-1 right-1 sm:top-0 sm:right-2 lg:top-0 lg:right-4"
                 >
                   <Image
                     src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_144/v1761047484/seo-rank_l7ekja.png"
@@ -326,11 +324,10 @@ const Invest: React.FC = () => {
                   />
                 </motion.div>
 
-                {/* Competitor */}
                 <motion.div
                   custom={2}
                   variants={floatingVariants}
-                  animate={isMobile ? undefined : 'animate'}
+                  animate={isMobile ? {} : 'animate'}
                   className="absolute bottom-2 left-1 sm:bottom-8 sm:left-4 lg:bottom-8 lg:left-4"
                 >
                   <Image
