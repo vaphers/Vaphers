@@ -34,7 +34,7 @@ import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/
 const digitalMarketingServices = [
   { name: 'AI SEO', description: 'Drive targeted traffic with ads', href: '/seo-services/ai-seo-services', icon: ChartPieIcon },
   { name: 'Local SEO', description: 'Boost your search engine rankings', href: '/seo-services/local-seo-services', icon: MagnifyingGlassIcon },
-  { name: 'Ecommerce SEO', description: 'Create compelling content strategies', href: '/seo-services/ecommerce-seo-services', icon: PencilSquareIcon },
+  { name: 'Ecommerce SEO', description: 'Create compelling content strategies', href: '/seo-services/ecommerce-seo-services', icon: ShoppingCartIcon },
   { name: 'Technical SEO', description: 'Engage your audience on social platforms', href: '/seo-services/technical-seo-services', icon: CursorArrowRaysIcon },
   { name: 'SEO Audits', description: 'Reach customers directly in their inbox', href: '/seo-services/seo-audit-services', icon: MegaphoneIcon },
 ]
@@ -42,9 +42,8 @@ const digitalMarketingServices = [
 const webDevelopmentServices = [
   { name: 'Next JS Website', description: 'Tailored web solutions for your business', href: '/website-development-services/nextjs-website-development', icon: GlobeAltIcon },
   { name: 'E-commerce Development', description: 'Build powerful online stores', href: "/website-development-services/ecommerce-development", icon: ShoppingCartIcon },
-  { name: 'Mobile App Development', description: 'Native and cross-platform apps', href: '#', icon: DevicePhoneMobileIcon },
-  { name: 'Landing Page Development', description: 'Track and measure your success', href: '#', icon: PresentationChartBarIcon },
-  { name: 'Website Maintenance', description: 'Protect your digital assets', href: '#', icon: FingerPrintIcon },
+  { name: 'WordPress Website', description: 'Native and cross-platform apps', href: '/website-development-services/wordpress-website-development', icon: DevicePhoneMobileIcon },
+  { name: 'Shopify Website', description: 'Track and measure your success', href: '/website-development-services/shopify-website-development', icon: PresentationChartBarIcon },
 ]
 
 const creativeServices = [
@@ -267,7 +266,7 @@ export default function NavBar() {
             )}
           </Popover>
 
-          <Link href="#" className="text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
+          <Link href="/pricing" className="text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
             Pricing
           </Link>
           <Link href="/blogs" className="text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
@@ -276,7 +275,7 @@ export default function NavBar() {
           <Link href="/about-us" className="text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
             About Us
           </Link>
-          <Link href="/Contact-Us" className="text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
+          <Link href="/contact" className="text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
             Contact Us
           </Link>
         </PopoverGroup>
@@ -380,6 +379,13 @@ export default function NavBar() {
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
                 >
                   Blogs
+                </Link>
+                <Link
+                  href="/pricing"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                >
+                  Pricing
                 </Link>
                 <Link
                   href="/about-us"
