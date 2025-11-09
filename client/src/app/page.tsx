@@ -23,6 +23,8 @@ import { PortfolioMarquee } from '@/PageComponents/Global Components/ImageMarqee
 import { Search, Target, Facebook, Globe, BrainCircuit, Smartphone } from 'lucide-react'
 import HomeFiller from '@/PageComponents/Landing Home/FillerSection'
 import HomePaidAds from '@/PageComponents/Landing Home/PaidAds'
+import NavBar from '@/PageComponents/Global Components/Header'
+import Footer from '@/PageComponents/Global Components/Footer'
 
 const featuresList = [
   {
@@ -96,25 +98,25 @@ const portfolioImages = [
   },
   {
     id: '2',
-    src: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_60,c_limit/v1762166006/Interio_gqpsbc.png',
+    src: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_60,c_limit,w_1200/v1762166006/Interio_gqpsbc.png',
     alt: 'Website Design 2',
     title: 'SaaS Dashboard',
   },
   {
     id: '3',
-    src: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_60,c_limit/v1762166003/Trivaa_jvqmzk.png',
+    src: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_60,c_limit,w_1200/v1762166003/Trivaa_jvqmzk.png',
     alt: 'Website Design 3',
     title: 'Corporate Website',
   },
   {
     id: '4',
-    src: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_60,c_limit/v1762166001/Verzon_owqvnt.png',
+    src: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_60,c_limit,w_1200/v1762166001/Verzon_owqvnt.png',
     alt: 'Website Design 4',
     title: 'Mobile App UI',
   },
   {
     id: '5',
-    src: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_60,c_limit/v1762165991/Dravii_Lifestyles_1_jcavgn.png',
+    src: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_60,c_limit,w_1200/v1762165991/Dravii_Lifestyles_1_jcavgn.png',
     alt: 'Website Design 5',
     title: 'Fitness Landing Page',
   },
@@ -257,6 +259,7 @@ export default function Page() {
       />
 
       <main>
+        <NavBar/>
         <Hero />
         <Pitch />
         <Result />
@@ -382,6 +385,7 @@ export default function Page() {
         </div>
 
         <ContactForm />
+        <Footer/>
       </main>
     </>
   )

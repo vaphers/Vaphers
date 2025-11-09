@@ -1,3 +1,5 @@
+import Footer from '@/PageComponents/Global Components/Footer'
+import NavBar from '@/PageComponents/Global Components/Header'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -15,5 +17,9 @@ export default function ConatactLayout({
 }: {
   children: React.ReactNode
 }) {
-  return <>{children}</>
+  return <>
+  <NavBar/>
+  {children}
+  <Footer/>
+  </>
 }

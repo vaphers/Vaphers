@@ -98,6 +98,7 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  
   return (
     <html
       lang="en"
@@ -109,11 +110,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
       </head>
       <body>
-        <Header />
         {children}
         <Toaster richColors position="top-right" closeButton duration={5000} />
         <SpeedInsights />
-        <Footer />
         <GoogleAnalytics gaId="G-0CXH1J99VZ" />
       </body>
     </html>
