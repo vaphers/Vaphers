@@ -95,6 +95,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
         {/* Google Analytics Tag */}
         <Script
+          async
           src="https://www.googletagmanager.com/gtag/js?id=G-0CXH1J99VZ"
           strategy="afterInteractive"
         />
@@ -107,7 +108,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           `}
         </Script>
       </head>
-
       <body>
         <Header/>
         {children}
