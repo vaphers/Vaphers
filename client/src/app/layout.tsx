@@ -91,9 +91,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${bungeeInline.variable} ${bungeeShade.variable} ${montserrat.variable} ${spectral.variable}`}
     >
       <head>
-        <link rel="preconnect" href="https://res.cloudinary.com" />
-        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
-        {/* Google Analytics Tag */}
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-0CXH1J99VZ"
@@ -107,6 +104,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             gtag('config', 'G-0CXH1J99VZ');
           `}
         </Script>
+        <link rel="preconnect" href="https://res.cloudinary.com" />
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
       </head>
       <body>
         <Header/>
