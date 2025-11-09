@@ -4,6 +4,7 @@ import Header from '@/PageComponents/Global Components/Header'
 import Footer from '@/PageComponents/Global Components/Footer'
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Bungee_Inline, Bungee_Shade, Montserrat, Spectral } from 'next/font/google'
+import Script from 'next/script'; 
 
 const bungeeInline = Bungee_Inline({
   weight: '400',
@@ -80,9 +81,7 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'your-google-verification-code',
-  },
+
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -94,7 +93,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+        {/* Google Analytics Tag */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-0CXH1J99VZ"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-0CXH1J99VZ');
+          `}
+        </Script>
       </head>
+
       <body>
         <Header/>
         {children}
