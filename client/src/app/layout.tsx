@@ -222,6 +222,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${bungeeInline.variable} ${bungeeShade.variable} ${montserrat.variable} ${spectral.variable}`}
     >
       <head>
+        <meta name="google-site-verification" content="_jKz-Nn1SbmybTMfTSQNuWSiY79pDFJTVfNEqZKc33w" />
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
       </head>
