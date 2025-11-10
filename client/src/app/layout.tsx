@@ -2,7 +2,7 @@ import './globals.css'
 import Header from '@/PageComponents/Global Components/Header'
 import Footer from '@/PageComponents/Global Components/Footer'
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { Bungee_Inline, Bungee_Shade } from 'next/font/google'
+import { Bungee_Inline } from 'next/font/google'
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Toaster } from '@/components/ui/sonner' 
 
@@ -13,12 +13,7 @@ const bungeeInline = Bungee_Inline({
   variable: '--font-bungee-inline',
 })
 
-const bungeeShade = Bungee_Shade({
-  weight: '400',
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-bungee-shade',
-})
+
 
 
 export const metadata = {
@@ -89,7 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${bungeeInline.variable} ${bungeeShade.variable}}`}
+      className={`${bungeeInline.variable}}`}
     >
       <head>
         <meta name="google-site-verification" content="_jKz-Nn1SbmybTMfTSQNuWSiY79pDFJTVfNEqZKc33w" />

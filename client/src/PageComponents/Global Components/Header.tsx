@@ -30,6 +30,7 @@ import {
   ShoppingCartIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+import Image from 'next/image'
 
 const digitalMarketingServices = [
   { name: 'AI SEO', description: 'Drive targeted traffic with ads', href: '/seo-services/ai-seo-services', icon: ChartPieIcon },
@@ -80,11 +81,14 @@ export default function NavBar() {
   return (
     <header className="sm:p-6 lg:sticky lg:top-0 z-50">
       <nav aria-label="Global" className="mx-auto sm:bg-white lg:border border-blue-500 sm:rounded-4xl flex max-w-6xl items-center justify-between p-4 lg:px-8">
-        <div className="flex lg:flex-1">
-          <Link href="/" className="flex -m-1.5 p-1.5 space-x-0">
-            <p className="text-blue-600 text-4xl font-extrabold transition duration-300 bungee-shade cursor-pointer">
+        <div className="flex lg:flex-1 ">
+          {/* <Link href="/" className="flex -m-1.5 p-1.5 space-x-0">
+            <p className="text-blue-600 text-4xl font-extrabold transition bungee-shade duration-300 cursor-pointer">
               V<span className="text-gray-700 text-3xl -mb-4 font-extrabold transition duration-300  cursor-pointer">aphers</span>
             </p>
+          </Link> */}
+          <Link href="/" className="flex -m-1.5 p-1.5 items-center">
+            <Image src="/logo.svg" alt="Vaphers" width={160} height={40} priority />
           </Link>
         </div>
 

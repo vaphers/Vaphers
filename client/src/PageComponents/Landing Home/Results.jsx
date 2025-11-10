@@ -79,11 +79,11 @@ const CenterImage = ({ progress }) => {
         filter: "brightness(1.1)",
       }}
     >
-      <div className="text-center text-blue-600 px-8 font-['Bungee_Shade']">
-        <h4 className="text-5xl sm:text-6xl md:text-9xl font-black leading-none tracking-tight">
+      <div className="text-center text-blue-600 px-8 bungee-inline-regular">
+        <h4 className="text-5xl sm:text-6xl md:text-9xl leading-none tracking-tight">
           We Give
         </h4>
-        <h5 className="text-5xl sm:text-6xl md:text-9xl font-black leading-none tracking-tight">
+        <h5 className="text-5xl sm:text-6xl md:text-9xl leading-none tracking-tight">
           Results!
         </h5>
       </div>
