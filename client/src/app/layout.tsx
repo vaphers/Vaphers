@@ -1,6 +1,4 @@
 import './globals.css'
-import Header from '@/PageComponents/Global Components/Header'
-import Footer from '@/PageComponents/Global Components/Footer'
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Bungee_Inline } from 'next/font/google'
 import { GoogleAnalytics } from '@next/third-parties/google';
@@ -84,7 +82,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${bungeeInline.variable}}`}
+      className={`${bungeeInline.variable}`}
     >
       <head>
         <meta name="google-site-verification" content="_jKz-Nn1SbmybTMfTSQNuWSiY79pDFJTVfNEqZKc33w" />
