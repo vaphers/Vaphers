@@ -12,8 +12,6 @@ const bungeeInline = Bungee_Inline({
 })
 
 
-
-
 export const metadata = {
   title: {
     default: 'Affordable Digital Marketing Agency | Vaphers - SEO, PPC & Web Development',

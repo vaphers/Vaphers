@@ -92,7 +92,7 @@ const featuresList = [
 const portfolioImages = [
   {
     id: '1',
-    src: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_60,c_limit/v1762166010/FixItNow_fbpzfx.png',
+    src: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_60,c_limit,w_1200/v1762166010/FixItNow_fbpzfx.png',
     alt: 'Website Design 1',
     title: 'E-Commerce Platform',
   },
