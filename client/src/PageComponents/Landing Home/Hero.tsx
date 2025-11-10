@@ -2,31 +2,8 @@
 
 // import { motion } from "framer-motion";
 // import Image from "next/image";
-// import { useState, useEffect } from "react";
-
-// // hook for mobile detection
-// const useIsMobile = () => {
-//   const [isMobile, setIsMobile] = useState(false);
-
-//   useEffect(() => {
-//     const mql = window.matchMedia("(max-width: 768px)");
-    
-//     const handleChange = () => {
-//       setIsMobile(mql.matches);
-//     };
-    
-//     setIsMobile(mql.matches);
-//     mql.addEventListener("change", handleChange);
-    
-//     return () => mql.removeEventListener("change", handleChange);
-//   }, []);
-
-//   return isMobile;
-// };
 
 // function Hero() {
-//   const isMobile = useIsMobile();
-
 //   return (
 //     <div className="relative mx-auto mb-10 flex max-w-full flex-col items-center justify-center bg-gradient-to-b from-[#01091c] via-[#0a244d] to-[#0f3064] lg:-mt-28 lg:pt-40 lg:mx-3 lg:rounded-4xl">
 //       <div className="mt-5"></div>
@@ -57,10 +34,14 @@
 //       </div>
 //       <div className="px-4 pb-10">
 //         <h1 className="relative z-10 mx-auto max-w-4xl text-center text-4xl font-bold text-slate-200 md:text-4xl lg:text-7xl dark:text-slate-300 bungee-inline-regular">
-//           {isMobile ? (
-//             "Digital Marketing That Transforms Your Business"
-//           ) : (
-//             "Digital Marketing That Transforms Your Business"
+//           {/* Mobile: Static text for instant load */}
+//           <span className="md:hidden">
+//             Digital Marketing That Transforms Your Business
+//           </span>
+          
+//           {/* Desktop: Animated words (same as before) */}
+//           <span className="hidden md:inline">
+//             {"Digital Marketing That Transforms Your Business"
 //               .split(" ")
 //               .map((word, index) => (
 //                 <motion.span
@@ -76,91 +57,89 @@
 //                 >
 //                   {word}
 //                 </motion.span>
-//               ))
-//           )}
+//               ))}
+//           </span>
 //         </h1>
         
-//         {isMobile ? (
-//           // Static content on mobile
-//           <>
-//             <p className="relative z-10 mx-auto max-w-xl py-4 text-center text-lg font-normal text-neutral-400 dark:text-neutral-400">
-//               With AI, you can launch your website in hours, not days. Try our best
-//               in class, state of the art, cutting edge AI tools to get your website
-//               up.
-//             </p>
-            
-//             <div className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4">
-//               <button className="w-60 transform rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-800 dark:bg-blue-500 dark:text-black dark:hover:bg-gray-200">
-//                 Explore Now
-//               </button>
-//               <button className="w-60 transform rounded-lg border border-blue-600 bg-white px-6 py-2 font-medium text-blue-600 transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-100 dark:border-blue-600 dark:bg-black dark:text-white dark:hover:bg-gray-900">
-//                 Contact Support
-//               </button>
-//             </div>
-            
-//             <div className="relative z-10 mt-20 rounded-3xl border border-neutral-300 bg-neutral-200 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900 hidden ">
-//               <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
-//                 <Image
-//                   src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_60,c_limit,w_800/v1761213572/hero_landing_rhywrd.jpg"
-//                   alt="Landing page preview"
-//                   className="aspect-[16/9] h-auto w-full object-cover"
-//                   width={800}
-//                   height={450}
-//                   sizes="(max-width: 640px) 100vw, (max-width: 768px) 640px, 800px"
-//                   priority
-//                   loading="eager"
-//                 />
-//               </div>
-//             </div>
-//           </>
-//         ) : (
-//           // Animated content on desktop
-//           <>
-//             <motion.p
-//               initial={{ opacity: 0 }}
-//               animate={{ opacity: 1 }}
-//               transition={{ duration: 0.3, delay: 0.8 }}
-//               className="relative z-10 mx-auto max-w-xl py-4 text-center text-lg font-normal text-neutral-400 dark:text-neutral-400"
-//             >
-//               With AI, you can launch your website in hours, not days. Try our best
-//               in class, state of the art, cutting edge AI tools to get your website
-//               up.
-//             </motion.p>
-            
-//             <motion.div
-//               initial={{ opacity: 0 }}
-//               animate={{ opacity: 1 }}
-//               transition={{ duration: 0.3, delay: 1 }}
-//               className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4"
-//             >
-//               <button className="w-60 transform rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-800 dark:bg-blue-500 dark:text-black dark:hover:bg-gray-200">
-//                 Explore Now
-//               </button>
-//               <button className="w-60 transform rounded-lg border border-blue-600 bg-white px-6 py-2 font-medium text-blue-600 transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-100 dark:border-blue-600 dark:bg-black dark:text-white dark:hover:bg-gray-900">
-//                 Contact Support
-//               </button>
-//             </motion.div>
-            
-//             <motion.div
-//               initial={{ opacity: 0, y: 10 }}
-//               animate={{ opacity: 1, y: 0 }}
-//               transition={{ duration: 0.3, delay: 1.2 }}
-//               className="relative z-10 mt-20 rounded-3xl border border-neutral-300 bg-neutral-200 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900"
-//             >
-//               <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
-//                 <Image
-//                   src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_80,c_limit,w_1200/v1761213572/hero_landing_rhywrd.jpg"
-//                   alt="Landing page preview"
-//                   className="aspect-[16/9] h-auto w-full object-cover"
-//                   width={1200}
-//                   height={675}
-//                   sizes="(max-width: 768px) 100vw, 1200px"
-//                   priority
-//                 />
-//               </div>
-//             </motion.div>
-//           </>
-//         )}
+//         {/* Mobile: Static paragraph */}
+//         <p className="relative z-10 mx-auto max-w-xl py-4 text-center text-lg font-normal text-neutral-400 dark:text-neutral-400 md:hidden">
+//           With AI, you can launch your website in hours, not days. Try our best
+//           in class, state of the art, cutting edge AI tools to get your website
+//           up.
+//         </p>
+        
+//         {/* Desktop: Animated paragraph (same as before) */}
+//         <motion.p
+//           initial={{ opacity: 0 }}
+//           animate={{ opacity: 1 }}
+//           transition={{ duration: 0.3, delay: 0.8 }}
+//           className="relative z-10 mx-auto max-w-xl py-4 text-center text-lg font-normal text-neutral-400 dark:text-neutral-400 hidden md:block"
+//         >
+//           With AI, you can launch your website in hours, not days. Try our best
+//           in class, state of the art, cutting edge AI tools to get your website
+//           up.
+//         </motion.p>
+        
+//         {/* Mobile: Static buttons */}
+//         <div className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4 md:hidden">
+//           <button className="w-60 transform rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-800 dark:bg-blue-500 dark:text-black dark:hover:bg-gray-200">
+//             Explore Now
+//           </button>
+//           <button className="w-60 transform rounded-lg border border-blue-600 bg-white px-6 py-2 font-medium text-blue-600 transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-100 dark:border-blue-600 dark:bg-black dark:text-white dark:hover:bg-gray-900">
+//             Contact Support
+//           </button>
+//         </div>
+        
+//         {/* Desktop: Animated buttons (same as before) */}
+//         <motion.div
+//           initial={{ opacity: 0 }}
+//           animate={{ opacity: 1 }}
+//           transition={{ duration: 0.3, delay: 1 }}
+//           className="relative z-10 mt-8 flex-wrap items-center justify-center gap-4 hidden md:flex"
+//         >
+//           <button className="w-60 transform rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-800 dark:bg-blue-500 dark:text-black dark:hover:bg-gray-200">
+//             Explore Now
+//           </button>
+//           <button className="w-60 transform rounded-lg border border-blue-600 bg-white px-6 py-2 font-medium text-blue-600 transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-100 dark:border-blue-600 dark:bg-black dark:text-white dark:hover:bg-gray-900">
+//             Contact Support
+//           </button>
+//         </motion.div>
+        
+//         {/* Mobile: Optimized smaller image (hidden by default, keep if you want to show) */}
+//         <div className="relative z-10 mt-20 rounded-3xl border border-neutral-300 bg-neutral-200 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900 hidden">
+//           <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
+//             <Image
+//               src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_60,c_limit,w_600,dpr_auto/v1761213572/hero_landing_rhywrd.jpg"
+//               alt="Landing page preview"
+//               className="aspect-[16/9] h-auto w-full object-cover"
+//               width={600}
+//               height={338}
+//               sizes="100vw"
+//               priority
+//               loading="eager"
+//             />
+//           </div>
+//         </div>
+        
+//         {/* Desktop: Animated image container (same as before) */}
+//         <motion.div
+//           initial={{ opacity: 0, y: 10 }}
+//           animate={{ opacity: 1, y: 0 }}
+//           transition={{ duration: 0.3, delay: 1.2 }}
+//           className="relative z-10 mt-20 rounded-3xl border border-neutral-300 bg-neutral-200 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900 hidden md:block"
+//         >
+//           <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
+//             <Image
+//               src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_80,c_limit,w_1200,dpr_auto/v1761213572/hero_landing_rhywrd.jpg"
+//               alt="Landing page preview"
+//               className="aspect-[16/9] h-auto w-full object-cover"
+//               width={1200}
+//               height={675}
+//               sizes="(max-width: 768px) 100vw, 1200px"
+//               priority
+//             />
+//           </div>
+//         </motion.div>
 //       </div>
 //     </div>
 //   );
@@ -170,13 +149,42 @@
 
 
 
-
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
+
+// Dynamically import motion components - they won't load on mobile
+const MotionSpan = dynamic(
+  () => import("framer-motion").then((mod) => mod.motion.span),
+  { ssr: false }
+);
+
+const MotionP = dynamic(
+  () => import("framer-motion").then((mod) => mod.motion.p),
+  { ssr: false }
+);
+
+const MotionDiv = dynamic(
+  () => import("framer-motion").then((mod) => mod.motion.div),
+  { ssr: false }
+);
 
 function Hero() {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    // Only load animations on desktop
+    const checkDesktop = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+    
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop);
+    return () => window.removeEventListener('resize', checkDesktop);
+  }, []);
+
   return (
     <div className="relative mx-auto mb-10 flex max-w-full flex-col items-center justify-center bg-gradient-to-b from-[#01091c] via-[#0a244d] to-[#0f3064] lg:-mt-28 lg:pt-40 lg:mx-3 lg:rounded-4xl">
       <div className="mt-5"></div>
@@ -212,25 +220,29 @@ function Hero() {
             Digital Marketing That Transforms Your Business
           </span>
           
-          {/* Desktop: Animated words (same as before) */}
+          {/* Desktop: Animated words */}
           <span className="hidden md:inline">
-            {"Digital Marketing That Transforms Your Business"
-              .split(" ")
-              .map((word, index) => (
-                <motion.span
-                  key={index}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.3,
-                    delay: index * 0.1,
-                    ease: "easeInOut",
-                  }}
-                  className="mr-2 inline-block"
-                >
-                  {word}
-                </motion.span>
-              ))}
+            {isDesktop ? (
+              "Digital Marketing That Transforms Your Business"
+                .split(" ")
+                .map((word, index) => (
+                  <MotionSpan
+                    key={index}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.3,
+                      delay: index * 0.1,
+                      ease: "easeInOut",
+                    }}
+                    className="mr-2 inline-block"
+                  >
+                    {word}
+                  </MotionSpan>
+                ))
+            ) : (
+              "Digital Marketing That Transforms Your Business"
+            )}
           </span>
         </h1>
         
@@ -241,17 +253,25 @@ function Hero() {
           up.
         </p>
         
-        {/* Desktop: Animated paragraph (same as before) */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, delay: 0.8 }}
-          className="relative z-10 mx-auto max-w-xl py-4 text-center text-lg font-normal text-neutral-400 dark:text-neutral-400 hidden md:block"
-        >
-          With AI, you can launch your website in hours, not days. Try our best
-          in class, state of the art, cutting edge AI tools to get your website
-          up.
-        </motion.p>
+        {/* Desktop: Animated paragraph */}
+        {isDesktop ? (
+          <MotionP
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.8 }}
+            className="relative z-10 mx-auto max-w-xl py-4 text-center text-lg font-normal text-neutral-400 dark:text-neutral-400 hidden md:block"
+          >
+            With AI, you can launch your website in hours, not days. Try our best
+            in class, state of the art, cutting edge AI tools to get your website
+            up.
+          </MotionP>
+        ) : (
+          <p className="relative z-10 mx-auto max-w-xl py-4 text-center text-lg font-normal text-neutral-400 dark:text-neutral-400 hidden md:block">
+            With AI, you can launch your website in hours, not days. Try our best
+            in class, state of the art, cutting edge AI tools to get your website
+            up.
+          </p>
+        )}
         
         {/* Mobile: Static buttons */}
         <div className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4 md:hidden">
@@ -263,56 +283,67 @@ function Hero() {
           </button>
         </div>
         
-        {/* Desktop: Animated buttons (same as before) */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, delay: 1 }}
-          className="relative z-10 mt-8 flex-wrap items-center justify-center gap-4 hidden md:flex"
-        >
-          <button className="w-60 transform rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-800 dark:bg-blue-500 dark:text-black dark:hover:bg-gray-200">
-            Explore Now
-          </button>
-          <button className="w-60 transform rounded-lg border border-blue-600 bg-white px-6 py-2 font-medium text-blue-600 transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-100 dark:border-blue-600 dark:bg-black dark:text-white dark:hover:bg-gray-900">
-            Contact Support
-          </button>
-        </motion.div>
-        
-        {/* Mobile: Optimized smaller image (hidden by default, keep if you want to show) */}
-        <div className="relative z-10 mt-20 rounded-3xl border border-neutral-300 bg-neutral-200 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900 hidden">
-          <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
-            <Image
-              src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_60,c_limit,w_600,dpr_auto/v1761213572/hero_landing_rhywrd.jpg"
-              alt="Landing page preview"
-              className="aspect-[16/9] h-auto w-full object-cover"
-              width={600}
-              height={338}
-              sizes="100vw"
-              priority
-              loading="eager"
-            />
+        {/* Desktop: Animated buttons */}
+        {isDesktop ? (
+          <MotionDiv
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 1 }}
+            className="relative z-10 mt-8 flex-wrap items-center justify-center gap-4 hidden md:flex"
+          >
+            <button className="w-60 transform rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-800 dark:bg-blue-500 dark:text-black dark:hover:bg-gray-200">
+              Explore Now
+            </button>
+            <button className="w-60 transform rounded-lg border border-blue-600 bg-white px-6 py-2 font-medium text-blue-600 transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-100 dark:border-blue-600 dark:bg-black dark:text-white dark:hover:bg-gray-900">
+              Contact Support
+            </button>
+          </MotionDiv>
+        ) : (
+          <div className="relative z-10 mt-8 flex-wrap items-center justify-center gap-4 hidden md:flex">
+            <button className="w-60 transform rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-800 dark:bg-blue-500 dark:text-black dark:hover:bg-gray-200">
+              Explore Now
+            </button>
+            <button className="w-60 transform rounded-lg border border-blue-600 bg-white px-6 py-2 font-medium text-blue-600 transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-100 dark:border-blue-600 dark:bg-black dark:text-white dark:hover:bg-gray-900">
+              Contact Support
+            </button>
           </div>
-        </div>
+        )}
         
-        {/* Desktop: Animated image container (same as before) */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 1.2 }}
-          className="relative z-10 mt-20 rounded-3xl border border-neutral-300 bg-neutral-200 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900 hidden md:block"
-        >
-          <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
-            <Image
-              src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_80,c_limit,w_1200,dpr_auto/v1761213572/hero_landing_rhywrd.jpg"
-              alt="Landing page preview"
-              className="aspect-[16/9] h-auto w-full object-cover"
-              width={1200}
-              height={675}
-              sizes="(max-width: 768px) 100vw, 1200px"
-              priority
-            />
+        {/* Desktop ONLY: Animated image */}
+        {isDesktop ? (
+          <MotionDiv
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 1.2 }}
+            className="relative z-10 mt-20 rounded-3xl border border-neutral-300 bg-neutral-200 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900 hidden md:block"
+          >
+            <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
+              <Image
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_80,c_limit,w_1200,dpr_auto/v1761213572/hero_landing_rhywrd.jpg"
+                alt="Landing page preview"
+                className="aspect-[16/9] h-auto w-full object-cover"
+                width={1200}
+                height={675}
+                sizes="1200px"
+                priority
+              />
+            </div>
+          </MotionDiv>
+        ) : (
+          <div className="relative z-10 mt-20 rounded-3xl border border-neutral-300 bg-neutral-200 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900 hidden md:block">
+            <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
+              <Image
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_80,c_limit,w_1200,dpr_auto/v1761213572/hero_landing_rhywrd.jpg"
+                alt="Landing page preview"
+                className="aspect-[16/9] h-auto w-full object-cover"
+                width={1200}
+                height={675}
+                sizes="1200px"
+                priority
+              />
+            </div>
           </div>
-        </motion.div>
+        )}
       </div>
     </div>
   );
