@@ -297,8 +297,8 @@ export default function NavBar() {
         <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gradient-to-b from-[#061d40] to-[#1a4d8f] p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10">
           <div className="flex items-center justify-between">
             <Link href="#" className="-m-1.5 p-1.5">
-            <p className="text-white text-4xl font-extrabold transition duration-300 bungee-shade cursor-pointer">
-              V<span className="text-white font-extrabold text-3xl -mb-4  transition duration-300 tracking-wider cursor-pointer">aphers</span>
+            <p className="text-white text-4xl  transition duration-300 bungee-inline-regular cursor-pointer">
+              V<span className="text-3xl -mb-4  transition duration-300 tracking-wider cursor-pointer">aphers</span>
             </p>
             </Link>
             <button
