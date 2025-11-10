@@ -2,9 +2,9 @@ import './globals.css'
 import Header from '@/PageComponents/Global Components/Header'
 import Footer from '@/PageComponents/Global Components/Footer'
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { Bungee_Inline, Bungee_Shade, Montserrat, Spectral } from 'next/font/google'
+import { Bungee_Inline, Bungee_Shade } from 'next/font/google'
 import { GoogleAnalytics } from '@next/third-parties/google';
-import { Toaster } from '@/components/ui/sonner' // shadcn path [web:102]
+import { Toaster } from '@/components/ui/sonner' 
 
 const bungeeInline = Bungee_Inline({
   weight: '400',
@@ -20,19 +20,6 @@ const bungeeShade = Bungee_Shade({
   variable: '--font-bungee-shade',
 })
 
-const montserrat = Montserrat({
-  weight: ['500'],
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-montserrat',
-})
-
-const spectral = Spectral({
-  weight: ['400', '700'],
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-spectral',
-})
 
 export const metadata = {
   title: {
@@ -102,7 +89,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${bungeeInline.variable} ${bungeeShade.variable} ${montserrat.variable} ${spectral.variable}`}
+      className={`${bungeeInline.variable} ${bungeeShade.variable}}`}
     >
       <head>
         <meta name="google-site-verification" content="_jKz-Nn1SbmybTMfTSQNuWSiY79pDFJTVfNEqZKc33w" />
