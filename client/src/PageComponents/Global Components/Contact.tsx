@@ -7,9 +7,9 @@
   import { Button } from '@/components/ui/button'
   import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
   import { Mail, Phone, MapPin, Globe, Twitter, Instagram, Linkedin } from 'lucide-react'
-  import { toast } from 'sonner' // Sonner toast API [web:102]
+  import { toast } from 'sonner'
 
-  const ENDPOINT = 'https://api.web3forms.com/submit' // Web3Forms endpoint [web:9]
+  const ENDPOINT = 'https://api.web3forms.com/submit' 
 
   const ContactForm: React.FC = () => {
     const [service, setService] = useState<string | undefined>(undefined)
@@ -45,7 +45,6 @@
 
     return (
       <div className=" w-full relative ">
-        {/* Dashed Grid Background */}
         <div
           className="absolute inset-0 z-0"
           style={{
@@ -94,18 +93,17 @@
 
         {/* Content */}
         <section className="relative z-10 py-16 px-4 flex flex-col md:flex-row gap-10 max-w-7xl mx-auto w-full">
-          {/* Left contact info */}
           <div className="flex-1">
             <h4 className="text-3xl md:text-4xl lg:text-6xl font-base tracking-[-0.03em] text-gray-700 bungee-inline-regular">
               Get A <span className="bg-blue-600 bg-clip-text text-transparent">Free Consultation</span>
             </h4>
             <p className="text-lg text-muted-foreground mb-10">
-              Have a project in mind or just want to say hello? I&apos;d love to hear from you. [web:12]
+              Have a project in mind or just want to say hello? I&apos;d love to hear from you. 
             </p>
 
             <div className="mb-8">
               <h2 className="text-2xl font-semibold mb-2">Contact Information</h2>
-              <p className="mb-6 text-muted-foreground">Feel free to reach out through any of these channels. [web:12]</p>
+              <p className="mb-6 text-muted-foreground">Feel free to reach out through any of these channels.</p>
 
               <div className="mb-5 flex flex-col gap-4">
                 <div className="flex items-center gap-3">
@@ -123,7 +121,7 @@
                   </div>
                   <div>
                     <span className="font-medium block">Phone</span>
-                    <div className="text-muted-foreground text-sm">+91-9641861932</div>
+                    <div className="text-muted-foreground text-sm">+1 732-366-1295</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
@@ -132,7 +130,7 @@
                   </div>
                   <div>
                     <span className="font-medium block">Location</span>
-                    <div className="text-muted-foreground text-sm">Kolkata, India</div>
+                    <div className="text-muted-foreground text-sm">United States Of America</div>
                   </div>
                 </div>
               </div>
