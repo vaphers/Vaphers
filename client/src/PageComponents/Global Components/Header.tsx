@@ -2,55 +2,53 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link'
-import {
-  Dialog,
-  DialogPanel,
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
-  Popover,
-  PopoverButton,
-  PopoverGroup,
-  PopoverPanel,
-} from '@headlessui/react'
+import dynamic from 'next/dynamic'
+import Image from 'next/image'
 import {
   Bars3Icon,
-  ChartPieIcon,
-  CursorArrowRaysIcon,
-  FingerPrintIcon,
-  SquaresPlusIcon,
   XMarkIcon,
-  MagnifyingGlassIcon,
-  PresentationChartBarIcon,
-  DevicePhoneMobileIcon,
-  GlobeAltIcon,
-  PencilSquareIcon,
-  CameraIcon,
-  MegaphoneIcon,
-  ShoppingCartIcon,
 } from '@heroicons/react/24/outline'
-import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import { SiNextdotjs, SiGoogleads  } from "react-icons/si";
+import { IoIosSettings } from "react-icons/io";
+import { FaBasketShopping, FaCartPlus, FaMeta  } from "react-icons/fa6";
+import { FaWordpress, FaShopify, FaMapMarkedAlt, FaGoogle   } from "react-icons/fa";
+import { MdLeaderboard, MdOutlineAddIcCall  } from "react-icons/md";
+import { HiDocumentSearch } from "react-icons/hi";
+import { AiFillOpenAI } from "react-icons/ai";
+import { IoPersonOutline  } from "react-icons/io5";
+import { GrResources } from "react-icons/gr";
+
+const Popover = dynamic(() => import('@headlessui/react').then(mod => mod.Popover), { ssr: true })
+const PopoverButton = dynamic(() => import('@headlessui/react').then(mod => mod.PopoverButton), { ssr: true })
+const PopoverGroup = dynamic(() => import('@headlessui/react').then(mod => mod.PopoverGroup), { ssr: true })
+const PopoverPanel = dynamic(() => import('@headlessui/react').then(mod => mod.PopoverPanel), { ssr: true })
+const Dialog = dynamic(() => import('@headlessui/react').then(mod => mod.Dialog), { ssr: false })
+const DialogPanel = dynamic(() => import('@headlessui/react').then(mod => mod.DialogPanel), { ssr: false })
+const Disclosure = dynamic(() => import('@headlessui/react').then(mod => mod.Disclosure), { ssr: false })
+const DisclosureButton = dynamic(() => import('@headlessui/react').then(mod => mod.DisclosureButton), { ssr: false })
+const DisclosurePanel = dynamic(() => import('@headlessui/react').then(mod => mod.DisclosurePanel), { ssr: false })
 
 const digitalMarketingServices = [
-  { name: 'AI SEO', description: 'Drive targeted traffic with ads', href: '/seo-services/ai-seo-services', icon: ChartPieIcon },
-  { name: 'Local SEO', description: 'Boost your search engine rankings', href: '/seo-services/local-seo-services', icon: MagnifyingGlassIcon },
-  { name: 'Ecommerce SEO', description: 'Create compelling content strategies', href: '/seo-services/ecommerce-seo-services', icon: ShoppingCartIcon },
-  { name: 'Technical SEO', description: 'Engage your audience on social platforms', href: '/seo-services/technical-seo-services', icon: CursorArrowRaysIcon },
-  { name: 'SEO Audits', description: 'Reach customers directly in their inbox', href: '/seo-services/seo-audit-services', icon: MegaphoneIcon },
+  { name: 'AI SEO', description: 'Drive targeted traffic with ads', href: '/seo-services/ai-seo-services', icon: AiFillOpenAI },
+  { name: 'Local SEO', description: 'Boost your search engine rankings', href: '/seo-services/local-seo-services', icon: FaMapMarkedAlt },
+  { name: 'Ecommerce SEO', description: 'Create compelling content strategies', href: '/seo-services/ecommerce-seo-services', icon: FaBasketShopping },
+  { name: 'Technical SEO', description: 'Engage your audience on social platforms', href: '/seo-services/technical-seo-services', icon: IoIosSettings },
+  { name: 'SEO Audits', description: 'Reach customers directly in their inbox', href: '/seo-services/seo-audit-services', icon: HiDocumentSearch },
 ]
 
 const webDevelopmentServices = [
-  { name: 'Next JS Website', description: 'Tailored web solutions for your business', href: '/website-development-services/nextjs-website-development', icon: GlobeAltIcon },
-  { name: 'E-commerce Development', description: 'Build powerful online stores', href: "/website-development-services/ecommerce-development", icon: ShoppingCartIcon },
-  { name: 'WordPress Website', description: 'Native and cross-platform apps', href: '/website-development-services/wordpress-website-development', icon: DevicePhoneMobileIcon },
-  { name: 'Shopify Website', description: 'Track and measure your success', href: '/website-development-services/shopify-website-development', icon: PresentationChartBarIcon },
+  { name: 'Next JS Website', description: 'Tailored web solutions for your business', href: '/website-development-services/nextjs-website-development', icon: SiNextdotjs },
+  { name: 'E-commerce Development', description: 'Build powerful online stores', href: "/website-development-services/ecommerce-development", icon: FaCartPlus  },
+  { name: 'WordPress Website', description: 'Native and cross-platform apps', href: '/website-development-services/wordpress-website-development', icon: FaWordpress },
+  { name: 'Shopify Website', description: 'Track and measure your success', href: '/website-development-services/shopify-website-development', icon: FaShopify  },
 ]
 
 const creativeServices = [
-  { name: 'Google Ads Management', description: 'Create memorable brand identities', href: '/ppc-marketing/google-ads-management-services', icon: CameraIcon },
-  { name: 'Meta Ads', description: 'Professional video content creation', href: '/ppc-marketing//meta-ads-management-services', icon: PlayCircleIcon },
-  { name: 'Search Engine Marketing', description: 'Capture your brand in the best light', href: '/ppc-marketing//search-engine-marketing ', icon: CameraIcon },
-  { name: 'Lead Generation Service', description: 'Visual designs that communicate', href: '/ppc-marketing//lead-generation-services', icon: SquaresPlusIcon },
+  { name: 'Google Ads Management', description: 'Create memorable brand identities', href: '/ppc-marketing/google-ads-management-services', icon: SiGoogleads  },
+  { name: 'Meta Ads', description: 'Professional video content creation', href: '/ppc-marketing//meta-ads-management-services', icon: FaMeta },
+  { name: 'Search Engine Marketing', description: 'Capture your brand in the best light', href: '/ppc-marketing//search-engine-marketing ', icon: FaGoogle },
+  { name: 'Lead Generation Service', description: 'Visual designs that communicate', href: '/ppc-marketing//lead-generation-services', icon: MdLeaderboard },
 ]
 
 const featuredServices = [
@@ -69,9 +67,9 @@ const featuredServices = [
 ]
 
 const callsToAction = [
-  { name: 'Watch Demo', href: '#', icon: PlayCircleIcon },
-  { name: 'Get Started', href: '/contact', icon: PhoneIcon },
-  { name: 'View Portfolio', href: '#', icon: CameraIcon },
+  { name: 'About Us', href: '/about-us', icon: IoPersonOutline },
+  { name: 'Get Started', href: '/contact', icon: MdOutlineAddIcCall  },
+  { name: 'Resources', href: '/blogs', icon: GrResources },
 ]
 
 export default function NavBar() {
@@ -80,11 +78,16 @@ export default function NavBar() {
   return (
     <header className="sm:p-6 lg:sticky lg:top-0 z-50">
       <nav aria-label="Global" className="mx-auto sm:bg-white lg:border border-blue-500 sm:rounded-4xl flex max-w-6xl items-center justify-between p-4 lg:px-8">
-        <div className="flex lg:flex-1">
-          <Link href="/" className="flex -m-1.5 p-1.5 space-x-0">
-            <p className="text-blue-600 text-4xl font-extrabold transition duration-300 bungee-shade cursor-pointer">
-              V<span className="text-gray-700 text-3xl -mb-4 font-extrabold transition duration-300  cursor-pointer">aphers</span>
-            </p>
+        <div className="flex lg:flex-1 ">
+          <Link href="/" className="flex -m-1.5 p-1.5 items-center">
+            <Image 
+              src="/logo.svg" 
+              alt="Vaphers" 
+              width={160} 
+              height={40} 
+              priority
+              quality={90}
+            />
           </Link>
         </div>
 
@@ -93,8 +96,8 @@ export default function NavBar() {
             type="button"
             onClick={() => setMobileMenuOpen(true)}
             className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400"
+            aria-label="Open main menu"
           >
-            <span className="sr-only">Open main menu</span>
             <Bars3Icon aria-hidden="true" className="size-6" />
           </button>
         </div>
@@ -111,7 +114,6 @@ export default function NavBar() {
 
                 {open && (
                   <>
-                    {/* Outside click catch backdrop */}
                     <div
                       className="fixed inset-0 z-10"
                       onClick={close}
@@ -120,7 +122,7 @@ export default function NavBar() {
 
                     <PopoverPanel
                       static
-                      onClick={(e) => e.stopPropagation()} // Prevent closing on panel clicks
+                      onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
                       className="border border-blue-500 absolute left-6/2 ml-2 z-20 mt-10 w-screen max-w-6xl -translate-x-1/2 transform overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-gray-900/5"
                     >
                       <div className="p-8">
@@ -162,10 +164,11 @@ export default function NavBar() {
                               <h4 className="text-lg font-semibold text-gray-900 mb-4 border-b border-gray-200 pb-2 hover:text-blue-700">
                                 Website Development
                               </h4>
-                            </Link>                            <div className="space-y-3">
+                            </Link>
+                            <div className="space-y-3">
                               {webDevelopmentServices.map((item) => (
                                 <div key={item.name} className="group">
-                                  <a href={item.href} onClick={() => close()} className="flex items-start space-x-3 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-200">
+                                  <Link href={item.href} onClick={() => close()} className="flex items-start space-x-3 rounded-lg p-3 hover:bg-gray-50 transition-colors duration-200">
                                     <div className="flex-shrink-0">
                                       <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500 group-hover:bg-blue-600 transition-colors duration-200">
                                         <item.icon className="h-4 w-4 text-white" aria-hidden="true" />
@@ -179,7 +182,7 @@ export default function NavBar() {
                                         {item.description}
                                       </p>
                                     </div>
-                                  </a>
+                                  </Link>
                                 </div>
                               ))}
                             </div>
@@ -221,12 +224,15 @@ export default function NavBar() {
                             <div className="space-y-4">
                               {featuredServices.map((item) => (
                                 <div key={item.name} className="group">
-                                  <a href={item.href} onClick={() => close()} className="block rounded-lg p-3 hover:bg-gray-50 transition-colors duration-200">
-                                    <div className="aspect-w-3 aspect-h-2 mb-3">
-                                      <img
+                                  <Link href={item.href} onClick={() => close()} className="block rounded-lg p-3 hover:bg-gray-50 transition-colors duration-200">
+                                    <div className="mb-3 relative h-20 w-full">
+                                      <Image
                                         src={item.image}
                                         alt={item.name}
-                                        className="w-full h-20 object-cover rounded-lg"
+                                        fill
+                                        sizes="200px"
+                                        className="object-cover rounded-lg"
+                                        loading="lazy"
                                       />
                                     </div>
                                     <p className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
@@ -235,7 +241,7 @@ export default function NavBar() {
                                     <p className="text-xs text-gray-600 mt-1">
                                       {item.description}
                                     </p>
-                                  </a>
+                                  </Link>
                                 </div>
                               ))}
                             </div>
@@ -287,128 +293,130 @@ export default function NavBar() {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
-      <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
-        <div className="fixed inset-0 z-50" />
-        <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gradient-to-b from-[#061d40] to-[#1a4d8f] p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10">
-          <div className="flex items-center justify-between">
-            <Link href="#" className="-m-1.5 p-1.5">
-            <p className="text-white text-4xl font-extrabold transition duration-300 bungee-shade cursor-pointer">
-              V<span className="text-white font-extrabold text-3xl -mb-4  transition duration-300 tracking-wider cursor-pointer">aphers</span>
-            </p>
-            </Link>
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(false)}
-              className="-m-2.5 rounded-md p-2.5 text-gray-200"
-            >
-              <span className="sr-only">Close menu</span>
-              <XMarkIcon aria-hidden="true" className="size-6" />
-            </button>
-          </div>
+      {/* Mobile Menu - Only render when open */}
+      {mobileMenuOpen && (
+        <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
+          <div className="fixed inset-0 z-50" />
+          <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gradient-to-b from-[#061d40] to-[#1a4d8f] p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10">
+            <div className="flex items-center justify-between">
+              <Link href="#" className="-m-1.5 p-1.5">
+                <p className="text-white text-4xl transition duration-300 bungee-inline-regular cursor-pointer">
+                  V<span className="text-3xl -mb-4 transition duration-300 tracking-wider cursor-pointer">aphers</span>
+                </p>
+              </Link>
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(false)}
+                className="-m-2.5 rounded-md p-2.5 text-gray-200"
+                aria-label="Close menu"
+              >
+                <XMarkIcon aria-hidden="true" className="size-6" />
+              </button>
+            </div>
 
-          <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-white/10">
-              <div className="space-y-2 py-6">
-                {/* Digital Marketing */}
-                <Disclosure as="div" className="-mx-3">
-                  <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pr-3.5 pl-3 text-base/7 font-semibold text-white hover:bg-white/5">
-                    Digital Marketing
-                    <ChevronDownIcon aria-hidden="true" className="size-5 flex-none group-data-open:rotate-180" />
-                  </DisclosureButton>
-                  <DisclosurePanel className="mt-2 space-y-2">
-                    {digitalMarketingServices.map((item) => (
-                      <DisclosureButton
-                        key={item.name}
-                        as={Link}
-                        href={item.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-white hover:bg-white/5"
-                      >
-                        {item.name}
-                      </DisclosureButton>
-                    ))}
-                  </DisclosurePanel>
-                </Disclosure>
+            <div className="mt-6 flow-root">
+              <div className="-my-6 divide-y divide-white/10">
+                <div className="space-y-2 py-6">
+                  {/* Digital Marketing */}
+                  <Disclosure as="div" className="-mx-3">
+                    <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pr-3.5 pl-3 text-base/7 font-semibold text-white hover:bg-white/5">
+                      Digital Marketing
+                      <ChevronDownIcon aria-hidden="true" className="size-5 flex-none group-data-open:rotate-180" />
+                    </DisclosureButton>
+                    <DisclosurePanel className="mt-2 space-y-2">
+                      {digitalMarketingServices.map((item) => (
+                        <DisclosureButton
+                          key={item.name}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-white hover:bg-white/5 w-full text-left"
+                        >
+                          <Link href={item.href}>
+                            {item.name}
+                          </Link>
+                        </DisclosureButton>
+                      ))}
+                    </DisclosurePanel>
+                  </Disclosure>
 
-                {/* Web Development */}
-                <Disclosure as="div" className="-mx-3">
-                  <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pr-3.5 pl-3 text-base/7 font-semibold text-white hover:bg-white/5">
-                    Web Development
-                    <ChevronDownIcon aria-hidden="true" className="size-5 flex-none group-data-open:rotate-180" />
-                  </DisclosureButton>
-                  <DisclosurePanel className="mt-2 space-y-2">
-                    {webDevelopmentServices.map((item) => (
-                      <DisclosureButton
-                        key={item.name}
-                        as="a"
-                        href={item.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-white hover:bg-white/5"
-                      >
-                        {item.name}
-                      </DisclosureButton>
-                    ))}
-                  </DisclosurePanel>
-                </Disclosure>
+                  {/* Web Development */}
+                  <Disclosure as="div" className="-mx-3">
+                    <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pr-3.5 pl-3 text-base/7 font-semibold text-white hover:bg-white/5">
+                      Web Development
+                      <ChevronDownIcon aria-hidden="true" className="size-5 flex-none group-data-open:rotate-180" />
+                    </DisclosureButton>
+                    <DisclosurePanel className="mt-2 space-y-2">
+                      {webDevelopmentServices.map((item) => (
+                        <DisclosureButton
+                          key={item.name}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-white hover:bg-white/5 w-full text-left"
+                        >
+                          <Link href={item.href}>
+                            {item.name}
+                          </Link>
+                        </DisclosureButton>
+                      ))}
+                    </DisclosurePanel>
+                  </Disclosure>
 
-                {/* Creative Services */}
-                <Disclosure as="div" className="-mx-3">
-                  <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pr-3.5 pl-3 text-base/7 font-semibold text-white hover:bg-white/5">
-                    Creative Services
-                    <ChevronDownIcon aria-hidden="true" className="size-5 flex-none group-data-open:rotate-180" />
-                  </DisclosureButton>
-                  <DisclosurePanel className="mt-2 space-y-2">
-                    {creativeServices.map((item) => (
-                      <DisclosureButton
-                        key={item.name}
-                        as={Link}
-                        href={item.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-white hover:bg-white/5"
-                      >
-                        {item.name}
-                      </DisclosureButton>   
-                    ))}
-                  </DisclosurePanel>
-                </Disclosure>
+                  {/* Creative Services */}
+                  <Disclosure as="div" className="-mx-3">
+                    <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pr-3.5 pl-3 text-base/7 font-semibold text-white hover:bg-white/5">
+                      Creative Services
+                      <ChevronDownIcon aria-hidden="true" className="size-5 flex-none group-data-open:rotate-180" />
+                    </DisclosureButton>
+                    <DisclosurePanel className="mt-2 space-y-2">
+                      {creativeServices.map((item) => (
+                        <DisclosureButton
+                          key={item.name}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-white hover:bg-white/5 w-full text-left"
+                        >
+                          <Link href={item.href}>
+                            {item.name}
+                          </Link>
+                        </DisclosureButton>   
+                      ))}
+                    </DisclosurePanel>
+                  </Disclosure>
 
-                <Link
-                  href="/blogs"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                >
-                  Blogs
-                </Link>
-                <Link
-                  href="/pricing"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                >
-                  Pricing
-                </Link>
-                <Link
-                  href="/about-us"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                >
-                  About Us
-                </Link>
-              </div>
+                  <Link
+                    href="/blogs"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                  >
+                    Blogs
+                  </Link>
+                  <Link
+                    href="/pricing"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                  >
+                    Pricing
+                  </Link>
+                  <Link
+                    href="/about-us"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                  >
+                    About Us
+                  </Link>
+                </div>
 
-              <div className="py-6">
-                <Link
-                  href="#"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5"
-                >
-                  Become a Client
-                </Link>
+                <div className="py-6">
+                  <Link
+                    href="#"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5"
+                  >
+                    Become a Client
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        </DialogPanel>
-      </Dialog>
+          </DialogPanel>
+        </Dialog>
+      )}
     </header>
   )
 }

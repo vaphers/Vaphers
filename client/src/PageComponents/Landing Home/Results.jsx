@@ -10,14 +10,14 @@ const SECTION_HEIGHT_DESKTOP = 1300;
 export default function SmoothScrollHero() {
   return (
     <div className="min-h-screen w-full bg-white relative">
-      <div
+      {/* <div
         className="absolute inset-0 z-0"
         style={{
           background: "#ffffff",
           backgroundImage: "radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.35) 1px, transparent 0)",
           backgroundSize: "20px 20px",
         }}
-      />
+      /> */}
       
       {/* Content */}
       <div className="relative z-10">
@@ -79,11 +79,11 @@ const CenterImage = ({ progress }) => {
         filter: "brightness(1.1)",
       }}
     >
-      <div className="text-center text-blue-600 px-8 font-['Bungee_Shade']">
-        <h4 className="text-5xl sm:text-6xl md:text-9xl font-black leading-none tracking-tight">
+      <div className="text-center text-blue-600 px-8 bungee-inline-regular">
+        <h4 className="text-5xl sm:text-6xl md:text-9xl leading-none tracking-tight">
           We Give
         </h4>
-        <h5 className="text-5xl sm:text-6xl md:text-9xl font-black leading-none tracking-tight">
+        <h5 className="text-5xl sm:text-6xl md:text-9xl leading-none tracking-tight">
           Results!
         </h5>
       </div>
