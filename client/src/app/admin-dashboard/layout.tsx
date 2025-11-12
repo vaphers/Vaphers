@@ -1,8 +1,16 @@
-export default function AdminDashboardLayout({ children }: { children: React.ReactNode }) {
+import { AppSidebar } from "@/PageComponents/Admin Components/app-sidebar"
+
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <>
-      {/* This is admin layout (for testing, remove if you want) */}
-      {children}
-    </>
-  );
+    <div className="flex">
+      <AppSidebar />
+      <main className="flex-1 p-8 bg-gray-50">
+        {children}
+      </main>
+    </div>
+  )
 }

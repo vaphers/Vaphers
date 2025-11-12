@@ -23,7 +23,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
   const data = await res.json();
 
-  console.log("Login response:", data);  // check token here in console
+  console.log("Login response:", data); 
 
   if (data.success) {
     window.location.href = "/admin-dashboard";
