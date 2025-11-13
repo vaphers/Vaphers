@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://www.vaphers.com/ecommerce-seo',
+    canonical: 'https://www.vaphers.com/seo-services/ecommerce-seo-services',
   },
 }
 

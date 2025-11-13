@@ -41,6 +41,32 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['framer-motion', 'lucide-react'],
   },
 
+  async redirects() {
+  return [
+    {
+      source: 'https://www.vaphers.com/Contact-us',
+      destination: 'https://www.vaphers.com/contact',
+      permanent: true,
+    },
+    {
+      source: 'https://www.vaphers.com/cntactd',
+      destination: 'https://www.vaphers.com/contact',
+      permanent: true,
+    },
+    {
+      source: 'https://www.vaphers.com/services/ppc/local-services-ads',
+      destination: 'https://www.vaphers.com/ppc-marketing',
+      permanent: true,
+    },
+    {
+      source: 'https://www.vaphers.com/services/ppc/local-services-ads',
+      destination: 'https://www.vaphers.com/ppc-marketing',
+      permanent: true,
+    },
+  ]
+},
+
+
 // Testing New Optimization
 
   compiler: {

@@ -20,13 +20,13 @@ export const metadata: Metadata = {
   publisher: 'Vaphers',
   metadataBase: new URL('https://www.vaphers.com'),
   alternates: {
-    canonical: '/shopify-development',
+    canonical: 'https://www.vaphers.com/website-development-services/shopify-website-development',
   },
   openGraph: {
     title: 'Professional Shopify Development Services | Custom Store Design',
     description: 'Launch a high-converting Shopify store with expert development, custom design, and seamless integrations. Trusted by 5.8M+ merchants worldwide.',
     url: 'https://www.vaphers.com/website-development-services/shopify-website-development',
-    siteName: 'Your Company Name',
+    siteName: 'Vaphers',
     locale: 'en_US',
     type: 'website',
   },
