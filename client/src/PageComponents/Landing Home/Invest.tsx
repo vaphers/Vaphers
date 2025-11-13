@@ -58,7 +58,6 @@ const Invest: React.FC = () => {
           {/* Invest (your section) content here */}
           <motion.div
             style={{
-              x: xLeft,
               opacity,
             }}
             className="w-full lg:w-2/3 space-y-4 sm:space-y-6"
