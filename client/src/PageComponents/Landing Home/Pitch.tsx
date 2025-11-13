@@ -17,30 +17,30 @@ const tabContents: TabItem[] = [
   {
     id: 'visibility',
     icon: <Eye className="w-8 h-8 text-blue-600" />,
-    title: 'AI Mode Visibility',
+    title: 'AI Visibility Optimization',
     description:
-      "Google AI Mode redefines how customers discover businesses, prioritizing zero-click answers over traditional search results. Thrive's AI SEO experts optimize your content for passage-level targeting and conversational queries to build topical authority that AI recognizes.",
+      "AI-powered search engines prioritize conversational queries and zero-click answers over traditional results. Our AI SEO experts optimize your content for natural language processing, semantic understanding, and citation frequency to ensure your brand appears in AI-generated responses across ChatGPT, Gemini, and Perplexity.",
   },
   {
     id: 'search',
     icon: <Search className="w-8 h-8 text-teal-600" />,
-    title: 'AI Search Optimization',
+    title: 'Generative Engine Optimization',
     description:
-      'Our advanced AI search optimization strategies ensure your content ranks prominently in AI-powered search results. We optimize for semantic understanding, context relevance, and query intent to maximize your visibility across all AI search platforms.',
+      'Dominate generative AI platforms with our advanced GEO strategies. We structure your content for machine scannability, implement schema markup for AI comprehension, and create comparison-rich content that AI systems prefer to cite. Get featured in AI answers, not just search results.',
   },
   {
     id: 'refresh',
     icon: <RotateCcw className="w-8 h-8 text-green-600" />,
-    title: 'AI Content Refresh',
+    title: 'AI-Powered Content Strategy',
     description:
-      'Keep your content fresh and AI-friendly with our intelligent content refresh strategies. We continuously update and optimize your existing content to maintain relevance and authority in rapidly evolving AI search algorithms.',
+      'Leverage cutting-edge AI tools to transform your content strategy. We automate keyword research, generate hyper-personalized content at scale, and continuously optimize for changing AI algorithms. Our data-driven approach identifies trends, analyzes competitor strategies, and delivers measurable improvements in engagement and conversions.',
   },
   {
     id: 'growth',
     icon: <Rocket className="w-8 h-8 text-purple-600" />,
-    title: 'AI Growth Acceleration',
+    title: 'AI Authority Building',
     description:
-      'Accelerate your business growth with our comprehensive AI-driven strategies. We leverage cutting-edge AI tools and techniques to scale your online presence, drive qualified traffic, and convert visitors into customers.',
+      'Build AI-perceived authority through strategic earned media dominance and source credibility optimization. We establish your brand as an authoritative resource that AI engines trust and cite. Our comprehensive approach includes structured data implementation, conversational content optimization, and real-time performance tracking across all major AI platforms.',
   },
 ]
 
@@ -193,14 +193,10 @@ const AiSection: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div className="space-y-6">
               <p className="text-lg sm:text-lg lg:text-xl text-gray-700 leading-relaxed">
-                Rapid advances in generative artificial intelligence (AI) models have reshaped
-                how content is discovered and consumed. Traditional search engine
-                optimization (SEO) is no longer enough to reach those looking for your
-                products or services. To stay visible online amid shifting algorithms, you need
-                to optimize for AI-first discovery.
+                Generative AI has fundamentally transformed how users discover content online. With AI-powered search engines like ChatGPT, Gemini, and Perplexity delivering instant answers without clicks, traditional SEO strategies alone won't keep your business visible. AI SEO services optimize your content for citation in AI-generated responses, ensuring your brand dominates the new era of search.
               </p>
               <p className="text-lg sm:text-lg lg:text-xl text-gray-700 leading-relaxed">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio, dolorem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, tenetur.
+                Our <a className='text-blue-600 underline' href="https://www.vaphers.com/seo-services/ai-seo-services">Affordable AI SEO services</a> combine technical optimization, strategic content structuring, and real-time performance tracking to maximize your visibility across all major AI platforms. From conversational query optimization to schema markup implementation, we employ data-driven strategies that position your business as the authoritative source AI engines trust and recommend.
               </p>
               <div className="mt-4 pb-4 flex justify-center sm:justify-start">
                 <div className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">

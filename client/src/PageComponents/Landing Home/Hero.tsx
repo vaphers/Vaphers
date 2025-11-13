@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 function Hero() {
   return (
@@ -12,7 +13,7 @@ function Hero() {
           Explore how to use for brands.
         </span>
         <a
-          href="#"
+          href="https://www.vaphers.com/about-us"
           className="w-8 h-8 rounded-full flex justify-center items-center bg-indigo-600"
         >
           <svg
@@ -82,12 +83,16 @@ function Hero() {
         
         {/* Mobile: Static buttons */}
         <div className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4 md:hidden">
-          <button className="w-60 transform rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-800 dark:bg-blue-500 dark:text-black dark:hover:bg-gray-200">
-            Explore Now
-          </button>
-          <button className="w-60 transform rounded-lg border border-blue-600 bg-white px-6 py-2 font-medium text-blue-600 transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-100 dark:border-blue-600 dark:bg-black dark:text-white dark:hover:bg-gray-900">
-            Contact Support
-          </button>
+          <Link href={"/cntact"}>
+            <button className="w-60 transform rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-800 dark:bg-blue-500 dark:text-black dark:hover:bg-gray-200">
+              Explore Now
+            </button>
+          </Link>
+          <Link href={"http://localhost:3000/seo-services"}>
+            <button className="w-60 transform rounded-lg border border-blue-600 bg-white px-6 py-2 font-medium text-blue-600 transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-100 dark:border-blue-600 dark:bg-black dark:text-white dark:hover:bg-gray-900">
+              Contact Support
+            </button>
+          </Link>
         </div>
         
         {/* Desktop: Animated buttons (same as before) */}

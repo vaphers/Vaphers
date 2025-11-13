@@ -33,9 +33,20 @@ const HomePaidAds = () => {
 
             <p className="text-lg text-gray-600 leading-relaxed">
               Partner with an affordable paid ads company that delivers exceptional ROI without breaking your budget. 
-              Our data-driven PPC campaigns maximize every advertising dollar, helping you reach qualified leads 
-              precisely when they're searching for your services. Experience transparent pricing, proven strategies, 
-              and measurable results that drive sustainable growth.
+              Our{' '}
+              <a href="https://www.vaphers.com/ppc-marketing" className="text-blue-700 underline hover:text-blue-800 font-medium">
+                affordable PPC marketing
+              </a>{' '}
+              strategies combine precision targeting with smart budget management, helping you reach qualified leads 
+              through{' '}
+              <a href="https://www.vaphers.com/ppc-marketing/google-ads-management-services" className="text-blue-700 underline hover:text-blue-800 font-medium">
+                Google Ads
+              </a>{' '}
+              and{' '}
+              <a href="https://www.vaphers.com/ppc-marketing/meta-ads-management-services" className="text-blue-700 underline hover:text-blue-800 font-medium">
+                Meta advertising
+              </a>{' '}
+              campaigns. Experience transparent pricing, data-driven optimization, and measurable results that drive sustainable growth.
             </p>
 
             {/* Stats */}
@@ -59,17 +70,17 @@ const HomePaidAds = () => {
             <Link href="/contact">
                 <Button 
                 size="lg" 
-                className="bg-blue-600 hover:bg-blue-800 text-white px-8"
+                className="bg-blue-600 hover:bg-blue-800 text-white px-8 cursor-pointer"
                 >
                 Get Started
                 </Button>
             </Link>
             
-            <Link href="/about">
+            <Link href="https://www.vaphers.com/ppc-marketing">
                 <Button 
                 size="lg" 
                 variant="ghost" 
-                className="group"
+                className="group cursor-pointer"
                 >
                 Learn More 
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />

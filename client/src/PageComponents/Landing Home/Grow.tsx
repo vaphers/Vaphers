@@ -3,7 +3,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, useScroll, useTransform, Variants } from 'framer-motion'
-import { TrendingUp } from 'lucide-react'
+import { Link, TrendingUp } from 'lucide-react'
 
 const PatternBG = 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047483/PatternBG_kv4ubo.jpg'
 
@@ -81,20 +81,32 @@ const WhatsSEO: React.FC = () => {
               </p>
             </div>
 
-            <p className="text-sm sm:text-base lg:text-xl text-gray-700 leading-relaxed text-center lg:text-left">
+            {/* <p className="text-sm sm:text-base lg:text-xl text-gray-700 leading-relaxed text-center lg:text-left">
               Affordable digital marketing services help businesses reach their target audience without breaking the bank. 
-              Through strategic SEO, targeted social media campaigns, and cost-effective{' '}
-              <a href="#" className="text-blue-700 underline hover:text-blue-800 font-medium">
+              Through strategic & <a className='text-blue-600 underline' href="https://www.vaphers.com/seo-services">affordable SEO services</a>, targeted <a className='text-blue-600 underline' href="https://www.vaphers.com/ppc-marketing//meta-ads-management-services">meta ads campaigns</a>, and cost-effective{' '}
+              <a href="https://www.vaphers.com/ppc-marketing" className="text-blue-700 underline hover:text-blue-800 font-medium">
                 pay-per-click advertising
               </a>
               , we maximize your online visibility and drive qualified leads. Our data-driven approach ensures every dollar spent delivers measurable results and sustainable growth for your business.
-            </p>
+            </p> */}
+
+
+              <p className="text-sm sm:text-base lg:text-xl text-gray-700 leading-relaxed text-center lg:text-left">
+                Affordable digital marketing services help businesses reach their target audience without breaking the bank. 
+                Through strategic & <a className='text-blue-600 underline' href="https://www.vaphers.com/seo-services">affordable SEO services</a>, targeted <a className='text-blue-600 underline' href="https://www.vaphers.com/ppc-marketing/meta-ads-management-services">meta ads campaigns</a>, and cost-effective{' '}
+                <a href="https://www.vaphers.com/ppc-marketing" className="text-blue-700 underline hover:text-blue-800 font-medium">
+                  pay-per-click advertising
+                </a>
+                , we maximize your online visibility and drive qualified leads.<br/><br/>  Our budget-friendly Next.js development services deliver lightning-fast, SEO-optimized websites that convert visitors into customers, while our <a className='text-blue-600 underline' href="https://www.vaphers.com/ppc-marketing/google-ads-management-services">affordable Google Ads management</a> ensures every advertising dollar generates maximum ROI through precision targeting and continuous campaign optimization. Our data-driven approach ensures every dollar spent delivers measurable results and sustainable growth for your business.
+              </p>
+
+
 
             <div className="pt-4 sm:pt-6 lg:pt-10 pb-4 flex justify-center lg:justify-start">
-              <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+              <a href="https://www.vaphers.com/contact"><div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                 <span className="mr-2 sm:mr-3">Ready to Get Started?</span>
                 <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
-              </div>
+              </div></a>
             </div>
           </motion.div>
 

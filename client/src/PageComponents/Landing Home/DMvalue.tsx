@@ -1,10 +1,10 @@
-
 'use client'
 
 import React, { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, useScroll, useTransform, Variants } from 'framer-motion'
 import { TrendingUp } from 'lucide-react'
+import Link from 'next/link'
 
 const PatternBG = 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047483/PatternBG_kv4ubo.jpg'
 
@@ -48,7 +48,7 @@ const DMvalue: React.FC = () => {
   return (
     <section
       ref={ref}
-      className="max-w-full bg-white bg-cover bg-center bg-no-repeat"
+      className="max-w-full bg-white bg-cover bg-center bg-no-repeat lg:mb-10"
       style={{
         backgroundImage: `url(${PatternBG})`,
       }}
@@ -73,24 +73,26 @@ const DMvalue: React.FC = () => {
               </p>
             </div>
             <p className="text-sm sm:text-base lg:text-xl text-gray-700 leading-relaxed text-center lg:text-left break-words">
-              Digital marketing generates more leads by targeting potential customers where they actively search for solutions. Through strategic SEO, your business appears at the top of search results when prospects need your services. Combined with{' '}
-              <a href="#" className="text-blue-700 underline hover:text-blue-800 font-medium">
-                compelling content and targeted paid ads
-              </a>
-              , you attract high-quality leads already interested in what you offer, significantly increasing conversion rates.
+              Digital marketing generates high-quality leads by connecting with potential customers actively searching for solutions. Strategic SEO positions your business at the top of search results when prospects need your services most. For online stores,{' '}
+              <a href="https://www.vaphers.com/seo-services/ecommerce-seo-services" className="text-blue-700 underline hover:text-blue-800 font-medium">
+                affordable ecommerce SEO services
+              </a>{' '}
+              optimize product pages and category structures to attract ready-to-buy shoppers, dramatically increasing conversion rates and shortening sales cycles.
             </p>
             <p className="text-sm sm:text-base lg:text-xl text-gray-700 leading-relaxed text-center lg:text-left break-words">
-              Effective lead generation strategies use personalized email campaigns, social media engagement, and landing pages optimized for conversions. By capturing visitor information through valuable offers and nurturing these prospects with relevant content, businesses transform anonymous website visitors into{' '}
-              <a href="#" className="text-blue-700 underline hover:text-blue-800 font-medium">
-                qualified leads ready to purchase
-              </a>
-              , creating a predictable pipeline of potential customers.
+              Smart{' '}
+              <a href="https://www.vaphers.com/ppc-marketing/lead-generation-services" className="text-blue-700 underline hover:text-blue-800 font-medium">
+                lead generation strategies
+              </a>{' '}
+              combine personalized email automation, strategic social media engagement, and conversion-optimized landing pages. By capturing visitor information through valuable content offers and nurturing prospects with behavior-triggered messaging, businesses systematically convert anonymous browsers into qualified sales opportunities, creating a predictable, scalable pipeline that drives sustainable growth and measurable ROI.
             </p>
             <div className="pt-4 sm:pt-6 lg:pt-5 pb-4 flex justify-center lg:justify-start">
+              <Link href={"/contact"}>
               <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                 <span className="mr-2 sm:mr-3">Ready to Get Started?</span>
                 <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </div>
+              </Link>
             </div>
           </motion.div>
           {/* DM Value images here */}

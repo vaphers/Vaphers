@@ -35,37 +35,7 @@ const featuresList = [
     cardBorderColor: 'border-primary/40 hover:border-primary',
     avatarTextColor: 'text-primary',
     avatarBgColor: 'bg-primary/10',
-    link: "https://vaphers.vercel.app/seo-services"
-  },
-  {
-    icon: Target,
-    title: 'Google Ads',
-    description:
-      'Generate qualified leads with targeted Google Ads campaigns that deliver immediate visibility. Our PPC experts optimize your ad spend to maximize ROI, ensuring every click counts toward your business goals.',
-    cardBorderColor: 'border-green-600/40 hover:border-green-600 dark:border-green-400/40 dark:hover:border-green-400',
-    avatarTextColor: 'text-green-600 dark:text-green-400',
-    avatarBgColor: 'bg-green-600/10 dark:bg-green-400/10',
-    link: "https://vaphers.vercel.app/google-ads"
-  },
-  {
-    icon: Facebook,
-    title: 'Meta Ads',
-    description:
-      'Reach your ideal customers on Facebook and Instagram with precision-targeted Meta advertising campaigns. Build brand awareness and drive conversions through engaging social media ads optimized for performance.',
-    cardBorderColor: 'border-amber-600/40 hover:border-amber-600 dark:border-amber-400/40 dark:hover:border-amber-400',
-    avatarTextColor: 'text-amber-600 dark:text-amber-400',
-    avatarBgColor: 'bg-amber-600/10 dark:bg-amber-400/10',
-    link: "https://vaphers.vercel.app/meta-ads"
-  },
-  {
-    icon: Globe,
-    title: 'Website Development',
-    description:
-      'Create stunning, responsive websites that convert visitors into customers. Our custom web solutions combine modern design with powerful functionality to deliver seamless user experiences across all devices.',
-    cardBorderColor: 'border-destructive/40 hover:border-destructive',
-    avatarTextColor: 'text-destructive',
-    avatarBgColor: 'bg-destructive/10',
-    link: "https://vaphers.vercel.app/web-development"
+    link: "https://www.vaphers.com/seo-services"
   },
   {
     icon: BrainCircuit,
@@ -75,18 +45,49 @@ const featuresList = [
     cardBorderColor: 'border-sky-600/40 hover:border-sky-600 dark:border-sky-400/40 dark:hover:border-sky-400',
     avatarTextColor: 'text-sky-600 dark:text-sky-400',
     avatarBgColor: 'bg-sky-600/10 dark:bg-sky-400/10',
-    link: "https://vaphers.vercel.app/ai-seo"
+    link: "https://www.vaphers.com/seo-services/ai-seo-services"
   },
   {
     icon: Smartphone,
-    title: 'App Development',
+    title: 'Ecommerce SEO',
     description:
       'Transform your business idea into a powerful mobile application. We build intuitive iOS and Android apps that engage users, streamline operations, and open new revenue channels for your business.',
     cardBorderColor: 'border-primary/40 hover:border-primary',
     avatarTextColor: 'text-primary',
     avatarBgColor: 'bg-primary/10',
-    link: "https://vaphers.vercel.app/app-development"
-  }
+    link: "https://www.vaphers.com/seo-services/ecommerce-seo-services"
+  },
+  {
+    icon: Target,
+    title: 'Google Ads Management',
+    description:
+      'Generate qualified leads with targeted Google Ads campaigns that deliver immediate visibility. Our PPC experts optimize your ad spend to maximize ROI, ensuring every click counts toward your business goals.',
+    cardBorderColor: 'border-green-600/40 hover:border-green-600 dark:border-green-400/40 dark:hover:border-green-400',
+    avatarTextColor: 'text-green-600 dark:text-green-400',
+    avatarBgColor: 'bg-green-600/10 dark:bg-green-400/10',
+    link: "https://www.vaphers.com/ppc-marketing/google-ads-management-services"
+  },
+  {
+    icon: Facebook,
+    title: 'Meta Ads Management' ,
+    description:
+      'Reach your ideal customers on Facebook and Instagram with precision-targeted Meta advertising campaigns. Build brand awareness and drive conversions through engaging social media ads optimized for performance.',
+    cardBorderColor: 'border-amber-600/40 hover:border-amber-600 dark:border-amber-400/40 dark:hover:border-amber-400',
+    avatarTextColor: 'text-amber-600 dark:text-amber-400',
+    avatarBgColor: 'bg-amber-600/10 dark:bg-amber-400/10',
+    link: "https://www.vaphers.com/ppc-marketing//meta-ads-management-services"
+  },
+  {
+    icon: Globe,
+    title: 'Next.js Development',
+    description:
+      'Create stunning, responsive websites that convert visitors into customers. Our custom web solutions combine modern design with powerful functionality to deliver seamless user experiences across all devices.',
+    cardBorderColor: 'border-destructive/40 hover:border-destructive',
+    avatarTextColor: 'text-destructive',
+    avatarBgColor: 'bg-destructive/10',
+    link: "https://www.vaphers.com/website-development-services/nextjs-website-development"
+  },
+
 ]
 
 const portfolioImages = [
@@ -317,8 +318,8 @@ export default function Page() {
             }}
           />
           <div className="relative z-10">
-            <HomeFiller />
             <Services featuresList={featuresList} />
+            <HomeFiller />
           </div>
         </div>
 

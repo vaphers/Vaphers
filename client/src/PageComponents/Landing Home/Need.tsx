@@ -61,21 +61,21 @@ const DmNeed: React.FC = () => {
 
             <p className="text-sm sm:text-base lg:text-xl text-white leading-relaxed text-center lg:text-left">
               Digital marketing is the use of online channels, platforms, and technologies to promote your business, products,
-              or services to potential customers. It encompasses everything from search engine optimization (SEO) and social media
-              marketing to{' '}
-              <a href="#" className="text-blue-200 underline hover:text-blue-400 duration-200 font-medium">
-                email campaigns and pay-per-click advertising
+              or services to potential customers. It encompasses everything from <a className='text-blue-200 underline' href="https://www.vaphers.com/seo-services">search engine optimization (SEO)</a> and social media
+              marketing to{' '} <a href="https://www.vaphers.com/ppc-marketing">pay-per-click advertising</a> and{' '}
+              <a href="https://www.vaphers.com/ppc-marketing//search-engine-marketing" className="text-blue-200 underline hover:text-blue-400 duration-200 font-medium">
+                 search engine marketing
               </a>
               . The goal is to reach your target audience where they're already spending their time.
             </p>
 
             {/* Button */}
-            <div className="pt-4 sm:pt-4 lg:pb-4 flex justify-center lg:justify-start">
+            <a href="/contact"><div className="pt-4 sm:pt-4 lg:pb-4 flex justify-center lg:justify-start">
               <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                 <span className="mr-2 sm:mr-3">Ready to Get Started?</span>
                 <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </div>
-            </div>
+            </div></a>
           </div>
         </div>
       </div>

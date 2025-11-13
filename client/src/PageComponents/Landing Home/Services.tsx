@@ -71,12 +71,12 @@ const Services = ({ featuresList }: { featuresList: Features }) => {
   const isMobile = useIsMobile()
 
   return (
-    <section className='min-h-screen py-8 sm:py-16 lg:py-24'>
+    <section className='min-h-screen py-8 sm:py-16 lg:py-16'>
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         {/* Header */}
         <div className='mb-3 space-y-4 sm:mb-4 lg:mb-8'>
           <h3 className="text-4xl sm:text-3xl md:text-4xl lg:text-6xl text-center font-montserrat text-gray-900 mb-3 sm:mb-4 lg:mb-5 bungee-inline-regular">
-            Discover Our <br/>{' '}
+            Discover Affordable <br/>{' '}
             <span className="bg-blue-600 bg-clip-text text-transparent">
               Digital Marketing Services
             </span>
