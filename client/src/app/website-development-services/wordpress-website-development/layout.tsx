@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     images: ['https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1762166010/FixItNow_fbpzfx.png'],
   },
   alternates: {
-    canonical: 'https://yourdomain.com/wordpress-development',
+    canonical: 'https://www.vaphers.com/website-development-services/wordpress-website-development',
   },
   robots: {
     index: true,

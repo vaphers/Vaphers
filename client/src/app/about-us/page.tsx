@@ -13,16 +13,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'About Us | Vaphers',
     description: 'Our story is a testament to the power of collaboration and resilience. Learn about our journey in helping businesses succeed.',
-    url: 'https://yourdomain.com/about',
+    url: 'https://www.vaphers.com/about-us',
     siteName: 'Vaphers',
-    images: [
-      {
-        url: 'https://yourdomain.com/og-about.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'About Vaphers Team',
-      },
-    ],
     locale: 'en_US',
     type: 'website',
   },
@@ -44,7 +36,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://yourdomain.com/about',
+    canonical: 'https://www.vaphers.com/about-us',
   },
 }
 
