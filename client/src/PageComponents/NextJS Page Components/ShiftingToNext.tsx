@@ -1,6 +1,7 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
-export default function GMB() {
+export default function NextShifting() {
   return (
     <section className="relative max-w-full px-6 py-8">
       <div
@@ -55,7 +56,7 @@ export default function GMB() {
           <div className="relative w-full h-[500px] lg:h-[800px] rounded-3xl overflow-hidden">
             <Image
               src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761830525/Why_GMB___2_pdsgri.png"
-              alt="Google Business Profile optimization dashboard"
+              alt="Next.js performance and SEO dashboard"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
@@ -67,55 +68,72 @@ export default function GMB() {
         <div className="space-y-8 order-1 lg:order-2">
           <div className="space-y-4">
             <h3 className="text-3xl md:text-4xl lg:text-5xl font-base tracking-[-0.03em] text-gray-700 bungee-inline-regular">
-              Why <span className="bg-blue-600 bg-clip-text text-transparent">Google Business Profile</span> Is the Heart of Local SEO?
+              Why Companies Are Choosing <span className="bg-blue-600 bg-clip-text text-transparent">Next.js Websites</span> Over Others?
             </h3>
             <p className="text-lg text-gray-600 leading-relaxed montserrat">
-              A fully optimized Google Business Profile (GBP) is no longer optional, it's the cornerstone of effective local SEO that drives{' '}
-              <a href="https://www.vaphers.com/seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
-                website traffic
-              </a>
-              {' '}and visibility. 
-              It determines how your business appears in Google Maps, local packs, and "near me" searches. At <strong>Vaphers</strong>, 
-              we specialize in crafting high-performing GBP strategies that boost visibility, engagement, and conversions within your target city or neighborhood.
+              A fully optimized Next.js website is no longer optional—it's the foundation of modern{' '}
+              <Link 
+                href="/website-development-services" 
+                className="text-blue-600 underline hover:text-blue-700 font-medium"
+              >
+                web development
+              </Link>
+              {' '}that drives speed, visibility, and conversions. 
+              It determines how your site performs in search rankings, page loads, and user engagement. At <strong>Vaphers</strong>, 
+              we specialize in building high-performance Next.js sites that boost{' '}
+              <Link 
+                href="/seo-services" 
+                className="text-blue-600 underline hover:text-blue-700 font-medium"
+              >
+                SEO rankings
+              </Link>
+              , engagement, and revenue for growing businesses.
             </p>
           </div>
 
           {/* 1 */}
           <div className="space-y-3">
             <h4 className="text-2xl font-bold text-gray-900 montserrat">
-              Turn Searches into Local Foot Traffic
+              Lightning-Fast Speed Drives Conversions
             </h4>
             <p className="text-gray-600 leading-relaxed montserrat">
-              When potential customers search for services nearby, your Google Business Profile decides whether you show up first or not at all. 
-              An optimized profile featuring accurate NAP (Name, Address, Phone), customer reviews, and updated business details 
-              ensures you capture high-intent{' '}
-              <a href="https://www.vaphers.com/ppc-marketing/lead-generation-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
-                local leads
-              </a>
-              {' '}that are already looking to buy. Combined with strategic{' '}
-              <a href="https://www.vaphers.com/ppc-marketing/google-ads-management-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
-                Google Ads campaigns
-              </a>
-              , your GBP becomes a complete local marketing powerhouse.
+              When customers visit your site, loading speed decides whether they stay or bounce. 
+              Next.js delivers server-side rendering, automatic code splitting, and optimized images 
+              that ensure fast page loads and superior Core Web Vitals. This speed advantage captures high-intent visitors 
+              and turns them into buyers. For{' '}
+              <Link 
+                href="/website-development-services/ecommerce-development" 
+                className="text-blue-600 underline hover:text-blue-700 font-medium"
+              >
+                e-commerce sites
+              </Link>
+              , faster checkout flows mean more completed purchases and lower cart abandonment.
             </p>
           </div>
 
           {/* Quote */}
           <blockquote className="border-l-4 border-blue-500 pl-6 py-2 italic text-gray-700 bg-blue-50 rounded-r-lg montserrat">
-            "Businesses with fully optimized Google Business Profiles get up to 70% more visits and 50% more conversions, 
-            and <strong>Vaphers</strong> helps you get there the smart way."
+            "Next.js sites load 50% faster and rank higher on Google with built-in SEO optimization, 
+            and <strong>Vaphers</strong> helps you leverage this competitive edge the smart way."
           </blockquote>
 
           {/* 2 */}
           <div className="space-y-3">
             <h4 className="text-2xl font-bold text-gray-900 montserrat">
-              Build Local Trust & Outrank Competitors
+              SEO-Friendly Architecture Outranks Competition
             </h4>
             <p className="text-gray-600 leading-relaxed montserrat">
-              A verified and active Google Business Profile signals trust and authority to both search engines and your customers. 
-              By posting regular updates, adding photos, and gathering local reviews, your business becomes a reliable source within 
-              your community. With <strong>Vaphers</strong>, we don't just optimize your listing, we turn it into a lead-generation engine 
-              that consistently ranks and converts for high-value "near me" searches.
+              Next.js is built for search engines with server-side rendering, automatic metadata generation, and clean semantic HTML. 
+              By implementing advanced{' '}
+              <Link 
+                href="/seo-services/technical-seo-services" 
+                className="text-blue-600 underline hover:text-blue-700 font-medium"
+              >
+                technical SEO strategies
+              </Link>
+              , your site becomes crawlable, indexable, and optimized for rich results. 
+              With <strong>Vaphers</strong>, we don't just build websites—we create SEO-ready platforms 
+              that consistently rank and convert for competitive search terms.
             </p>
           </div>
         </div>

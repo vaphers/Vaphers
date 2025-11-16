@@ -20,25 +20,33 @@ export default function AiSectionLeads() {
         {/* Content */}
         <div className="space-y-8 order-1 lg:order-2">
           <div className="space-y-4">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-base tracking-[-0.03em] text-gray-700 bungee-inline-regular">
+            <h3 className="text-3xl md:text-4xl lg:text-5xl font-base tracking-[-0.03em] text-gray-700 bungee-inline-regular">
               How AI SEO <br/><span className="bg-blue-600 bg-clip-text text-transparent">Generates Leads?</span>
-            </h2>
+            </h3>
             <p className="text-lg text-gray-600 leading-relaxed montserrat">
-              AI SEO captures high-intent leads by positioning your brand in conversational AI responses. When potential customers ask{' '}
-              <a href="#" className="text-blue-600 underline hover:text-blue-700 font-medium">
-                ChatGPT, Perplexity, or Gemini
+              AI SEO captures high-intent leads by positioning your brand in conversational AI responses. When potential customers ask 
+              ChatGPT, Perplexity, or Gemini for recommendations, optimized content ensures your business is cited and recommended as the 
+              authoritative solution, complementing traditional{' '}
+              <a href="https://www.vaphers.com/ppc-marketing/lead-generation-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+                lead generation strategies
               </a>{' '}
-              for recommendations, optimized content ensures your business is cited and recommended as the authoritative solution.
+              with AI-powered visibility.
             </p>
           </div>
 
           {/* 1 */}
           <div className="space-y-3">
-            <h3 className="text-2xl font-bold text-gray-900 montserrat">
+            <h4 className="text-2xl font-bold text-gray-900 bungee-inline-regular">
               Capturing Zero-Click Search Intent
-            </h3>
+            </h4>
             <p className="text-gray-600 leading-relaxed montserrat">
-              With 58% of searches ending without a click, traditional SEO misses massive opportunities. AI SEO optimizes your content for featured snippets, AI overviews, and direct answers—capturing leads at decision-making moments. By demonstrating expertise in structured formats, you intercept prospects before they reach competitors, positioning your business as the trusted authority they're actively seeking.
+              With 58% of searches ending without a click, traditional{' '}
+              <a href="https://www.vaphers.com/seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+                organic search rankings
+              </a>{' '}
+              alone miss massive opportunities. AI SEO optimizes your content for featured snippets, AI overviews, and direct 
+              answers, capturing leads at decision-making moments. By demonstrating expertise in structured formats, you intercept 
+              prospects before they reach competitors, positioning your business as the trusted authority they're actively seeking.
             </p>
           </div>
 
@@ -49,11 +57,11 @@ export default function AiSectionLeads() {
 
           {/* 2 */}
           <div className="space-y-3">
-            <h3 className="text-2xl font-bold text-gray-900 montserrat">
+            <h4 className="text-2xl font-bold text-gray-900 bungee-inline-regular">
               Building Trust Through AI Citations
-            </h3>
+            </h4>
             <p className="text-gray-600 leading-relaxed montserrat">
-              When AI engines cite your content, it creates instant credibility. Our strategies ensure your business appears in conversational responses for high-value queries like "best [service] near me." This AI validation dramatically shortens sales cycles—prospects arrive pre-qualified and trusting your expertise, resulting in higher-quality leads with better conversion rates across Google AI, ChatGPT, and Perplexity.
+              When AI engines cite your content, it creates instant credibility. Our strategies ensure your business appears in conversational responses for high-value queries like "best [service] near me." This AI validation dramatically shortens sales cycles, prospects arrive pre-qualified and trusting your expertise, resulting in higher-quality leads with better conversion rates across Google AI, ChatGPT, and Perplexity.
             </p>
           </div>
         </div>

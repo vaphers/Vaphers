@@ -19,41 +19,68 @@ const features = [
     icon: Goal,
     title: "Clear & Data-Driven Strategy",
     description:
-      "Choose a company that bases its local SEO efforts on thorough market research and data analytics to target your ideal customer effectively and maximize ROI.",
+      "Choose a company that bases its local SEO efforts on thorough market research and data analytics, utilizing proven SEO strategies to target your ideal customer effectively and maximize ROI.",
+    link: "https://www.vaphers.com/seo-services",
+    linkText: "proven SEO strategies"
   },
   {
     icon: BookCheck,
     title: "Proven Results & Testimonials",
     description:
-      "Look for a provider with a verifiable track record of successful local SEO campaigns, supported by case studies and transparent reporting.",
+      "Look for a provider with a verifiable track record of successful local SEO campaigns, supported by case studies and comprehensive SEO audits that demonstrate measurable improvements.",
+    link: "https://www.vaphers.com/seo-services/seo-audit-services",
+    linkText: "SEO audits"
   },
   {
     icon: ChartPie,
     title: "Transparent Performance Tracking",
     description:
-      "Affordable doesn’t mean hidden. Opt for companies offering real-time access to campaign performance metrics so you can measure progress clearly.",
+      "Affordable doesn't mean hidden. Opt for companies offering transparent reporting with real-time access to campaign performance metrics so you can measure progress clearly.",
+    link: "https://www.vaphers.com/seo-services/seo-audit-services",
+    linkText: "transparent reporting"
   },
   {
     icon: Users,
     title: "Dedicated Expert Support",
     description:
       "A reliable local SEO firm assigns you a knowledgeable team that understands your industry and offers personalized attention to your business goals.",
+    link: null,
+    linkText: null
   },
   {
     icon: FolderSync,
     title: "Easy Integration with Your Business",
     description:
-      "Your SEO provider should seamlessly integrate their work within your existing marketing stack and workflows to avoid disruption.",
+      "Your SEO provider should demonstrate technical SEO expertise that seamlessly integrates within your existing marketing stack and workflows to avoid disruption.",
+    link: "https://www.vaphers.com/seo-services/technical-seo-services",
+    linkText: "technical SEO expertise"
   },
   {
     icon: Zap,
     title: "Quick Wins with Sustainable Growth",
     description:
       "Affordable local SEO companies focus on delivering tangible improvements fast while building a long-term strategy for consistent lead generation.",
+    link: null,
+    linkText: null
   },
 ]
 
 const ChooseCompany = () => {
+  const renderDescription = (description: string, link: string | null, linkText: string | null) => {
+    if (!link || !linkText) return description;
+    
+    const parts = description.split(linkText);
+    return (
+      <>
+        {parts[0]}
+        <a href={link} className="text-blue-600 underline hover:text-blue-700 font-medium">
+          {linkText}
+        </a>
+        {parts[1]}
+      </>
+    );
+  };
+
   return (
     <div className="flex items-center justify-center ">
       <div className="max-w-7xl w-full py-12 px-6">
@@ -81,7 +108,7 @@ const ChooseCompany = () => {
 
           <div>
             <Accordion defaultValue="item-0" type="single" className="w-full">
-              {features.map(({ title, description, icon: Icon }, index) => (
+              {features.map(({ title, description, icon: Icon, link, linkText }, index) => (
                 <AccordionItem
                   key={index}
                   value={`item-${index}`}
@@ -94,7 +121,7 @@ const ChooseCompany = () => {
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="text-[17px] leading-relaxed text-muted-foreground">
-                    {description}
+                    {renderDescription(description, link, linkText)}
                     <div className="mt-6 mb-2 md:hidden aspect-video w-full relative rounded-xl overflow-hidden">
                       <Image
                         src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=800"

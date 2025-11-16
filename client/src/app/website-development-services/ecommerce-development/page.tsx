@@ -5,7 +5,6 @@ import Lenis from '@studio-freight/lenis'
 import ContactForm from '@/PageComponents/Global Components/Contact'
 import SubHero from '@/PageComponents/Global Components/HeroSubpage'
 import { PortfolioMarquee } from '@/PageComponents/Global Components/ImageMarqee'    
-import EcommercePitch from '@/PageComponents/Ecommerce SEO Components/Pitch'
 import WhyOnline from '@/PageComponents/Ecommerce Website Componenets/Why'
 import ProfessionalDesigners from '@/PageComponents/Ecommerce Website Componenets/ProfessionalDesigners'
 import Banner from '@/PageComponents/Global Components/Banner'
@@ -15,6 +14,7 @@ import EcommerceServices from '@/PageComponents/Ecommerce Website Componenets/Se
 import EcommerceProcess from '@/PageComponents/Ecommerce Website Componenets/Process'
 import Stats from '@/PageComponents/Global Components/Stats'
 import EcommerceDevFaq from '@/PageComponents/Ecommerce Website Componenets/FAQ'
+import EcommercePitch from '@/PageComponents/Ecommerce Website Componenets/Pitch'
 
 const portfolioImages = [
   {
@@ -129,11 +129,11 @@ export default function Page() {
     <>
       <div>
         <SubHero
-          heading="Build a Website That Performs and Converts"
-          subtext="Transform your online presence with a modern, responsive, and high-performing website. From custom designs to lightning-fast code, we deliver websites that look amazing and drive real business results."
+          heading="Affordable Ecommerce Website Development That Converts"
+          subtext="Launch a fast, mobile-friendly online store designed to rank, sell, and scale. Our team delivers custom ecommerce websites on Next.js, Shopify, and WordPress, optimized for SEO, Core Web Vitals, and seamless user experiences."
           badgeText="Start Your Project"
         />
-        <EcommercePitch />
+        <EcommercePitch/>
         <PortfolioMarquee images={portfolioImages} pxPerSec={140} />
         <WhyOnline />
         <ProfessionalDesigners />

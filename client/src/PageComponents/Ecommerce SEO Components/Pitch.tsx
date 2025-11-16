@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { ShoppingCart, Search, BarChart3, Sparkles, TrendingUp, LucideProps } from 'lucide-react'
+import CustomBreadcrumb from '../Global Components/BreadCrumbs'
 
 type TabId = 'product' | 'technical' | 'content' | 'conversion'
 
@@ -18,28 +19,28 @@ const tabContents: TabItem[] = [
     icon: ShoppingCart,
     title: 'Product Page Optimization',
     description:
-      'We optimize your product pages with unique descriptions, schema markup, and keyword-rich titles that convert browsers into buyers. Our strategies improve visibility in Google Shopping, product carousels, and search results to drive qualified traffic directly to your store.',
+      'We transform product pages into conversion engines with AI-optimized descriptions, advanced schema markup, and buyer-intent keywords. Our data-driven approach enhances visibility across Google Shopping, product carousels, and organic search—turning casual browsers into loyal customers while maximizing your average order value.',
   },
   {
     id: 'technical',
     icon: Search,
     title: 'Technical SEO for Ecommerce',
     description:
-      'Fast-loading pages, mobile optimization, and clean site architecture are critical for ecommerce success. We implement structured data, fix crawl errors, optimize site speed, and ensure seamless navigation so search engines can index your entire catalog efficiently.',
+      'Lightning-fast page speeds, Core Web Vitals optimization, and mobile-first architecture form the backbone of modern ecommerce success. We implement product schema, fix critical crawl issues, optimize site architecture, and ensure flawless indexing across your entire catalog—helping search engines discover and rank every revenue-generating page.',
   },
   {
     id: 'content',
     icon: BarChart3,
-    title: 'Category & Blog Content Strategy',
+    title: 'Strategic Content Marketing',
     description:
-      'Our content strategies target high-intent keywords through optimized category pages and SEO-driven blog articles. We create content that educates, engages, and ranks—turning informational searches into product discoveries and conversions.',
+      'We craft conversion-focused content strategies targeting high-commercial-intent keywords through optimized category pages and SEO-rich blog articles. Our content educates your audience, builds topical authority, and captures buyers at every stage of the funnel—from awareness through consideration to final purchase decision.',
   },
   {
     id: 'conversion',
     icon: Sparkles,
-    title: 'Conversion-Focused SEO',
+    title: 'Revenue-Driven SEO',
     description:
-      'SEO isn&apos;t just about traffic—it&apos;s about revenue. We optimize for buying intent keywords, enhance internal linking, streamline checkout flows, and use data-driven insights to increase your average order value and customer lifetime value.',
+      'Traffic means nothing without sales. We optimize for transactional keywords, enhance user experience through strategic internal linking, streamline checkout flows, and leverage behavioral data to increase conversions. Our focus is simple: turning organic visitors into revenue and maximizing customer lifetime value.',
   },
 ]
 
@@ -126,16 +127,19 @@ const EcommercePitch: React.FC = () => {
   return (
     <div className="pb-8 lg:pb-0 px-6">
       <div className="max-w-7xl mx-auto">
+        <div className='flex justify-center mb-5'>
+        <CustomBreadcrumb links={[{ href: 'https://www.vaphers.com/seo-services', label: 'SEO Services' }]} currentPage="Ecommerce SEO Service"/>
+        </div>
         {/* Heading */}
         <div className="text-center mb-16">
-          <h1 className="text-3xl md:text-3xl lg:text-6xl font-sans text-gray-700 mb-4 bungee-inline-regular">
-            The Best Ecommerce SEO Agency for <br />{' '}
+          <h2 className="text-3xl md:text-3xl lg:text-6xl font-sans text-gray-700 mb-4 bungee-inline-regular">
+            Leading Ecommerce SEO Agency for <br />{' '}
             <span className="bg-blue-600 bg-clip-text text-transparent">
-              Online Store Growth
+              Revenue-Focused Growth
             </span>
-          </h1>
+          </h2>
           <p className="text-base md:text-2xl text-blue-600 font-semibold">
-            Helping Ecommerce Brands Rank Higher and Sell More
+            Driving Visibility, Traffic, and Sales for Online Stores Worldwide
           </p>
         </div>
 
@@ -214,10 +218,10 @@ const EcommercePitch: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div className="space-y-6">
             <p className="text-lg sm:text-lg lg:text-xl text-gray-700 leading-relaxed">
-              The ecommerce landscape in 2025 demands more than just a beautiful storefront. With global ecommerce sales projected to reach $6.4 trillion, competition is fierce. To stand out, your store needs strategic SEO that goes beyond basic optimization—targeting high-intent buyers, optimizing product feeds, and building authority across search engines.
+              The ecommerce landscape in 2025 is more competitive than ever, with global online sales projected to reach <strong>$7.4 trillion</strong> and nearly 25% of all retail transactions happening online. Success demands more than a beautiful storefront, it requires strategic <a href="https://www.vaphers.com/seo-services" className="text-blue-600 underline">search engine optimization</a> that targets high-intent buyers, leverages AI-driven personalization, and builds lasting authority across search engines and emerging platforms like voice and visual search.
             </p>
             <p className="text-lg sm:text-lg lg:text-xl text-gray-700 leading-relaxed">
-              Our ecommerce SEO specialists understand the unique challenges of online retail. Whether you&apos;re on Shopify, WooCommerce, OpenCart, or Squarespace, we implement platform-specific strategies including schema markup, site speed optimization, and conversion-focused content that turn search traffic into paying customers and repeat buyers.
+              Our ecommerce SEO specialists deliver <a href="https://www.vaphers.com/seo-services" className="text-blue-600 underline">comprehensive SEO services</a> tailored to the unique challenges of online retail. From platform-specific optimizations for Shopify, WooCommerce, and Squarespace to advanced <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-600 underline">technical optimization</a> including schema markup, Core Web Vitals improvements, and conversion-focused content strategies, we transform organic traffic into measurable revenue and long-term customer relationships.
             </p>
             <div className="mt-4 pb-4 flex justify-center sm:justify-start">
               <div className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">

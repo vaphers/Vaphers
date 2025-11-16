@@ -86,13 +86,13 @@ const EcommerceServicesAccordion: React.FC = () => {
             <p className="text-blue-600 text-sm sm:text-base font-semibold mb-2 uppercase tracking-wider">
               SERVICES .
             </p>
-            <h2 className="text-gray-900 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase leading-tight bungee-inline-regular">
+            <h3 className="text-gray-900 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase leading-tight bungee-inline-regular">
               Explore Our Affordable
               <br />
               <span className="bg-blue-600 bg-clip-text text-transparent">
                 ECOMMERCE SEO SERVICES
               </span>
-            </h2>
+            </h3>
           </div>
           {/* button */}
           <div className="flex justify-center sm:justify-start">
@@ -128,9 +128,9 @@ const EcommerceServicesAccordion: React.FC = () => {
                     <span className="text-blue-600 text-xl sm:text-2xl lg:text-3xl font-bold">
                       {service.number}
                     </span>
-                    <h3 className="text-blue-600 text-base sm:text-lg lg:text-xl font-bold uppercase text-left">
+                    <h4 className="text-blue-600 text-base sm:text-lg lg:text-xl font-bold uppercase text-left">
                       {service.title}
-                    </h3>
+                    </h4>
                   </div>
                   <motion.div
                     animate={{ rotate: expandedIndex === index ? 180 : 0 }}

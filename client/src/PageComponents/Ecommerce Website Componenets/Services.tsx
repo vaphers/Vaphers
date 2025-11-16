@@ -13,58 +13,79 @@ const features = [
     details: (
       <>
         <p className="mb-4">
-          Launch a fast, SEO-ready store that looks great on mobile and converts more visitors into buyers with clean product pages, quick filtering, and a smooth checkout experience built for growth.
+          Launch a fast, SEO-ready store that looks great on mobile and converts more visitors into buyers with clean product pages, quick filtering, and a smooth checkout experience built for growth. Our{' '}
+          <Link 
+            href="/website-development-services/nextjs-website-development" 
+            className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+          >
+            Next.js development services
+          </Link>
+          {' '}deliver performance that scales.
         </p>
         <p>
-          Enjoy blazing load speeds, image optimization, and tracking setup, with an admin your team can manage—perfect for brands wanting performance and affordable next js development that scales.
+          Enjoy blazing load speeds, image optimization, and tracking setup, with an admin your team can manage, perfect for brands wanting performance and affordable development that scales.
         </p>
       </>
     ),
     image:
       "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761565925/Get_Customers_With_shopifySEO_1_bylphq.png",
     imageAlt: "Next.js ecommerce storefront with products and analytics dashboard",
-    tutorialLink: "#",
+    tutorialLink: "/website-development-services/nextjs-website-development",
   },
   {
     title: "Shopify Store Setup & Growth",
     details: (
       <>
         <p className="mb-4">
-          Get a clean, modern Shopify store set up with the right theme, essential apps, payments, and shipping—so you can start selling quickly with a store that’s easy to manage every day.
+          Get a clean, modern{' '}
+          <Link 
+            href="/website-development-services/shopify-website-development" 
+            className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+          >
+            Shopify store
+          </Link>
+          {' '}set up with the right theme, essential apps, payments, and shipping, so you can start selling quickly with a store that's easy to manage every day.
         </p>
         <p>
-          We handle product import, collections, navigation, and on-page SEO, plus conversion best practices like trust badges, reviews, and upsells to increase average order value .
+          We handle product import, collections, navigation, and on-page SEO, plus conversion best practices like trust badges, reviews, and upsells to increase average order value.
         </p>
       </>
     ),
     image:
       "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit/v1761558398/Get_Customers_With_Ecommerce_SEO_5_xhfnzo.png",
     imageAlt: "Shopify storefront with collections and conversion elements",
-    tutorialLink: "#",
+    tutorialLink: "/website-development-services/shopify-website-development",
   },
   {
     title: "WooCommerce Store on WordPress",
     details: (
       <>
         <p className="mb-4">
-          Build a flexible WooCommerce store on WordPress with fast product pages, secure checkout, and SEO-friendly structure that helps your products rank and get discovered.
+          Build a flexible{' '}
+          <Link 
+            href="/website-development-services/wordpress-website-development" 
+            className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+          >
+            WooCommerce store on WordPress
+          </Link>
+          {' '}with fast product pages, secure checkout, and SEO-friendly structure that helps your products rank and get discovered.
         </p>
         <p>
-          From themes and plugins to payments, shipping, and tax setup, we configure everything for easy control—ideal if you need content + ecommerce in one place.
+          From themes and plugins to payments, shipping, and tax setup, we configure everything for easy control, ideal if you need content + ecommerce in one place.
         </p>
       </>
     ),
     image:
       "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit/v1761558398/Get_Customers_With_Ecommerce_SEO_5_xhfnzo.png",
     imageAlt: "WooCommerce product catalog with WordPress CMS controls",
-    tutorialLink: "#",
+    tutorialLink: "/website-development-services/wordpress-website-development",
   },
   {
     title: "BigCommerce Store for Scale",
     details: (
       <>
         <p className="mb-4">
-          Launch a reliable BigCommerce store built for catalogs, multi-channel selling, and stable performance—even during traffic spikes and seasonal campaigns.
+          Launch a reliable BigCommerce store built for catalogs, multi-channel selling, and stable performance, even during traffic spikes and seasonal campaigns.
         </p>
         <p>
           We set up products, categories, payments, and integrations, with clean UX and best-practice SEO to drive organic traffic and dependable conversions at scale.
@@ -74,7 +95,7 @@ const features = [
     image:
       "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit/v1761558398/Get_Customers_With_Ecommerce_SEO_5_xhfnzo.png",
     imageAlt: "BigCommerce storefront optimized for large catalogs",
-    tutorialLink: "#",
+    tutorialLink: "/contact",
   },
 ];
 
@@ -154,11 +175,11 @@ const EcommerceServices = () => {
           <h3 className="text-4xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-3 sm:mb-4 lg:mb-5 leading-tight bungee-inline-regular">
             Ecommerce Website Development{" "}
             <span className="text-blue-600 ">
-              Affordable Next.js Development
+              That Converts & Scales
             </span>
           </h3>
           <p className="max-w-2xl mx-auto text-muted-foreground">
-            Stores that load fast, rank higher, and convert better—built on the platform that fits your business today and scales tomorrow [memory:1][memory:2].
+            Stores that load fast, rank higher, and convert better—built on the platform that fits your business today and scales tomorrow.
           </p>
         </motion.div>
 

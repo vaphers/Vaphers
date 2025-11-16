@@ -2,6 +2,7 @@
 
 import React, { useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion, Variants } from 'framer-motion';
 import { TrendingUp, ShoppingCart, DollarSign } from 'lucide-react';
 
@@ -52,7 +53,7 @@ const WhyOnline: React.FC = () => {
             <div>
               <h2 className="text-4xl md:text-4xl lg:text-5xl text-center lg:text-start font-base tracking-[-0.03em] text-gray-700 bungee-inline-regular">
                 Why Every Business Needs an 
-                <span className="bg-blue-600 bg-clip-text text-transparent"> Online Store in 2025</span>
+                <span className="bg-blue-600 bg-clip-text text-transparent"> Online Store in 2025?</span>
               </h2>
               <p className="text-base md:text-xl text-center lg:text-start text-blue-600 font-medium">
                 Reach more customers, reduce costs, and grow your business online
@@ -60,7 +61,21 @@ const WhyOnline: React.FC = () => {
             </div>
             
             <p className="text-lg lg:text-xl text-gray-700 leading-relaxed text-center lg:text-left">
-              In 2025, having an online store isn't optional—it's essential for survival and growth. An ecommerce website lets you reach customers beyond your local area, operate around the clock without additional staff, and compete with larger companies on a level playing field. Whether you're selling products or services, an online store reduces operational expenses, provides valuable customer insights through analytics, and creates convenience that today's shoppers expect from modern businesses.
+              In 2025, having an online store isn't optional, it's essential for survival and growth. An ecommerce website lets you reach customers beyond your local area, operate around the clock without additional staff, and compete with larger companies on a level playing field. Whether you choose a{' '}
+              <Link 
+                href="/website-development-services/shopify-website-development" 
+                className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+              >
+                hosted platform like Shopify
+              </Link>
+              {' '}or a{' '}
+              <Link 
+                href="/website-development-services/nextjs-website-development" 
+                className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+              >
+                custom-built solution with Next.js
+              </Link>
+              , an online store reduces operational expenses, provides valuable customer insights through analytics, and creates the convenience that today's shoppers expect.
             </p>
 
             {/* Stats Grid */}
@@ -92,10 +107,12 @@ const WhyOnline: React.FC = () => {
             
             {/* Button */}
             <div className="pt-4 sm:pt-6 lg:pt-5 pb-4 flex justify-center lg:justify-start">
+              <Link href={"https://www.vaphers.com/contact"}>
               <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                 <span className="mr-2 sm:mr-3">Start Your Online Store Today</span>
                 <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </div>
+              </Link>
             </div>
           </div>
 

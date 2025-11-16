@@ -16,6 +16,7 @@ import NextVsWpVsShopify from '@/PageComponents/NextJS Page Components/NextvsWor
 import NextJsProcess from '@/PageComponents/NextJS Page Components/Process'
 import Stats from '@/PageComponents/Global Components/Stats'
 import NextJsFaq from '@/PageComponents/NextJS Page Components/FAQ'
+import NextShifting from '@/PageComponents/NextJS Page Components/ShiftingToNext'
 
 type FaqItem = { question: string; answer: string }
 
@@ -160,6 +161,7 @@ export default function Page() {
         <NextServices />
         <NextVsWpVsShopify />
         <NextJsProcess />
+        <NextShifting/>
         <Stats />
         <NextJsFaq />
         <ContactForm />

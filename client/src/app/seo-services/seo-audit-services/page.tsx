@@ -1,4 +1,5 @@
-import Head from "next/head";
+import { Metadata } from "next";
+import Script from "next/script";
 import Banner from "@/PageComponents/Global Components/Banner";
 import ContactForm from "@/PageComponents/Global Components/Contact";
 import HeroSEO from "@/PageComponents/Global Components/HeroSubpage";
@@ -7,6 +8,17 @@ import SEOAuditBenefits from "@/PageComponents/SEO Audit Coponents/HowItHelps";
 import Testimonial04 from "@/PageComponents/Global Components/Testimonial";
 import AuditServicesAccordion from "@/PageComponents/SEO Audit Coponents/Services";
 import SeoAuditFaq from "@/PageComponents/SEO Audit Coponents/FAQ";
+
+// Metadata for SEO
+export const metadata: Metadata = {
+  title: "Free SEO Audit Services | Vaphers - Comprehensive Website Analysis",
+  description: "Get your free SEO audit today. Discover critical issues holding your website back with our comprehensive analysis. Actionable recommendations to boost traffic, improve rankings, and outperform competitors.",
+  openGraph: {
+    title: "Free SEO Audit Services | Vaphers",
+    description: "Discover critical issues holding your website back with our comprehensive free SEO audit. Get actionable recommendations to boost traffic and rankings.",
+    type: "website",
+  },
+};
 
 export default function Page() {
   const faqSchema = {
@@ -98,24 +110,25 @@ export default function Page() {
 
   return (
     <>
-      <Head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-        />
-      </Head>
+      {/* FAQ Schema using next/script */}
+      <Script
+        id="faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        strategy="beforeInteractive"
+      />
 
       <main>
         <HeroSEO
-        heading="Get Your Free SEO Audit & Transform Your Rankings"
-        subtext="Discover critical issues holding your website back with our comprehensive free SEO audit. Get actionable recommendations to boost traffic, improve rankings, and outperform competitors."
-        badgeText="Request Your Free Audit"
+          heading="Get Your Free SEO Audit & Transform Your Rankings"
+          subtext="Discover critical issues holding your website back with our comprehensive free SEO audit. Get actionable recommendations to boost traffic, improve rankings, and outperform competitors."
+          badgeText="Request Your Free Audit"
         />
-        <SeoAuditPitch/>
-        <SEOAuditBenefits/>
-        <Testimonial04/>
-        <AuditServicesAccordion/>
-        <SeoAuditFaq/>
+        <SeoAuditPitch />
+        <SEOAuditBenefits />
+        <Testimonial04 />
+        <AuditServicesAccordion />
+        <SeoAuditFaq />
         <ContactForm />
       </main>
     </>

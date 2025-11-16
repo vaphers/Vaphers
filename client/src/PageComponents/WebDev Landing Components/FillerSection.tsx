@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
 export default function WebDesignSection() {
@@ -11,27 +12,49 @@ export default function WebDesignSection() {
         <div className="w-24 lg:w-104 h-1 bg-blue-900 mt-6"></div>
 
         {/* button */}
-        <Button
-          className="mt-8 bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-base font-semibold cursor-pointer"
-        >
-          Get a Free Website Review »
-        </Button>
+        <Link href={"https://www.vaphers.com/contact"}>
+          <Button
+            className="mt-8 bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-base font-semibold cursor-pointer"
+          >
+            Get a Free Website Audit »
+          </Button>
+        </Link>
       </div>
 
       {/* content */}
       <div className="w-full lg:w-3/5 space-y-6">
         <p className="text-lg text-[#1a3d5c] leading-relaxed">
-          A great website is more than visuals—it’s a 24/7 sales engine built on clear messaging, intuitive UX, and fast performance that earns trust and drives action.
+          A great website is more than visuals, it's a 24/7 sales engine built on clear messaging, intuitive UX, and fast performance that earns trust and drives action. We specialize in building{" "}
+          <Link 
+            href="/website-development-services/ecommerce-development" 
+            className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+          >
+            affordable ecommerce websites
+          </Link>
+          {" "}that scale with your business, whether you need{" "}
+          <Link 
+            href="/website-development-services/wordpress-website-development" 
+            className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+          >
+            WordPress with WooCommerce
+          </Link>
+          {" "}or a custom platform.
         </p>
 
         <p className="text-lg text-[#1a3d5c] leading-relaxed">
-          Designs that load quickly and feel stable improve Core Web Vitals, which are used by Google to evaluate real‑world experience and can influence visibility and engagement. 
+          Designs that load quickly and feel stable improve Core Web Vitals, which are used by Google to evaluate real‑world experience and can influence visibility and engagement. Our{" "}
+          <Link 
+            href="/website-development-services/shopify-website-development" 
+            className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+          >
+           budget friendly Shopify development
+          </Link>
+          {" "}delivers enterprise features at accessible price points, optimizing every touchpoint for speed and seamless checkout.
         </p>
 
         <p className="text-lg text-[#1a3d5c] leading-relaxed">
-          Mobile‑first, responsive layouts ensure your content works on any device and align with Google’s mobile‑first indexing approach, protecting rankings and paid traffic quality.
+          Mobile‑first, responsive layouts ensure your content works on any device and align with Google's mobile‑first indexing approach, protecting rankings and paid traffic quality across all platforms.
         </p>
-
       </div>
     </section>
   )

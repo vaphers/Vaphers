@@ -6,7 +6,7 @@ const features = [
     icon: MapPin,
     title: 'Google Maps & Local Pack Visibility',
     description:
-      'Ranking in Google’s Local Pack ensures your business appears when people search “near me.” This prime visibility drives direct calls, messages, and foot traffic from buyers ready to act.',
+      'Ranking in Google\'s Local Pack ensures your business appears when people search "near me." This prime visibility drives direct calls, messages, and foot traffic from buyers ready to act.',
   },
   {
     icon: PhoneCall,
@@ -42,7 +42,15 @@ export default function LocalLeads() {
               </span>
             </h4>
             <p className="text-lg text-gray-600">
-              Local SEO connects your business with nearby customers actively looking for your services. By optimizing your Maps presence, reviews, and local listings, you turn online searches into real leads and conversions.
+              Local SEO connects your business with nearby customers actively looking for your services through comprehensive{' '}
+              <a href="https://www.vaphers.com/seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+                SEO services
+              </a>
+              . By optimizing your Maps presence, reviews, and local listings, whether you run a local service business or{' '}
+              <a href="https://www.vaphers.com/seo-services/ecommerce-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+                online store
+              </a>
+              , you turn online searches into real leads and conversions.
             </p>
           </div>
 
@@ -64,6 +72,18 @@ export default function LocalLeads() {
               </div>
             ))}
           </div>
+
+          <p className="text-base text-gray-600 leading-relaxed">
+            Maximize your local visibility with proven{' '}
+            <a href="https://www.vaphers.com/ppc-marketing/lead-generation-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+              lead generation strategies
+            </a>
+            {' '}and targeted{' '}
+            <a href="https://www.vaphers.com/ppc-marketing/google-ads-management-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+              Google Ads campaigns
+            </a>
+            {' '}that complement your organic local SEO efforts and drive immediate results.
+          </p>
 
           <button className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
             See How It Works

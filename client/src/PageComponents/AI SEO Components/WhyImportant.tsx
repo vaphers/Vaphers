@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import Image from 'next/image';
 import { motion, Variants } from 'framer-motion';
 import { TrendingUp } from 'lucide-react';
+import Link from 'next/link';
 
 const WhyAIAgentsSEO: React.FC = () => {
   const ref = useRef<HTMLElement>(null);
@@ -111,29 +112,39 @@ const WhyAIAgentsSEO: React.FC = () => {
               </p>
             </div>
             
-            <p className="text-lg  text-gray-700 leading-relaxed text-center lg:text-left">
+            <p className="text-lg text-gray-700 leading-relaxed text-center lg:text-left">
               AI agents like ChatGPT, Perplexity, and Google Gemini are fundamentally changing how customers discover 
-              businesses and make purchasing decisions. Unlike traditional search engines that show a list of links, 
-              AI agents provide direct answers and recommendations by synthesizing information from across the web. 
-              If your business isn't optimized for these{' '}
-              <a href="#" className="text-blue-700 underline hover:text-blue-800 font-medium">
-                AI-powered search platforms
+              businesses and make purchasing decisions. Unlike{' '}
+              <a href="https://www.vaphers.com/seo-services" className="text-blue-700 underline hover:text-blue-800 font-medium">
+                traditional SEO methods
               </a>
-              , you're invisible to millions of potential customers.
+              {' '}that show a list of links, AI agents provide direct answers and recommendations by synthesizing information 
+              from across the web. If your business isn't optimized for these AI-powered platforms, you're invisible to 
+              millions of potential customers, especially{' '}
+              <a href="https://www.vaphers.com/seo-services/local-seo-services" className="text-blue-700 underline hover:text-blue-800 font-medium">
+                local businesses
+              </a>
+              {' '}competing for "near me" queries.
             </p>
             <p className="text-lg lg:text-lg text-gray-700 leading-relaxed text-center lg:text-left">
               Our AI Agent SEO services ensure your business appears in conversational AI responses, voice search results, 
               and AI-generated recommendations. We optimize your content using semantic markup, entity optimization, and 
-              natural language patterns that AI models understand and trust, positioning your brand as the authoritative 
+              natural language patterns that AI models understand and trust. Combined with{' '}
+              <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-700 underline hover:text-blue-800 font-medium">
+                technical SEO optimizations
+              </a>
+              {' '}for superior site speed and crawlability, we position your brand as the authoritative 
               answer when customers ask questions about your industry.
             </p>
             
             {/* button */}
             <div className="pt-4 sm:pt-6 lg:pt-5 pb-4 flex justify-center lg:justify-start">
+              <Link href={"https://www.vaphers.com/contact"}>
               <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                 <span className="mr-2 sm:mr-3">Start Your AI Optimization</span>
                 <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </div>
+              </Link>
             </div>
           </div>
           

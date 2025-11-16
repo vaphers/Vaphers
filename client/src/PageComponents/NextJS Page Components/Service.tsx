@@ -13,34 +13,48 @@ const features = [
     details: (
       <>
         <p className="mb-4">
-          Launch a fast, mobile-friendly store with secure checkout, easy product management, and SEO built-in—so your products get discovered and customers buy with confidence. From clean product pages and smart filters to cart and checkout flows that convert, everything is designed to drive real sales.
+          Launch a fast, mobile-friendly store with secure checkout, easy product management, and{" "}
+          <Link 
+            href="/seo-services" 
+            className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+          >
+            SEO built-in
+          </Link>
+          , so your products get discovered and customers buy with confidence. From clean product pages and smart filters to cart and checkout flows that convert, everything is designed to drive real sales.
         </p>
         <p>
-          You also get lightning-fast load times, optimized images, and structured data for Google Shopping and rich results. Whether you’re starting fresh or upgrading, our end-to-end setup turns browsers into buyers with clear tracking and simple updates your team can manage.
+          You also get lightning-fast load times, optimized images, and{" "}
+          <Link 
+            href="/seo-services/technical-seo-services" 
+            className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+          >
+            structured data for Google Shopping
+          </Link>
+          {" "}and rich results. Whether you're starting fresh or upgrading, our end-to-end setup turns browsers into buyers with clear tracking and simple updates your team can manage.
         </p>
       </>
     ),
     image:
       "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761565925/Get_Customers_With_shopifySEO_1_bylphq.png",
     imageAlt: "Modern Next.js ecommerce store with products and analytics",
-    tutorialLink: "#",
+    tutorialLink: "https://www.vaphers.com/website-development-services",
   },
   {
     title: "Next.js Landing Pages for Leads & SEO",
     details: (
       <>
         <p className="mb-4">
-          Get high-converting landing pages that load fast, rank on Google, and turn visitors into leads. Perfect for campaigns, services, and local SEO—built with strong on-page SEO, clear messaging, trust signals, and simple forms that boost response rates.
+          Get high-converting landing pages that load fast, rank on Google, and turn visitors into leads. Perfect for campaigns, services, and local SEO, built with strong on-page SEO, clear messaging, trust signals, and simple forms that boost response rates.
         </p>
         <p>
-          Enjoy reusable sections, A/B testing support, analytics, and pixel setup for ads. With server-side rendering and best practices baked in, your pages perform better out of the box—ideal for growth-focused businesses looking for affordable next js development.
+          Enjoy reusable sections, A/B testing support, analytics, and pixel setup for ads. With server-side rendering and best practices baked in, your pages perform better out of the box,   ideal for growth-focused businesses looking for affordable next js development.
         </p>
       </>
     ),
     image:
       "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit/v1761558398/Get_Customers_With_Ecommerce_SEO_5_xhfnzo.png",
     imageAlt: "Next.js landing page performance with graphs and conversions",
-    tutorialLink: "#",
+    tutorialLink: "https://www.vaphers.com/website-development-services",
   },
 ];
 

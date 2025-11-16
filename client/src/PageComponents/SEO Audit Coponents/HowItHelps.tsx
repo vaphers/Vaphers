@@ -5,23 +5,71 @@ import { SearchCheck, Bug, Gauge, ShieldCheck } from 'lucide-react'
 const features = [
   {
     icon: SearchCheck,
-    title: 'Identify Hidden Technical Issues',
-    description: 'SEO audits uncover critical problems like broken links, crawl errors, duplicate content, and indexation issues that prevent search engines from properly ranking your site.',
+    title: 'Identify Critical Technical Problems',
+    description: (
+      <>
+        SEO audits uncover{' '}
+        <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+          technical problems
+        </a>
+        {' '}like broken links, crawl errors, duplicate content, indexation issues, and{' '}
+        <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+          mobile optimization
+        </a>
+        {' '}gaps that prevent search engines from properly ranking your site and reaching your target audience.
+      </>
+    ),
   },
   {
     icon: Gauge,
-    title: 'Improve Site Speed & Performance',
-    description: 'Audits reveal performance bottlenecks, slow-loading pages, and optimization opportunities that directly impact user experience and Core Web Vitals rankings.',
+    title: 'Boost Site Speed & Performance',
+    description: (
+      <>
+        Audits reveal performance bottlenecks and optimization opportunities through{' '}
+        <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+          technical SEO improvements
+        </a>
+        . Building{' '}
+        <a href="https://www.vaphers.com/website-development-services/nextjs-website-development" className="text-blue-600 underline hover:text-blue-700 font-medium">
+          fast-loading websites
+        </a>
+        {' '}directly impacts Core Web Vitals rankings, user experience, and conversion rates.
+      </>
+    ),
   },
   {
     icon: Bug,
     title: 'Fix On-Page SEO Gaps',
-    description: 'Discover missing meta tags, poor keyword optimization, weak internal linking, and content gaps that are costing you valuable organic traffic and conversions.',
+    description: (
+      <>
+        Discover missing meta tags, weak keyword targeting, poor internal linking, and content gaps through comprehensive{' '}
+        <a href="https://www.vaphers.com/seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+          on-page optimization
+        </a>
+        {' '}analysis. We also identify{' '}
+        <a href="https://www.vaphers.com/seo-services/ai-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+          AI search optimization
+        </a>
+        {' '}opportunities that are costing you valuable organic traffic and conversions.
+      </>
+    ),
   },
   {
     icon: ShieldCheck,
-    title: 'Build Trust with Search Engines',
-    description: 'Audits ensure proper schema markup, mobile-friendliness, security protocols (HTTPS), and E-E-A-T signals that establish your site as a trustworthy, authoritative source.',
+    title: 'Build Search Engine Trust',
+    description: (
+      <>
+        Audits ensure proper{' '}
+        <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+          structured data
+        </a>
+        , mobile-friendliness, security protocols (HTTPS), and E-E-A-T signals. Part of a{' '}
+        <a href="https://www.vaphers.com/seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+          comprehensive SEO strategy
+        </a>
+        , these elements establish your site as a trustworthy, authoritative source that search engines reward with higher rankings.
+      </>
+    ),
   },
 ]
 
@@ -35,12 +83,12 @@ export default function SEOAuditBenefits() {
             <h3 className="text-4xl lg:text-5xl font-bold text-gray-700 leading-tight bungee-inline-regular">
               How SEO Audits{' '} <br/>
               <span className="bg-blue-600 bg-clip-text text-transparent">
-                Help Your Business
+                Transform Your Business
               </span>
             </h3>
             
             <p className="text-lg text-gray-600">
-              A comprehensive SEO audit is your roadmap to fixing critical issues, improving rankings, and unlocking organic growth opportunities that competitors are missing
+              A comprehensive SEO audit identifies critical issues, uncovers hidden growth opportunities, and provides a prioritized action plan that drives measurable improvements in rankings, traffic, and revenue, delivering 75% average organic traffic growth within 8 months.
             </p>
           </div>
 

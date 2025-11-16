@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { TrendingUp } from 'lucide-react'
 
@@ -48,18 +49,25 @@ const ProfessionalDesigners: React.FC = () => {
           <div className="w-full lg:w-3/4 space-y-4 sm:space-y-6">
             <div>
               <h2 className="text-4xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-start text-gray-200 mb-3 sm:mb-4 lg:mb-5 leading-tight bungee-inline-regular">
-                How Professional Ecommerce Designers{' '}
+                Professional Design That{' '}
                 <span className="bg-blue-400 bg-clip-text text-transparent ">
-                  Help You Sell More Online
+                  Converts Visitors to Buyers
                 </span>
               </h2>
               <p className="text-sm sm:text-base lg:text-lg text-center lg:text-start text-blue-200 font-medium">
-                Expert designers create user-friendly stores that convert visitors into loyal customers
+                Expert designers create user-friendly stores that drive sales and build customer loyalty
               </p>
             </div>
 
             <p className="text-sm sm:text-base lg:text-xl text-white leading-relaxed text-center lg:text-left">
-              Professional ecommerce designers understand what makes customers click "Buy Now." They create intuitive navigation, stunning product displays, and smooth checkout experiences that reduce cart abandonment and boost sales. With expertise in user behavior and conversion optimization, they build trust through consistent branding and professional aesthetics that make your store stand out. From mobile responsiveness to fast loading speeds, expert designers ensure every element works together to turn browsers into buyers and create shopping experiences that keep customers coming back.
+              Professional ecommerce designers understand what makes customers click "Buy Now." They create intuitive navigation, stunning product displays, and smooth checkout experiences that reduce cart abandonment and boost sales. With expertise in user behavior and conversion optimization, they build trust through consistent branding and professional aesthetics that make your store stand out. Whether you need a{' '}
+              <Link 
+                href="/website-development-services/wordpress-website-development" 
+                className="font-medium text-blue-300 hover:text-blue-200 underline decoration-1 underline-offset-2"
+              >
+                custom WooCommerce store
+              </Link>
+              {' '}or another platform, expert designers ensure every element works together to turn browsers into buyers and create shopping experiences that keep customers coming back.
             </p>
 
             {/* Button - Responsive sizing */}

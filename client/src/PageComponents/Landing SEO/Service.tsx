@@ -3,16 +3,18 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, TrendingUp } from 'lucide-react'
+import { ChevronDown, TrendingUp, ArrowRight } from 'lucide-react'
+import Link from 'next/link'
 
 interface Service {
   id: number
   number: string
   title: string
-  description: string
-  points: string[]
+  description: string | React.ReactNode
+  points: Array<string | React.ReactNode>
   image: string
   color: string
+  link: string
 }
 
 const ServicesAccordion: React.FC = () => {
@@ -23,7 +25,14 @@ const ServicesAccordion: React.FC = () => {
       id: 1,
       number: '01',
       title: 'Local SEO Optimization Service',
-      description: 'Dominate local search results and capture nearby customers actively searching for your services. We optimize your Google Business Profile, build authoritative local citations across 50+ directories, and implement geo-targeted keyword strategies that drive phone calls, foot traffic, and local conversions.',
+      description: (
+        <>
+          Dominate local search results and capture nearby customers actively searching for your services. We optimize your Google Business Profile, build authoritative local citations across 50+ directories, and implement geo-targeted keyword strategies that drive phone calls, foot traffic, and local conversions through proven{' '}
+          <a href="https://www.vaphers.com/seo-services/local-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+            local SEO techniques
+          </a>.
+        </>
+      ),
       points: [
         'Google Business Profile optimization and ongoing management',
         'Local citation building across top directories and industry sites',
@@ -31,13 +40,22 @@ const ServicesAccordion: React.FC = () => {
         'Review management and reputation monitoring strategies'
       ],
       image: 'https://images.pexels.com/photos/269077/pexels-photo-269077.jpeg?auto=compress&cs=tinysrgb&w=800',
-      color: 'from-cyan-500 to-blue-600'
+      color: 'from-cyan-500 to-blue-600',
+      link: 'https://www.vaphers.com/seo-services/local-seo-services'
     },
     {
       id: 2,
       number: '02',
       title: 'AI SEO Optimization Service',
-      description: 'Position your brand as the authoritative answer across ChatGPT, Google Gemini, Perplexity, and emerging AI search platforms. We optimize content for natural language processing, implement advanced structured data, and create comprehensive FAQ content that AI engines prioritize when generating responses.',
+      description: (
+        <>
+          Position your brand as the authoritative answer across ChatGPT, Google Gemini, Perplexity, and emerging AI search platforms. Our{' '}
+          <a href="https://www.vaphers.com/seo-services/ai-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+            AI SEO optimization
+          </a>
+          {' '}service implements advanced structured data, optimizes content for natural language processing, and creates comprehensive FAQ content that AI engines prioritize when generating responses.
+        </>
+      ),
       points: [
         'Content optimization for conversational AI queries and voice search',
         'Advanced schema markup implementation (FAQ, How-To, Product)',
@@ -45,27 +63,49 @@ const ServicesAccordion: React.FC = () => {
         'AI search visibility tracking across multiple platforms'
       ],
       image: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=800',
-      color: 'from-purple-500 to-pink-600'
+      color: 'from-purple-500 to-pink-600',
+      link: 'https://www.vaphers.com/seo-services/ai-seo-services'
     },
     {
       id: 3,
       number: '03',
       title: 'Ecommerce SEO Service',
-      description: 'Scale your online store revenue with product page optimization that converts browsers into buyers. We implement category architecture optimization, rich snippet schema, and technical fixes that improve crawlability while targeting high-intent transactional keywords that drive sales.',
+      description: (
+        <>
+          Scale your online store revenue with product page optimization that converts browsers into buyers. Our{' '}
+          <a href="https://www.vaphers.com/seo-services/ecommerce-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+            ecommerce SEO strategies
+          </a>
+          {' '}implement category architecture optimization, rich snippet schema, and{' '}
+          <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+            technical fixes
+          </a>
+          {' '}that improve crawlability while targeting high-intent transactional keywords.
+        </>
+      ),
       points: [
         'Product page optimization with transactional keyword targeting',
         'Category hierarchy restructuring for improved crawling',
         'Schema markup for products, reviews, and pricing',
-        'Technical SEO for site speed, mobile UX, and duplicate content'
+        <>Technical SEO for site speed, mobile UX, and duplicate content</>
       ],
       image: 'https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=800',
-      color: 'from-orange-500 to-red-600'
+      color: 'from-orange-500 to-red-600',
+      link: 'https://www.vaphers.com/seo-services/ecommerce-seo-services'
     },
     {
       id: 4,
       number: '04',
       title: 'Technical SEO Optimization',
-      description: 'Fix critical backend issues preventing search engines from properly crawling, indexing, and ranking your website. We conduct comprehensive technical audits addressing site speed, Core Web Vitals, mobile responsiveness, crawl errors, and server configuration problems that suppress visibility.',
+      description: (
+        <>
+          Fix critical backend issues preventing search engines from properly crawling, indexing, and ranking your website. Our{' '}
+          <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+            technical SEO audits
+          </a>
+          {' '}comprehensively address site speed, Core Web Vitals, mobile responsiveness, crawl errors, and server configuration problems that suppress visibility.
+        </>
+      ),
       points: [
         'Core Web Vitals optimization (LCP, FID, CLS improvements)',
         'Mobile-first indexing compliance and responsive design fixes',
@@ -73,13 +113,25 @@ const ServicesAccordion: React.FC = () => {
         'Structured data implementation and validation'
       ],
       image: 'https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=800',
-      color: 'from-green-500 to-teal-600'
+      color: 'from-green-500 to-teal-600',
+      link: 'https://www.vaphers.com/seo-services/technical-seo-services'
     },
     {
       id: 5,
       number: '05',
       title: 'SEO Auditing & Analysis',
-      description: 'Uncover hidden opportunities and diagnose issues sabotaging your search performance with comprehensive website analysis. We evaluate 200+ ranking factors including technical health, content quality, backlink profile, and competitive gaps, delivering a prioritized action plan for measurable growth.',
+      description: (
+        <>
+          Uncover hidden opportunities and diagnose issues sabotaging your search performance with comprehensive website analysis. Our{' '}
+          <a href="https://www.vaphers.com/seo-services/seo-audit-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+            professional SEO audits
+          </a>
+          {' '}evaluate 200+ ranking factors including{' '}
+          <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+            technical health
+          </a>, content quality, backlink profile, and competitive gaps.
+        </>
+      ),
       points: [
         'Comprehensive 200+ point technical and content audit',
         'Competitor analysis and keyword gap identification',
@@ -87,7 +139,8 @@ const ServicesAccordion: React.FC = () => {
         'Prioritized action plan with quick wins and long-term strategies'
       ],
       image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800',
-      color: 'from-indigo-500 to-purple-600'
+      color: 'from-indigo-500 to-purple-600',
+      link: 'https://www.vaphers.com/seo-services/seo-audit-services'
     },
   ]
 
@@ -110,10 +163,12 @@ const ServicesAccordion: React.FC = () => {
           </div>
           {/* button */}
           <div className="flex justify-center sm:justify-start">
-            <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
-              <span className="mr-2 sm:mr-3">Get Started Today</span>
-              <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
-            </div>
+            <Link href={"/contact"}>
+              <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                <span className="mr-2 sm:mr-3">Get Started Today</span>
+                <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
+              </div>
+            </Link>
           </div>
         </div>
 
@@ -121,7 +176,6 @@ const ServicesAccordion: React.FC = () => {
         <div>
           {services.map((service, index) => (
             <div key={service.id} className="relative">
-              {/* Top Border - Hidden when this or previous item is expanded */}
               {index > 0 && expandedIndex !== index && expandedIndex !== index - 1 && (
                 <div className="border-b border-gray-300"></div>
               )}
@@ -134,7 +188,7 @@ const ServicesAccordion: React.FC = () => {
                 } overflow-hidden transition-all duration-300`}
                 initial={false}
               >
-                {/* Header - Always Visible */}
+                {/* Header */}
                 <button
                   onClick={() => setExpandedIndex(expandedIndex === index ? null : index)}
                   className="w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-6 flex items-center justify-between hover:bg-gray-50 transition-colors duration-300"
@@ -170,7 +224,6 @@ const ServicesAccordion: React.FC = () => {
                     >
                       <div className="px-4 sm:px-6 lg:px-8 pb-6 sm:pb-8 lg:pb-10 border-t border-gray-200">
                         <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center pt-6 sm:pt-8">
-                          {/* Text Content */}
                           <motion.div
                             initial={{ x: -20, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
@@ -184,10 +237,21 @@ const ServicesAccordion: React.FC = () => {
                               {service.points.map((point, idx) => (
                                 <li key={idx} className="text-gray-600 text-sm sm:text-base flex items-start">
                                   <span className="text-blue-600 mr-2 font-bold">•</span>
-                                  {point}
+                                  <span>{point}</span>
                                 </li>
                               ))}
                             </ul>
+
+                            {/* Learn More Button */}
+                            <div className="pt-2">
+                              <a
+                                href={service.link}
+                                className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group"
+                              >
+                                <span>Learn More</span>
+                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                              </a>
+                            </div>
                           </motion.div>
 
                           {/* Image */}
@@ -223,3 +287,4 @@ const ServicesAccordion: React.FC = () => {
 }
 
 export default ServicesAccordion
+  

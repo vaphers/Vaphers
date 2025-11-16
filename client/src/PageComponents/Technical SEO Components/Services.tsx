@@ -10,7 +10,7 @@ interface Service {
   number: string
   title: string
   description: string
-  points: string[]
+points: Array<string | React.ReactNode>  
   image: string
   color: string
 }
@@ -25,10 +25,10 @@ const TechnicalServicesAccordion: React.FC = () => {
       title: 'Website Speed Optimization',
       description: 'Comprehensive site speed analysis and optimization to improve Core Web Vitals, reduce page load times, and enhance user experience. We optimize images, minimize CSS/JavaScript, implement browser caching, enable compression, and configure CDN delivery. Faster websites rank higher, convert better, and provide superior user experiences that keep visitors engaged.',
       points: [
-        'Core Web Vitals optimization (LCP, FID, CLS) for better rankings',
-        'Image compression and lazy loading implementation',
-        'Code minification, bundling, and removal of render-blocking resources',
-        'CDN configuration and server response time optimization'
+        <>Core Web Vitals optimization (LCP, FID, CLS) for better rankings and improved user experience</>,
+        <>Image compression, lazy loading, and modern format implementation for <a href="https://www.vaphers.com/website-development-services/nextjs-website-development" className="text-blue-600 underline hover:text-blue-700 font-medium">fast-loading websites</a></>,
+        <>Code minification, bundling, and removal of render-blocking resources</>,
+        <>CDN configuration and server response optimization for <a href="https://www.vaphers.com/seo-services/ecommerce-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">ecommerce site speed</a> improvements</>
       ],
       image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800',
       color: 'from-green-500 to-emerald-600'
@@ -37,12 +37,12 @@ const TechnicalServicesAccordion: React.FC = () => {
       id: 2,
       number: '02',
       title: 'Crawlability & Indexation Fixes',
-      description: 'Ensure search engines can properly discover, crawl, and index your website content. We fix crawl errors, optimize robots.txt configuration, create XML sitemaps, resolve duplicate content issues, and eliminate indexation barriers. Our service ensures maximum visibility by making your important pages easily accessible to search engine bots.',
+      description: 'Ensure search engines can properly discover, crawl, and index your website content. We fix crawl errors, optimize robots.txt configuration, create XML sitemaps, resolve duplicate content issues, and eliminate indexation barriers. Our service ensures maximum visibility by making your important pages easily accessible to search engine bots and AI crawlers.',
       points: [
-        'Google Search Console error resolution and crawl budget optimization',
-        'XML sitemap creation and submission to search engines',
-        'Robots.txt configuration and noindex/nofollow tag management',
-        'Canonical tag implementation to prevent duplicate content issues'
+        <>Google Search Console error resolution through <a href="https://www.vaphers.com/seo-services/seo-audit-services" className="text-blue-600 underline hover:text-blue-700 font-medium">comprehensive audit</a> and crawl budget optimization</>,
+        <>XML sitemap creation and submission to traditional and <a href="https://www.vaphers.com/seo-services/ai-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">AI crawlers</a></>,
+        <>Robots.txt configuration and noindex/nofollow tag management</>,
+        <>Canonical tag implementation to prevent duplicate content issues</>
       ],
       image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800',
       color: 'from-blue-500 to-cyan-600'
@@ -51,12 +51,12 @@ const TechnicalServicesAccordion: React.FC = () => {
       id: 3,
       number: '03',
       title: 'Mobile Optimization & Responsiveness',
-      description: 'Optimize your website for mobile-first indexing with responsive design implementation, mobile usability improvements, and touch-friendly navigation. We ensure your site provides excellent experiences across all devices, meeting Google\'s mobile-first standards. Mobile optimization is critical as most searches now happen on smartphones and tablets.',
+      description: 'Optimize your website for mobile-first indexing with responsive design implementation, mobile usability improvements, and touch-friendly navigation. We build mobile-first websites that provide excellent experiences across all devices, meeting Google\'s mobile-first standards. Mobile optimization is critical as most searches now happen on smartphones and tablets.',
       points: [
-        'Responsive design implementation for all screen sizes',
-        'Mobile page speed optimization and viewport configuration',
-        'Touch-friendly navigation and button sizing adjustments',
-        'Mobile usability testing and Google Mobile-Friendly Test validation'
+        <>Responsive design implementation for <a href="https://www.vaphers.com/website-development-services/nextjs-website-development" className="text-blue-600 underline hover:text-blue-700 font-medium">mobile-first websites</a> across all screen sizes</>,
+        <>Mobile page speed optimization and viewport configuration</>,
+        <>Touch-friendly navigation and button sizing adjustments for <a href="https://www.vaphers.com/seo-services/local-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">local mobile searches</a></>,
+        <>Mobile usability testing and Google Mobile-Friendly Test validation</>
       ],
       image: 'https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=800',
       color: 'from-orange-500 to-amber-600'
@@ -65,12 +65,12 @@ const TechnicalServicesAccordion: React.FC = () => {
       id: 4,
       number: '04',
       title: 'Structured Data & Schema Implementation',
-      description: 'Implement structured data markup to help search engines understand your content and enable rich results in search. We add schema markup for products, articles, FAQs, reviews, local businesses, and events. Proper schema implementation can improve click-through rates by up to 30% through enhanced search result displays with ratings, prices, and other rich snippets.',
+      description: 'Implement structured data markup to help search engines and AI systems understand your content and enable rich results in search. We add schema markup for products, articles, FAQs, reviews, local businesses, and events. Proper schema implementation can improve click-through rates by up to 30% through enhanced search result displays with ratings, prices, and other rich snippets.',
       points: [
-        'Schema markup implementation for rich snippets and enhanced visibility',
-        'Product, Article, FAQ, Review, and Local Business schema',
-        'JSON-LD structured data validation and error fixing',
-        'Rich Results Test validation and Google Search Console monitoring'
+        <>Schema markup implementation for <a href="https://www.vaphers.com/seo-services/ai-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">AI search engines</a> and rich snippets</>,
+        <><a href="https://www.vaphers.com/seo-services/ecommerce-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">Product schema</a>, Article, FAQ, Review schemas for enhanced visibility</>,
+        <><a href="https://www.vaphers.com/seo-services/local-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">Local business schema</a> for improved local search presence</>,
+        <>JSON-LD structured data validation and Rich Results Test monitoring</>
       ],
       image: 'https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg?auto=compress&cs=tinysrgb&w=800',
       color: 'from-purple-500 to-violet-600'
@@ -168,7 +168,7 @@ const TechnicalServicesAccordion: React.FC = () => {
                               {service.points.map((point, idx) => (
                                 <li key={idx} className="text-gray-600 text-sm sm:text-base flex items-start">
                                   <span className="text-blue-600 mr-2 font-bold">•</span>
-                                  {point}
+                                  <span>{point}</span>
                                 </li>
                               ))}
                             </ul>

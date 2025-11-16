@@ -1,18 +1,39 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { Target, BarChart, RefreshCw, Users } from 'lucide-react'
 
 const features = [
   {
     icon: Target,
     title: 'SEO‑Ready Pages That Rank',
-    description:
-      'Get clean, Google‑friendly pages with fast load times, perfect for service websites, landing pages, and blogs that need traffic and leads.',
+    description: (
+      <>
+        Get clean, Google‑friendly pages with fast load times, perfect for service websites, landing pages, and blogs that need traffic and{' '}
+        <Link 
+          href="/seo-services" 
+          className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+        >
+          strong SEO performance
+        </Link>
+        .
+      </>
+    ),
   },
   {
     icon: BarChart,
     title: 'Speed & Performance Built In',
-    description:
-      'Next.js optimizes images, routing, and caching so your site feels snappy on mobile and desktop—helping visitors stay longer and convert.',
+    description: (
+      <>
+        Next.js optimizes images, routing, and caching with{' '}
+        <Link 
+          href="/seo-services/technical-seo-services" 
+          className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+        >
+          Core Web Vitals optimization
+        </Link>
+        {' '}so your site feels snappy on mobile and desktop—helping visitors stay longer and convert.
+      </>
+    ),
   },
   {
     icon: RefreshCw,
@@ -23,8 +44,18 @@ const features = [
   {
     icon: Users,
     title: 'Designed to Convert Visitors',
-    description:
-      'Clear calls-to-action, trust signals, and smooth forms turn clicks into inquiries and sales—ideal for growth-focused businesses.',
+    description: (
+      <>
+        Clear calls-to-action, trust signals, and smooth forms turn clicks into inquiries and sales—ideal for{' '}
+        <Link 
+          href="/website-development-services/ecommerce-development" 
+          className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+        >
+          e-commerce stores
+        </Link>
+        {' '}and growth-focused businesses.
+      </>
+    ),
   },
 ]
 
@@ -39,7 +70,14 @@ export default function NextJsProcess() {
               Win with <span className="bg-blue-600 bg-clip-text text-transparent">Next.js Websites</span>
             </h4>
             <p className="text-lg text-gray-600">
-              Launch a fast, SEO‑friendly website that’s easy to manage and built to convert—perfect for modern brands that want results without the tech headache.
+              Launch a fast, SEO‑friendly{' '}
+              <Link 
+                href="/website-development-services" 
+                className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+              >
+                website
+              </Link>
+              {' '}that's easy to manage and built to convert—perfect for modern brands that want results without the tech headache.
             </p>
           </div>
 
@@ -62,6 +100,8 @@ export default function NextJsProcess() {
             ))}
           </div>
 
+          {/* Call to Action Button */}
+          <Link href={"https://www.vaphers.com/contact"} passHref>
           <button className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
             Get affordable Next.js development
             <svg
@@ -73,6 +113,7 @@ export default function NextJsProcess() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
+          </Link>
         </div>
 
         {/* Right Image */}

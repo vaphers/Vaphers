@@ -17,6 +17,8 @@ import WhyUs from '@/PageComponents/Global Components/WhyUs'
 import SeoFaq from '@/PageComponents/Landing SEO/FAQ'
 import ContactForm from '@/PageComponents/Global Components/Contact'
 import ServicesAccordion from '@/PageComponents/Landing SEO/Service'
+import SEOStrategiesComparison from '@/PageComponents/Landing SEO/Difference'
+import PromoFiller from '@/PageComponents/Landing SEO/Promo'
 
 // FAQ Data for schema
 export const seoFaqData = [
@@ -189,6 +191,8 @@ export default function Page() {
         <Testimonial />
         <SeoLeads />
         <Filler />
+        <PromoFiller/>
+        <SEOStrategiesComparison/>
         <ServicesAccordion />
         <SEOContentSection />
         <div className='lg:px-40 flex-justify-center'>

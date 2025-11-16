@@ -73,36 +73,36 @@ export default function SEOContentSection() {
                 How To Create <span className="bg-blue-600 bg-clip-text text-transparent">SEO Content?</span>
               </h3>
               <p className="text-lg text-gray-600 leading-relaxed">
-                Search Engine Optimization (SEO) is the practice of improving your website's visibility in search engine results. In today's digital landscape, effective{' '}
-                <a href="#" className="text-blue-600 underline hover:text-blue-700">
-                  SEO strategy
+                Creating effective SEO content starts with understanding your audience's search intent and delivering genuine value. Whether you're working with{' '}
+                <a href="https://www.vaphers.com/" className="text-blue-600 underline hover:text-blue-700">
+                  affordable SEO services
                 </a>{' '}
-                combines technical excellence with high-quality content that genuinely serves your audience's needs and search intent.
+                or building content in-house, the fundamentals remain the same: thorough keyword research, strategic optimization, and content that prioritizes readers while satisfying search engine requirements.
               </p>
             </div>
 
             {/* 1 */}
             <div className="space-y-3">
-              <h4 className="text-2xl font-bold text-gray-900 montserrat">
-                What Makes SEO Content Effective?
+              <h4 className="text-2xl font-bold text-gray-900 bungee-inline-regular">
+                Start With Strategic Keyword Research
               </h4>
               <p className="text-gray-600 leading-relaxed montserrat">
-                Effective SEO content goes beyond keyword placement. It requires understanding user intent, creating comprehensive content that answers real questions, and presenting information in a clear, scannable format. Modern search engines prioritize content that demonstrates expertise, authority, and trustworthiness (E-E-A-T) while providing genuine value to readers. This means focusing on quality over quantity and ensuring every piece addresses specific user needs.
+                Effective SEO content begins with identifying high-value keywords that balance search volume and competition. Use tools like Google Keyword Planner or Semrush to find 3-5 primary keywords, then expand with long-tail variations that target specific user intent. Focus on keywords your target audience actually searches for, not just what sounds good to your business. Strategic placement in titles, headings, meta descriptions, and naturally throughout your content signals relevance to search engines without keyword stuffing.
               </p>
             </div>
 
             {/* Quote */}
             <blockquote className="border-l-4 border-blue-500 pl-6 py-2 italic text-gray-600 bg-blue-50 rounded-r-lg">
-              "The best SEO content is created for people first, search engines second. Focus on answering questions thoroughly and providing unique insights that can't be found elsewhere."
+              "Write for people first, search engines second. The best SEO content answers questions thoroughly, demonstrates expertise, and provides unique insights readers can't find elsewhere."
             </blockquote>
 
             {/* 2 */}
             <div className="space-y-3">
-              <h4 className="text-2xl font-bold text-gray-900 montserrat">
-                Key Elements of SEO Success
+              <h4 className="text-2xl font-bold text-gray-900 bungee-inline-regular">
+                Structure Content for Readability 
               </h4>
               <p className="text-gray-600 leading-relaxed">
-                Successful SEO combines strategic keyword placement in titles, headings, and naturally throughout content, with technical optimization like proper URL structure and meta descriptions. But the foundation is always high-quality, original content that showcases real expertise. Use subheadings (H2-H6) to structure content logically, incorporate relevant keywords naturally, and ensure your content directly addresses search intent—whether informational, navigational, or transactional.
+                Modern SEO content must be scannable and engaging. Use short paragraphs, clear subheadings (H2-H6), bullet points, and visual elements to break up text and improve readability. Write at a sixth-grade reading level using simple, active language that directly addresses user questions. Include compelling meta descriptions, optimize images with descriptive alt text, and add internal links to related content. Most importantly, ensure your content demonstrates E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) by backing claims with data, citing authoritative sources, and showcasing real expertise in your field.
               </p>
             </div>
           </div>

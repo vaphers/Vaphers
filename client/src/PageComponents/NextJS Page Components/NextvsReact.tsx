@@ -117,9 +117,9 @@ export default function ReactVsNext() {
       <section className="max-w-7xl mx-auto px-6 py-16 relative z-10">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-base tracking-[-0.03em] text-gray-700 mb-4 bungee-inline-regular">
+          <h3 className="text-4xl md:text-5xl lg:text-6xl font-base tracking-[-0.03em] text-gray-700 mb-4 bungee-inline-regular">
             React JS vs <span className="bg-blue-600 bg-clip-text text-transparent">Next JS</span> for Your Website
-          </h2>
+          </h3>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto montserrat">
             A simple guide to help you choose the right option for speed, SEO, and results—no tech jargon.
           </p>

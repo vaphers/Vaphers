@@ -13,7 +13,14 @@ const features = [
     details: (
       <>
         <p className="mb-4">
-          Launch a fast, secure, and easy-to-manage WordPress site tailored to your brand and goals. From custom themes and block-based designs to performance, SEO, and accessibility best practices, your website is built to scale and convert. Content management stays effortless with reusable blocks, custom post types, and role-based workflows.
+          Launch a fast, secure, and easy-to-manage WordPress site tailored to your brand and goals. From{" "}
+          <Link 
+            href="/website-development-services/wordpress-website-development" 
+            className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+          >
+            custom themes and block-based designs
+          </Link>
+          {" "}to performance, SEO, and accessibility best practices, your website is built to scale and convert. Content management stays effortless with reusable blocks, custom post types, and role-based workflows.
         </p>
         <p>
           Integrations include form automations, CRM, analytics, and schema markup to improve search visibility and lead capture. Clean code, image optimization, and caching ensure great Core Web Vitals, while advanced security and backups keep your site stable and protected.
@@ -24,14 +31,21 @@ const features = [
       "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761565925/Get_Customers_With_shopifySEO_1_bylphq.png",
     imageAlt:
       "WordPress website layouts showing custom blocks, CMS editing, and performance metrics",
-    tutorialLink: "#wordpress-development",
+    tutorialLink: "/website-development-services/wordpress-website-development",
   },
   {
     title: "Shopify Website Development",
     details: (
       <>
         <p className="mb-4">
-          Build a conversion-focused Shopify store with custom themes, optimized product pages, and checkout enhancements. Implement structured data, metafields, and collection strategies to improve discoverability while keeping the storefront blazing fast and mobile-first for higher add-to-cart rates.
+          Build a{" "}
+          <Link 
+            href="/website-development-services/shopify-website-development" 
+            className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+          >
+            conversion-focused Shopify store
+          </Link>
+          {" "}with custom themes, optimized product pages, and checkout enhancements. Implement structured data, metafields, and collection strategies to improve discoverability while keeping the storefront blazing fast and mobile-first for higher add-to-cart rates.
         </p>
         <p>
           Power growth with integrations across payments, shipping, email, CRM, and analytics, plus custom apps or sections where needed. Scale confidently with performance optimization, robust security, and a streamlined admin tailored to your operations and merchandising workflow.
@@ -42,17 +56,24 @@ const features = [
       "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit/v1761558398/Get_Customers_With_Ecommerce_SEO_5_xhfnzo.png",
     imageAlt:
       "Shopify storefront with product grid, PDP optimization, and checkout conversion analytics",
-    tutorialLink: "#shopify-development",
+    tutorialLink: "/website-development-services/shopify-website-development",
   },
   {
     title: "Next.js Website Development",
     details: (
       <>
         <p className="mb-4">
-          Ship modern, high-performance web apps with Next.js using SSR, SSG, or ISR for the perfect blend of speed, SEO, and dynamic content. Enjoy lightning-fast routing, image optimization, and API routes—all engineered for Core Web Vitals and scalability.
+          Ship{" "}
+          <Link 
+            href="/website-development-services/nextjs-website-development" 
+            className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+          >
+            modern, high-performance web apps with Next.js
+          </Link>
+          {" "}using SSR, SSG, or ISR for the perfect blend of speed, SEO, and dynamic content. Enjoy lightning-fast routing, image optimization, and API routes, all engineered for Core Web Vitals and scalability.
         </p>
         <p>
-          Integrate headless CMS, payments, auth, and analytics with a clean TypeScript codebase and reusable UI components. From marketing sites to complex dashboards, get a production-grade stack ready for growth, maintainability, and internationalization.
+          Integrate headless CMS, payments, auth, and analytics with a clean TypeScript codebase and reusable UI components. From marketing sites to complex dashboards, get a production grade stack ready for growth, maintainability, and internationalization.
         </p>
       </>
     ),
@@ -60,7 +81,7 @@ const features = [
       "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761565925/Get_Customers_With_shopifySEO_1_bylphq.png",
     imageAlt:
       "Next.js app showing routes, ISR/SSR pages, and Lighthouse performance scores",
-    tutorialLink: "#nextjs-development",
+    tutorialLink: "/website-development-services/nextjs-website-development",
   },
 ];
 
@@ -177,9 +198,9 @@ const WordpressShopifyNext = () => {
                 className="basis-1/2 shrink-0"
                 variants={contentVariants}
               >
-                <h3 className="my-3 text-2xl font-semibold tracking-tight">
+                <h4 className="my-3 text-2xl font-semibold tracking-tight">
                   {feature.title}
-                </h3>
+                </h4>
                 <div className="text-muted-foreground leading-relaxed">
                   {feature.details}
                 </div>

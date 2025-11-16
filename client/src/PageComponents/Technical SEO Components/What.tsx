@@ -24,15 +24,15 @@ const WhatsTechnicalSEO: React.FC = () => {
   const stats = [
     {
       icon: <Zap className="w-6 h-6 text-blue-600" />,
-      value: "53%",
-      label: "Organic Traffic",
-      description: "Of all website traffic comes from organic search"
+      value: "96.55%",
+      label: "Zero Traffic Sites",
+      description: "Of websites get zero traffic from Google without proper technical SEO"
     },
     {
       icon: <Shield className="w-6 h-6 text-green-600" />,
-      value: "72%",
-      label: "Speed Issues",
-      description: "Of websites have slow-loading pages affecting rankings"
+      value: "33%",
+      label: "Core Web Vitals",
+      description: "Only 33% of websites pass Google's Core Web Vitals benchmark"
     }
   ];
 
@@ -54,16 +54,28 @@ const WhatsTechnicalSEO: React.FC = () => {
                     What's <br/><span className="bg-blue-600 bg-clip-text text-transparent">Technical SEO?</span>
                 </h2>
               <p className="text-base md:text-lg text-center lg:text-start text-blue-600 font-medium">
-                Build the Foundation That Drives Search Rankings
+                The Foundation That Powers Search Visibility and Rankings
               </p>
             </div>
             
             <p className="text-lg text-gray-700 leading-relaxed text-center lg:text-left">
-              Technical SEO is the process of optimizing your website's infrastructure so search engines can crawl, render, index, and serve your content correctly and efficiently. Unlike on-page SEO that focuses on content quality, technical SEO deals with behind-the-scenes elements like site speed, mobile responsiveness, structured data, XML sitemaps, and secure connections. Our{' '}
-              <a href="#" className="text-blue-700 underline hover:text-blue-800 font-medium">
-                affordable technical SEO service
+              Technical SEO is the critical process of optimizing your website's infrastructure to ensure search engines can efficiently crawl, index, and rank your content. While a comprehensive{' '}
+              <a href="https://www.vaphers.com/seo-services" className="text-blue-700 underline hover:text-blue-800 font-medium">
+                SEO strategy
               </a>
-              {' '}ensures your website's architecture meets modern search engine standards without breaking the bank, helping you achieve higher rankings and increased organic traffic.
+              {' '}includes content and backlinks, technical SEO forms the foundation that makes everything else work. It encompasses Core Web Vitals, page speed optimization, mobile responsiveness, secure HTTPS connections, structured data markup, XML sitemaps, and robots.txt configuration. Whether you're optimizing{' '}
+              <a href="https://www.vaphers.com/seo-services/ecommerce-seo-services" className="text-blue-700 underline hover:text-blue-800 font-medium">
+                ecommerce platforms
+              </a>
+              {' '}with thousands of products,{' '}
+              <a href="https://www.vaphers.com/seo-services/local-seo-services" className="text-blue-700 underline hover:text-blue-800 font-medium">
+                local businesses
+              </a>
+              {' '}competing for map pack visibility, or preparing for{' '}
+              <a href="https://www.vaphers.com/seo-services/ai-seo-services" className="text-blue-700 underline hover:text-blue-800 font-medium">
+                AI-powered search engines
+              </a>
+              , our technical SEO services build the high-performance infrastructure that drives organic traffic and sustainable growth.
             </p>
 
             {/* Stats Grid */}

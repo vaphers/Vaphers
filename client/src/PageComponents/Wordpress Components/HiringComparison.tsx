@@ -1,5 +1,6 @@
 'use client'
 
+import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Check, X, TrendingUp, Target, Clock, DollarSign, Users, Zap } from "lucide-react"
@@ -117,11 +118,18 @@ export default function DIYvsAgency() {
       <section className="max-w-7xl mx-auto px-6 py-16 relative z-10">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-base tracking-[-0.03em] text-gray-700 mb-4 bungee-inline-regular">
+          <h3 className="text-4xl md:text-5xl lg:text-6xl font-base tracking-[-0.03em] text-gray-700 mb-4 bungee-inline-regular">
             DIY vs <span className="bg-blue-600 bg-clip-text text-transparent">WordPress Agency</span>
-          </h2>
+          </h3>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto montserrat">
-            Understanding the real costs, time investment, and results of building your WordPress site yourself versus hiring professionals.
+            Understanding the real costs, time investment, and results of building your WordPress site yourself versus hiring a{" "}
+            <Link
+              href="/about-us"
+              className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+            >
+              digital marketing company
+            </Link>{" "}
+            like Vaphers that plans, designs, and optimizes everything for growth.
           </p>
         </div>
 
@@ -129,7 +137,9 @@ export default function DIYvsAgency() {
         <Card className="mb-12">
           <CardHeader>
             <CardTitle className="text-2xl montserrat">Side-by-Side Comparison</CardTitle>
-            <CardDescription className="montserrat">Real differences between DIY and hiring a WordPress design agency</CardDescription>
+            <CardDescription className="montserrat">
+              Real differences between DIY and hiring a WordPress design agency for your business website
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="overflow-x-auto">
@@ -201,7 +211,9 @@ export default function DIYvsAgency() {
               </div>
               <div className="mt-6 p-4 bg-orange-50 rounded-lg">
                 <p className="text-sm font-semibold text-orange-900 mb-1 montserrat">Hidden Costs:</p>
-                <p className="text-sm text-gray-700 montserrat">50-100+ hours of your time ($1,500-$6,000 opportunity cost), unpredictable fixes, and 2-6 month timeline.</p>
+                <p className="text-sm text-gray-700 montserrat">
+                  50-100+ hours of your time ($1,500-$6,000 opportunity cost), unpredictable fixes, and 2-6 month timeline.
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -214,7 +226,14 @@ export default function DIYvsAgency() {
                 <Badge className="bg-blue-600">Professional Results</Badge>
               </div>
               <CardDescription className="text-base montserrat">
-                Perfect for businesses that need reliable, conversion-focused websites without the technical headaches.
+                Perfect for businesses that need reliable, conversion-focused websites without the technical headaches—built by an{' '}
+                <Link
+                  href="/website-development-services"
+                  className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+                >
+                  affordable WordPress development company
+                </Link>
+                {" "}that understands growth, SEO, and long-term scalability.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -232,7 +251,9 @@ export default function DIYvsAgency() {
               </div>
               <div className="mt-6 p-4 bg-blue-50 rounded-lg">
                 <p className="text-sm font-semibold text-blue-900 mb-1 montserrat">Best for:</p>
-                <p className="text-sm text-gray-700 montserrat">Business websites, ecommerce stores, and professional sites where time is valuable and results matter.</p>
+                <p className="text-sm text-gray-700 montserrat">
+                  Business websites, ecommerce stores, and professional sites where time is valuable and results matter.
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -240,16 +261,18 @@ export default function DIYvsAgency() {
 
         {/* Bottom CTA */}
         <div className="text-center bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8">
-          <h3 className="text-2xl font-bold text-gray-900 mb-3 montserrat">
+          <h4 className="text-2xl font-bold text-gray-900 mb-3 montserrat">
             Ready for Professional WordPress Development?
-          </h3>
+          </h4>
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto montserrat">
             Get a complete team of WordPress experts for less than hiring one developer. Starting at $2,000/month.
           </p>
+          <Link href="/contact-us" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
           <button className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
             Get Your Free Consultation
             <TrendingUp className="w-5 h-5" />
           </button>
+          </Link>
         </div>
       </section>
     </div>

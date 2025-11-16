@@ -1,4 +1,5 @@
 import { Check, X } from "lucide-react";
+import Link from "next/link";
 
 export function ResponsiveVsNonResponsive() {
   return (
@@ -162,7 +163,16 @@ export function ResponsiveVsNonResponsive() {
               </tr>
               <tr className="bg-white/70 rounded-lg">
                 <td className="py-3 px-3 font-medium">Maintenance</td>
-                <td className="py-3 px-3">Single codebase; faster updates; future‑proof across devices.</td>
+                <td className="py-3 px-3">
+                  Single codebase; faster updates; future‑proof across devices.<br/>{" "}
+                  <Link 
+                    href="/website-development-services/nextjs-website-development" 
+                    className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+                  >
+                    Modern frameworks like Next.js
+                  </Link>
+                  {" "}streamline responsive development with built-in optimization.
+                </td>
                 <td className="py-3 px-3">Multiple layouts or fixed desktop‑only views lead to higher upkeep and breakage.</td>
               </tr>
               <tr className="bg-white/70 rounded-lg">
@@ -177,13 +187,10 @@ export function ResponsiveVsNonResponsive() {
         {/* CTA */}
         <div className="mt-10 text-center">
           <p className="text-muted-foreground">
-            Google’s guidance is clear: use responsive web design for easier implementation and maintenance.
+            <a href="https://developers.google.com/search/blog/2012/04/responsive-design-harnessing-power-of" className="text-blue-600 underline">Google's guidance</a> is clear: use responsive web design for easier implementation and maintenance.
           </p>
         </div>
       </div>
     </section>
   );
 }
-
-
-

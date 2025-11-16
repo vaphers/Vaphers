@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import Image from 'next/image';
 import { motion, Variants } from 'framer-motion';
 import { TrendingUp } from 'lucide-react';
+import Link from 'next/link';
 
 const WhyTechnical: React.FC = () => {
   const ref = useRef<HTMLElement>(null);
@@ -98,28 +99,47 @@ const WhyTechnical: React.FC = () => {
           {/* Content */}
           <div className="w-full lg:w-2/3 space-y-4 sm:space-y-6">
             <div>
-                <h2 className="text-4xl md:text-4xl lg:text-6xl text-center lg:text-start text-gray-200 font-base tracking-[-0.03em] text-pretty bungee-inline-regular">
-                    Why You Need <br/><span className="bg-blue-400 bg-clip-text text-transparent">Affordable Technical SEO</span>
-                </h2>
+                <h3 className="text-4xl md:text-4xl lg:text-6xl text-center lg:text-start text-gray-200 font-base tracking-[-0.03em] text-pretty bungee-inline-regular">
+                    Why You Need <br/><span className="bg-blue-400 bg-clip-text text-transparent">Technical SEO Services?</span>
+                </h3>
               <p className="text-base md:text-lg text-center lg:text-start text-gray-300 font-medium">
-                Build a Solid Foundation Without Breaking the Bank
+                Fix Critical Issues Holding Back Your Rankings and Traffic
               </p>
             </div>
             
             <p className="text-lg text-white leading-relaxed text-center lg:text-left">
-              Even beautiful websites with great content can remain invisible without proper technical optimization. Our{' '}
-              <a href="#" className="text-blue-300 underline hover:text-blue-200 transition-all duration-300 font-medium">
-                affordable technical SEO services
+              Even stunning websites built with{' '}
+              <a 
+                href="https://www.vaphers.com/website-development-services/nextjs-website-development" 
+                className="text-cyan-200 underline transition-all duration-300 font-medium"
+              >
+                modern web frameworks
               </a>
-              {' '}fix critical issues like slow page speeds, broken links, poor mobile optimization, and crawlability problems that prevent higher rankings. Get better user experience, increased organic traffic, and improved search visibility without enterprise-level costs.
+              {' '}and great content can remain invisible without proper technical optimization. Common issues like slow page speeds, broken links, crawl errors, duplicate content, poor mobile optimization, and missing structured data prevent search engines from properly indexing and ranking your site. As part of our{' '}
+              <a 
+                href="https://www.vaphers.com/seo-services" 
+                className="text-cyan-200 underline  transition-all duration-300 font-medium"
+              >
+                comprehensive SEO services
+              </a>
+              , we conduct a{' '}
+              <a 
+                href="https://www.vaphers.com/seo-services/seo-audit-services" 
+                className="text-cyan-200 underline  transition-all duration-300 font-medium"
+              >
+                detailed SEO audit
+              </a>
+              {' '}to identify technical bottlenecks and implement solutions that deliver measurable results, higher rankings, increased organic traffic, improved user experience, and stronger search visibility that drives business growth.
             </p>
             
             {/* button */}
             <div className="pt-4 sm:pt-6 lg:pt-5 pb-4 flex justify-center lg:justify-start">
+              <Link href={"https://www.vaphers.com/contact"}>
               <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                 <span className="mr-2 sm:mr-3">Start Your Technical Audit</span>
                 <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </div>
+              </Link>
             </div>
           </div>
           

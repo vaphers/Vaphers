@@ -1,6 +1,7 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
-export default function GMB() {
+export default function WooCom() {
   return (
     <section className="relative max-w-full px-6 py-8">
       <div
@@ -55,7 +56,7 @@ export default function GMB() {
           <div className="relative w-full h-[500px] lg:h-[800px] rounded-3xl overflow-hidden">
             <Image
               src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761830525/Why_GMB___2_pdsgri.png"
-              alt="Google Business Profile optimization dashboard"
+              alt="WooCommerce store dashboard and performance overview"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
@@ -67,55 +68,57 @@ export default function GMB() {
         <div className="space-y-8 order-1 lg:order-2">
           <div className="space-y-4">
             <h3 className="text-3xl md:text-4xl lg:text-5xl font-base tracking-[-0.03em] text-gray-700 bungee-inline-regular">
-              Why <span className="bg-blue-600 bg-clip-text text-transparent">Google Business Profile</span> Is the Heart of Local SEO?
+              Start Your Online Store with{' '}
+              <span className="bg-blue-600 bg-clip-text text-transparent">WooCommerce</span>
             </h3>
             <p className="text-lg text-gray-600 leading-relaxed montserrat">
-              A fully optimized Google Business Profile (GBP) is no longer optional, it's the cornerstone of effective local SEO that drives{' '}
-              <a href="https://www.vaphers.com/seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
-                website traffic
-              </a>
-              {' '}and visibility. 
-              It determines how your business appears in Google Maps, local packs, and "near me" searches. At <strong>Vaphers</strong>, 
-              we specialize in crafting high-performing GBP strategies that boost visibility, engagement, and conversions within your target city or neighborhood.
+              WooCommerce turns your WordPress site into a full-featured online store with product management, secure checkout, and endless customization. Paired with our{' '}
+              <Link
+                href="/website-development-services/ecommerce-development"
+                className="text-blue-600 underline hover:text-blue-700 font-medium"
+              >
+                ecommerce development services
+              </Link>
+              , you get a store that looks professional, runs smoothly, and is built to grow from day one.
             </p>
           </div>
 
           {/* 1 */}
           <div className="space-y-3">
             <h4 className="text-2xl font-bold text-gray-900 montserrat">
-              Turn Searches into Local Foot Traffic
+              Built to Sell and Scale
             </h4>
             <p className="text-gray-600 leading-relaxed montserrat">
-              When potential customers search for services nearby, your Google Business Profile decides whether you show up first or not at all. 
-              An optimized profile featuring accurate NAP (Name, Address, Phone), customer reviews, and updated business details 
-              ensures you capture high-intent{' '}
-              <a href="https://www.vaphers.com/ppc-marketing/lead-generation-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
-                local leads
-              </a>
-              {' '}that are already looking to buy. Combined with strategic{' '}
-              <a href="https://www.vaphers.com/ppc-marketing/google-ads-management-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
-                Google Ads campaigns
-              </a>
-              , your GBP becomes a complete local marketing powerhouse.
+              A WooCommerce store gives you full control over products, pricing, and promotions while staying easy to manage from a single WordPress dashboard. We design conversion‑focused product pages, streamlined carts, and frictionless checkout flows that reduce abandonment and increase average order value. Combined with tailored{' '}
+              <Link
+                href="/seo-services/ecommerce-seo-services"
+                className="text-blue-600 underline hover:text-blue-700 font-medium"
+              >
+                ecommerce SEO services
+              </Link>
+              , your store is ready to attract qualified buyers and turn them into repeat customers.
             </p>
           </div>
 
           {/* Quote */}
           <blockquote className="border-l-4 border-blue-500 pl-6 py-2 italic text-gray-700 bg-blue-50 rounded-r-lg montserrat">
-            "Businesses with fully optimized Google Business Profiles get up to 70% more visits and 50% more conversions, 
-            and <strong>Vaphers</strong> helps you get there the smart way."
+            "A well‑built WooCommerce store becomes your always‑on sales engine—and <strong>Vaphers</strong> helps you launch it right, from performance to SEO."
           </blockquote>
 
           {/* 2 */}
           <div className="space-y-3">
             <h4 className="text-2xl font-bold text-gray-900 montserrat">
-              Build Local Trust & Outrank Competitors
+              Optimized for Search, Speed & Insights
             </h4>
             <p className="text-gray-600 leading-relaxed montserrat">
-              A verified and active Google Business Profile signals trust and authority to both search engines and your customers. 
-              By posting regular updates, adding photos, and gathering local reviews, your business becomes a reliable source within 
-              your community. With <strong>Vaphers</strong>, we don't just optimize your listing, we turn it into a lead-generation engine 
-              that consistently ranks and converts for high-value "near me" searches.
+              WooCommerce works seamlessly with WordPress, giving you clean URLs, structured content, and full control over on‑page optimization. We back this up with detailed{' '}
+              <Link
+                href="/seo-services/seo-audit-services"
+                className="text-blue-600 underline hover:text-blue-700 font-medium"
+              >
+                SEO audits
+              </Link>
+              {' '}to uncover technical issues, content gaps, and performance bottlenecks before they cost you sales. With <strong>Vaphers</strong>, you get a WooCommerce store that is fast, easy to manage, and ready to rank for the keywords that matter most to your business.
             </p>
           </div>
         </div>

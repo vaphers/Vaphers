@@ -51,21 +51,21 @@ export default function PromoFiller() {
       />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col lg:flex-row items-start justify-between gap-12 px-8 py-16 lg:pt-15  lg:pb-26 max-w-7xl mx-auto">
+      <div className="relative z-10 flex flex-col lg:flex-row items-start justify-between gap-12 px-8 py-16 lg:pt-15 lg:pb-26 max-w-7xl mx-auto">
         {/* Left Side - Title */}
         <div className="w-full lg:w-2/5">
           <h3 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-700 leading-tight montserrat">
-            An Affordable Ecommerce SEO Agency
+            Technical SEO That Drives Rankings & Revenue
           </h3>
           <div className="w-24 lg:w-104 h-1 bg-blue-900 mt-6"></div>
           
           {/* CTA Button */}
           <Link href="https://www.vaphers.com/contact">
-          <Button 
-            className="mt-8 bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-base font-semibold cursor-pointer"
-          >
-            Get a Free Store Audit »
-          </Button>
+            <Button 
+              className="mt-8 bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-base font-semibold cursor-pointer"
+            >
+              Get Your Technical Audit »
+            </Button>
           </Link>
         </div>
 
@@ -74,21 +74,33 @@ export default function PromoFiller() {
           <p className="text-lg text-[#1a3d5c] leading-relaxed">
             <span className="font-semibold">Vaphers</span> delivers{' '}
             <a href="https://www.vaphers.com/seo-services" className="text-blue-600 underline font-medium">
-              affordable ecommerce SEO strategies
+              comprehensive SEO strategies
             </a>
-            {' '}that help online stores rank higher and drive revenue. With organic search generating 53% of ecommerce traffic and 23.6% of orders, SEO outperforms{' '}
+            {' '}built on rock-solid technical foundations. With 43% of{' '}
+            <a href="https://www.vaphers.com/seo-services/ecommerce-seo-services" className="text-blue-600 underline font-medium">
+              ecommerce traffic
+            </a>
+            {' '}coming from organic search and 23.6% of orders directly linked to SEO, technical optimization delivers better long-term ROI than{' '}
             <a href="https://www.vaphers.com/ppc-marketing/google-ads-management-services" className="text-blue-600 underline font-medium">
               paid advertising
             </a>
-            {' '}in long-term ROI. We optimize product pages, category structure, and technical foundations to capture high-intent shoppers searching for your products.
+            . We optimize Core Web Vitals, site architecture, crawlability, and mobile performance to capture high-intent shoppers actively searching for products and services.
           </p>
           
           <p className="text-lg text-[#1a3d5c] leading-relaxed">
-            Our strategies deliver 3x average ROI within 12 months and up to 6x within 24 months. From Shopify and WooCommerce optimization to schema markup and mobile performance, we implement tactics backed by{' '}
-            <a href="https://www.vaphers.com/seo-services/seo-audit-services" className="text-blue-600 underline font-medium">
-              transparent reporting
+            Whether you&apos;re running a{' '}
+            <a href="https://www.vaphers.com/website-development-services/shopify-website-development" className="text-blue-600 underline font-medium">
+              Shopify store
             </a>
-            . With 78% of retail traffic from mobile and Google&apos;s #1 result capturing 27.6% of clicks, ranking on page one is essential for your store&apos;s success.
+            , a{' '}
+            <a href="https://www.vaphers.com/website-development-services/ecommerce-development" className="text-blue-600 underline font-medium">
+              WooCommerce site
+            </a>
+            , or custom ecommerce platform, our technical SEO services address the infrastructure issues holding back your rankings. With 77% of retail traffic from mobile devices and Google&apos;s top result capturing 27.6% of clicks, we implement{' '}
+            <a href="https://www.vaphers.com/seo-services/seo-audit-services" className="text-blue-600 underline font-medium">
+              data-driven strategies
+            </a>
+            {' '}that deliver measurable improvements in speed, crawlability, indexation, and search visibility, driving sustainable organic growth.
           </p>
         </div>
       </div>

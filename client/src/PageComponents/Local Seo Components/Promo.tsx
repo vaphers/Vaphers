@@ -88,10 +88,22 @@ const Promo: React.FC = () => {
               </p>
             </div>
             <p className="text-lg lg:text-lg text-white leading-relaxed">
-              Local SEO focuses on optimizing your online presence specifically for your geographic area. This means enhancing your Google My Business profile, building local citations, acquiring location-based backlinks, and creating geo-targeted content. The goal is to make sure your business appears at the top of local map packs, in “near me” searches, and across local directories. Incorporating low-competition keywords like “neighborhood plumber,” “local carpentry services,” or “community favorite restaurant” can help you stand out in local search results without heavy competition.
+              Local SEO focuses on optimizing your online presence specifically for your geographic area through{' '}
+              <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-300 underline hover:text-blue-200 transition-all duration-300 font-medium">
+                website optimization
+              </a>
+              {' '}and{' '}
+              <a href="https://www.vaphers.com/seo-services" className="text-blue-300 underline hover:text-blue-200 transition-all duration-300 font-medium">
+                affordable   SEO services
+              </a>
+              . This means enhancing your Google My Business profile, building local citations, acquiring location-based backlinks, and creating geo-targeted content. The goal is to make sure your business appears at the top of local map packs, in "near me" searches, and across local directories. Incorporating low-competition keywords like "neighborhood plumber," "local carpentry services," or "community favorite restaurant" can help you stand out in local search results without heavy competition.
             </p>
             <p className="text-lg lg:text-lg text-white leading-relaxed">
-              At <strong>Vaphers</strong>, we specialize in these innovative local SEO strategies that ensure your business gains top visibility across search engines and map services—driving foot traffic and online leads efficiently within your community.
+              At <strong>Vaphers</strong>, we specialize in these innovative local SEO strategies through detailed{' '}
+              <a href="https://www.vaphers.com/seo-services/seo-audit-services" className="text-blue-300 underline hover:text-blue-200 transition-all duration-300 font-medium">
+                local search visibility audits
+              </a>
+              {' '}that ensure your business gains top visibility across search engines and map services—driving foot traffic and online leads efficiently within your community.
             </p>
 
             {/* Call-to-Action */}

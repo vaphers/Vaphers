@@ -2,6 +2,7 @@
 
 import React, { useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion, Variants } from 'framer-motion';
 import { TrendingUp, Globe, Users } from 'lucide-react';
 
@@ -24,15 +25,15 @@ const WhatsWP: React.FC = () => {
   const stats = [
     {
       icon: <Globe className="w-6 h-6 text-blue-600" />,
-      value: "43.2%",
+      value: "43%",
       label: "Of All Websites",
-      description: "WordPress powers over 43% of all websites globally, making it the world's most popular CMS."
+      description: "WordPress powers nearly half the internet, trusted by businesses worldwide."
     },
     {
       icon: <Users className="w-6 h-6 text-green-600" />,
-      value: "585M+",
-      label: "Active Websites",
-      description: "Over 585 million websites worldwide trust WordPress for their online presence."
+      value: "60M+",
+      label: "Active Users",
+      description: "Millions of site owners choose WordPress for reliability and ease of use."
     }
   ];
 
@@ -52,15 +53,22 @@ const WhatsWP: React.FC = () => {
             <div>
               <h2 className="text-4xl md:text-4xl lg:text-5xl text-center lg:text-start font-base tracking-[-0.03em] text-gray-700 bungee-inline-regular">
                 What is 
-                <span className="bg-blue-600 bg-clip-text text-transparent"> WordPress</span>?
+                <span className="bg-blue-600 bg-clip-text text-transparent"> WordPress?</span>
               </h2>
               <p className="text-base md:text-xl text-center lg:text-start text-blue-600 font-medium">
-                The world's most popular website building platform
+                The flexible platform that grows with your business
               </p>
             </div>
             
             <p className="text-lg lg:text-xl text-gray-700 leading-relaxed text-center lg:text-left">
-              WordPress is a powerful content management system (CMS) that lets you create and manage professional websites without coding knowledge. Originally launched as a blogging platform in 2003, it has evolved into a versatile solution for any website type—from business sites and online stores to portfolios and membership platforms. With its user-friendly interface, thousands of customizable themes, and over 70,000 plugins, WordPress gives you complete control to build, customize, and grow your online presence easily and affordably.
+              WordPress is the world's leading content management system that puts you in control of your website, no coding required. Born in 2003 as a blogging platform, it's evolved into a complete{' '}
+              <Link 
+                href="/website-development-services" 
+                className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+              >
+                website development solution
+              </Link>
+              {' '}for businesses of all sizes. Whether you're launching an online store with WooCommerce, building a corporate site, or creating a portfolio, WordPress delivers the tools you need. With thousands of customizable themes, 60,000+ plugins, and an intuitive editor, you get professional results without the technical headaches or expensive developers.
             </p>
 
             {/* Stats Grid */}
@@ -92,10 +100,12 @@ const WhatsWP: React.FC = () => {
             
             {/* Button */}
             <div className="pt-4 sm:pt-6 lg:pt-5 pb-4 flex justify-center lg:justify-start">
+              <Link href="/contact-us" passHref>
               <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                 <span className="mr-2 sm:mr-3">Start Your WordPress Project</span>
                 <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </div>
+              </Link>
             </div>
           </div>
 

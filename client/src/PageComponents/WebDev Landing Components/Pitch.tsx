@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 
@@ -64,21 +65,40 @@ export default function WebDesignPitch() {
             </h2>
 
             <p className="text-lg leading-8 text-muted-foreground md:text-xl">
-              Modern, performant websites built on production‑ready stacks with clean UI, clear messaging, and SEO‑first structure to turn clicks into customers.
+              Production‑ready websites engineered for speed, conversions, and search visibility. Every site is built with clean code, intuitive UX, and{" "}
+              <Link 
+                href="https://www.vaphers.com/seo-services/technical-seo-services" 
+                className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+              >
+                technical SEO optimization
+              </Link>{" "}
+              that helps you rank and convert from day one.
             </p>
 
             <ul className="space-y-4 text-base md:text-lg">
               <li className="flex gap-4">
-                <span className="mt-2 h-2.5 w-2.5 rounded-full bg-primary" />
-                <p>Next.js website development - hybrid SSR/SSG, file‑based routing, and image optimization for strong Core Web Vitals.</p>
+                <span className="mt-2 h-2.5 w-2.5 flex-shrink-0 rounded-full bg-primary" />
+                <p>
+                  <Link 
+                    href="https://www.vaphers.com/website-development-services/nextjs-website-development" 
+                    className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+                  >
+                    Next.js website development
+                  </Link>{" "}
+                  – hybrid SSR/SSG rendering, automatic code splitting, and native image optimization that delivers exceptional Core Web Vitals and faster indexing.
+                </p>
               </li>
               <li className="flex gap-4">
-                <span className="mt-2 h-2.5 w-2.5 rounded-full bg-primary" />
-                <p>WordPress website development - custom themes, block‑editor workflows, and secure, scalable builds you can manage easily.</p>
+                <span className="mt-2 h-2.5 w-2.5 flex-shrink-0 rounded-full bg-primary" />
+                <p>
+                  <a className="text-blue-600 hover:text-blue-800 underline" href="https://www.vaphers.com/website-development-services/wordpress-website-development">WordPress website development</a> – custom block themes, headless CMS architecture, and optimized hosting configurations that balance flexibility with performance.
+                </p>
               </li>
               <li className="flex gap-4">
-                <span className="mt-2 h-2.5 w-2.5 rounded-full bg-primary" />
-                <p>SEO‑ready architecture - semantic HTML, accessible components, and fast loads that help pages rank and convert.</p>
+                <span className="mt-2 h-2.5 w-2.5 flex-shrink-0 rounded-full bg-primary" />
+                <p>
+                  <a className="text-blue-600 hover:text-blue-800 underline" href="https://www.vaphers.com/seo-services">SEO‑first architecture</a> – semantic HTML5 structure, WCAG‑compliant accessibility, schema markup integration, and server‑side rendering that gives search engines fully‑formed content to index and rank.
+                </p>
               </li>
             </ul>
 
@@ -89,7 +109,7 @@ export default function WebDesignPitch() {
                 </a>
               </Button>
               <Button size="lg" variant="outline" className="h-12 px-6 text-base md:text-lg" asChild>
-                <a href="#work">View recent work</a>
+                <a href="#work">Explore More</a>
               </Button>
             </div>
           </div>

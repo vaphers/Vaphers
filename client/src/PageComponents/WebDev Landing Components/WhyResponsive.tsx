@@ -2,6 +2,7 @@
 
 import React, { useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion, Variants } from 'framer-motion';
 import { TrendingUp } from 'lucide-react';
 
@@ -86,28 +87,39 @@ const WhyResponsive: React.FC = () => {
             </div>
 
             <p className="text-white lg:text-lg text-lg leading-relaxed">
-              Google recommends responsive web design and indexes the mobile version of your pages first, so a responsive build directly supports discoverability and long‑term SEO health.
+              Google{' '}
+              <Link 
+                href="https://developers.google.com/search/blog/2012/04/responsive-design-harnessing-power-of"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-blue-300 hover:text-blue-200 underline decoration-1 underline-offset-2"
+              >
+                officially recommends responsive web design
+              </Link>{' '}
+              and indexes the mobile version of your pages first, so a responsive build directly supports discoverability and long‑term SEO health.
             </p>
 
             <p className="text-white lg:text-lg text-lg leading-relaxed">
-              Responsive layouts improve Core Web Vitals on real devices—faster loads, stable layouts, and quick interactions—boosting user satisfaction and helping your pages perform in search.
+              Responsive layouts deliver superior Core Web Vitals scores across real devices, faster paint times, stable viewports, and instant interactions, which improves user satisfaction and helps your pages rank competitively.
             </p>
 
             <ul className="mx-auto grid w-full gap-4 text-left text-white sm:grid-cols-2 lg:mx-0">
               <li className="rounded-lg bg-white/10 p-4 backdrop-blur">
-                Mobile‑friendly UX lowers bounce, raises engagement, and protects paid traffic quality scores.
+                Mobile‑first UX reduces bounce rates, extends session duration, and protects paid campaign quality scores.
               </li>
               <li className="rounded-lg bg-white/10 p-4 backdrop-blur">
-                Future‑proof foundation for new devices without separate mobile sites or redirects. 
+                Future‑proof foundation that scales to new devices without maintaining separate mobile sites or redirect chains.
               </li>
             </ul>
 
             {/* CTA */}
             <div className="flex justify-center pb-4 pt-4 sm:pt-6 lg:justify-start lg:pt-5">
+              <a href="https://www.vaphers.com/contact">
               <div className="inline-flex cursor-pointer items-center rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 px-5 py-2.5 text-xs font-semibold text-white shadow-xl transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl sm:px-6 sm:py-3 sm:text-sm lg:px-8 lg:py-4 lg:text-base">
                 <span className="mr-2 sm:mr-3">Make my site responsive</span>
                 <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5" />
               </div>
+              </a>
             </div>
           </div>
         </div>

@@ -4,6 +4,7 @@ import React from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { TrendingUp } from 'lucide-react'
+import Link from 'next/link'
 
 const EcommercePromo: React.FC = () => {
   return (
@@ -47,31 +48,45 @@ const EcommercePromo: React.FC = () => {
           {/* Content */}
           <div className="w-full lg:w-3/4 space-y-4 sm:space-y-6">
             <div>
-              <h2 className="text-4xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-start text-gray-200 mb-3 sm:mb-4 lg:mb-5 leading-tight bungee-inline-regular">
-                Why Choose Vaphers for{' '}
-                <span className="bg-blue-400 bg-clip-text text-transparent ">
-                  Ecommerce SEO?
+              <h3 className="text-4xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-start text-gray-200 mb-3 sm:mb-4 lg:mb-5 leading-tight bungee-inline-regular">
+                Why Vaphers Delivers{' '}
+                <span className="bg-blue-400 bg-clip-text text-transparent">
+                  Ecommerce Growth?
                 </span>
-              </h2>
+              </h3>
               <p className="text-sm sm:text-base lg:text-lg text-center lg:text-start text-blue-200 font-medium">
-                Trusted SEO Partner for Shopify, WooCommerce, OpenCart & Squarespace Stores
+                Platform-Specific Expertise for Shopify, WooCommerce, OpenCart & Squarespace
               </p>
             </div>
 
             <p className="text-sm sm:text-base lg:text-xl text-white leading-relaxed text-center lg:text-left">
-              At <span className="font-bold text-blue-300">Vaphers</span>, we specialize in affordable, results-driven ecommerce SEO that helps online stores dominate search rankings and drive consistent sales. Whether you&apos;re running a Shopify store, WooCommerce site, OpenCart platform, or Squarespace shop, our expert team implements{' '}
-              <a href="#" className="text-blue-200 underline hover:text-blue-400 duration-200 font-medium">
-                platform-specific strategies, product optimization, and conversion-focused content
+              At <span className="font-bold text-blue-300">Vaphers</span>, we combine{' '}
+              <a href="https://www.vaphers.com/seo-services" className="text-blue-200 underline hover:text-blue-300 transition-colors duration-200 font-medium">
+                proven SEO strategies
               </a>
-              {' '}that turn search traffic into loyal customers. We don&apos;t just increase rankings—we grow your revenue with transparent reporting and measurable ROI.
+              {' '}with platform-specific optimization to help online stores achieve measurable revenue growth. Our approach integrates{' '}
+              <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-200 underline hover:text-blue-300 transition-colors duration-200 font-medium">
+                technical SEO expertise
+              </a>
+              {' '}for Core Web Vitals and mobile-first indexing,{' '}
+              <a href="https://www.vaphers.com/seo-services/ai-seo-services" className="text-blue-200 underline hover:text-blue-300 transition-colors duration-200 font-medium">
+                AI-powered optimization
+              </a>
+              {' '}for product discovery and personalization, and{' '}
+              <a href="https://www.vaphers.com/seo-services/local-seo-services" className="text-blue-200 underline hover:text-blue-300 transition-colors duration-200 font-medium">
+                local SEO strategies
+              </a>
+              {' '}to capture nearby shoppers. Whether you operate on Shopify, WooCommerce, OpenCart, or Squarespace, we implement data-driven tactics that transform organic traffic into loyal customers, with transparent reporting and ROI you can track month over month.
             </p>
 
             {/* Button - Responsive sizing */}
             <div className="pt-4 sm:pt-4 lg:pb-4 flex justify-center lg:justify-start">
+              <Link href="https://www.vaphers.com/contact-us" target="_blank" rel="noopener noreferrer" className="no-underline">
               <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                 <span className="mr-2 sm:mr-3">Partner with Vaphers Today</span>
                 <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </div>
+              </Link>
             </div>
           </div>
         </div>

@@ -13,26 +13,58 @@ const features = [
     details: (
       <>
         <p className="mb-4">
-          Our specialized Shopify SEO services are designed to boost your store&apos;s rankings in Google search results and drive sustainable organic traffic. We go beyond basic optimization by implementing advanced strategies tailored specifically for Shopify&apos;s architecture. From optimizing product pages with high-converting descriptions and keyword-rich titles to enhancing collection pages and fixing technical issues like crawlability, site speed, and mobile responsiveness—we cover it all.
+          Our specialized{' '}
+          <a href="https://www.vaphers.com/website-development-services/shopify-website-development" className="text-blue-600 underline font-medium">
+            Shopify development
+          </a>
+          {' '}and SEO services are designed to boost your store's rankings in Google search results and drive sustainable organic traffic. We go beyond basic optimization by implementing advanced strategies tailored specifically for Shopify's architecture, from optimizing product pages with conversion-focused descriptions and keyword-rich titles to enhancing collection pages, improving site speed, and ensuring mobile-first responsiveness. Our comprehensive approach includes{' '}
+          <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-600 underline font-medium">
+            technical SEO tactics
+          </a>
+          {' '}like fixing crawlability issues, implementing breadcrumb navigation, and optimizing Core Web Vitals.
         </p>
         <p>
-          Our team also implements structured data markup (schema) to help your products appear in rich snippets, Google Shopping, and product carousels. Whether you&apos;re launching a new Shopify store or looking to scale an existing one, we provide end-to-end SEO solutions that turn search visibility into measurable revenue growth.
+          We also implement advanced{' '}
+          <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-600 underline font-medium">
+            structured data markup
+          </a>
+          {' '}(schema) to help your products appear in rich snippets with star ratings, prices, and availability, significantly increasing click-through rates from Google Shopping, product carousels, and organic search. Whether you're launching a new Shopify store or scaling an existing one, we provide end-to-end SEO solutions that transform search visibility into measurable revenue growth and improved customer acquisition.
         </p>
       </>
     ),
     image: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761565925/Get_Customers_With_shopifySEO_1_bylphq.png",
     imageAlt: "Person working on Shopify store optimization with laptop and shopping analytics",
-    tutorialLink: "#",
+    tutorialLink: "https://www.vaphers.com/website-development-services/shopify-website-development",
   },
   {
     title: "Drive Revenue with Data-Driven Ecommerce SEO",
     details: (
       <>
         <p className="mb-4">
-          Whether you&apos;re running a WooCommerce store, OpenCart platform, or Squarespace shop, our comprehensive ecommerce SEO strategies are built to increase product visibility, enhance user experience, and deliver a strong return on investment. We start with in-depth keyword research to identify high-intent search terms that drive conversions, not just traffic. Our team optimizes category pages, product descriptions, and blog content to target buyers at every stage of their journey.
+          Whether you're running a{' '}
+          <a href="https://www.vaphers.com/website-development-services/ecommerce-development" className="text-blue-600 underline font-medium">
+            WooCommerce store
+          </a>
+          , OpenCart platform, or Squarespace shop, our comprehensive ecommerce SEO strategies are built to increase product visibility, enhance user experience, and deliver strong ROI. We start with in-depth{' '}
+          <a href="https://www.vaphers.com/seo-services/seo-audit-services" className="text-blue-600 underline font-medium">
+            keyword research
+          </a>
+          {' '}to identify high-intent, long-tail search terms that drive conversions, not just traffic. Our team optimizes category pages, product descriptions, and educational blog content to target buyers at every stage of their journey, from discovery through final purchase decision.
         </p>
         <p>
-          We also implement advanced technical SEO tactics including schema markup for products, reviews, and FAQs, site speed optimization, mobile-first indexing, and internal linking strategies that guide customers seamlessly through your store. With transparent reporting and continuous optimization, we help you outrank competitors, reduce cart abandonment, and turn casual browsers into loyal, repeat customers.
+          We implement advanced{' '}
+          <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-600 underline font-medium">
+            technical SEO tactics
+          </a>
+          {' '}including Product and Review{' '}
+          <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-600 underline font-medium">
+            schema markup
+          </a>
+          , mobile-first optimization, site speed enhancements, and strategic{' '}
+          <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-600 underline font-medium">
+            internal linking strategies
+          </a>
+          {' '}that guide customers seamlessly through your store. With transparent reporting, continuous optimization, and a focus on user experience, we help you outrank competitors, reduce cart abandonment, and turn casual browsers into loyal, repeat customers who drive sustainable revenue growth.
         </p>
       </>
     ),
@@ -116,9 +148,9 @@ const ShopifyWoo = () => {
         {/* Main Heading */}
         <motion.div className="text-center mb-12 md:mb-16" variants={headingVariants}>
           <h3 className="text-4xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-3 sm:mb-4 lg:mb-5 leading-tight bungee-inline-regular">
-            Optimize Your Store With{' '}
-            <span className="text-blue-600 ">
-              Affordable Ecommerce SEO?
+            Platform-Specific SEO for{' '}
+            <span className="text-blue-600">
+              Shopify & Ecommerce Stores
             </span>
           </h3>
         </motion.div>

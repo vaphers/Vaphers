@@ -16,6 +16,7 @@ import HiringComparision from '@/PageComponents/Wordpress Components/HiringCompa
 import WordPressServicesAccordion from '@/PageComponents/Wordpress Components/Services'
 import Stats from '@/PageComponents/Global Components/Stats'
 import WordPressFaq from '@/PageComponents/Wordpress Components/FAQ'
+import WooCom from '@/PageComponents/Wordpress Components/Woo'
 
 const portfolioImages = [
   {
@@ -199,6 +200,7 @@ export default function Page() {
         <Banner/>
         <Testimonial/>
         <SMB/>
+        <WooCom/>
         <HiringComparision/>
         <WordPressServicesAccordion/>
         <Stats/>

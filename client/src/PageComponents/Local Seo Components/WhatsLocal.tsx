@@ -29,17 +29,27 @@ const WhatIsLocalSEO: React.FC = () => {
             </div>
 
             <p className="text-lg text-gray-700 leading-relaxed text-center lg:text-left">
-              Local SEO, or Local Search Engine Optimization, is the process of improving a business’s visibility
+              Local SEO, or Local Search Engine Optimization, is the process of improving a business's visibility
               in searches performed by users within a specific geographic area. When someone searches for
-              services like “best cafe near me” or “plumber in Frisco,” local SEO determines which businesses
-              appear in those local map listings and search results. It connects your brand directly with
-              nearby customers who are actively looking for the products or services you offer.
+              services like "best cafe near me" or "plumber in Frisco," local SEO determines which businesses
+              appear in those local map listings and search results through strategic{' '}
+              <a href="https://www.vaphers.com/seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+                keyword research
+              </a>{' '}
+              and optimization. It connects your brand directly with nearby customers who are actively looking for the products or services you offer.
             </p>
 
             <p className="text-lg text-gray-700 leading-relaxed text-center lg:text-left">
-              Effective local SEO includes optimizing your Google Business Profile, managing online reviews,
-              ensuring NAP (Name, Address, Phone) consistency across directories, and building localized content
-              relevant to your area. With our hyperlocal SEO optimization strategies, your business can reach
+              Effective local SEO includes optimizing your Google Business Profile through comprehensive{' '}
+              <a href="https://www.vaphers.com/seo-services/seo-audit-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+                GMB optimization audits
+              </a>
+              , managing online reviews, ensuring NAP (Name, Address, Phone) consistency across directories, and building localized content
+              relevant to your area as part of a proven{' '}
+              <a href="https://www.vaphers.com/seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+                SEO strategy
+              </a>
+              . With our hyperlocal SEO optimization strategies, your business can reach
               customers searching in specific neighborhoods, streets, or landmarks, not just your city.
               This approach boosts real-world visibility, increases foot traffic, and helps local businesses
               stand out in competitive search landscapes.

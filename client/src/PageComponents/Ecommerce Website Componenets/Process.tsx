@@ -1,25 +1,45 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { ShoppingCart, Zap, TrendingUp, CreditCard } from 'lucide-react'
-
 
 const features = [
   {
     icon: ShoppingCart,
     title: 'Built for Online Sales',
     description:
-      'Fast product pages, smooth checkout flows, and secure payment options that turn browsers into buyers—helping you sell more, 24/7.',
+      'Fast product pages, smooth checkout flows, and secure payment options that turn visitors into buyers, helping you sell more, 24/7.',
   },
   {
     icon: Zap,
     title: 'Lightning-Fast Store Performance',
-    description:
-      'Next.js optimizes images, caching, and page loads so your store feels instant on any device—reducing bounce rates and boosting conversions.',
+    description: (
+      <>
+        Next.js optimizes images, caching, and page loads so your store feels instant on any device, reducing bounce rates and boosting conversions. Get a{' '}
+        <Link 
+          href="/seo-services/seo-audit-services" 
+          className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+        >
+          performance audit
+        </Link>
+        {' '}to see how your site measures up.
+      </>
+    ),
   },
   {
     icon: TrendingUp,
     title: 'SEO That Drives Traffic',
-    description:
-      'Google-friendly pages rank higher and bring more shoppers to your store. Clean code and fast speeds help customers find your products easily.',
+    description: (
+      <>
+        Google-friendly pages rank higher and bring more shoppers to your store. Our{' '}
+        <Link 
+          href="/seo-services/ecommerce-seo-services" 
+          className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+        >
+          ecommerce SEO services
+        </Link>
+        {' '}help customers find your products through clean code and fast speeds.
+      </>
+    ),
   },
   {
     icon: CreditCard,
@@ -28,7 +48,6 @@ const features = [
       'Add new products, launch promotions, or expand categories without slowing down. Keep your catalog fresh and grow your revenue effortlessly.',
   },
 ]
-
 
 export default function EcommerceProcess() {
   return (
@@ -41,10 +60,16 @@ export default function EcommerceProcess() {
               Grow Your <span className="bg-blue-600 bg-clip-text text-transparent">Online Store</span>
             </h4>
             <p className="text-lg text-gray-600">
-              Launch a high-performance ecommerce store that loads fast, ranks well, and converts visitors into customers—without the technical complexity.
+              Launch a high-performance ecommerce store that loads fast, ranks well, and converts visitors into customers without the technical complexity. Our{' '}
+              <Link 
+                href="/seo-services" 
+                className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+              >
+                SEO expertise
+              </Link>
+              {' '}ensures your products get discovered.
             </p>
           </div>
-
 
           {/* Features */}
           <div className="space-y-6">
@@ -65,9 +90,9 @@ export default function EcommerceProcess() {
             ))}
           </div>
 
-
-          <button className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
-            Get affordable Next.js development
+          <Link href="/contact" className="inline-block">
+          <button className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+            Start Your Online Store
             <svg
               className="w-4 h-4"
               fill="none"
@@ -77,8 +102,8 @@ export default function EcommerceProcess() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
+          </Link>
         </div>
-
 
         {/* Right Image */}
         <div className="relative lg:ml-auto w-full">

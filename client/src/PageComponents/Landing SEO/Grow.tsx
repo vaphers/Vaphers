@@ -4,6 +4,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, useScroll, useTransform, Variants } from 'framer-motion'
 import { TrendingUp } from 'lucide-react'
+import Link from 'next/link'
 
 const floatingVariants: Variants = {
   animate: (custom: number) => ({
@@ -103,7 +104,7 @@ const GrowWithSEO: React.FC = () => {
         className="relative z-10 max-w-full bg-transparent overflow-hidden"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-16 pb-8 sm:pb-12 lg:pb-0">
-          <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 sm:gap-10 lg:gap-12">
+          <div className="flex flex-col lg:flex-row items-center lg:items-end gap-8 sm:gap-10 lg:gap-12">
             <motion.div
               style={isMobile ? {} : {
                 x: xLeft,
@@ -123,19 +124,33 @@ const GrowWithSEO: React.FC = () => {
                 </p>
               </div>
 
-              <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed text-center lg:text-left">
-                Strategic SEO transforms your website into a 24/7 customer acquisition engine. While competitors waste budgets on temporary paid ads, your business builds lasting search visibility that compounds monthly. Every optimized page, earned backlink, and content piece works continuously to attract qualified prospects actively searching for your solutions—delivering{' '}
-                <a href="#" className="text-blue-700 underline hover:text-blue-800 font-medium">
-                  10x better ROI than traditional advertising
-                </a>
-                {' '}while establishing market authority competitors can't easily replicate.
-              </p>
+              <div className="space-y-4">
+                <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed text-center lg:text-left">
+                  Strategic SEO transforms your website into a 24/7 customer acquisition engine that delivers measurable, compounding returns. While competitors burn through budgets on temporary paid ads, your business builds lasting search visibility that strengthens every month. Our{' '}
+                  <a href="https://www.vaphers.com/seo-services/local-seo-services" className="text-blue-700 underline hover:text-blue-800 font-medium">
+                  affordable local SEO services
+                  </a>
+                  {' '}help brick-and-mortar businesses dominate neighborhood searches, while our specialized{' '}
+                  <a href="https://www.vaphers.com/seo-services/ecommerce-seo-services" className="text-blue-700 underline hover:text-blue-800 font-medium">
+                    ecommerce SEO strategies
+                  </a>
+                  {' '}drive product discovery and sales at scale.
+                </p>
 
-              <div className="pt-4 sm:pt-6 lg:pt-10 pb-4 flex justify-center lg:justify-start">
+                <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed text-center lg:text-left">
+                  Every optimized page, earned backlink, and strategically crafted content piece works continuously to attract qualified prospects actively searching for your solutions, delivering{' '}
+                    average ROIs of 825% across industries
+                  {' '}while establishing market authority that competitors struggle to replicate. Unlike paid advertising with higher customer acquisition costs, organic search creates an asset that appreciates over time, generating consistent leads long after the initial investment.
+                </p>
+              </div>
+
+              <div className="pt-4 sm:pt-6 lg:pt-6 pb-4 flex justify-center lg:justify-start">
+                <Link href={"/contact"}>
                 <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                   <span className="mr-2 sm:mr-3">Grow Your Business Now</span>
                   <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
                 </div>
+                </Link>
               </div>
             </motion.div>
 

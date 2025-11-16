@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { TrendingUp } from 'lucide-react'
 
@@ -47,27 +48,43 @@ const NextJsComapny: React.FC = () => {
           {/* Content */}
           <div className="w-full lg:w-3/4 space-y-4 sm:space-y-6">
             <div>
-              <h2 className="text-4xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-start text-gray-200 mb-3 sm:mb-4 lg:mb-5 leading-tight bungee-inline-regular">
+              <h3 className="text-4xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-start text-gray-200 mb-3 sm:mb-4 lg:mb-5 leading-tight bungee-inline-regular">
                 How to Choose a{' '}
                 <span className="bg-blue-400 bg-clip-text text-transparent ">
                   Next.js Website Development Company?
                 </span>
-              </h2>
+              </h3>
               <p className="text-sm sm:text-base lg:text-lg text-center lg:text-start text-blue-200 font-medium">
                 Find the best partner to build a fast, SEO-friendly, and scalable Next.js website.
               </p>
             </div>
 
             <p className="text-sm sm:text-base lg:text-xl text-white leading-relaxed text-center lg:text-left">
-              Choosing the right Next.js development company means looking for proven experience with the framework, strong communication, and affordable pricing. A good company delivers fast-loading websites optimized for SEO that help your business grow online. Look for transparency in project timelines and clear post-launch support. Whether you need a simple marketing site or a complex app, trustworthy expertise and a results-driven approach are key to success.
+              Choosing the right{' '}
+              <Link 
+                href="https://www.vaphers.com/website-development-services" 
+                className="font-medium text-blue-300 hover:text-blue-200 underline decoration-1 underline-offset-2"
+              >
+                Next.js development company
+              </Link>
+              {' '}means looking for proven experience with the framework, strong communication, and affordable pricing. A good company delivers{' '}
+              <Link 
+                href="https://www.vaphers.com/website-development-services" 
+                className="font-medium text-blue-300 hover:text-blue-200 underline decoration-1 underline-offset-2"
+              >
+                fast-loading websites optimized for SEO
+              </Link>
+              {' '}that help your business grow online. Look for transparency in project timelines and clear post-launch support. Whether you need a simple marketing site or a complex app, trustworthy expertise and a results-driven approach are key to success.
             </p>
 
             {/* Button - Responsive sizing */}
             <div className="pt-4 sm:pt-4 lg:pb-4 flex justify-center lg:justify-start">
+              <Link href={"https://www.vaphers.com/contact"}>
               <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                 <span className="mr-2 sm:mr-3">Start Your Project with Us</span>
                 <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </div>
+              </Link>
             </div>
           </div>
         </div>

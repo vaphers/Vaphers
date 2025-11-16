@@ -3,6 +3,8 @@
 import React from 'react'
 import Image from 'next/image'
 import { TrendingUp } from 'lucide-react'
+import CustomBreadcrumb from '../Global Components/BreadCrumbs'
+import Link from 'next/link'
 
 const LocalPitch: React.FC = () => {
   return (
@@ -71,6 +73,7 @@ const LocalPitch: React.FC = () => {
 
           {/* Content */}
           <div className="w-full lg:w-3/4 space-y-4 sm:space-y-6">
+          <CustomBreadcrumb links={[{ href: 'https://www.vaphers.com/seo-services', label: 'SEO Services' }]} currentPage="Local SEO Service" />
             <div>
               <h2 className="text-4xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-start text-gray-700 mb-3 sm:mb-4 lg:mb-5 leading-tight bungee-inline-regular">
                 Affordable{' '}
@@ -85,19 +88,25 @@ const LocalPitch: React.FC = () => {
             </div>
 
             <p className="text-sm sm:text-base lg:text-lg text-gray-900 leading-relaxed text-center lg:text-left">
-              Without expert Local SEO, your business risks invisibility among the 8.5 billion daily Google searches by your potential customers. Competitors offering superior services are capturing valuable market share where you should be ranking. Our affordable local SEO service positions your business prominently in{' '}
-              <a href="#" className="text-blue-500 underline hover:text-blue-400 duration-200 font-medium">
-                local searches, mobile results, and voice queries
+              Without expert Local SEO, your business risks invisibility among the 8.5 billion daily Google searches by your potential customers. Competitors offering superior services are capturing valuable market share where you should be ranking. Our affordable local SEO service positions your business prominently in local searches, mobile results, and voice queries through{' '}
+              <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-500 underline hover:text-blue-400 duration-200 font-medium">
+                technical optimization
+              </a>{' '}
+              and a{' '}
+              <a href="https://www.vaphers.com/seo-services" className="text-blue-500 underline hover:text-blue-400 duration-200 font-medium">
+                comprehensive SEO strategy
               </a>
-              , while building a strong digital authority that ensures sustainable growth and establishes your brand as the trusted local industry leader.
+              , building strong digital authority that ensures sustainable growth and establishes your brand as the trusted local industry leader.
             </p>
 
             {/* Button */}
             <div className="pt-4 sm:pt-4 lg:pb-4 flex justify-center lg:justify-start">
+              <Link href={"https://www.vaphers.com/contact"}>
               <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                 <span className="mr-2 sm:mr-3">Start Your Local SEO Journey Today</span>
                 <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </div>
+              </Link>
             </div>
           </div>
         </div>
@@ -107,4 +116,3 @@ const LocalPitch: React.FC = () => {
 }
 
 export default LocalPitch
-

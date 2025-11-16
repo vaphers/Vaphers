@@ -24,15 +24,15 @@ const AttractCustomers: React.FC = () => {
   const stats = [
     {
       icon: <ShoppingCart className="w-6 h-6 text-blue-600" />,
-      value: "$6.4T",
+      value: "$7.4T",
       label: "Global Ecommerce Sales",
-      description: "Projected ecommerce market size for 2025"
+      description: "Projected online retail market size for 2025"
     },
     {
       icon: <DollarSign className="w-6 h-6 text-green-600" />,
-      value: "3.5x",
-      label: "Higher ROI",
-      description: "SEO delivers 3.5x more ROI than paid ads"
+      value: "3.2x",
+      label: "Average SEO ROI",
+      description: "Ecommerce SEO delivers 3.2x ROI within 12 months"
     }
   ];
 
@@ -51,21 +51,25 @@ const AttractCustomers: React.FC = () => {
           <div className="w-full lg:w-2/3 space-y-4 sm:space-y-6 order-2 lg:order-1">
             <div>
               <h2 className="text-4xl md:text-4xl lg:text-5xl text-center lg:text-start font-base tracking-[-0.03em] text-pretty bungee-inline-regular">
-                Get New Customers with <br /><span className="bg-blue-600 bg-clip-text text-transparent">Affordable Ecommerce SEO</span>
+                Attract More Customers with <span className="bg-blue-600 bg-clip-text text-transparent">Results-Driven Ecommerce SEO</span>
               </h2>
               <p className="text-base md:text-xl text-center lg:text-start text-blue-600 font-medium">
-                Drive Sales Without Breaking the Bank
+                Scale Your Revenue Without Overspending on Ads
               </p>
             </div>
             
             <p className="text-lg lg:text-xl text-gray-700 leading-relaxed text-center lg:text-left">
-              Our affordable ecommerce SEO services are designed to help online stores of all sizes compete in today&apos;s
-              competitive market. We focus on high-impact strategies that maximize your visibility in Google Shopping,
-              organic search, and product searches—without the premium agency price tag. Whether you&apos;re on{' '}
-              <a href="#" className="text-blue-700 underline hover:text-blue-800 font-medium">
-                Shopify, WooCommerce, or any other platform
+              Our ecommerce SEO services deliver measurable results for online stores looking to scale sustainably. 
+              We implement high-impact strategies that maximize visibility across Google Shopping, organic search, 
+              and product discovery channels, turning search traffic into consistent revenue. Whether you run a{' '}
+              <a href="https://www.vaphers.com/website-development-services/shopify-website-development" className="text-blue-600 hover:underline font-medium">
+                Shopify store
               </a>
-              , we deliver results that grow your revenue and customer base.
+              ,{' '}
+              <a href="https://www.vaphers.com/website-development-services/ecommerce-development" className="text-blue-600 hover:underline font-medium">
+                WooCommerce platform
+              </a>
+              , or custom ecommerce solution, our strategies are tailored to your platform's architecture and your business goals, driving qualified traffic that converts into loyal customers.
             </p>
 
             {/* Stats Grid */}
@@ -97,10 +101,13 @@ const AttractCustomers: React.FC = () => {
             
             {/* button */}
             <div className="pt-4 sm:pt-6 lg:pt-5 pb-4 flex justify-center lg:justify-start">
-              <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+              <a 
+                href="https://www.vaphers.com/seo-services/seo-audit-services"
+                className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group"
+              >
                 <span className="mr-2 sm:mr-3">Get Your Free Store Audit</span>
                 <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
-              </div>
+              </a>
             </div>
           </div>
 

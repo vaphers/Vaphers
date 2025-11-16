@@ -2,8 +2,10 @@
 
 import React, { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { motion, useScroll, useTransform, Variants } from 'framer-motion'
 import { TrendingUp } from 'lucide-react'
+import CustomBreadcrumb from '../Global Components/BreadCrumbs'
 
 const PatternBG = 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047483/PatternBG_kv4ubo.jpg'
 
@@ -58,6 +60,7 @@ const WhatsNextJS: React.FC = () => {
             style={{ x: xLeft, opacity }}
             className="w-full lg:w-2/3 space-y-6 sm:space-y-8"
           >
+          <CustomBreadcrumb links={[{ href: 'https://www.vaphers.com/website-development-services', label: 'SEO Services' }]} currentPage="Next JS Development" />
             <h2 className="text-3xl md:text-3xl lg:text-5xl text-center lg:text-start font-sans text-gray-700 mb-4 bungee-inline-regular">
               Why Choose{' '}
               <span className="bg-blue-600 bg-clip-text text-transparent">
@@ -65,19 +68,35 @@ const WhatsNextJS: React.FC = () => {
               </span>?
             </h2>
             <p className="text-sm sm:text-base lg:text-lg text-center lg:text-start text-gray-700 leading-relaxed">
-              Get a modern, fast-loading website built affordably with Next.js. It helps your business rank better on Google, load pages quickly, and attract more customers online — all without a heavy investment.
+              Get a modern, fast-loading website built affordably with Next.js. It helps your business rank better on Google, load pages quickly, and attract more customers online, all without a heavy investment.
             </p>
             <p className="text-sm sm:text-base lg:text-lg text-center lg:text-start text-gray-700 leading-relaxed">
-              We specialize in creating easy-to-manage, responsive websites perfect for small and medium-sized businesses. Whether you want a stylish online store or an informative company website, we deliver quality, affordable Next.js development to fit your needs.
+              We specialize in creating easy-to-manage, responsive websites perfect for small and medium-sized businesses. Whether you want a stylish{" "}
+              <Link 
+                href="/website-development-services/ecommerce-development" 
+                className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+              >
+                online store
+              </Link>
+              {" "}or an informative company website, we deliver quality, affordable{" "}
+              <Link 
+                href="/website-development-services" 
+                className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+              >
+                website development services
+              </Link>
+              {" "}to fit your needs.
             </p>
             <p className="text-sm sm:text-base lg:text-lg text-center lg:text-start text-gray-700 leading-relaxed">
               With Next.js, you get fast performance, smooth browsing, and a site that grows with your business. Choose affordable Next.js development to boost your online presence and stay ahead of the competition.
             </p>
-            <div className="pt-4 sm:pt-6 lg:pt-10 pb-4 flex justify-center lg:justify-start">
+            <div className="pt-4 pb-4 flex justify-center lg:justify-start">
+              <Link href={"https://www.vaphers.com/contact"}>
               <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transition-transform duration-300 cursor-pointer">
                 <span className="mr-2 sm:mr-3">Get Your Free Quote</span>
                 <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
+              </Link>
             </div>
           </motion.div>
           

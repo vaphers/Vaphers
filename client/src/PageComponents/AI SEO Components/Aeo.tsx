@@ -50,9 +50,9 @@ const WhatsAEO: React.FC = () => {
           {/* Content */}
           <div className="w-full lg:w-2/3 space-y-4 sm:space-y-6 order-2 lg:order-1">
             <div>
-                <h2 className="text-4xl md:text-4xl lg:text-6xl text-center lg:text-start font-base tracking-[-0.03em] text-gray-700 bungee-inline-regular">
+                <h3 className="text-4xl md:text-4xl lg:text-6xl text-center lg:text-start font-base tracking-[-0.03em] text-gray-700 bungee-inline-regular">
                     What's <br/><span className="bg-blue-600 bg-clip-text text-transparent">AEO Service?</span>
-                </h2>
+                </h3>
               <p className="text-base md:text-lg text-center lg:text-start text-blue-600 font-medium">
                 Optimize for Direct Answers, Not Just Rankings
               </p>
@@ -60,12 +60,16 @@ const WhatsAEO: React.FC = () => {
             
             <p className="text-lg text-gray-700 leading-relaxed text-center lg:text-left">
               Answer Engine Optimization (AEO) is the practice of structuring and optimizing your content to appear as 
-              direct answers in AI-powered search engines, voice assistants, and featured snippets. Unlike traditional SEO 
-              that focuses on ranking in search results, AEO ensures your content is selected and cited by{' '}
-              <a href="#" className="text-blue-700 underline hover:text-blue-800 font-medium">
-                AI engines like ChatGPT, Google AI, and Perplexity
+              direct answers in AI-powered search engines, voice assistants, and featured snippets. Unlike{' '}
+              <a href="https://www.vaphers.com/seo-services" className="text-blue-700 underline hover:text-blue-800 font-medium">
+                traditional SEO methods
               </a>
-              {' '}when users ask questions related to your business.
+              {' '}that focus on ranking in search results, AEO ensures your content is selected and cited by AI engines 
+              like ChatGPT, Google AI, and Perplexity when users ask questions related to your business. This requires{' '}
+              <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-700 underline hover:text-blue-800 font-medium">
+                structured data implementation
+              </a>
+              {' '}and technical optimization to make your content machine-readable and citation-worthy.
             </p>
 
             {/* Stats Grid */}

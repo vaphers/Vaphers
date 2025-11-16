@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import Link from "next/link"
 import { Check, X, TrendingUp, Target, Clock, DollarSign, Users, Zap } from "lucide-react"
 
 export default function EcommerceVsNon() {
@@ -60,7 +61,21 @@ export default function EcommerceVsNon() {
   const ecommerceFeatures = [
     { title: "24/7 Sales", description: "Your store never closes—earn revenue even while you sleep." },
     { title: "Lower Costs", description: "No rent or utilities. Save 60-70% on operational expenses." },
-    { title: "Global Customers", description: "Reach buyers anywhere in the world from one location." },
+    { 
+      title: "Global Customers", 
+      description: (
+        <>
+          Reach buyers anywhere in the world and generate qualified{' '}
+          <Link 
+            href="/ppc-marketing/lead-generation-services" 
+            className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+          >
+            leads online
+          </Link>
+          .
+        </>
+      )
+    },
     { title: "Smart Growth", description: "Use data to understand customers and make better decisions." },
   ];
 
@@ -116,11 +131,18 @@ export default function EcommerceVsNon() {
       <section className="max-w-7xl mx-auto px-6 py-16 relative z-10">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-base tracking-[-0.03em] text-gray-700 mb-4 bungee-inline-regular">
+          <h3 className="text-4xl md:text-5xl lg:text-6xl font-base tracking-[-0.03em] text-gray-700 mb-4 bungee-inline-regular">
             Ecommerce Store vs <span className="bg-blue-600 bg-clip-text text-transparent">Traditional Store</span>
-          </h2>
+          </h3>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto montserrat">
-            Discover how an online store transforms your business with lower costs, global reach, and 24/7 sales.
+            Discover how an online store transforms your business with lower costs, global reach, and 24/7 sales, all optimized with{' '}
+            <Link 
+              href="/seo-services/technical-seo-services" 
+              className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+            >
+              technical SEO best practices
+            </Link>
+            {' '}for maximum visibility.
           </p>
         </div>
 

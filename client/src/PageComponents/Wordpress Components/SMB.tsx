@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { DollarSign, Zap, TrendingUp, Wrench } from 'lucide-react'
 
 const features = [
@@ -6,25 +7,45 @@ const features = [
     icon: DollarSign,
     title: 'Budget-Friendly & Cost-Effective',
     description:
-      'WordPress is free to use—you only pay for hosting and a domain. Avoid expensive monthly subscriptions while getting enterprise-level features for your small business.',
+      'WordPress itself is free, you only pay for hosting and a domain. Compared to many closed platforms, it lets small businesses invest more in branding, content, and marketing instead of high software fees.',
   },
   {
     icon: Zap,
     title: 'No Coding Skills Required',
     description:
-      'Manage your website easily with drag-and-drop tools. Update content, add pages, and make changes without hiring a developer—perfect for busy business owners.',
+      'Update pages, add services, publish blogs, and change images from a simple dashboard. With an intuitive editor, you can keep your website fresh without relying on a developer every time you want to make a change.',
   },
   {
     icon: TrendingUp,
-    title: 'Built-In SEO to Get Found Online',
-    description:
-      'WordPress is SEO-friendly from the start with clean code and powerful plugins like Yoast SEO, helping your small business rank higher on Google and attract more customers.',
+    title: 'Built to Help You Get Found',
+    description: (
+      <>
+        WordPress is SEO-friendly out of the box, and works brilliantly with{' '}
+        <Link
+          href="/seo-services"
+          className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+        >
+          professional SEO services
+        </Link>
+        {' '}to improve rankings, traffic, and leads. Clean code, fast performance, and flexible content structures make it easier for Google to understand and recommend your business.
+      </>
+    ),
   },
   {
     icon: Wrench,
-    title: 'Grows with Your Business',
-    description:
-      'Start simple and scale up as you grow. Add ecommerce, booking systems, or membership features with 59,000+ plugins—no limits, no extra platform fees.',
+    title: 'Perfect for Local & Growing Businesses',
+    description: (
+      <>
+        Start with a simple brochure site and scale into a lead‑generating local brand. Combine WordPress with{' '}
+        <Link
+          href="/seo-services/local-seo-services"
+          className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+        >
+          local SEO strategies
+        </Link>
+        {' '}to show up for “near me” searches, then add booking forms, FAQs, and landing pages as you grow, without switching platforms.
+      </>
+    ),
   },
 ]
 
@@ -36,10 +57,17 @@ export default function SMB() {
         <div className="space-y-8">
           <div className="space-y-4">
             <h4 className="text-4xl lg:text-5xl font-bold text-gray-700 leading-tight bungee-inline-regular">
-              Why <span className="bg-blue-600 bg-clip-text text-transparent">WordPress</span> is Best for Small Businesses?
+              Why <span className="bg-blue-600 bg-clip-text text-transparent">WordPress</span> Works So Well for Small Businesses
             </h4>
             <p className="text-lg text-gray-600">
-              Build a professional website affordably with WordPress—the platform trusted by millions of small businesses worldwide to grow online without breaking the bank.
+              Turn your small business into a serious online brand with a WordPress website designed to win trust, generate leads, and support long‑term growth. At{' '}
+              <Link
+                href="/"
+                className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+              >
+                Vaphers
+              </Link>
+              , WordPress is the foundation for many of our high‑performing small business sites.
             </p>
           </div>
 

@@ -9,8 +9,8 @@ interface Service {
   id: number
   number: string
   title: string
-  description: string
-  points: string[]
+  description: string | React.ReactNode
+  points: Array<string | React.ReactNode>
   image: string
   color: string
 }
@@ -23,7 +23,27 @@ const AuditServicesAccordion: React.FC = () => {
       id: 1,
       number: '01',
       title: 'Ecommerce SEO Audit Service',
-      description: 'Comprehensive analysis of your online store\'s search performance, identifying critical issues affecting product visibility and conversions. We evaluate product page optimization, category structure, technical crawlability, schema markup implementation, and checkout flow barriers that prevent customers from completing purchases. Get a detailed roadmap with prioritized fixes to increase organic traffic and sales.',
+      description: (
+        <>
+          Comprehensive analysis of your online store's search performance using proven{' '}
+          <a href="https://www.vaphers.com/seo-services/ecommerce-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+            ecommerce SEO strategies
+          </a>
+          , identifying critical issues affecting product visibility and conversions. We evaluate product page optimization, category structure,{' '}
+          <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+            technical SEO
+          </a>
+          {' '}crawlability, schema markup implementation, and checkout flow barriers. Whether you run a{' '}
+          <a href="https://www.vaphers.com/website-development-services/shopify-website-development" className="text-blue-600 underline hover:text-blue-700 font-medium">
+            Shopify store
+          </a>
+          {' '}or{' '}
+          <a href="https://www.vaphers.com/website-development-services/ecommerce-development" className="text-blue-600 underline hover:text-blue-700 font-medium">
+            WooCommerce platform
+          </a>
+          , get a detailed roadmap with prioritized fixes to increase organic traffic and sales.
+        </>
+      ),
       points: [
         'Product page SEO analysis including titles, descriptions, and image optimization',
         'Category architecture and internal linking structure evaluation',
@@ -37,12 +57,29 @@ const AuditServicesAccordion: React.FC = () => {
       id: 2,
       number: '02',
       title: 'Technical SEO Audit Service',
-      description: 'Deep-dive technical analysis uncovering backend issues that prevent search engines from properly crawling, indexing, and ranking your website. We assess server response times, crawl budget optimization, XML sitemap structure, robots.txt configuration, redirect chains, broken links, duplicate content, and canonicalization issues. Receive actionable technical fixes that improve indexation and rankings.',
+      description: (
+        <>
+          Deep-dive analysis uncovering{' '}
+          <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+            technical SEO issues
+          </a>
+          {' '}that prevent search engines from properly crawling, indexing, and ranking your website. We assess server response times, crawl budget optimization, XML sitemap structure, robots.txt configuration, redirect chains, broken links, duplicate content, and canonicalization issues. Our comprehensive{' '}
+          <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+            technical optimization
+          </a>
+          {' '}audit delivers actionable fixes that improve indexation and rankings across all platforms.
+        </>
+      ),
       points: [
         'Core Web Vitals assessment (LCP, FID, CLS) with optimization recommendations',
         'Crawl error identification and indexation issue resolution strategies',
         'Mobile-first indexing compliance and responsive design evaluation',
-        'Structured data implementation audit and rich snippet opportunities'
+        <>
+          <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+            Structured data
+          </a>
+          {' '}implementation audit and rich snippet opportunities
+        </>
       ],
       image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800',
       color: 'from-blue-500 to-cyan-600'
@@ -51,7 +88,23 @@ const AuditServicesAccordion: React.FC = () => {
       id: 3,
       number: '03',
       title: 'On-Page SEO Audit Service',
-      description: 'Detailed evaluation of your content quality, keyword targeting, and on-page optimization elements. We analyze meta tags, header structure, keyword density, content depth, internal linking patterns, and user engagement metrics. Identify content gaps, cannibalization issues, and optimization opportunities that increase relevance and authority for target search queries.',
+      description: (
+        <>
+          Detailed evaluation of your content quality, keyword targeting, and{' '}
+          <a href="https://www.vaphers.com/seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+            on-page SEO strategies
+          </a>
+          . We analyze meta tags, header structure, keyword density, content depth, internal linking patterns, and user engagement metrics. Identify content gaps, cannibalization issues, and optimization opportunities for{' '}
+          <a href="https://www.vaphers.com/seo-services/ai-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+            AI optimization
+          </a>
+          {' '}and{' '}
+          <a href="https://www.vaphers.com/seo-services/local-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+            local search optimization
+          </a>
+          {' '}that increase relevance and authority for target search queries.
+        </>
+      ),
       points: [
         'Meta title and description optimization across all pages',
         'Header tag structure (H1-H6) and keyword placement analysis',
@@ -65,7 +118,23 @@ const AuditServicesAccordion: React.FC = () => {
       id: 4,
       number: '04',
       title: 'Competitor SEO Audit Service',
-      description: 'Strategic analysis of your top-ranking competitors to identify gaps in your SEO strategy and uncover opportunities to outrank them. We benchmark keyword rankings, backlink profiles, content strategies, technical implementations, and on-page optimizations that give competitors their edge. Receive competitive intelligence and actionable insights to surpass rival websites in search results.',
+      description: (
+        <>
+          Strategic analysis of your top-ranking competitors as part of a comprehensive{' '}
+          <a href="https://www.vaphers.com/seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+            competitive SEO strategy
+          </a>
+          {' '}to identify gaps and uncover opportunities to outrank them. We benchmark keyword rankings, backlink profiles, content strategies, technical implementations, and on-page optimizations. Whether analyzing{' '}
+          <a href="https://www.vaphers.com/seo-services/local-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+            local competitors
+          </a>
+          {' '}or{' '}
+          <a href="https://www.vaphers.com/seo-services/ecommerce-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+            ecommerce competitors
+          </a>
+          , receive competitive intelligence and actionable insights to surpass rival websites in search results.
+        </>
+      ),
       points: [
         'Keyword gap analysis revealing high-value terms competitors rank for',
         'Backlink profile comparison and link-building opportunity identification',
@@ -168,7 +237,7 @@ const AuditServicesAccordion: React.FC = () => {
                               {service.points.map((point, idx) => (
                                 <li key={idx} className="text-gray-600 text-sm sm:text-base flex items-start">
                                   <span className="text-blue-600 mr-2 font-bold">•</span>
-                                  {point}
+                                  <span>{point}</span>
                                 </li>
                               ))}
                             </ul>

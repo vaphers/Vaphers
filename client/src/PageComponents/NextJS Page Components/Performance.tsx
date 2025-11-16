@@ -2,6 +2,7 @@
 
 import React, { useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion, Variants } from 'framer-motion';
 import { TrendingUp, ShoppingCart, DollarSign } from 'lucide-react';
 
@@ -52,7 +53,7 @@ const Performance: React.FC = () => {
             <div>
               <h2 className="text-4xl md:text-4xl lg:text-5xl text-center lg:text-start font-base tracking-[-0.03em] text-gray-700 bungee-inline-regular">
                 Boost Performance & SEO with 
-                <span className="bg-blue-600 bg-clip-text text-transparent"> Next.js Development</span>
+                <span className="bg-blue-600 bg-clip-text text-transparent"> Next.js Website Development</span>
               </h2>
               <p className="text-base md:text-xl text-center lg:text-start text-blue-600 font-medium">
                 Faster websites mean happier customers and higher Google rankings
@@ -60,7 +61,21 @@ const Performance: React.FC = () => {
             </div>
             
             <p className="text-lg lg:text-xl text-gray-700 leading-relaxed text-center lg:text-left">
-              Next.js powers websites that load quickly and run smoothly, helping your visitors stay engaged longer. Its SEO-friendly architecture ensures your business appears higher in search results, driving more organic traffic without extra advertising costs. Whether you’re running a store, blog, or service site, affordable Next.js development helps you deliver world-class performance designed to grow your business smarter and faster.
+              Next.js powers websites that load quickly and run smoothly, helping your visitors stay engaged longer. Its{' '}
+              <Link 
+                href="/seo-services" 
+                className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+              >
+                SEO-friendly architecture
+              </Link>
+              {' '}ensures your business appears higher in search results, driving more organic traffic without extra advertising costs. Built-in{' '}
+              <Link 
+                href="/seo-services/technical-seo-services" 
+                className="font-medium text-blue-600 hover:text-blue-800 underline decoration-1 underline-offset-2"
+              >
+                technical SEO optimization
+              </Link>
+              {' '}and superior Core Web Vitals performance help you deliver world-class user experience designed to grow your business smarter and faster.
             </p>
 
             {/* Stats Grid */}
@@ -92,13 +107,14 @@ const Performance: React.FC = () => {
             
             {/* Button */}
             <div className="pt-4 sm:pt-6 lg:pt-5 pb-4 flex justify-center lg:justify-start">
+              <Link href={"https://www.vaphers.com/contact"}>
               <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                 <span className="mr-2 sm:mr-3">Get Your Free Performance Audit</span>
                 <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </div>
+              </Link>
             </div>
           </div>
-
 
           {/* Image Section - Right side on desktop */}
           <div className="w-full h-auto lg:w-1/2 flex justify-start items-start relative order-1 lg:order-2">
@@ -113,7 +129,7 @@ const Performance: React.FC = () => {
               />
               {/* Floating Elements */}
               <div className="absolute inset-0">
-                {/* Shopify  */}
+                {/* Shopify  */}
                 <motion.div
                   animate={{
                     x: [0, 10, 0],
@@ -134,7 +150,7 @@ const Performance: React.FC = () => {
                     className="w-18 h-18 sm:w-10 sm:h-10 lg:w-29 lg:h-29 object-contain" 
                   />
                 </motion.div>
-                {/* Woo Commerce  */}
+                {/* Woo Commerce  */}
                 <motion.div
                   custom={1}
                   variants={floatingVariants}

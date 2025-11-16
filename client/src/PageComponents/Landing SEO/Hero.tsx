@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 
 // Custom hook for mobile detection
@@ -92,12 +93,16 @@ function Hero() {
             </p>
             
             <div className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4">
+              <Link href={"https://www.vaphers.com/pricing"}>
               <button className="w-60 transform rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-800 dark:bg-blue-500 dark:text-black dark:hover:bg-gray-200">
                 Explore Now
               </button>
+              </Link>
+              <Link href={"https://www.vaphers.com/contact"}>
               <button className="w-60 transform rounded-lg border border-blue-600 bg-white px-6 py-2 font-medium text-blue-600 transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-100 dark:border-blue-600 dark:bg-black dark:text-white dark:hover:bg-gray-900">
                 Contact Support
               </button>
+              </Link>
             </div>
             
             <div className="relative z-10 mt-20 rounded-3xl border border-neutral-300 bg-neutral-200 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900">

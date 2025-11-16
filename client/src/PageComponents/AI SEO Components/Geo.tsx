@@ -99,9 +99,9 @@ const WhatsGEO: React.FC = () => {
           {/* Content */}
           <div className="w-full lg:w-2/3 space-y-4 sm:space-y-6">
             <div>
-                <h2 className="text-4xl md:text-4xl lg:text-6xl text-center lg:text-start text-gray-200 font-base tracking-[-0.03em] text-pretty bungee-inline-regular">
+                <h3 className="text-4xl md:text-4xl lg:text-6xl text-center lg:text-start text-gray-200 font-base tracking-[-0.03em] text-pretty bungee-inline-regular">
                     What's <br/><span className="bg-blue-400 bg-clip-text text-transparent">Geo Service?</span>
-                </h2>
+                </h3>
               <p className="text-base md:text-lg text-center lg:text-start text-gray-300 font-medium">
                 Dominate ChatGPT, Perplexity, and Gemini Search Results
               </p>
@@ -110,11 +110,17 @@ const WhatsGEO: React.FC = () => {
             <p className="text-lg text-white leading-relaxed text-center lg:text-left">
               Generative Engine Optimization (GEO) is the cutting-edge practice of optimizing your content specifically 
               for large language models and AI chatbots like ChatGPT, Google Gemini, Claude, and Perplexity. While 
-              traditional SEO targets search engine rankings, GEO ensures your business is{' '}
-              <a href="#" className="text-blue-300 underline hover:text-blue-200 transition-all duration-300 font-medium">
-                cited, recommended, and featured in AI-generated responses
+              traditional SEO focuses on rankings, GEO ensures your business is cited, recommended, and featured 
+              in AI-generated responses through advanced{' '}
+              <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-300 underline hover:text-blue-200 transition-all duration-300 font-medium">
+                schema markup implementation
               </a>
-              {' '}when users have conversations with AI assistants about your industry, products, or services.
+              {' '}and content structuring. Our{' '}
+              <a href="https://www.vaphers.com/seo-services/seo-audit-services" className="text-blue-300 underline hover:text-blue-200 transition-all duration-300 font-medium">
+                comprehensive SEO audit
+              </a>
+              {' '}identifies opportunities to optimize your content for AI platforms, ensuring your brand becomes 
+              the authoritative source when users ask questions about your industry.
             </p>
             
             {/* button */}

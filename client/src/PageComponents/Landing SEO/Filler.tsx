@@ -1,26 +1,60 @@
 import Image from 'next/image'
 import { Target, TrendingUp, Users, Award } from 'lucide-react'
+import Link from 'next/link'
 
 const features = [
   {
     icon: Target,
-    title: 'Data-Driven Keyword Strategy',
-    description: 'Target high-intent keywords your customers actually search for, maximizing qualified traffic and conversion potential.',
+    title: 'Intent-Driven Keyword Research',
+    description: 'We identify high-value search opportunities aligned with your business goals, targeting customers at every stage of their buying journey for maximum ROI.',
   },
   {
     icon: TrendingUp,
-    title: 'Continuous Performance Optimization',
-    description: 'Monthly monitoring and adjustments ensure your rankings improve consistently while adapting to algorithm changes.',
+    title: 'Continuous Ranking Improvement',
+    description: (
+      <>
+        Monthly performance analysis and strategic adjustments keep you ahead of algorithm updates while steadily increasing visibility for revenue-driving keywords. Our{' '}
+        <a 
+          href="https://www.vaphers.com/seo-services/seo-audit-services" 
+          className="text-blue-600 underline hover:text-blue-700 font-medium"
+        >
+          comprehensive SEO audits
+        </a>
+        {' '}identify opportunities and track progress.
+      </>
+    ),
   },
   {
     icon: Users,
-    title: 'User Experience Enhancement',
-    description: 'Technical optimization improves site speed, mobile responsiveness, and navigation to keep visitors engaged and converting.',
+    title: 'Technical Excellence & Speed',
+    description: (
+      <>
+        Core Web Vitals optimization, mobile-first design, and structured data implementation ensure search engines can crawl, understand, and rank your site effectively. Our{' '}
+        <a 
+          href="https://www.vaphers.com/seo-services/technical-seo-services" 
+          className="text-blue-600 underline hover:text-blue-700 font-medium"
+        >
+          technical SEO services
+        </a>
+        {' '}build the foundation for lasting search visibility.
+      </>
+    ),
   },
   {
     icon: Award,
-    title: 'Authority Building & Trust Signals',
-    description: 'Strategic link building and E-E-A-T optimization establish your brand as the industry-leading expert Google recommends.',
+    title: 'Authority & Trust Building',
+    description: (
+      <>
+        Quality backlink acquisition and E-E-A-T optimization position your brand as the go-to industry authority. Combined with{' '}
+        <a 
+          href="https://www.vaphers.com/website-development-services" 
+          className="text-blue-600 underline hover:text-blue-700 font-medium"
+        >
+          professional website development
+        </a>
+        , we create digital assets that both users and search engines trust.
+      </>
+    ),
   },
 ]
 
@@ -86,7 +120,7 @@ export default function SEOApproach() {
               </h3>
               
               <p className="text-lg text-gray-600">
-                We combine technical excellence, strategic content, and authoritative link building to dominate search results and drive sustainable business growth
+                We deliver measurable search visibility through strategic content optimization, technical implementation, and data-backed methodologies that adapt to evolving search algorithms and user behavior patterns.
               </p>
             </div>
 
@@ -111,12 +145,14 @@ export default function SEOApproach() {
               ))}
             </div>
 
-            <button className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
-              Get Your SEO Strategy
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
+            <Link href={"/contact"}>
+              <button className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
+                Get Your Free SEO Audit
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </Link>
           </div>
 
           {/* Right Image */}
@@ -131,8 +167,6 @@ export default function SEOApproach() {
                 priority
               />
             </div>
-            
-            {/* <div className="absolute inset-0 bg-gradient-to-br from-blue-200 via-purple-100 to-pink-200 rounded-3xl -z-10 blur-3xl opacity-50" /> */}
           </div>
         </div>
       </section>

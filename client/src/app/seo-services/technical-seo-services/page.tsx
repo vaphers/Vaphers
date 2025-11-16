@@ -8,6 +8,8 @@ import WhyTechnical from "@/PageComponents/Technical SEO Components/Why";
 import Testimonial from "@/PageComponents/Global Components/Testimonial";
 import TechnicalFAQ from "@/PageComponents/Technical SEO Components/FAQ";
 import TechnicalServicesAccordion from "@/PageComponents/Technical SEO Components/Services";
+import TechnicalSEOSection from "@/PageComponents/Technical SEO Components/TechnicalSeoFirst";
+import PromoFiller from "@/PageComponents/Technical SEO Components/Filler";
 
 export default function Page() {
   // FAQ Schema data
@@ -118,8 +120,10 @@ export default function Page() {
         <WhyTechnical/>
         <Banner/>
         <Testimonial/>
-        <TechnicalFAQ/>
         <TechnicalServicesAccordion/>
+        <PromoFiller/>
+        <TechnicalSEOSection/>
+        <TechnicalFAQ/>
         <ContactForm />
       </main>
     </>

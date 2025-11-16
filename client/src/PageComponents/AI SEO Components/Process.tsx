@@ -38,7 +38,15 @@ export default function SEOApproach() {
               </span>
             </h4>
             <p className="text-lg text-gray-600">
-              Forget old-school SEO tactics. We focus on making sure AI platforms recommend your business when it matters most.
+              We combine advanced{' '}
+              <a href="https://www.vaphers.com/seo-services/technical-seo-services" className="text-blue-600 underline hover:text-blue-700 font-medium">
+                site architecture optimization
+              </a>{' '}
+              with{' '}
+              <a href="https://www.vaphers.com/website-development-services/nextjs-website-development" className="text-blue-600 underline hover:text-blue-700 font-medium">
+                fast-loading Next.js websites
+              </a>{' '}
+              to ensure AI platforms recommend your business when it matters most.
             </p>
           </div>
 
