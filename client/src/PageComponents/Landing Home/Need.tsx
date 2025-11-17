@@ -70,9 +70,9 @@ const DmNeed: React.FC = () => {
             </p>
 
             {/* Button */}
-            <a href="/contact"><div className="pt-4 sm:pt-4 lg:pb-4 flex justify-center lg:justify-start">
+            <a href="https://www.vaphers.com/seo-services"><div className="pt-4 sm:pt-4 lg:pb-4 flex justify-center lg:justify-start">
               <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
-                <span className="mr-2 sm:mr-3">Ready to Get Started?</span>
+                <span className="mr-2 sm:mr-3">What's SEO?</span>
                 <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </div>
             </div></a>

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Eye, Search, RotateCcw, Rocket, TrendingUp } from 'lucide-react'
+import Link from "next/link";
 
 type TabId = 'visibility' | 'search' | 'refresh' | 'growth'
 
@@ -199,10 +200,12 @@ const AiSection: React.FC = () => {
                 Our <a className='text-blue-600 underline' href="https://www.vaphers.com/seo-services/ai-seo-services">Affordable AI SEO services</a> combine technical optimization, strategic content structuring, and real-time performance tracking to maximize your visibility across all major AI platforms. From conversational query optimization to schema markup implementation, we employ data-driven strategies that position your business as the authoritative source AI engines trust and recommend.
               </p>
               <div className="mt-4 pb-4 flex justify-center sm:justify-start">
+                <Link href={"https://www.vaphers.com/contact"}>
                 <div className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                   <span className="mr-3">Get a Free Consultation</span>
                   <TrendingUp className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
                 </div>
+                </Link>
               </div>
             </div>
 
