@@ -54,7 +54,7 @@ const WhatsSEO: React.FC = () => {
   return (
     <section
       ref={ref}
-      className="max-w-full bg-white bg-cover bg-center bg-no-repeat"
+      className="max-w-full bg-white bg-cover bg-center bg-no-repeat overflow-x-hidden"
       style={{
         backgroundImage: `url(${PatternBG})`,
       }}

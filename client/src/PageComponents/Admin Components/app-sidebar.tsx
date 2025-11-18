@@ -6,21 +6,23 @@ import Link from "next/link"
 
 const menuItems = [
   { title: "Dashboard", url: "/dashboard", icon: Home },
-  { title: "Users", url: "/dashboard/users", icon: Users },
+  { title: "Users", url: "/admin-dashboard/posts", icon: Users },
   { title: "Analytics", url: "/dashboard/analytics", icon: BarChart },
   { title: "Reports", url: "/dashboard/reports", icon: FileText },
   { title: "Settings", url: "/dashboard/settings", icon: Settings },
 ]
+
+// client\src\app\admin-dashboard\posts\add-posts.tsx
 
 export function AppSidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false)
 
   return (
     <div 
-      className={`${isCollapsed ? 'w-16' : 'w-64'} h-screen bg-blue-900 text-white transition-all duration-300 flex flex-col`}
+      className={`${isCollapsed ? 'w-16' : 'w-64'} h-screen bg-indigo-900 text-white transition-all duration-300 flex flex-col`}
     >
       {/* Header */}
-      <div className="border-b border-blue-800 p-4 flex items-center justify-between">
+      <div className="border-b border-indigo`-800 p-4 flex items-center justify-between">
         {!isCollapsed && (
           <div className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600">

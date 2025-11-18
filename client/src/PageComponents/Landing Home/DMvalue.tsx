@@ -48,7 +48,7 @@ const DMvalue: React.FC = () => {
   return (
     <section
       ref={ref}
-      className="max-w-full bg-white bg-cover bg-center bg-no-repeat lg:mb-10"
+      className="max-w-full bg-white bg-cover bg-center bg-no-repeat lg:mb-10 overflow-x-hidden"
       style={{
         backgroundImage: `url(${PatternBG})`,
       }}
