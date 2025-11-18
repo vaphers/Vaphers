@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
+import AdminDashboardClientWrapper from '@/PageComponents/Admin Components/AdminDashboardClientWrapper'; 
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
@@ -20,7 +21,7 @@ export default async function AdminDashboard() {
   return (
     <div>
       <h1>Welcome to Blogs</h1>
-      {/* Your dashboard content */}
+      <AdminDashboardClientWrapper />
     </div>
   );
 }

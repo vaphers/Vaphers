@@ -43,14 +43,14 @@ const handleSubmit = async (e: React.FormEvent) => {
           onSubmit={handleSubmit}
           className="max-w-md w-full bg-white p-8 rounded-lg shadow-2xl border-2 border-blue-200"
         >
-          <h2 className="text-2xl font-bold mb-2 text-center text-blue-600 bungee-shade">
+          <h2 className="text-2xl font-bold mb-2 text-center text-blue-600 bungee-inline-regular">
             Admin Login
           </h2>
           <p className="text-center text-sm mb-10">
             Enter your credentials to log in
           </p>
           <div className="mb-4">
-            <Label htmlFor="email" className="block mb-1 font-medium">
+            <Label htmlFor="email" className="block mb-1 text-gray-600 font-medium bungee-inline-regular">
               Email
             </Label>
             <Input
@@ -63,7 +63,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             />
           </div>
           <div className="mb-6">
-            <Label htmlFor="password" className="block mb-1 font-medium">
+            <Label htmlFor="password" className="block mb-1 text-gray-600 font-medium bungee-inline-regular">
               Password
             </Label>
             <div className="relative">
@@ -89,7 +89,7 @@ const handleSubmit = async (e: React.FormEvent) => {
               </span>
             </div>
           </div>
-          <Button type="submit" className="w-full bg-blue-600">
+          <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-800 cursor-pointer text-white font-semibold bungee-inline-regular">
             Log In
           </Button>
         </form>
