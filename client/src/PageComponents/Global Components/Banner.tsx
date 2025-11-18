@@ -31,13 +31,13 @@ const Banner: React.FC = () => {
           Need SEO Service for growing your Business? Just Call Us.
         </h2>
 
-        <a href="tel:+17323661295" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
+        <a href="tel:+919641861932" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
           <div className="bg-white rounded-full p-2 shadow-md">
             <Phone className="w-4 h-4 text-blue-600" />
           </div>
           <div className="text-white">
             <p className="text-[9px] font-medium leading-tight">Call Us Anytime</p>
-            <p className="text-xs font-bold whitespace-nowrap leading-tight">+1 (732) 366 1295</p>
+            <p className="text-xs font-bold whitespace-nowrap leading-tight">+91 964 186 1932</p>
           </div>
         </a>
       </div>
@@ -55,7 +55,7 @@ const Banner: React.FC = () => {
         </div>
 
         <a
-          href="tel:+17323661295"
+          href="tel:+919641861932"
           className="absolute right-4 sm:right-8 lg:right-38 top-1/2 -translate-y-1/2 flex items-center gap-2 sm:gap-3 z-20 hover:opacity-90 transition-opacity cursor-pointer"
         >
           <div className="bg-white rounded-full p-2 sm:p-3 shadow-lg">
@@ -63,7 +63,7 @@ const Banner: React.FC = () => {
           </div>
           <div className="text-white">
             <p className="text-[10px] sm:text-xs font-medium mb-0.5">Call Us Anytime</p>
-            <p className="text-sm sm:text-base lg:text-lg font-bold whitespace-nowrap">+1 (732) 366 1295</p>
+            <p className="text-sm sm:text-base lg:text-lg font-bold whitespace-nowrap">+91 964 186 1932</p>
           </div>
         </a>
       </div>

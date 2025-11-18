@@ -121,7 +121,7 @@
                   </div>
                   <div>
                     <span className="font-medium block">Phone</span>
-                    <div className="text-muted-foreground text-sm">+1 732-366-1295</div>
+                    <div className="text-muted-foreground text-sm">+91 964 186 1932</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
@@ -130,7 +130,7 @@
                   </div>
                   <div>
                     <span className="font-medium block">Location</span>
-                    <div className="text-muted-foreground text-sm">United States Of America</div>
+                    <div className="text-muted-foreground text-sm">Kolkata, India </div>
                   </div>
                 </div>
               </div>
