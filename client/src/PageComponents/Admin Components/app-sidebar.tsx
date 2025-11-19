@@ -6,9 +6,9 @@ import Link from "next/link"
 
 const menuItems = [
   { title: "Dashboard", url: "admin-dashboard", icon: Home },
-  { title: "Add", url: "/admin-dashboard/posts", icon: Users },
-  { title: "Add Post", url: "/admin-dashboard/posts", icon: BarChart },
-  { title: "Reports", url: "/dashboard/reports", icon: FileText },
+  { title: "Posts", url: "/admin-dashboard/posts", icon: Users },
+  { title: "Add Post", url: "/admin-dashboard/posts/add-posts", icon: BarChart },
+  { title: "Reports", url: "/admin-dashboard/reports", icon: FileText },
   { title: "Settings", url: "/dashboard/settings", icon: Settings },
   { title: "Users", url: "/dashboard/settings", icon: Settings },
   { title: "Traffic ", url: "/dashboard/settings", icon: Settings },
@@ -26,7 +26,7 @@ export function AppSidebar() {
 
   return (
     <div 
-      className={`${isCollapsed ? 'w-16' : 'w-64'} h-screen bg-gray-200 text-white transition-all duration-300 flex flex-col`}
+      className={`${isCollapsed ? 'w-16' : 'w-64'} h-screen bg-gray-200 text-white transition-all duration-300 flex flex-col sticky top-0`}
     >
       {/* Header */}
       <div className="border-b border-indigo`-800 p-4 flex items-center justify-between">

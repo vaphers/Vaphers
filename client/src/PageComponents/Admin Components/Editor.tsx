@@ -13,11 +13,10 @@ import Link from '@tiptap/extension-link';
 import Underline from '@tiptap/extension-underline';
 import Blockquote from '@tiptap/extension-blockquote';
 
-import {Table} from '@tiptap/extension-table';
+import { Table } from '@tiptap/extension-table';
 import TableRow from '@tiptap/extension-table-row';
 import TableCell from '@tiptap/extension-table-cell';
 import TableHeader from '@tiptap/extension-table-header';
-
 import { Dialog, Transition } from '@headlessui/react';
 
 import {
@@ -29,9 +28,11 @@ import {
 type EditorProps = {
   content: string;
   onChange?: (value: string) => void;
+  title: string;
+  onTitleChange: (value: string) => void;
 };
 
-const Tiptap: React.FC<EditorProps> = ({ content, onChange }) => {
+const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
   const [linkUrl, setLinkUrl] = useState('');
@@ -44,7 +45,6 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange }) => {
         bulletList: false,
         orderedList: false,
         listItem: false,
-        // table: false,
       }),
       Heading.configure({ levels: [1, 2, 3, 4, 5, 6] }),
       BulletList,
@@ -52,7 +52,7 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange }) => {
       ListItem,
       Image.extend({
         addAttributes() {
-            return {
+          return {
             ...this.parent?.(),
             src: {},
             alt: { default: '' },
@@ -62,35 +62,34 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange }) => {
             style: { default: null },
             caption: { default: '' },
             float: { default: 'none' },
-            };
+          };
         },
         parseHTML() {
-            return [{ tag: 'img' }];
+          return [{ tag: 'img' }];
         },
         renderHTML({ HTMLAttributes }) {
-            const style = `
+          const style = `
             ${HTMLAttributes.style || ''}
             float: ${HTMLAttributes.float || 'none'};
             width: ${HTMLAttributes.width || 'auto'}; 
             height: ${HTMLAttributes.height || 'auto'};
-            `;
-            return [
+          `;
+          return [
             'figure',
             { class: 'image-wrapper', style },
             [
-                'img',
-                {
+              'img',
+              {
                 ...HTMLAttributes,
                 alt: HTMLAttributes.alt || '',
                 title: HTMLAttributes.title || '',
                 style,
-                },
+              },
             ],
             ...(HTMLAttributes.caption ? [['figcaption', {}, HTMLAttributes.caption]] : []),
-            ];
+          ];
         },
-        }),
-
+      }),
       TextAlign.configure({
         types: ['heading', 'paragraph', 'image'],
         alignments: ['left', 'center', 'right', 'justify'],
@@ -113,7 +112,6 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange }) => {
     content,
     onUpdate: ({ editor }) => {
       onChange?.(editor.getHTML());
-      // Track if the current selection has a link to toggle unlink button
       setLinkSelectionActive(editor.isActive('link'));
     },
     immediatelyRender: false,
@@ -121,8 +119,6 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange }) => {
 
   const btnBase =
     'bg-transparent rounded p-1.5 opacity-80 hover:bg-gray-100 hover:opacity-100 transition-all';
-
-  // Link modal toggle and handlers
 
   const openLinkModal = () => {
     if (!editor) return;
@@ -179,6 +175,38 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange }) => {
 
   return (
     <>
+      {/* Blog Title as H1 - Editable */}
+      <h1
+        ref={(el) => {
+          if (el && !title) {
+            el.textContent = 'Add Title';
+          }
+        }}
+        contentEditable
+        suppressContentEditableWarning
+        dir="ltr"
+        onInput={(e) => {
+          const newTitle = e.currentTarget.textContent || '';
+          onTitleChange(newTitle);
+        }}
+        onFocus={(e) => {
+          if (e.currentTarget.textContent === 'Add Title') {
+            e.currentTarget.textContent = '';
+          }
+        }}
+        onBlur={(e) => {
+          if (e.currentTarget.textContent?.trim() === '') {
+            e.currentTarget.textContent = 'Add Title';
+          }
+        }}
+        className="text-4xl font-bold mb-6 focus:outline-none border-b-2 border-transparent focus:border-gray-800 pb-2 transition-colors"
+        style={{
+          minHeight: '1em',
+          direction: 'ltr',
+          textAlign: 'left',
+        }}
+      />
+
       {/* Link input modal */}
       <Transition show={isLinkModalOpen} as={Fragment}>
         <Dialog as="div" className="relative z-50" onClose={() => setIsLinkModalOpen(false)}>
@@ -191,7 +219,7 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange }) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 backdrop-blur-sm  bg-opacity-" />
+            <div className="fixed inset-0 backdrop-blur-sm bg-white/10" />
           </Transition.Child>
 
           <div className="fixed inset-0 flex items-center justify-center p-4">
@@ -242,7 +270,7 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange }) => {
       </Transition>
 
       {/* Editor toolbar */}
-      <div className="flex items-center gap-1 px-2 py-1 bg-white/90 shadow rounded-full mb-2 select-none  ">
+      <div className="flex items-center gap-1 px-2 py-1 bg-white/90 shadow rounded-full mb-2 select-none">
         {/* Undo/Redo */}
         <button
           onClick={() => editor?.chain().focus().undo().run()}
@@ -265,12 +293,12 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange }) => {
         <select
           value={
             editor?.isActive('heading', { level: 1 }) ? '1'
-            : editor?.isActive('heading', { level: 2 }) ? '2'
-            : editor?.isActive('heading', { level: 3 }) ? '3'
-            : editor?.isActive('heading', { level: 4 }) ? '4'
-            : editor?.isActive('heading', { level: 5 }) ? '5'
-            : editor?.isActive('heading', { level: 6 }) ? '6'
-            : '0'
+              : editor?.isActive('heading', { level: 2 }) ? '2'
+              : editor?.isActive('heading', { level: 3 }) ? '3'
+              : editor?.isActive('heading', { level: 4 }) ? '4'
+              : editor?.isActive('heading', { level: 5 }) ? '5'
+              : editor?.isActive('heading', { level: 6 }) ? '6'
+              : '0'
           }
           onChange={e => handleHeadingChange(e.target.value)}
           className="mx-1 px-1 py-1 text-xs font-bold border-none focus:outline-none focus:ring-0 bg-transparent"
@@ -478,7 +506,7 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange }) => {
       {/* Editor Content */}
       <EditorContent
         editor={editor}
-        className="prose max-w-none p-4 min-h-[350px] focus:outline-none border-1 border-gray-300 rounded-lg bg-white"
+        className="prose max-w-none p-4 min-h-[650px] focus:outline-none border border-gray-300 rounded-lg bg-white"
       />
     </>
   );

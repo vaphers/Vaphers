@@ -21,7 +21,6 @@ export default async function AdminDashboard() {
   return (
     <div>
       <h1>Welcome to Blogs</h1>
-      <AdminDashboardClientWrapper />
     </div>
   );
 }
