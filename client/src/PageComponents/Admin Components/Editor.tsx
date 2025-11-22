@@ -150,19 +150,37 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!editor) return;
     const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const src = reader.result as string;
-        editor.chain().focus().setImage({ src }).run();
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+
+    try {
+      const data = new FormData();
+      data.append('file', file);
+      data.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!);
+
+      const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME!;
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+        method: 'POST',
+        body: data,
+      });
+
+      const json = await res.json();
+      if (json.secure_url) {
+        editor.chain().focus().setImage({ src: json.secure_url }).run();
+      } else {
+        console.error('Cloudinary upload error', json);
+        alert('Image upload failed');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Image upload failed');
+    } finally {
       event.target.value = '';
     }
   };
+
 
   const handleHeadingChange = (value: string) => {
     if (!editor) return;
