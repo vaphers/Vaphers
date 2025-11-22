@@ -1,7 +1,8 @@
 import { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import admin from 'firebase-admin';
-import serviceAccount from '../../../../secrets/vaphers-website-firebase-adminsdk-fbsvc-81d68e1434.json';
+// import serviceAccount from '../../../../secrets/vaphers-website-firebase-adminsdk-fbsvc-81d68e1434.json';
+const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT || '{}');
 
 if (!admin.apps.length) {
   admin.initializeApp({
