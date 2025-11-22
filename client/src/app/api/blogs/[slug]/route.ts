@@ -11,16 +11,41 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
+// export async function GET(
+//   req: NextRequest,
+//   { params }: { params: { slug: string } }
+// ) {
+//   try {
+//     if (!params.slug) {
+//       return NextResponse.json({ error: "Missing slug" }, { status: 400 });
+//     }
+//     // Query the blog by slug
+//     const query = db.collection("blogs").where("slug", "==", params.slug).limit(1);
+//     const snapshot = await query.get();
+//     if (snapshot.empty) {
+//       return NextResponse.json({ error: "Blog not found" }, { status: 404 });
+//     }
+//     const blogDoc = snapshot.docs[0];
+//     return NextResponse.json({ id: blogDoc.id, ...blogDoc.data() });
+//   } catch (err) {
+//     const errorMessage = err instanceof Error ? err.message : String(err);
+//     return NextResponse.json({ error: errorMessage }, { status: 500 });
+//   }
+// }
+
+
+
 export async function GET(
   req: NextRequest,
-  { params }: { params: { slug: string } }
+  context: { params: Promise<{ slug: string }> }
 ) {
   try {
-    if (!params.slug) {
+    const { slug } = await context.params;
+    if (!slug) {
       return NextResponse.json({ error: "Missing slug" }, { status: 400 });
     }
     // Query the blog by slug
-    const query = db.collection("blogs").where("slug", "==", params.slug).limit(1);
+    const query = db.collection("blogs").where("slug", "==", slug).limit(1);
     const snapshot = await query.get();
     if (snapshot.empty) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 });
