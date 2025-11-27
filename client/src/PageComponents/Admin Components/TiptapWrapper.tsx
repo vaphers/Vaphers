@@ -74,9 +74,9 @@ const handlePublish = async () => {
 
 
   return (
-    <div className="flex max-w-full mx-auto pt-0">
+    <div className="flex max-w-7xl mx-auto pt-0">
       {/* Center Editor and Meta area */}
-      <div className="flex-1 max-w-7xl p-6 space-y-6">
+      <div className="flex-1 p-5" >
         <Tiptap
           title={title}
           onTitleChange={setTitle}
@@ -113,7 +113,7 @@ const handlePublish = async () => {
         selectedCategories={selectedCategories}
         setSelectedCategories={setSelectedCategories}
         addCategory={addCategory}
-        className=" h-screen "
+        className="max-w-full"
       />
     </div>
   );

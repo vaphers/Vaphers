@@ -1,10 +1,11 @@
-'use client';
+"use client"
 
-import { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -14,17 +15,11 @@ import {
 } from "@/components/ui/select";
 import { ChevronRight, Search } from "lucide-react";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink } from "@/components/ui/pagination";
+import { Input } from "@/components/ui/input";
 
-// Your custom list of categories (can be any values you want)
+// Custom categories
 const customCategories = [
-  "Technology",
-  "Design",
-  "Blog",
-  "testing category",
-  "Lifestyle",
-  "Programming",
-  "DevOps",
-  "Tutorial"
+  "Technology", "Design", "Blog", "testing category", "Lifestyle", "Programming", "DevOps", "Tutorial"
 ];
 
 type Blog = {
@@ -39,52 +34,52 @@ type Blog = {
 
 const BLOGS_PER_PAGE = 9;
 
-const BlogList = () => {
+type BlogListProps = {
+  initialBlogs: Blog[];
+};
+
+// Skeleton loader component
+function BlogListSkeleton() {
+  return (
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {Array.from({ length: BLOGS_PER_PAGE }).map((_, i) => (
+        <Card key={i} className="animate-pulse shadow-none overflow-hidden rounded-lg border pt-0">
+          <CardHeader className="p-0">
+            <div className="aspect-video bg-blue-100 w-full border-b" />
+          </CardHeader>
+          <CardContent className="p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-6 w-20 bg-blue-200 rounded-full" />
+              <div className="h-4 w-12 bg-blue-50 rounded" />
+            </div>
+            <div className="h-6 w-44 bg-blue-200 rounded mb-3" />
+            <div className="h-4 w-full bg-blue-100 rounded mb-2" />
+            <div className="h-4 w-3/4 bg-blue-50 rounded mb-2" />
+            <div className="h-10 w-24 bg-blue-200 rounded mt-3" />
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  );
+}
+
+const BlogList = ({ initialBlogs }: BlogListProps) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [blogs] = useState<Blog[]>(initialBlogs);
   const [page, setPage] = useState(1);
   const [categoryFilter, setCategoryFilter] = useState("all");
-  const [fetchError, setFetchError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetch(`/api/blogs?limit=${BLOGS_PER_PAGE}`)
-      .then(res => res.json())
-      .then(data => {
-        setBlogs(data.blogs || []);
-        setFetchError(null);
-      })
-      .catch(err => {
-        setFetchError("Failed to load blogs.");
-        setBlogs([]);
-      });
-  }, [page]);
-
-  // Filter blogs by search and category
+  // Client filtering (search and category), instant
   const filteredBlogs = blogs.filter(blog => {
     const matchesSearch =
       blog.title.toLowerCase().includes(searchQuery.trim().toLowerCase()) ||
       (blog.metaDescription || "").toLowerCase().includes(searchQuery.trim().toLowerCase());
-
     const matchesCategory =
       categoryFilter === "all" || blog.categories.includes(categoryFilter);
-
     return matchesSearch && matchesCategory;
   });
 
-  // Paginate locally
   const paginatedBlogs = filteredBlogs.slice((page - 1) * BLOGS_PER_PAGE, page * BLOGS_PER_PAGE);
-
-  if (fetchError) {
-    return <div className="text-center py-20 text-xl text-red-500">{fetchError}</div>;
-  }
-
-  if (blogs.length === 0) {
-    return (
-      <div className="text-center py-20 text-lg text-gray-500">
-        No blogs found. Add blogs in Firestore or clear filters.
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-background lg:-mt-40">
@@ -115,7 +110,6 @@ const BlogList = () => {
       <div className="max-w-7xl mx-auto py-16 px-6 xl:px-0">
         <div className="flex items-end justify-between mb-8">
           <h2 className="text-3xl font-bold tracking-tight">Posts</h2>
-          {/* Category select with custom categories */}
           <Select value={categoryFilter} onValueChange={setCategoryFilter}>
             <SelectTrigger className="w-[180px]">
               <SelectValue>
@@ -132,59 +126,82 @@ const BlogList = () => {
             </SelectContent>
           </Select>
         </div>
+        {paginatedBlogs.length === 0 ? (
+          <BlogListSkeleton />
+        ) : (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {paginatedBlogs.map(blog => (
+              <Link key={blog.id} href={`/blogs/${blog.slug}`} className="block group">
+                <Card className="shadow-none overflow-hidden rounded-lg border hover:shadow-lg transition-shadow cursor-pointer group pt-0">
+                  <CardHeader className="p-0">
+                    {blog.featuredImage ? (
+                      <Image
+                        src={blog.featuredImage}
+                        alt={blog.title}
+                        width={800}
+                        height={450}
+                        quality={60}
+                        className="aspect-video w-full object-cover"
+                        priority
+                      />
+                    ) : (
+                      <div className="aspect-video bg-blue-100 w-full border-b" />
+                    )}
+                  </CardHeader>
+                  {/* <CardContent className="p-6">
+                    <div className="flex items-center gap-3">
+                      {blog.categories.map(cat => (
+                        <Badge key={cat} className="bg-blue-100 text-blue-700 hover:bg-blue-100 shadow-none">
+                          {cat}
+                        </Badge>
+                      ))}
+                    </div>
+                    <h3 className="mt-4 text-xl font-semibold tracking-tight group-hover:text-blue-600 transition-colors">
+                      {blog.title}
+                    </h3>
+                    <p className="mt-2 text-muted-foreground text-sm line-clamp-2">
+                      {blog.metaDescription}
+                    </p>
+                    <Link href={`/blogs/${blog.slug}`} passHref>
+                      <Button
+                        size="sm"
+                        className="mt-6 shadow-none bg-blue-600 hover:bg-blue-700 text-white"
+                        onClick={e => e.stopPropagation()}
+                      >
+                        Read more <ChevronRight className="w-4 h-4 ml-1" />
+                      </Button>
+                    </Link>
+                  </CardContent> */}
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-3">
+                      {blog.categories.map(cat => (
+                        <Badge key={cat} className="bg-blue-100 text-blue-700 hover:bg-blue-100 shadow-none">
+                          {cat}
+                        </Badge>
+                      ))}
+                    </div>
+                    <h3 className="mt-4 text-xl font-semibold tracking-tight group-hover:text-blue-600 transition-colors">
+                      {blog.title}
+                    </h3>
+                    <p className="mt-2 text-muted-foreground text-sm line-clamp-2">
+                      {blog.metaDescription}
+                    </p>
+                    <Button
+                      size="sm"
+                      className="mt-6 shadow-none bg-blue-600 hover:bg-blue-700 text-white"
+                      onClick={e => e.stopPropagation()}
+                    >
+                      Read more <ChevronRight className="w-4 h-4 ml-1" />
+                    </Button>
+                  </CardContent>
 
-        {paginatedBlogs.length === 0 && (
-          <div className="text-center py-16 text-muted-foreground">No blogs match your filter/search.</div>
+                </Card>
+              </Link>
+            ))}
+          </div>
         )}
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {paginatedBlogs.map(blog => (
-            <Card
-              key={blog.id}
-              className="shadow-none overflow-hidden rounded-lg border hover:shadow-lg transition-shadow cursor-pointer group pt-0"
-              onClick={() => window.location.href = `/blogs/${blog.slug}`}
-            >
-              <CardHeader className="p-0">
-                {blog.featuredImage ? (
-                  <img
-                    src={blog.featuredImage}
-                    alt={blog.title}
-                    className="aspect-video w-full object-cover"
-                  />
-                ) : (
-                  <div className="aspect-video bg-blue-100 w-full border-b" />
-                )}
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3">
-                  {blog.categories.map(cat => (
-                    <Badge key={cat} className="bg-blue-100 text-blue-700 hover:bg-blue-100 shadow-none">
-                      {cat}
-                    </Badge>
-                  ))}
-                </div>
-                <h3 className="mt-4 text-xl font-semibold tracking-tight group-hover:text-blue-600 transition-colors">
-                  {blog.title}
-                </h3>
-                <p className="mt-2 text-muted-foreground text-sm line-clamp-2">
-                  {blog.metaDescription}
-                </p>
-                <Button
-                  size="sm"
-                  className="mt-6 shadow-none bg-blue-600 hover:bg-blue-700 text-white"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    window.location.href = `/blogs/${blog.slug}`;
-                  }}
-                >
-                  Read more <ChevronRight className="w-4 h-4 ml-1" />
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
         {/* Shadcn Pagination */}
-        <Pagination>
+        <Pagination className="pt-8">
           <PaginationContent>
             <PaginationItem>
               <PaginationLink

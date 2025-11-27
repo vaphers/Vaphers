@@ -89,7 +89,7 @@ export async function GET(req: NextRequest) {
       categories: doc.data().categories,
       metaDescription: doc.data().metaDescription,
       createdAt: doc.data().createdAt,
-      // Add any other fields you need
+      authorId: doc.data().authorId, // <-- CRUCIAL LINE
     }));
 
     return NextResponse.json({ blogs });
