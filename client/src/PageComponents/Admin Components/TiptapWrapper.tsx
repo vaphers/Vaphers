@@ -74,7 +74,7 @@ const handlePublish = async () => {
 
 
   return (
-    <div className="flex max-w-7xl mx-auto pt-0">
+    <div className="flex px-10 mx-auto pt-0">
       {/* Center Editor and Meta area */}
       <div className="flex-1 p-5" >
         <Tiptap
