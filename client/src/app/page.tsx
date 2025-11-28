@@ -259,6 +259,57 @@ export default function Page() {
         }}
       />
 
+      {/* Breadcrumb Schema */}
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.vaphers.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "SEO Services",
+                "item": "https://www.vaphers.com/seo-services"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Website Development",
+                "item": "https://www.vaphers.com/website-development-services"
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "name": "AI SEO Services",
+                "item": "https://www.vaphers.com/seo-services/ai-seo-services"
+              },
+              {
+                "@type": "ListItem",
+                "position": 5,
+                "name": "Blogs",
+                "item": "https://www.vaphers.com/blogs"
+              },
+              {
+                "@type": "ListItem",
+                "position": 6,
+                "name": "Pricing",
+                "item": "https://www.vaphers.com/pricing"
+              }
+            ]
+          })
+        }}
+      />
+
+
       <main>
         <NavBar/>
         <Hero />
