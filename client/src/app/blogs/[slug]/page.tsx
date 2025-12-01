@@ -110,7 +110,7 @@ export default async function BlogPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-white">
       <NavBar />
-      <main className="max-w-6xl mx-auto px-6 sm:px-8 py-12">
+      <main className="max-w-7xl mx-auto px-6 sm:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
           {/* MAIN CONTENT */}
           <article className="lg:col-span-3">
