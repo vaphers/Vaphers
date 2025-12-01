@@ -194,7 +194,6 @@ export default async function BlogPage({ params }: Props) {
                           </h3>
 
                           <p className="mt-1 text-xs text-gray-500">
-                            {blog.authorName}
                             {sidebarDate ? ` | ${sidebarDate}` : ""}
                           </p>
                         </a>

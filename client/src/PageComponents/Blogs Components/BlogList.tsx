@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input";
 
 // Custom categories
 const customCategories = [
-  "Technology", "Design", "Blog", "testing category", "Lifestyle", "Programming", "DevOps", "Tutorial"
+  "Blog", "SEO", "Paid Media", "Social", "Programming", "React JS", "How To" , "Beginner Guides" , "Myth Busting" , "Case Studies" , "Tips & Tricks" , 
 ];
 
 type Blog = {
