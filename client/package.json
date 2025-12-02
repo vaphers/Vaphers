@@ -40,6 +40,7 @@
     "@tailwindcss/typography": "^0.5.19",
     "@tiptap/extension-blockquote": "^3.10.7",
     "@tiptap/extension-bullet-list": "^3.10.7",
+    "@tiptap/extension-hard-break": "^3.11.1",
     "@tiptap/extension-heading": "^3.10.7",
     "@tiptap/extension-image": "^3.10.7",
     "@tiptap/extension-link": "^3.10.7",

@@ -200,13 +200,16 @@ const BlogList = ({ initialBlogs }: BlogListProps) => {
             ))}
           </div>
         )}
-        {/* Shadcn Pagination */}
+
+
+        {/* Pagination */}
         <Pagination className="pt-8">
           <PaginationContent>
             <PaginationItem>
               <PaginationLink
                 onClick={() => page > 1 && setPage(page - 1)}
                 isActive={false}
+                className="mr-5"
               >
                 Previous
               </PaginationLink>
