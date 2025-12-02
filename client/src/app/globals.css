@@ -288,3 +288,9 @@ button[aria-pressed='true'] {
   content: "";
   line-height: 1.5;
 }
+
+.prose p {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
