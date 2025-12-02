@@ -167,7 +167,6 @@ export default async function BlogPage({ params }: Props) {
               ) : (
                 <ul className="space-y-6">
                   {latestBlogs.map((item: any) => {
-                    // Compute date for each sidebar post
                     const d =
                       item.createdAt && typeof item.createdAt.toDate === "function"
                         ? item.createdAt.toDate()
@@ -189,7 +188,7 @@ export default async function BlogPage({ params }: Props) {
                           href={`/blogs/${item.slug}`}
                           className="block group"
                         >
-                          <h3 className="text-2xl font-semibold text-gray-900 leading-snug group-hover:text-blue-700 transition duration-300">
+                          <h3 className="text-lg font-semibold text-gray-900 leading-snug group-hover:text-blue-700 transition duration-300">
                             {item.title}
                           </h3>
 
