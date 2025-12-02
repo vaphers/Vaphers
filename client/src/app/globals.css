@@ -282,3 +282,9 @@ button[aria-pressed='true'] {
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
 }
+
+.prose br {
+  display: inline;
+  content: "";
+  line-height: 1.5;
+}
