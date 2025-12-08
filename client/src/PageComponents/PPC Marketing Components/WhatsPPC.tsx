@@ -53,7 +53,7 @@ const WhatIsPPCMarketing: React.FC = () => {
           <div className="w-full lg:w-1/2 flex justify-center relative">
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none">
               <Image
-                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761741435/PayPerClickConcept.png"
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765190920/PPC_1_upbxgv.png"
                 alt="PPC marketing concept dashboard illustration"
                 width={600}
                 height={600}
@@ -71,3 +71,6 @@ const WhatIsPPCMarketing: React.FC = () => {
 };
 
 export default WhatIsPPCMarketing;
+
+
+

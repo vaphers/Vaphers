@@ -32,7 +32,7 @@ const PPCMarketingServicesAccordion: React.FC = () => {
         'Conversion tracking setup',
       ],
       image:
-        'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=800',
+        'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765199800/Google_Ads_Service_nxccqd.png',
       color: 'from-blue-500 to-indigo-600',
     },
     {
@@ -48,7 +48,7 @@ const PPCMarketingServicesAccordion: React.FC = () => {
         'Performance monitoring and scaling',
       ],
       image:
-        'https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&w=800',
+        'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765201688/Meta_Ads_Service_xmtq1l.png',
       color: 'from-cyan-500 to-teal-600',
     },
     {
@@ -64,7 +64,7 @@ const PPCMarketingServicesAccordion: React.FC = () => {
         'Follow-up strategy integration',
       ],
       image:
-        'https://images.pexels.com/photos/3183141/pexels-photo-3183141.jpeg?auto=compress&cs=tinysrgb&w=800',
+        'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765204141/lead_Gen_Service_tbfbru.png',
       color: 'from-orange-500 to-amber-600',
     },
     {
@@ -209,9 +209,6 @@ const PPCMarketingServicesAccordion: React.FC = () => {
                                 sizes="(max-width: 768px) 100vw, 50vw"
                                 className="object-cover"
                               />
-                              <div
-                                className={`absolute inset-0 bg-gradient-to-tr ${service.color} opacity-10`}
-                              ></div>
                             </motion.div>
                           </div>
                         </div>

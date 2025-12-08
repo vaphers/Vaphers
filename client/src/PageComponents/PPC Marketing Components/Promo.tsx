@@ -31,15 +31,15 @@ const Promo: React.FC = () => {
           <div className="w-full lg:w-1/2 flex relative hidden lg:block">
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none">
               <Image
-                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761746360/Master_Local_SEO_cofn00.png"
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765182797/frame-2134298915-1.pngn-w768-h76_vn5aia.png"
                 alt="Affordable PPC Marketing Concept Illustration"
-                width={600}
+                width={800}
                 height={600}
                 className="w-full h-auto object-contain"
                 priority
               />
 
-              {/* Floating Google Maps, Local Listings */}
+              {/* Floating Google Maps, Local Listings
               <div className="absolute inset-0">
                 <motion.div
                   custom={1}
@@ -63,14 +63,14 @@ const Promo: React.FC = () => {
                   className="absolute bottom-4 left-1 sm:bottom-8 sm:left-2 lg:bottom-55 lg:-left-6"
                 >
                   <Image
-                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w-100/v1761747776/Google-G-icon-favicon-PNG-large_lcye0c.png"
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w-100/v1765182797/frame-2134298915-1.pngn-w768-h76_vn5aia.png"
                     alt="Google Logo"
                     width={100}
                     height={100}
                     className="w-12 h-12 sm:w-10 sm:h-10 lg:w-18 lg:h-18 object-contain"
                   />
                 </motion.div>
-              </div>
+              </div> */}
             </div>
           </div>
 

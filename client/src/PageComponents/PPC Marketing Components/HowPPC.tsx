@@ -54,7 +54,7 @@ export default function HowPpcWork() {
         <div className="relative order-2 lg:order-1">
           <div className="relative w-full h-[500px] lg:h-[800px] rounded-3xl overflow-hidden">
             <Image
-              src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761830525/Pay_Per_Click_Concept.png"
+              src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765186449/PPC_2_clctm9.png"
               alt="PPC Marketing Concept Dashboard"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"

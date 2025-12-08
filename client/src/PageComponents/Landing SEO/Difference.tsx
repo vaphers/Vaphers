@@ -114,7 +114,7 @@ export default function SEOStrategiesComparison() {
                 <CardHeader>
                   <div className="flex items-start justify-between mb-2">
                     <div>
-                      <CardTitle className="text-3xl font-bold text-gray-900 bungee-inline-regular">
+                      <CardTitle className="text-3xl font-semibold text-gray-900 ">
                         {strategy.title}
                       </CardTitle>
                       <CardDescription className="text-sm font-semibold text-gray-500 montserrat">

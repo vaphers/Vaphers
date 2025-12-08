@@ -76,9 +76,9 @@ export default function PPCMarketingProcess() {
 
         {/* Right Image */}
         <div className="relative lg:ml-auto w-full">
-          <div className="relative w-full h-[600px] max-w-md mx-auto lg:max-w-lg rounded-3xl overflow-hidden shadow-2xl">
+          <div className="relative w-full h-[600px] max-w-md mx-auto lg:max-w-lg rounded-3xl overflow-hidden ">
             <Image
-              src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=800"
+              src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765188232/PPC_3_1_zt7v1m.png"
               alt="Team managing PPC marketing campaigns"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
@@ -86,7 +86,7 @@ export default function PPCMarketingProcess() {
               priority
             />
           </div>
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-200 via-purple-100 to-pink-200 rounded-3xl -z-10 blur-3xl opacity-50" />
+          {/* <div className="absolute inset-0 bg-gradient-to-br from-blue-200 via-purple-100 to-pink-200 rounded-3xl -z-10 blur-3xl opacity-50" /> */}
         </div>
       </div>
     </section>
