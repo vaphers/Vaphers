@@ -53,7 +53,7 @@ const WhatIsPPCMarketing: React.FC = () => {
           <div className="w-full lg:w-1/2 flex justify-center relative">
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none">
               <Image
-                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765190920/PPC_1_upbxgv.png"
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765276093/PPC_2_kqgxoj.png"
                 alt="PPC marketing concept dashboard illustration"
                 width={600}
                 height={600}

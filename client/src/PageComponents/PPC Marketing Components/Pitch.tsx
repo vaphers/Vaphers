@@ -97,7 +97,7 @@ const PpcPitch: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
           <div className="group relative rounded-[2rem] p-5 text-gray-700 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden border border-pink-600">
             <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0 pb-5">
-              <span className="text-[8rem] font-extrabold text-gray-400 select-none leading-none opacity-20">PPC</span>
+              <span className="text-[7rem] font-extrabold text-gray-900 select-none leading-none opacity-15">PPC</span>
             </div>
             <div className="relative z-10 text-center">
               <div className="text-3xl md:text-4xl font-extrabold mb-2">
@@ -114,10 +114,10 @@ const PpcPitch: React.FC = () => {
           <div className="group relative rounded-[2rem] p-4 text-gray-700 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden border border-[#70a597]">
             <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0">
               <Image
-                src="/google-ads-logo.png"
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765276364/2875421_hvwxcl.png"
                 alt="Google Ads bg"
                 fill
-                className="object-contain grayscale opacity-10"
+                className="object-contain grayscale opacity-30"
                 style={{ filter: 'grayscale(100%)' }}
               />
             </div>
@@ -136,10 +136,10 @@ const PpcPitch: React.FC = () => {
           <div className="group relative rounded-[2rem] p-4 text-gray-700 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden border border-[#4281f4]">
             <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0">
               <Image
-                src="/bing-ads-logo.png"
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765276365/6205270306e21d85740e1423_bing_vrg9nh.png"
                 alt="Bing Ads bg"
                 fill
-                className="object-contain opacity-25"
+                className="object-contain opacity-25 p-1"
                 style={{ filter: 'grayscale(100%)' }}
               />
             </div>
@@ -158,10 +158,10 @@ const PpcPitch: React.FC = () => {
           <div className="group relative rounded-[2rem] p-4 text-gray-700 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden border border-[#21b2c7]">
             <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0">
               <Image
-                src="/facebook-ads-logo.png"
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765276403/meta_PNG5_pqzzh6.png"
                 alt="Facebook Ads bg"
                 fill
-                className="object-contain opacity-25"
+                className="object-contain opacity-25 p-2"
                 style={{ filter: 'grayscale(100%)' }}
               />
             </div>

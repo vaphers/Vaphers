@@ -31,7 +31,7 @@ const Promo: React.FC = () => {
           <div className="w-full lg:w-1/2 flex relative hidden lg:block">
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none">
               <Image
-                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765182797/frame-2134298915-1.pngn-w768-h76_vn5aia.png"
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765268761/Frame_71_xh8chs.png"
                 alt="Affordable PPC Marketing Concept Illustration"
                 width={800}
                 height={600}
@@ -39,7 +39,7 @@ const Promo: React.FC = () => {
                 priority
               />
 
-              {/* Floating Google Maps, Local Listings
+              {/* Floating Google Maps, Local Listings */}
               <div className="absolute inset-0">
                 <motion.div
                   custom={1}
@@ -48,8 +48,8 @@ const Promo: React.FC = () => {
                   className="absolute -top-2 right-1 sm:top-0 sm:right-2 lg:top-55 lg:-right-1"
                 >
                   <Image
-                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_176/v1761747669/Rank_One_On_Google_v7q5as.png"
-                    alt="Top Google Ranking Icon"
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765277313/Get_More_Clients_mx49qw.png"
+                    alt="Get More Clients Illustration"
                     width={176}
                     height={176}
                     className="w-28 h-28 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain"
@@ -63,18 +63,18 @@ const Promo: React.FC = () => {
                   className="absolute bottom-4 left-1 sm:bottom-8 sm:left-2 lg:bottom-55 lg:-left-6"
                 >
                   <Image
-                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w-100/v1765182797/frame-2134298915-1.pngn-w768-h76_vn5aia.png"
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765277333/Google_LOGO_kybgvd.png"
                     alt="Google Logo"
                     width={100}
                     height={100}
                     className="w-12 h-12 sm:w-10 sm:h-10 lg:w-18 lg:h-18 object-contain"
                   />
                 </motion.div>
-              </div> */}
+              </div>
             </div>
           </div>
 
-          {/* Content: Affordable PPC Marketing */}
+          {/* Content */}
           <div className="w-full lg:w-2/3 space-y-4 sm:space-y-6 text-center lg:text-left">
             <div>
               <h2 className="text-4xl md:text-4xl lg:text-5xl font-base tracking-[-0.03em] text-gray-200 bungee-inline-regular">

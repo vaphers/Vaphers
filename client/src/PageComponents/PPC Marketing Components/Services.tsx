@@ -80,7 +80,7 @@ const PPCMarketingServicesAccordion: React.FC = () => {
         'Comprehensive reporting',
       ],
       image:
-        'https://images.pexels.com/photos/3188598/pexels-photo-3188598.jpeg?auto=compress&cs=tinysrgb&w=800',
+        'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765276082/SEM_Graphics_1_mydwiu.png',
       color: 'from-green-500 to-emerald-600',
     },
   ]

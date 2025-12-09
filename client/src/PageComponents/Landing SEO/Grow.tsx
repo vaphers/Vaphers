@@ -59,7 +59,7 @@ const GrowWithSEO: React.FC = () => {
   const xRight = useTransform(scrollYProgress, [0, 1], isMobile ? [0, 0] : [200, 0])
   const opacity = useTransform(
     scrollYProgress,
-    [0, 1],
+    [0, 0.5],
     isMobile ? [1, 1] : [0, 1]
   )
 
