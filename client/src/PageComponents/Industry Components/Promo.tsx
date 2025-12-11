@@ -10,15 +10,12 @@ import Link from 'next/link'
 export interface EcommercePromoProps {
   heading: string
   subheading?: string
-  /** HTML string allowed (anchors, spans, etc). Will be injected with dangerouslySetInnerHTML. */
   description: string
   imageUrl: string
   altText?: string
-  /** If true -> image on right, content on left. Default false (image left). */
   reverse?: boolean
   ctaHref?: string
   ctaText?: string
-  /** Optionally mark image as priority (for critical images) */
   priorityImage?: boolean
 }
 

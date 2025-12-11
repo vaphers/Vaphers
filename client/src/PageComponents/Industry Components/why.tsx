@@ -53,7 +53,10 @@ const AttractCustomers: React.FC<Props> = ({
   return (
     <section 
       ref={ref}
-      className="max-w-full bg-white bg-cover bg-center bg-no-repeat" 
+      className="max-w-full bg-cover bg-center bg-no-repeat"
+            style={{
+        backgroundImage: `url(https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit/v1761047482/GraphBG_pr6cri.png)`,
+      }} 
     >
       <div className="max-w-7xl mx-auto pt-8 sm:pt-12 lg:pt-16 pb-8 sm:pb-12 lg:pb-16">
         
@@ -63,14 +66,14 @@ const AttractCustomers: React.FC<Props> = ({
         >
 
           {/* IMAGE SIDE */}
-          <div className="w-full h-auto lg:w-1/2 flex justify-start items-start relative order-1 lg:order-none">
+          <div className="w-full h-full lg:w-1/2 flex justify-center items-center relative order-1 lg:order-none">
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-full">
               <Image 
                 src={imageUrl}
                 alt={heading}
                 width={600}
-                height={7000}
-                className="w-full h-auto object-contain"
+                height={800}
+                className="w-full h-auto object-cover"
               />
             </div>
           </div>
@@ -78,9 +81,8 @@ const AttractCustomers: React.FC<Props> = ({
           {/* CONTENT */}
           <div className="w-full lg:w-2/3 space-y-4 sm:space-y-6 order-2">
             <div>
-              <h2 className="text-4xl md:text-4xl lg:text-5xl text-center lg:text-start font-base tracking-[-0.03em] bungee-inline-regular">
-                {heading}
-              </h2>
+              <h2 className="text-4xl md:text-4xl lg:text-5xl text-gray-700 text-center lg:text-start font-base tracking-[-0.03em] bungee-inline-regular" dangerouslySetInnerHTML={{ __html: heading }}/>
+
 
               {subheading && (
                 <p className="text-base md:text-xl text-center lg:text-start text-blue-600 font-medium">
@@ -94,7 +96,7 @@ const AttractCustomers: React.FC<Props> = ({
               dangerouslySetInnerHTML={{ __html: description }}
             />
 
-            {/* Stats Grid */}
+            {/* Stats Grid
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
               {stats.map((stat, index) => (
                 <div 
@@ -119,7 +121,7 @@ const AttractCustomers: React.FC<Props> = ({
                   </div>
                 </div>
               ))}
-            </div>
+            </div> */}
 
             {/* CTA */}
             <div className="pt-4 sm:pt-6 lg:pt-5 pb-4 flex justify-center lg:justify-start">
@@ -127,7 +129,7 @@ const AttractCustomers: React.FC<Props> = ({
                 href="https://www.vaphers.com/seo-services/seo-audit-services"
                 className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group"
               >
-                <span className="mr-2 sm:mr-3">Get Your Free Store Audit</span>
+                <span className="mr-2 sm:mr-3">Get Your Free Website Audit</span>
                 <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </a>
             </div>
