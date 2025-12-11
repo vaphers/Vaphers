@@ -45,8 +45,8 @@ const creativeServices = [
   { name: "Lead Generation Service", desc: "Visual designs that communicate", icon: ChartBarIcon, href: "/ppc-marketing/lead-generation-services" },
 ]
 const featured = [
-  { name: "Free SEO Audit", desc: "Get a comprehensive analysis of your website's SEO performance", img: "/audit-thumb.webp", href: "#" },
-  { name: "Digital Strategy Consultation", desc: "One-on-one session to plan your digital transformation", img: "/consult-thumb.webp", href: "#" },
+  { name: "Free SEO Audit", desc: "Get a comprehensive analysis of your website's SEO performance", img: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765286238/free-website-audit_iroqxt.png", href: "https://www.vaphers.com/seo-services/seo-audit-services" },
+  { name: "FAQ", desc: "Essential answers to help you navigate common queries.", img: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765286478/faq_nthajt.png", href: "#" },
 ]
 const cta = [
   { name: "About Us", href: "/about-us", icon: UserIcon },

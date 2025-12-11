@@ -63,7 +63,7 @@ const SeoLeads: React.FC = () => {
 
   const opacity = useTransform(
     scrollYProgress,
-    [0, 0.2],
+    [0, 0.5],
     isMobile ? [1, 1] : [0, 1]
   )
 

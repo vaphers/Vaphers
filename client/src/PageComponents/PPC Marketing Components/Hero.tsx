@@ -98,7 +98,7 @@ function PpcHero() {
             <div className="relative z-10 mt-20 rounded-3xl border border-neutral-300 bg-neutral-200 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900">
               <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
                 <Image
-                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761121505/aceternity-landing_ou3duw.webp"
+                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761213572/hero_landing_rhywrd.jpg"
                   alt="PPC campaign dashboard preview"
                   className="aspect-[16/9] h-auto w-full object-cover"
                   height={1000}
@@ -143,7 +143,7 @@ function PpcHero() {
             >
               <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
                 <Image
-                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761121505/aceternity-landing_ou3duw.webp"
+                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761213572/hero_landing_rhywrd.jpg"
                   alt="PPC campaign dashboard preview"
                   className="aspect-[16/9] h-auto w-full object-cover"
                   height={1000}

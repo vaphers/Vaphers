@@ -54,11 +54,11 @@ export default function HowPpcWork() {
         <div className="relative order-2 lg:order-1">
           <div className="relative w-full h-[500px] lg:h-[800px] rounded-3xl overflow-hidden">
             <Image
-              src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765186449/PPC_2_clctm9.png"
+              src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765268762/PPC_2_1_p3jzlu.png"
               alt="PPC Marketing Concept Dashboard"
               fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
+              sizes="(max-width: 598px) 100vw, 50vw"
+              className="object-contain"
             />
           </div>
         </div>
