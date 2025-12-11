@@ -11,7 +11,7 @@ const EcommercePromo: React.FC = () => {
     <section className="max-w-full bg-[#0f3064] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-0 pb-8 sm:pb-12 lg:pb-16">
         <div className="flex flex-col lg:flex-row items-center lg:items-center gap-8 sm:gap-10 lg:gap-16">
-          {/* Image Left with Hand */}
+          {/* Image */}
           <div className="w-full lg:w-1/2 flex justify-center">
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg">
               <Image
@@ -96,3 +96,9 @@ const EcommercePromo: React.FC = () => {
 }
 
 export default EcommercePromo
+
+
+
+
+
+
