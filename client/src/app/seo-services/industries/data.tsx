@@ -15,6 +15,11 @@ export interface IndustryData {
   slug: string;
   industry: string;
 
+  meta: {
+    title: string;
+    description: string;
+  };
+
   hero: {
     heading: string;
     subtext: string;
@@ -83,6 +88,10 @@ export const industriesData: Record<string, IndustryData> = {
     key: "healthcare",
     slug: "healthcare",
     industry: "Healthcare",
+    meta: {
+      title: "SEO for Healthcare Business | Get More Diners & Online Orders",
+      description: "Boost your restaurant's visibility on Google. Our expert restaurant SEO services help you attract more local customers, increase table reservations, and drive online orders."
+    },
     hero: {
       heading: "Healthcare SEO Services for Clinics & Hospitals",
       subtext: "Drive qualified patient enquiries with proven, search-focused healthcare marketing",
@@ -328,6 +337,10 @@ plumbers: {
   key: "plumbers",
   slug: "plumbers",
   industry: "Plumbers",
+      meta: {
+      title: "SEO for Dentists | Dental SEO to Book More Patients",
+      description: "Attract high-value patients directly from Google. Our dental SEO services are designed to rank your practice for the most profitable treatments and fill your appointment book."
+    },
   hero: {
     heading: "Plumber SEO Services to Dominate Your Service Area",
     subtext: "Get more calls, book more jobs, and grow your plumbing business with proven search marketing.",

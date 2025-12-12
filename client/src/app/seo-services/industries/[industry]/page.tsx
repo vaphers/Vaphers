@@ -1,80 +1,59 @@
-"use client";
-
-import React, { useEffect, useRef, useMemo } from 'react'
-import { useParams } from 'next/navigation'; 
+import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import { industriesData } from '../../industries/data'; 
-import DynamicFaq from '@/PageComponents/Industry Components/Faq';
-import Lenis from '@studio-freight/lenis'
 
-// Components
 import IndustryHero from '@/PageComponents/Industry Components/Hero';
 import AttractCustomers from '@/PageComponents/Industry Components/why';
 import EcommercePromoDynamic from '@/PageComponents/Industry Components/Promo';
 import DynamicGrowSEO from '@/PageComponents/Industry Components/NewTop';
-import NavBar from '@/PageComponents/Global Components/Header';
-import Footer from '@/PageComponents/Global Components/Footer';
+import DynamicFaq from '@/PageComponents/Industry Components/Faq';
+import SeoAgencyVsDiy from '@/PageComponents/Industry Components/DiyVsAgency';
+import { IndustryServicesAccordion } from '@/PageComponents/Industry Components/Services';
+import SmoothScrollHero from '@/PageComponents/Landing Home/Results';
+import IndustryFiller from '@/PageComponents/Industry Components/Filler';
 import Banner from '@/PageComponents/Global Components/Banner';
 import Testimonial from '@/PageComponents/Global Components/Testimonial';
 import ContactForm from '@/PageComponents/Global Components/Contact';
-import SeoAgencyVsDiy from '@/PageComponents/Industry Components/DiyVsAgency';
-import {IndustryServicesAccordion} from '@/PageComponents/Industry Components/Services';
-import SmoothScrollHero from '@/PageComponents/Landing Home/Results';
-import IndustryFiller from '@/PageComponents/Industry Components/Filler';
 
-export default function IndustryPage() {
-  const params = useParams();
-  const industryKey = typeof params.industry === 'string' ? params.industry : '';
-  const data = industriesData[industryKey as keyof typeof industriesData];
+type PageProps = {
+  params: Promise<{ industry: string }>;
+};
+
+export function generateStaticParams() {
+  return Object.keys(industriesData).map((industryKey) => ({
+    industry: industryKey,
+  }));
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { industry } = await params;
   
-  if (!data) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <h1 className="text-2xl font-bold">Industry Not Found</h1>
-      </div>
-    );
+  const data = industriesData[industry as keyof typeof industriesData];
+
+  if (!data || !data.meta) {
+    return {
+      title: 'Industry Not Found',
+      description: 'The requested industry page could not be found.',
+    };
   }
+  
+  return {
+    title: data.meta.title,
+    description: data.meta.description,
+  };
+}
 
-  const lenisRef = useRef<Lenis | null>(null)
+export default async function IndustryPage({ params }: PageProps) {
+  const { industry } = await params;
+  
+  const data = industriesData[industry as keyof typeof industriesData];
 
-  const lenisConfig = useMemo(() => ({
-    lerp: 0.1,
-    smooth: true,
-    wheelMultiplier: 1.3,
-  }), [])
-
-  useEffect(() => {
-    const initLenis = () => {
-      const lenis = new Lenis(lenisConfig)
-
-      function raf(time: number) {
-        lenis.raf(time)
-        requestAnimationFrame(raf)
-      }
-
-      requestAnimationFrame(raf)
-      lenisRef.current = lenis
-      lenis.scrollTo(0)
-
-      return () => {
-        lenis.destroy()
-      }
-    }
-
-    const timeoutId = setTimeout(initLenis, 100)
-
-    return () => {
-      clearTimeout(timeoutId)
-      if (lenisRef.current) {
-        lenisRef.current.destroy()
-      }
-    }
-  }, [lenisConfig])
-
+  if (!data) {
+    notFound();
+  }
 
   return (
     <div>
-      {/* <NavBar /> */}
-
       <IndustryHero
         heading={data.hero.heading}
         subtext={data.hero.subtext}
@@ -124,13 +103,13 @@ export default function IndustryPage() {
       <IndustryServicesAccordion services={data.servicesSection?.services || []} />
       <IndustryFiller/>
       {data.sectionFaq && (
-      <DynamicFaq
-        heading={data.sectionFaq.heading}
-        description={data.sectionFaq.description}
-        faqs={data.sectionFaq.faqs}
-        ctaText={data.sectionFaq.ctaText}
-        ctaLink={data.sectionFaq.ctaLink}
-      />
+        <DynamicFaq
+          heading={data.sectionFaq.heading}
+          description={data.sectionFaq.description}
+          faqs={data.sectionFaq.faqs}
+          ctaText={data.sectionFaq.ctaText}
+          ctaLink={data.sectionFaq.ctaLink}
+        />
       )}
       <ContactForm/>
     </div>
