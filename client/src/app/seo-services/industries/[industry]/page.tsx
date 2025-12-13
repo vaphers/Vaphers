@@ -19,16 +19,42 @@ type PageProps = {
   params: Promise<{ industry: string }>;
 };
 
+const industrySlugToKey: Record<string, string> = {
+  'plumbers': 'plumbers',
+  'restaurants': 'restaurants',
+  'real-estate': 'realEstate',
+  'doctors': 'doctors',
+  'fashion': 'fashion',
+  'lawyers': 'lawyers',
+  'accountants': 'accountants',
+  'salons': 'salons',
+  'roofers': 'roofers',
+  'seal-coating': 'sealCoaters',
+  'signage': 'signage',
+  'packers-movers': 'packersMovers',
+  'beauty-spas': 'beautySpas',
+  'builders': 'builders',
+  'dentists': 'dentists',
+  'chiropractors': 'chiropractors',
+  'veterinarians': 'veterinarians',
+  'pest-control': 'pestControl',
+  'gyms': 'gyms',
+  'car-detailers': 'carDetailers',
+  'mechanics': 'mechanics',
+
+};
+
 export function generateStaticParams() {
-  return Object.keys(industriesData).map((industryKey) => ({
-    industry: industryKey,
+  return Object.keys(industrySlugToKey).map((slug) => ({
+    industry: slug,
   }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { industry } = await params;
   
-  const data = industriesData[industry as keyof typeof industriesData];
+  const industryKey = industrySlugToKey[industry];
+  const data = industriesData[industryKey as keyof typeof industriesData];
 
   if (!data || !data.meta) {
     return {
@@ -46,7 +72,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function IndustryPage({ params }: PageProps) {
   const { industry } = await params;
   
-  const data = industriesData[industry as keyof typeof industriesData];
+  const industryKey = industrySlugToKey[industry];
+  
+  if (!industryKey) {
+    notFound();
+  }
+  
+  const data = industriesData[industryKey as keyof typeof industriesData];
 
   if (!data) {
     notFound();
@@ -98,7 +130,7 @@ export default async function IndustryPage({ params }: PageProps) {
       )}
 
       <Banner/>
-      <Testimonial/>    
+      <Testimonial/>     
       <SeoAgencyVsDiy/>
       <IndustryServicesAccordion services={data.servicesSection?.services || []} />
       <IndustryFiller/>

@@ -199,7 +199,7 @@ export default function NavBar() {
         {/* Desktop right CTA */}
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Link href="/contact" className="text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
-            Become a Client <span aria-hidden="true">&rarr;</span>
+            Work With Us <span aria-hidden="true">&rarr;</span>
           </Link>
         </div>
       </nav>
@@ -309,7 +309,7 @@ export default function NavBar() {
               onClick={() => setMobileMenuOpen(false)}
               className="block rounded-lg px-3 py-3 font-semibold text-blue-600 bg-white text-center hover:bg-gray-100"
             >
-              Become a Client
+              Work With Us
             </Link>
           </div>
         </SheetContent>
