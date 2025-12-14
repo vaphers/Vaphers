@@ -5,13 +5,13 @@ import NavBar from '@/PageComponents/Global Components/Header';
 import Footer from '@/PageComponents/Global Components/Footer';
 
 export const metadata = {
-  title: 'Blog',
+  title: 'Vpahers Technologies | Blog',
   description: 'Read our latest articles, insights, and updates on digital marketing, SEO, and web development.',
   keywords: ['blog', 'digital marketing', 'SEO', 'articles'],
   openGraph: {
     title: 'Blog | Vaphers',
     description: 'Read our latest articles and insights.',
-    url: 'https://yourdomain.com/blog',
+    url: 'https://vaphers.com/blog',
   },
 };
 

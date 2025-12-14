@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import admin from 'firebase-admin';
-// import serviceAccount from '../../../../secrets/vaphers-website-firebase-adminsdk-fbsvc-81d68e1434.json';
-const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT || '{}');
+import serviceAccount from '../../../../secrets/vaphers-website-firebase-adminsdk-fbsvc-81d68e1434.json';
+// const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT || '{}');
 
 if (!admin.apps.length) {
   admin.initializeApp({
@@ -11,7 +11,7 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
-// POST: Create a blog (with unique slug check)
+// POST
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -66,38 +66,36 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// GET: Return blogs list with slug (for frontend navigation)
+// GET
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
-    const pageSizeParam = searchParams.get("limit");
-
-    const pageSize = pageSizeParam ? parseInt(pageSizeParam) : 9;
-    // For real pagination with Firestore, use startAfter, but here is simple limit
-
+    
     const blogsQuery = db
       .collection("blogs")
-      .orderBy("createdAt", "desc")
-      .limit(pageSize);
+      .orderBy("createdAt", "desc");
 
     const snapshot = await blogsQuery.get();
     const blogs = snapshot.docs.map(doc => ({
-      id: doc.id,             // for admin/internal usage
-      slug: doc.data().slug,  // for navigation
+      id: doc.id,
+      slug: doc.data().slug,
       title: doc.data().title,
       featuredImage: doc.data().featuredImage,
-      categories: doc.data().categories,
-      metaDescription: doc.data().metaDescription,
+      categories: doc.data().categories || [],
+      metaDescription: doc.data().metaDescription || '',
       createdAt: doc.data().createdAt,
-      authorId: doc.data().authorId, // <-- CRUCIAL LINE
+      authorId: doc.data().authorId,
     }));
+
+    console.log(`API returned ${blogs.length} blogs`); // DEBUG
 
     return NextResponse.json({ blogs });
   } catch (err) {
-    const errorMessage = err instanceof Error ? err.message : String(err);
+    console.error('API Error:', err);
     return NextResponse.json(
-      { error: errorMessage },
+      { error: 'Failed to fetch blogs', blogs: [] }, 
       { status: 500 }
     );
   }
 }
+
