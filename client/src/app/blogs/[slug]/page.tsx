@@ -2,6 +2,8 @@ import { Badge } from "@/components/ui/badge";
 import NavBar from "@/PageComponents/Global Components/Header";
 import Footer from "@/PageComponents/Global Components/Footer";
 import type { Metadata } from "next";
+import ContactForm from "@/PageComponents/Global Components/Contact";
+import CTA from "@/PageComponents/Global Components/CTA";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -84,6 +86,7 @@ export default async function BlogPage({ params }: Props) {
         <main className="max-w-2xl mx-auto py-32 text-center text-2xl text-red-600">
           Blog Not Found
         </main>
+        <ContactForm/>
         <Footer />
       </>
     );
@@ -205,6 +208,8 @@ export default async function BlogPage({ params }: Props) {
           </aside>
         </div>
       </main>
+      <CTA />
+      <ContactForm/>
       <Footer />
     </div>
   );

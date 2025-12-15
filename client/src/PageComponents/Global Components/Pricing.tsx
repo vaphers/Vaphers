@@ -4,8 +4,9 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Check } from 'lucide-react'
+import Link from 'next/link'
 
-type ServiceType = 'SEO' | 'AEO' | 'GEO' | 'LOCAL SEO' | 'ECOMMERCE WEBSITE' | 'SERVICE WEBSITE' | 'GOOGLE ADS' | 'META ADS'
+type ServiceType = 'SEO' | 'LOCAL SEO' | 'AEO' | 'GEO' | 'SERVICE WEBSITE' | 'ECOMMERCE WEBSITE' | 'GOOGLE ADS' | 'META ADS'
 
 interface PricingTier {
   name: string
@@ -20,8 +21,8 @@ const pricingData: Record<ServiceType, PricingTier[]> = {
   'SEO': [
     {
       name: 'Basic',
-      price: '$800',
-      originalPrice: '$1,200',
+      price: '$799',
+      originalPrice: '$1,199',
       description: 'Perfect for small businesses starting their SEO journey',
       features: [
         'Keyword research (10 keywords)',
@@ -33,16 +34,16 @@ const pricingData: Record<ServiceType, PricingTier[]> = {
     },
     {
       name: 'Standard',
-      price: '$1,800',
-      originalPrice: '$2,500',
+      price: '$1,499',
+      originalPrice: '$1,999',
       description: 'Ideal for growing businesses needing comprehensive SEO',
       features: [
         'Keyword research (25 keywords)',
         'Advanced on-page optimization',
-        'Content optimization (5 pages)',
+        'Content optimization ',
         'Bi-weekly performance reports',
-        'Link building (10 backlinks/month)',
-        'Technical SEO audit'
+        'Link building (15 backlinks/month)',
+        'Technical SEO audit & fixes'
       ],
       popular: true
     },
@@ -61,97 +62,13 @@ const pricingData: Record<ServiceType, PricingTier[]> = {
       ]
     }
   ],
-  'AEO': [
-    {
-      name: 'Basic',
-      price: '$1,200',
-      originalPrice: '$1,600',
-      description: 'Get started with AI-powered search optimization',
-      features: [
-        'AI search optimization (10 queries)',
-        'Featured snippet optimization',
-        'Schema markup basics',
-        'Monthly AI visibility report',
-        'Voice search optimization'
-      ]
-    },
-    {
-      name: 'Standard',
-      price: '$2,800',
-      originalPrice: '$3,600',
-      description: 'Advanced AEO for better AI visibility',
-      features: [
-        'AI search optimization (30 queries)',
-        'Advanced schema implementation',
-        'Answer engine optimization',
-        'ChatGPT & Bard optimization',
-        'Bi-weekly AI performance tracking',
-        'FAQ optimization'
-      ],
-      popular: true
-    },
-    {
-      name: 'Enterprise',
-      price: 'Custom',
-      description: 'Complete AI search dominance',
-      features: [
-        'Unlimited AI query optimization',
-        'Full schema implementation',
-        'Multi-platform AI optimization',
-        'Custom AI content strategy',
-        'Weekly performance reports',
-        'Dedicated AEO specialist'
-      ]
-    }
-  ],
-  'GEO': [
-    {
-      name: 'Basic',
-      price: '$1,000',
-      originalPrice: '$1,400',
-      description: 'Essential generative engine optimization',
-      features: [
-        'GEO content optimization',
-        'AI-friendly formatting',
-        'Basic entity optimization',
-        'Monthly GEO report',
-        'Citation optimization'
-      ]
-    },
-    {
-      name: 'Standard',
-      price: '$2,500',
-      originalPrice: '$3,200',
-      description: 'Comprehensive GEO strategy',
-      features: [
-        'Advanced GEO optimization',
-        'Multi-engine targeting',
-        'Entity relationship mapping',
-        'Knowledge graph optimization',
-        'Bi-weekly performance tracking',
-        'Structured data enhancement'
-      ],
-      popular: true
-    },
-    {
-      name: 'Enterprise',
-      price: 'Custom',
-      description: 'Full-scale generative engine presence',
-      features: [
-        'Complete GEO implementation',
-        'Custom entity development',
-        'Advanced knowledge base',
-        'Priority indexing support',
-        'Weekly strategy sessions',
-        'Dedicated GEO expert'
-      ]
-    }
-  ],
+
+
   'LOCAL SEO': [
     {
       name: 'Basic',
-      price: '$1,800',
-      originalPrice: '$2,400',
+      price: '$699',
+      originalPrice: '$999',
       description: 'Get found in local searches',
       features: [
         'Google Business Profile optimization',
@@ -163,8 +80,8 @@ const pricingData: Record<ServiceType, PricingTier[]> = {
     },
     {
       name: 'Standard',
-      price: '$3,800',
-      originalPrice: '$4,800',
+      price: '$1,099',
+      originalPrice: '$1,499',
       description: 'Dominate your local market',
       features: [
         'Complete GBP management',
@@ -190,11 +107,151 @@ const pricingData: Record<ServiceType, PricingTier[]> = {
       ]
     }
   ],
+
+
+  'AEO': [
+    {
+      name: 'Basic',
+      price: '$599',
+      originalPrice: '$999',
+      description: 'Get started with AI-powered search optimization',
+      features: [
+        'AI search optimization (10 queries)',
+        'Featured snippet optimization',
+        'Schema markup basics',
+        'Monthly AI visibility report',
+        'Voice search optimization'
+      ]
+    },
+    {
+      name: 'Standard',
+      price: '$1,100',
+      originalPrice: '$1,500',
+      description: 'Advanced AEO for better AI visibility',
+      features: [
+        'AI search optimization (30 queries)',
+        'Advanced schema implementation',
+        'Answer engine optimization',
+        'ChatGPT & Bard optimization',
+        'Bi-weekly AI performance tracking',
+        'FAQ optimization'
+      ],
+      popular: true
+    },
+    {
+      name: 'Enterprise',
+      price: 'Custom',
+      description: 'Complete AI search dominance',
+      features: [
+        'Unlimited AI query optimization',
+        'Full schema implementation',
+        'Multi-platform AI optimization',
+        'Custom AI content strategy',
+        'Weekly performance reports',
+        'Dedicated AEO specialist'
+      ]
+    }
+  ],
+
+
+  'GEO': [
+    {
+      name: 'Basic',
+      price: '$699',
+      originalPrice: '$1,099',
+      description: 'Essential generative engine optimization',
+      features: [
+        'GEO content optimization',
+        'AI-friendly formatting',
+        'Basic entity optimization',
+        'Monthly GEO report',
+        'Citation optimization'
+      ]
+    },
+    {
+      name: 'Standard',
+      price: '$999',
+      originalPrice: '$1,399',
+      description: 'Comprehensive GEO strategy',
+      features: [
+        'Advanced GEO optimization',
+        'Multi-engine targeting',
+        'Entity relationship mapping',
+        'Knowledge graph optimization',
+        'Bi-weekly performance tracking',
+        'Structured data enhancement'
+      ],
+      popular: true
+    },
+    {
+      name: 'Enterprise',
+      price: 'Custom',
+      description: 'Full-scale generative engine presence',
+      features: [
+        'Complete GEO implementation',
+        'Custom entity development',
+        'Advanced knowledge base',
+        'Priority indexing support',
+        'Weekly strategy sessions',
+        'Dedicated GEO expert'
+      ]
+    }
+  ],
+  
+
+  'SERVICE WEBSITE': [
+    {
+      name: 'Basic',
+      price: '$1,699',
+      originalPrice: '$2,199',
+      description: 'Professional website for your service business',
+      features: [
+        'Up to 8 pages',
+        'Mobile responsive design',
+        'Contact form',
+        '1 Year Domain Inluded',
+        '3 Month Hosting Included',
+        '30 days support'
+      ]
+    },
+    {
+      name: 'Standard',
+      price: '$2,199',
+      originalPrice: '$2,799',
+      description: 'Advanced service website with booking',
+      features: [
+        'Up to 15 pages',
+        'Custom design',
+        'Appointment booking system',
+        '2 Year Domain Included',
+        '6 Month Hosting Included',
+        'Blog integration',
+        '90 days support'
+      ],
+      popular: true
+    },
+    {
+      name: 'Enterprise',
+      price: 'Custom',
+      description: 'Complete digital solution for service business',
+      features: [
+        'Unlimited pages',
+        'Fully custom features',
+        'CRM integration',
+        'Multi-location support',
+        'Advanced analytics',
+        'Priority support',
+        '1 year maintenance'
+      ]
+    }
+  ],
+
+
   'ECOMMERCE WEBSITE': [
     {
       name: 'Basic',
-      price: '$4,500',
-      originalPrice: '$6,000',
+      price: '$2,899',
+      originalPrice: '$3,999',
       description: 'Launch your online store quickly',
       features: [
         'Up to 50 products',
@@ -207,8 +264,8 @@ const pricingData: Record<ServiceType, PricingTier[]> = {
     },
     {
       name: 'Standard',
-      price: '$8,500',
-      originalPrice: '$11,000',
+      price: '$3,499',
+      originalPrice: '$4,499',
       description: 'Feature-rich ecommerce solution',
       features: [
         'Up to 200 products',
@@ -236,52 +293,8 @@ const pricingData: Record<ServiceType, PricingTier[]> = {
       ]
     }
   ],
-  'SERVICE WEBSITE': [
-    {
-      name: 'Basic',
-      price: '$2,200',
-      originalPrice: '$3,000',
-      description: 'Professional website for your service business',
-      features: [
-        'Up to 5 pages',
-        'Mobile responsive design',
-        'Contact form',
-        'Basic SEO setup',
-        'Social media integration',
-        '30 days support'
-      ]
-    },
-    {
-      name: 'Standard',
-      price: '$4,500',
-      originalPrice: '$6,000',
-      description: 'Advanced service website with booking',
-      features: [
-        'Up to 10 pages',
-        'Custom design',
-        'Appointment booking system',
-        'Advanced SEO optimization',
-        'Blog integration',
-        'Email automation',
-        '90 days support'
-      ],
-      popular: true
-    },
-    {
-      name: 'Enterprise',
-      price: 'Custom',
-      description: 'Complete digital solution for service business',
-      features: [
-        'Unlimited pages',
-        'Fully custom features',
-        'CRM integration',
-        'Multi-location support',
-        'Advanced analytics',
-        'Priority support',
-        '1 year maintenance'
-      ]
-    }
-  ],
+
+
   'GOOGLE ADS': [
     {
       name: 'Basic',
@@ -328,6 +341,8 @@ const pricingData: Record<ServiceType, PricingTier[]> = {
       ]
     }
   ],
+
+
   'META ADS': [
     {
       name: 'Basic',
@@ -379,7 +394,7 @@ const pricingData: Record<ServiceType, PricingTier[]> = {
 export default function PricingComponent() {
   const [selectedService, setSelectedService] = useState<ServiceType>('SEO')
 
-  const services: ServiceType[] = ['SEO', 'AEO', 'GEO', 'LOCAL SEO', 'ECOMMERCE WEBSITE', 'SERVICE WEBSITE', 'GOOGLE ADS', 'META ADS']
+  const services: ServiceType[] = ['SEO', 'LOCAL SEO', 'SERVICE WEBSITE', 'ECOMMERCE WEBSITE', 'AEO', 'GEO', 'GOOGLE ADS', 'META ADS']
 
   return (
     <section className="w-full py-12 md:py-12 px-4">
@@ -449,7 +464,7 @@ export default function PricingComponent() {
                   )}
                   {tier.price !== 'Custom' && (
                     <p className="text-sm text-gray-600 mt-1">
-                      per user per month, one-year commitment
+                      Per User Per Month, No Commitment
                     </p>
                   )}
                 </div>
@@ -469,19 +484,22 @@ export default function PricingComponent() {
                 </ul>
               </CardContent>
 
+            <Link href="/contact-us">
               <CardFooter>
-                <Button 
+                <Button
                   className={`
-                    w-full py-6 font-semibold
-                    ${tier.popular 
-                      ? 'bg-blue-600 hover:bg-blue-700 text-white' 
-                      : 'bg-white text-blue-600 border-2 border-blue-600 hover:bg-blue-50'
+                    w-full py-6 font-semibold cursor-pointer
+                    ${
+                      tier.popular
+                        ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                        : 'bg-white text-blue-600 border-2 border-blue-600 hover:bg-blue-50'
                     }
                   `}
                 >
                   {tier.price === 'Custom' ? 'Contact sales' : 'Get Started'}
                 </Button>
               </CardFooter>
+            </Link>
             </Card>
           ))}
         </div>

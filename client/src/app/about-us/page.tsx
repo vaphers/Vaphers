@@ -6,8 +6,8 @@ import Hero from '@/PageComponents/About Components/Hero'
 import ContactForm from '@/PageComponents/Global Components/Contact'
 
 export const metadata: Metadata = {
-  title: 'About Us',
-  description: 'Learn about our story, expertise, and journey. Discover how we help businesses generate leads, get noticed, and dominate their industry through collaboration and resilience.',
+  title: 'Performance-Driven Digital Marketing Agency for Business Growth',
+  description: 'Learn about our performance-driven digital marketing agency. We help businesses grow through SEO, paid ads, conversion optimization, and data-backed strategies that deliver measurable results.',
   keywords: ['about us', 'company story', 'team', 'expertise', 'business growth', 'digital marketing agency'],
   authors: [{ name: 'Vaphers' }],
   openGraph: {
@@ -17,12 +17,6 @@ export const metadata: Metadata = {
     siteName: 'Vaphers',
     locale: 'en_US',
     type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'About Us | Vaphers',
-    description: 'Our story is a testament to the power of collaboration and resilience.',
-    images: ['https://yourdomain.com/twitter-about.jpg'],
   },
   robots: {
     index: true,

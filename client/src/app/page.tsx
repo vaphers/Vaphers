@@ -25,6 +25,7 @@ import HomeFiller from '@/PageComponents/Landing Home/FillerSection'
 import HomePaidAds from '@/PageComponents/Landing Home/PaidAds'
 import NavBar from '@/PageComponents/Global Components/Header'
 import Footer from '@/PageComponents/Global Components/Footer'
+import PricingComponent from '@/PageComponents/Global Components/Pricing'
 
 const featuresList = [
   {
@@ -326,12 +327,14 @@ export default function Page() {
         <div className='hidden lg:block'>
           <BannerMarqee/>
         </div>
-
-        <WhyUs/>
         <Invest/>
+        <HomePaidAds/>
+        <PricingComponent/>
+        <WhyUs/>
+  
 
         {/* Paid Ads % Faq & Stats */}
-        <div className="min-h-screen w-full relative">
+        <div className="w-full relative">
           <div
             className="absolute inset-0 z-0"
             style={{
@@ -377,9 +380,7 @@ export default function Page() {
               WebkitMaskComposite: "source-in",
             }}
           />
-          
           <div className="relative z-10">
-            <HomePaidAds/>
             <Stats />
             <Faq />
           </div>
