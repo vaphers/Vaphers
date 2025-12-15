@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Professional WordPress Website Development | Custom Design & Development',
+  title: 'High-Performance WordPress Website Development Services',
   description: 'Expert WordPress website development services. Get a custom, mobile-responsive WordPress site built for SEO and conversions. From $2,000. Free consultation available.',
   keywords: 'WordPress development, WordPress website design, custom WordPress development, WordPress developer, WooCommerce development, WordPress agency',
   openGraph: {

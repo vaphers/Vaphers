@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Professional Shopify Development Services | Custom Store Design & Setup',
-  description: 'Expert Shopify store development services. Launch your high-converting e-commerce store with custom design, app integration, and ongoing support. Get started with professional Shopify developers today.',
+  title: 'High-Converting Shopify Website Development for Growing Brands',
+  description: 'We build fast, conversion-focused Shopify websites that sell more. Get a custom Shopify store optimized for UX, speed, and scalable growth.',
   keywords: [
     'Shopify development',
     'Shopify store design',

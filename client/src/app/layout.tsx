@@ -14,7 +14,7 @@ const bungeeInline = Bungee_Inline({
 
 export const metadata = {
   title: {
-    default: 'Affordable Digital Marketing Agency | Vaphers - SEO, PPC & Web Development',
+    default: 'Affordable Digital Marketing Agency | SEO, PPC & Web Development - Vaphers',
   },
   description:
     'Vaphers is an affordable digital marketing agency offering expert SEO, PPC advertising, and web development services. Drive qualified traffic and grow your revenue with data-driven strategies that deliver measurable results.',

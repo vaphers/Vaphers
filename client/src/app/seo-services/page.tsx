@@ -100,23 +100,18 @@ export default function Page() {
   useEffect(() => {
     const initLenis = () => {
       const lenis = new Lenis(lenisConfig)
-
       function raf(time: number) {
         lenis.raf(time)
         requestAnimationFrame(raf)
       }
-
       requestAnimationFrame(raf)
       lenisRef.current = lenis
       lenis.scrollTo(0)
-
       return () => {
         lenis.destroy()
       }
     }
-
     const timeoutId = setTimeout(initLenis, 100)
-
     return () => {
       clearTimeout(timeoutId)
       if (lenisRef.current) {
@@ -127,7 +122,32 @@ export default function Page() {
 
   return (
     <>
-      {/* FAQ Schema */}
+      {/* 1. Breadcrumb Schema (NEW) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.vaphers.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "SEO Services",
+                "item": "https://www.vaphers.com/seo-services"
+              }
+            ]
+          })
+        }}
+      />
+
+      {/* 2. FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -146,7 +166,7 @@ export default function Page() {
         }}
       />
 
-      {/* Service Schema */}
+      {/* 3. Service Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -156,8 +176,8 @@ export default function Page() {
             "serviceType": "SEO Services",
             "provider": {
               "@type": "Organization",
-              "name": "Virtual Orbit",
-              "url": "https://yourwebsite.com"
+              "name": "Vaphers", // Fixed typo: "Virtual Orbit" -> "Vaphers"
+              "url": "https://www.vaphers.com" // Fixed generic URL
             },
             "areaServed": {
               "@type": "Country",

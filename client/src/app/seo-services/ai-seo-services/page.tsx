@@ -88,23 +88,18 @@ export default function Page() {
   useEffect(() => {
     const initLenis = () => {
       const lenis = new Lenis(lenisConfig)
-
       function raf(time: number) {
         lenis.raf(time)
         requestAnimationFrame(raf)
       }
-
       requestAnimationFrame(raf)
       lenisRef.current = lenis
       lenis.scrollTo(0)
-
       return () => {
         lenis.destroy()
       }
     }
-
     const timeoutId = setTimeout(initLenis, 100)
-
     return () => {
       clearTimeout(timeoutId)
       if (lenisRef.current) {
@@ -115,6 +110,39 @@ export default function Page() {
   
   return (
     <>
+      {/* Breadcrumb Schema - 3 level ka hai  */}
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.vaphers.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "SEO Services",
+                "item": "https://www.vaphers.com/seo-services"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "AI SEO Services",
+                "item": "https://www.vaphers.com/seo-services/ai-seo-services"
+              }
+            ]
+          })
+        }}
+      />
+
+      {/* FAQ Schema */}
       <Script
         id="faq-schema"
         type="application/ld+json"

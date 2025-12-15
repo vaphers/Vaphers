@@ -3,8 +3,8 @@ import NavBar from '@/PageComponents/Global Components/Header'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Professional SEO Services | Boost Your Rankings & Traffic',
-  description: 'Drive more organic traffic with expert SEO services. We help businesses rank higher on Google, increase qualified leads, and grow revenue through proven SEO strategies.',
+  title: 'ROI-Focused SEO Services Built to Scale Your Business | Vaphers',
+  description: 'Stop guessing with SEO. We deliver data-driven SEO services that improve rankings, attract qualified traffic, and turn search visibility into revenue.',
   keywords: 'SEO services, search engine optimization, digital marketing, Google rankings, organic traffic',
   openGraph: {
     title: 'Professional SEO Services | Boost Your Rankings & Traffic',

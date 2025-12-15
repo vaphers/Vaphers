@@ -121,23 +121,18 @@ export default function Page() {
   useEffect(() => {
     const initLenis = () => {
       const lenis = new Lenis(lenisConfig)
-
       function raf(time: number) {
         lenis.raf(time)
         requestAnimationFrame(raf)
       }
-
       requestAnimationFrame(raf)
       lenisRef.current = lenis
       lenis.scrollTo(0)
-
       return () => {
         lenis.destroy()
       }
     }
-
     const timeoutId = setTimeout(initLenis, 100)
-
     return () => {
       clearTimeout(timeoutId)
       if (lenisRef.current) {
@@ -150,6 +145,32 @@ export default function Page() {
 
   return (
     <>
+      {/* 1. Breadcrumb Schema (NEW) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.vaphers.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Website Development Services",
+                "item": "https://www.vaphers.com/website-development-services"
+              }
+            ]
+          })
+        }}
+      />
+
+      {/* 2. FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
@@ -176,4 +197,3 @@ export default function Page() {
   )
 }
 
-// Your existing portfolioImages const here (unchanged)

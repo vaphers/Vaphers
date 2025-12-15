@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Next.js Website Development | Fast, SEO‑Ready & Affordable',
+  title: 'Enterprise-Grade Next.js Website Development Services',
   description:
-    'Launch a fast, SEO‑friendly website with Next.js. Get clean design, quick load times, and pages built to convert—perfect for service brands, landing pages, and ecommerce. Ask about affordable next js development.',
+    'We build high-performance Next.js websites optimized for speed, SEO, and scalability. Get production-ready apps engineered for growth and conversions.',
   keywords: [
     'Next.js development',
     'affordable next js development',

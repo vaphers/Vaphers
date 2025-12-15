@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'eCommerce Website Development | Fast, SEO‑Ready & Affordable',
+  title: 'Revenue-Driven eCommerce Website Development | Fast, SEO‑Ready & Affordable',
   description:
     'Get a custom, fast, and SEO-friendly eCommerce website built to convert visitors into customers. Affordable development tailored for growing online stores and brands.',
   keywords: [

@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'AI SEO Services | Your Company Name',
-  description: 'Transform your business with AI-powered SEO services. Leverage machine learning and automation to boost search rankings and drive organic traffic.',
+  title: 'AI SEO Services That Drive Rankings, Traffic & Revenue | Vaphers',
+  description: 'Win rankings across Google and AI-powered search engines. Our AI SEO services optimize content, intent, and visibility to drive qualified traffic and real conversions.',
   keywords: ['AI SEO', 'artificial intelligence SEO', 'automated SEO', 'machine learning SEO', 'AI search optimization'],
   openGraph: {
     title: 'AI SEO Services That Transform Your Business',
