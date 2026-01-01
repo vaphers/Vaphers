@@ -15,7 +15,7 @@ const DmNeed: React.FC = () => {
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none">
               <Image
                 src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761047492/Tools_aktfkk.png"
-                alt="Digital marketing analytics dashboard showing online marketing performance"
+                alt="Web design and digital marketing tools dashboard"
                 width={600}
                 height={600}
                 sizes="(max-width: 640px) 384px, (max-width: 768px) 448px, 600px"
@@ -51,31 +51,33 @@ const DmNeed: React.FC = () => {
           <div className="w-full lg:w-3/4 space-y-4 sm:space-y-6">
             <div>
               <h2 className="text-3xl md:text-3xl lg:text-5xl text-center lg:text-start font-sans text-gray-200 mb-4 bungee-inline-regular">
-                 Why You Need
-                <span className="bg-blue-400 bg-clip-text text-transparent"> Digital Marketing Services?</span>{' '}
+                Leading
+                <span className="bg-blue-400 bg-clip-text text-transparent">
+                  {' '}Web Design & Digital Marketing Agency
+                </span>
               </h2>
               <p className="text-sm sm:text-base lg:text-lg text-center lg:text-start text-blue-200 font-medium">
-                Connect with Your Customers Where They Spend Their Time Online
+                Helping Businesses Build, Market, and Scale Online
               </p>
             </div>
 
             <p className="text-sm sm:text-base lg:text-xl text-white leading-relaxed text-center lg:text-left">
-              Digital marketing is the use of online channels, platforms, and technologies to promote your business, products,
-              or services to potential customers. It encompasses everything from <a className='text-blue-200 underline' href="https://www.vaphers.com/seo-services">search engine optimization (SEO)</a> and social media
-              marketing to{' '} <a href="https://www.vaphers.com/ppc-marketing">pay-per-click advertising</a> and{' '}
-              <a href="https://www.vaphers.com/ppc-marketing//search-engine-marketing" className="text-blue-200 underline hover:text-blue-400 duration-200 font-medium">
-                 search engine marketing
-              </a>
-              . The goal is to reach your target audience where they're already spending their time.
+              Vaphers is a leading web design and digital marketing agency helping businesses establish a strong and reliable online presence. 
+              We deliver performance-focused websites through <a className='text-blue-200 underline' href="https://www.vaphers.com/seo-services">
+              affordable web design for small business</a>, ensuring every site is fast, conversion-driven, and built for long-term growth. 
+              Alongside this, our proven <a className='text-blue-200 underline' href="https://www.vaphers.com/seo-services">
+              affordable SEO services</a> help brands improve visibility, attract qualified traffic, and compete effectively in today’s crowded digital landscape.
             </p>
 
             {/* Button */}
-            <a href="https://www.vaphers.com/seo-services"><div className="pt-4 sm:pt-4 lg:pb-4 flex justify-center lg:justify-start">
-              <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
-                <span className="mr-2 sm:mr-3">What's SEO?</span>
-                <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
+            <a href="https://www.vaphers.com/seo-services">
+              <div className="pt-4 sm:pt-4 lg:pb-4 flex justify-center lg:justify-start">
+                <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                  <span className="mr-2 sm:mr-3">Explore Our SEO Services</span>
+                  <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                </div>
               </div>
-            </div></a>
+            </a>
           </div>
         </div>
       </div>

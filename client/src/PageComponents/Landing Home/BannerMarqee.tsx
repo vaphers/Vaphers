@@ -35,7 +35,7 @@ const containerStyle: CSSProperties = {
   height: "70vh",
   minHeight: "400px",
   overflow: "hidden",
-  background: "linear-gradient(180deg, #b7e3f7, #82bad5)"
+ background: "linear-gradient(135deg, #0b254f 0%, #0e2f63 100%)"
 }
 
 const marqueeContainerStyle: CSSProperties = {
@@ -61,7 +61,7 @@ const bottomMarqueeStyle: CSSProperties = {
 
 const textStyleTop: CSSProperties = {
   fontSize: "8vw",
-  fontWeight: 800,
+  fontWeight: 400,
   color: "#fff",
   letterSpacing: 1,
   paddingRight: '50%',
@@ -70,8 +70,8 @@ const textStyleTop: CSSProperties = {
 
 const textStyleBottom: CSSProperties = {
   fontSize: "8vw",
-  fontWeight: 900,
-  color: "#fff",
+  fontWeight: 400,
+  color: "#ffffffff",
   opacity: 0.98,
   letterSpacing: 2,
   paddingRight: '50%',
@@ -93,9 +93,9 @@ const BannerMarqee: React.FC = () => {
     <section style={containerStyle}>
       {/* Top Marquee */}
       <div style={topMarqueeStyle}>
-        <motion.div variants={marqueeVariants} animate="animateRight" style={{ display: 'inline-block' }}>
+        <motion.div variants={marqueeVariants} animate="animateRight" style={{ display: 'inline-block' }} className="bungee-inline-regular">
           <span style={textStyleTop}>
-            Virtual Orbit - SEO - Virtual Orbit - SEO - Virtual Orbit - SEO -
+            Vaphers - SEO - Vaphers - Web Design - Vaphers - Paid Ads -
           </span>
         </motion.div>
       </div>
@@ -118,7 +118,7 @@ const BannerMarqee: React.FC = () => {
 
       {/* Bottom Marquee */}
       <div style={bottomMarqueeStyle}>
-        <motion.div variants={marqueeVariants} animate="animateLeft" style={{ display: 'inline-block' }}>
+        <motion.div variants={marqueeVariants} animate="animateLeft" style={{ display: 'inline-block' }} className="bungee-inline-regular">
           <span style={textStyleBottom}>
             SEO - Paid Ads - Website Dev - Social Media - Ai SEO -
           </span>

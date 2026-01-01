@@ -105,13 +105,10 @@ const WhyUs = () => {
       {/* Content */}
       <div className="relative z-10 flex items-center justify-center">
         <div className="max-w-7xl w-full py-8 lg:py-12 px-6">
-          <div className="lg:text-left mb-8 lg:mb-12 align-center">
+          <div className=" mb-8 lg:mb-12 align-center justify-center flex flex-col">
             <h4 className="text-3xl md:text-4xl lg:text-6xl font-base text-center tracking-[-0.03em] px-6 text-gray-700 bungee-inline-regular">
               Why Choose Us <span className="bg-blue-600 bg-clip-text text-transparent">For Your Business?</span>
             </h4>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto text-center lg:mx-0">
-              Partner with a team that combines expertise, transparency, and results-driven strategies to accelerate your success
-            </p>
           </div>
           
           <div className="mt-6 md:mt-10 w-full mx-auto grid md:grid-cols-2 gap-12 items-center">

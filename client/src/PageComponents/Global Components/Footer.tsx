@@ -47,51 +47,6 @@ const Footer: React.FC = () => {
     <div>
       <footer className="w-full bg-white border-t border-gray-200 shadow-lg">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-white">
-          
-          {/* Industries Section */}
-          <div className="py-12 md:py-16">
-            <div className="text-center mb-10">
-              <h3 className="text-3xl md:text-4xl font-bold text-gray-700 mb-3 bungee-inline-regular">
-                Industries We Help Rank <span className="text-blue-600">#1 Locally</span>
-              </h3>
-              <p className="text-base text-gray-600 max-w-2xl mx-auto">
-                Specialized SEO strategies for local service businesses across 25+ industries
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4 max-w-6xl mx-auto mb-8">
-              {industries.map((industry) => {
-                const IconComponent = industry.icon;
-                return (
-                  <Link
-                    key={industry.name}
-                    href={industry.href}
-                    className="group relative flex flex-col items-center justify-center p-5 bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl hover:from-blue-50 hover:to-indigo-100 hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-blue-300 hover:scale-105 hover:-translate-y-1"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl opacity-0 group-hover:opacity-5 transition-opacity duration-300" />
-                    <IconComponent 
-                      className="w-8 h-8 mb-3 text-blue-600 group-hover:text-blue-700 transition-colors duration-200" 
-                      strokeWidth={1.5}
-                    />
-                    <span className="text-xs font-semibold text-gray-800 group-hover:text-blue-700 transition-colors text-center leading-tight">
-                      {industry.name}
-                    </span>
-                  </Link>
-                );
-              })}
-            </div>
-
-            {/* Button */}
-            <div className="text-center">
-              <Link
-                href="/contact-us"
-                className="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
-              >
-                Get Your Business Ranked 
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
 
           {/* Footer Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-8 py-10 max-sm:max-w-sm max-sm:mx-auto gap-y-8 border-t border-gray-200">

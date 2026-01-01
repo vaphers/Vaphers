@@ -60,7 +60,7 @@ const WhatsSEO: React.FC = () => {
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-16 sm:pb-12 lg:pb-0">
-        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 sm:gap-10 lg:gap-12">
+        <div className="flex flex-col lg:flex-row items-center lg:items-end gap-8 sm:gap-10 lg:gap-12">
           <motion.div
             style={{
               x: xLeft,
@@ -70,43 +70,31 @@ const WhatsSEO: React.FC = () => {
           >
             <div>
               <h2 className="text-3xl md:text-3xl lg:text-5xl text-center lg:text-start font-sans text-gray-700 mb-4 bungee-inline-regular">
-                Grow With{' '}
+                Top Rated{' '}
                 <span className="bg-blue-600 bg-clip-text text-transparent">
-                  Affordable Digital Marketing
-                </span>{' '}
-                Services
+                  #1 International SEO Agency
+                </span>
               </h2>
               <p className="text-sm sm:text-base lg:text-lg text-center lg:text-start text-blue-600 font-medium">
-                Connect with Your Customers Where They Spend Their Time Online
+                Global SEO Services Designed to Drive Worldwide Search Visibility
               </p>
             </div>
 
-            {/* <p className="text-sm sm:text-base lg:text-xl text-gray-700 leading-relaxed text-center lg:text-left">
-              Affordable digital marketing services help businesses reach their target audience without breaking the bank. 
-              Through strategic & <a className='text-blue-600 underline' href="https://www.vaphers.com/seo-services">affordable SEO services</a>, targeted <a className='text-blue-600 underline' href="https://www.vaphers.com/ppc-marketing//meta-ads-management-services">meta ads campaigns</a>, and cost-effective{' '}
-              <a href="https://www.vaphers.com/ppc-marketing" className="text-blue-700 underline hover:text-blue-800 font-medium">
-                pay-per-click advertising
-              </a>
-              , we maximize your online visibility and drive qualified leads. Our data-driven approach ensures every dollar spent delivers measurable results and sustainable growth for your business.
-            </p> */}
-
-
-              <p className="text-sm sm:text-base lg:text-xl text-gray-700 leading-relaxed text-center lg:text-left">
-                Affordable digital marketing services help businesses reach their target audience without breaking the bank. 
-                Through strategic & <a className='text-blue-600 underline' href="https://www.vaphers.com/seo-services">affordable SEO services</a>, targeted <a className='text-blue-600 underline' href="https://www.vaphers.com/ppc-marketing/meta-ads-management-services">meta ads campaigns</a>, and cost-effective{' '}
-                <a href="https://www.vaphers.com/ppc-marketing" className="text-blue-700 underline hover:text-blue-800 font-medium">
-                  pay-per-click advertising
-                </a>
-                , we maximize your online visibility and drive qualified leads.<br/><br/>  Our budget-friendly Next.js development services deliver lightning-fast, SEO-optimized websites that convert visitors into customers, while our <a className='text-blue-600 underline' href="https://www.vaphers.com/ppc-marketing/google-ads-management-services">affordable Google Ads management</a> ensures every advertising dollar generates maximum ROI through precision targeting and continuous campaign optimization. Our data-driven approach ensures every dollar spent delivers measurable results and sustainable growth for your business.
-              </p>
-
-
+            <p className="text-sm sm:text-base lg:text-xl text-gray-700 leading-relaxed text-center lg:text-left">
+              As a trusted international SEO company, we help businesses expand their search presence across borders without unnecessary complexity. 
+              Through proven international SEO services, localized keyword strategies, and region-specific optimization, we ensure your brand ranks in competitive global markets. 
+              Our approach focuses on sustainable visibility, relevant traffic, and consistent performance across multiple countries and languages.<br/><br/>
+              Our global SEO services are built to support long-term growth by aligning technical SEO, content localization, and authoritative link acquisition. 
+              From multi-country website structures to search engine optimization for international audiences, we help businesses achieve measurable results while maintaining full transparency and strategic clarity at every stage of execution.
+            </p>
 
             <div className="pt-4 sm:pt-6 lg:pt-10 pb-4 flex justify-center lg:justify-start">
-              <a href="https://www.vaphers.com/contact"><div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
-                <span className="mr-2 sm:mr-3">Ready to Get Started?</span>
-                <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
-              </div></a>
+              <a href="https://www.vaphers.com/contact">
+                <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                  <span className="mr-2 sm:mr-3">Start Your Global SEO Growth</span>
+                  <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                </div>
+              </a>
             </div>
           </motion.div>
 
@@ -120,7 +108,7 @@ const WhatsSEO: React.FC = () => {
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none">
               <Image
                 src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761047482/grow_ur7efq.png"
-                alt="Digital marketing analytics dashboard showing online marketing performance"
+                alt="International SEO performance dashboard illustrating global search growth"
                 width={600}
                 height={721}
                 sizes="(max-width: 640px) 384px, (max-width: 768px) 448px, 600px"
@@ -143,7 +131,7 @@ const WhatsSEO: React.FC = () => {
                 >
                   <Image 
                     src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_80/v1761047482/google_jze9mq.png" 
-                    alt="Google" 
+                    alt="Google Search" 
                     width={80}
                     height={80}
                     sizes="(max-width: 640px) 48px, (max-width: 1024px) 40px, 56px"
@@ -159,7 +147,7 @@ const WhatsSEO: React.FC = () => {
                 >
                   <Image 
                     src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_176/v1761047484/seo-rank_l7ekja.png" 
-                    alt="SEO Rank" 
+                    alt="Global SEO rankings growth" 
                     width={176}
                     height={176}
                     sizes="(max-width: 1024px) 112px, 176px"
@@ -175,7 +163,7 @@ const WhatsSEO: React.FC = () => {
                 >
                   <Image 
                     src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_176/v1761047474/competitor_co9leg.png" 
-                    alt="Competitor" 
+                    alt="Outperforming global competitors in search results" 
                     width={176}
                     height={176}
                     sizes="(max-width: 1024px) 112px, 176px"

@@ -26,6 +26,8 @@ import HomePaidAds from '@/PageComponents/Landing Home/PaidAds'
 import NavBar from '@/PageComponents/Global Components/Header'
 import Footer from '@/PageComponents/Global Components/Footer'
 import PricingComponent from '@/PageComponents/Global Components/Pricing'
+import PricingCalc from '@/PageComponents/Global Components/Pricing'
+import MarketingPriceCalculator from '@/PageComponents/Global Components/PriceCalc'
 
 const featuresList = [
   {
@@ -319,8 +321,8 @@ export default function Page() {
             }}
           />
           <div className="relative z-10">
-            <Services featuresList={featuresList} />
             <HomeFiller />
+            <Services featuresList={featuresList} />
           </div>
         </div>
 
@@ -329,9 +331,11 @@ export default function Page() {
         </div>
         <Invest/>
         <HomePaidAds/>
-        <PricingComponent/>
         <WhyUs/>
-  
+        <div className='pb-15'>
+        <Stats />
+        </div>
+        <MarketingPriceCalculator/>
 
         {/* Paid Ads % Faq & Stats */}
         <div className="w-full relative">
@@ -381,7 +385,6 @@ export default function Page() {
             }}
           />
           <div className="relative z-10">
-            <Stats />
             <Faq />
           </div>
         </div>
