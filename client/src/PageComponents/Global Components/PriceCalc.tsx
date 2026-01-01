@@ -23,7 +23,7 @@ type PlanType = 'Basic' | 'Standard' | 'Enterprise'
 type PricingTier = {
   name: PlanType
   price: string
-  isOneTime?: boolean // Add flag for one-time services
+  isOneTime?: boolean
 }
 
 type FeatureSet = {
@@ -80,20 +80,19 @@ const pricingData: Record<ServiceType, PricingTier[]> = {
 
 /* ================= IMPROVED MULTIPLIERS ================= */
 
-// Instead of multiplying both factors, we use an additive approach
 const SIZE_ADJUSTMENT = {
-  Small: 0,      // No adjustment
-  Medium: 0.15,  // +15%
-  Large: 0.30,   // +30%
+  Small: 0,
+  Medium: 0.15,
+  Large: 0.30,
 }
 
 const COMPETITION_ADJUSTMENT = {
-  Low: -0.10,    // -10% discount for low competition
-  Medium: 0,     // No adjustment
-  High: 0.20,    // +20% for high competition
+  Low: -0.10,
+  Medium: 0,
+  High: 0.20,
 }
 
-/* ================= FEATURES DATABASE (keeping same as before) ================= */
+/* ================= FEATURES DATABASE ================= */
 
 const featuresData: Record<ServiceType, Record<PlanType, FeatureSet>> = {
   SEO: {
@@ -498,18 +497,15 @@ export default function MarketingPriceCalculator() {
       ? Number(tier?.price.replace(/[^0-9]/g, ''))
       : null
 
-  // IMPROVED CALCULATION: Additive instead of multiplicative
-  // Only apply adjustments if NOT a one-time service
   const finalPrice =
     basePrice !== null
       ? isOneTimeService
-        ? basePrice // No adjustments for one-time services
+        ? basePrice
         : Math.round(
             basePrice * (1 + SIZE_ADJUSTMENT[size] + COMPETITION_ADJUSTMENT[competition])
           )
       : null
 
-  // Additional context based on selections
   const getSizeDescription = () => {
     switch (size) {
       case 'Small':
@@ -532,13 +528,12 @@ export default function MarketingPriceCalculator() {
     }
   }
 
-  // Format adjustment for display
   const formatAdjustment = (value: number) => {
     return value >= 0 ? `+${(value * 100).toFixed(0)}%` : `${(value * 100).toFixed(0)}%`
   }
 
   return (
-    <section className="w-full py-12 bg-gradient-to-b from-gray-50 to-white">
+    <section className="w-full py-8 sm:py-12 lg:py-16 bg-gradient-to-b from-gray-50 to-white">
       <style jsx>{`
         .hide-scrollbar {
           -ms-overflow-style: none;
@@ -549,32 +544,32 @@ export default function MarketingPriceCalculator() {
         }
       `}</style>
 
-      <div className="max-w-7xl mx-auto px-6">
-        {/* title */}
-        <div className="text-center mb-14">
-          <h4 className="text-4xl lg:text-6xl font-bold text-gray-700 mb-4 bungee-inline-regular">
-             <span className='text-blue-600'>Marketing Price</span> Calculator
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Title - Responsive text sizing */}
+        <div className="text-center mb-8 sm:mb-12 lg:mb-14">
+          <h4 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-700 mb-3 sm:mb-4 bungee-inline-regular leading-tight">
+            <span className='text-blue-600'>Marketing Price</span> Calculator
           </h4>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto px-4">
             Customize your requirements and see real-time pricing with included features
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-          {/* left */}
-          <div className="flex flex-col space-y-5">
-            {/* service */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-stretch">
+          {/* Left - Controls */}
+          <div className="flex flex-col space-y-4 sm:space-y-5">
+            {/* Service Selection */}
             <div>
-              <p className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                Choose a Service
-                <span className="text-sm font-normal text-gray-500">Step 1/4</span>
+              <p className="font-semibold text-gray-800 mb-3 sm:mb-4 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-sm sm:text-base">
+                <span>Choose a Service</span>
+                <span className="text-xs sm:text-sm font-normal text-gray-500">Step 1/4</span>
               </p>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2 sm:gap-3">
                 {(Object.keys(pricingData) as ServiceType[]).map(s => (
                   <button
                     key={s}
                     onClick={() => setService(s)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium border transition-all ${
+                    className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium border transition-all ${
                       service === s
                         ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-600/30'
                         : 'border-gray-300 hover:border-blue-600 hover:bg-blue-50'
@@ -584,100 +579,100 @@ export default function MarketingPriceCalculator() {
                   </button>
                 ))}
               </div>
-              <div className="mt-3 p-3 bg-amber-50 border-l-4 border-amber-400 rounded-r">
+              <div className="mt-3 p-2.5 sm:p-3 bg-amber-50 border-l-4 border-amber-400 rounded-r">
                 <p className="text-xs text-gray-700">
                   <span className="font-semibold text-amber-800">Why our pricing is different:</span> You'd find agencies quoting $299/mo for SEO, but all you'd get is low-quality links and rankings on keywords nobody searches for. We don't work like that.
                 </p>
               </div>
             </div>
 
-            {/* Plan */}
+            {/* Plan Selection */}
             <div>
-              <p className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                Select Plan
-                <span className="text-sm font-normal text-gray-500">Step 2/4</span>
+              <p className="font-semibold text-gray-800 mb-3 sm:mb-4 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-sm sm:text-base">
+                <span>Select Plan</span>
+                <span className="text-xs sm:text-sm font-normal text-gray-500">Step 2/4</span>
               </p>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-2 sm:gap-4">
                 {(['Basic', 'Standard', 'Enterprise'] as PlanType[]).map(p => {
                   const tierPrice = pricingData[service].find(t => t.name === p)?.price
                   return (
                     <div
                       key={p}
                       onClick={() => setPlan(p)}
-                      className={`cursor-pointer rounded-xl border p-4 text-center transition-all ${
+                      className={`cursor-pointer rounded-xl border p-2.5 sm:p-4 text-center transition-all ${
                         plan === p
                           ? 'border-blue-600 bg-blue-50 shadow-md'
                           : 'border-gray-200 hover:border-blue-600 hover:bg-gray-50'
                       }`}
                     >
-                      <p className="font-semibold text-gray-800">{p}</p>
-                      <p className="text-xs text-gray-500 mt-1">{tierPrice}</p>
+                      <p className="font-semibold text-gray-800 text-xs sm:text-base">{p}</p>
+                      <p className="text-[10px] sm:text-xs text-gray-500 mt-1">{tierPrice}</p>
                     </div>
                   )
                 })}
               </div>
-              <div className="mt-3 p-3 bg-blue-50 border-l-4 border-blue-400 rounded-r">
+              <div className="mt-3 p-2.5 sm:p-3 bg-blue-50 border-l-4 border-blue-400 rounded-r">
                 <p className="text-xs text-gray-700">
                   <span className="font-semibold text-blue-800">Quality over shortcuts:</span> Every strategy is data-driven, white-hat, and built for long-term sustainable growth, not quick wins that disappear.
                 </p>
               </div>
             </div>
 
-            {/* sizes */}
+            {/* Business Size - Hidden for one-time services */}
             {!isOneTimeService && (
               <div>
-                <p className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                  Business Size
-                  <span className="text-sm font-normal text-gray-500">Step 3/4</span>
+                <p className="font-semibold text-gray-800 mb-3 sm:mb-4 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-sm sm:text-base">
+                  <span>Business Size</span>
+                  <span className="text-xs sm:text-sm font-normal text-gray-500">Step 3/4</span>
                 </p>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-3 gap-2 sm:gap-4">
                   {(['Small', 'Medium', 'Large'] as const).map(s => (
                     <div
                       key={s}
                       onClick={() => setSize(s)}
-                      className={`cursor-pointer rounded-xl border p-4 text-center transition-all ${
+                      className={`cursor-pointer rounded-xl border p-2.5 sm:p-4 text-center transition-all ${
                         size === s
                           ? 'border-blue-600 bg-blue-50 shadow-md'
                           : 'border-gray-200 hover:border-blue-600 hover:bg-gray-50'
                       }`}
                     >
-                      <p className="font-semibold text-gray-800">{s}</p>
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="font-semibold text-gray-800 text-xs sm:text-base">{s}</p>
+                      <p className="text-[10px] sm:text-xs text-gray-500 mt-1">
                         {formatAdjustment(SIZE_ADJUSTMENT[s])}
                       </p>
                     </div>
                   ))}
                 </div>
-                <p className="text-xs text-gray-500 mt-2">{getSizeDescription()}</p>
+                <p className="text-[10px] sm:text-xs text-gray-500 mt-2">{getSizeDescription()}</p>
               </div>
             )}
 
-            {/* competition */}
+            {/* Market Competition - Hidden for one-time services */}
             {!isOneTimeService && (
               <div>
-                <p className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                  Market Competition
-                  <span className="text-sm font-normal text-gray-500">Step 4/4</span>
+                <p className="font-semibold text-gray-800 mb-3 sm:mb-4 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-sm sm:text-base">
+                  <span>Market Competition</span>
+                  <span className="text-xs sm:text-sm font-normal text-gray-500">Step 4/4</span>
                 </p>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-3 gap-2 sm:gap-4">
                   {(['Low', 'Medium', 'High'] as const).map(c => (
                     <div
                       key={c}
                       onClick={() => setCompetition(c)}
-                      className={`cursor-pointer rounded-xl border p-4 text-center transition-all ${
+                      className={`cursor-pointer rounded-xl border p-2.5 sm:p-4 text-center transition-all ${
                         competition === c
                           ? 'border-blue-600 bg-blue-50 shadow-md'
                           : 'border-gray-200 hover:border-blue-600 hover:bg-gray-50'
                       }`}
                     >
-                      <p className="font-semibold text-gray-800">{c}</p>
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="font-semibold text-gray-800 text-xs sm:text-base">{c}</p>
+                      <p className="text-[10px] sm:text-xs text-gray-500 mt-1">
                         {formatAdjustment(COMPETITION_ADJUSTMENT[c])}
                       </p>
                     </div>
                   ))}
                 </div>
-                <div className="mt-3 p-3 bg-green-50 border-l-4 border-green-400 rounded-r">
+                <div className="mt-3 p-2.5 sm:p-3 bg-green-50 border-l-4 border-green-400 rounded-r">
                   <p className="text-xs text-gray-700">
                     <span className="font-semibold text-green-800">Transparent pricing:</span> {getCompetitionDescription()}. We adjust our pricing based on the real work required, no hidden fees, no surprises.
                   </p>
@@ -685,74 +680,74 @@ export default function MarketingPriceCalculator() {
               </div>
             )}
 
-            {/* one time notice */}
+            {/* One-time Service Notice */}
             {isOneTimeService && (
-              <div className="p-4 bg-purple-50 border-l-4 border-purple-400 rounded-r">
-                <p className="text-sm text-gray-700">
+              <div className="p-3 sm:p-4 bg-purple-50 border-l-4 border-purple-400 rounded-r">
+                <p className="text-xs sm:text-sm text-gray-700">
                   <span className="font-semibold text-purple-800">One-time project:</span> This is a fixed-price website development project. Final pricing may vary based on your specific requirements and customizations.
                 </p>
               </div>
             )}
           </div>
 
-          {/* card */}
+          {/* Right - Pricing Card */}
           <motion.div
             key={`${service}-${plan}-${size}-${competition}`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="bg-gradient-to-br from-[#0b254f] to-[#0d3a6f] rounded-3xl p-8 text-white shadow-2xl flex flex-col"
+            className="bg-gradient-to-br from-[#0b254f] to-[#0d3a6f] rounded-2xl sm:rounded-3xl p-5 sm:p-6 lg:p-8 text-white shadow-2xl flex flex-col"
           >
-            {/* head */}
-            <div className="flex items-start justify-between mb-6">
-              <div>
-                <p className="text-blue-200 mb-2 text-sm uppercase tracking-wide">
+            {/* Header */}
+            <div className="flex flex-col sm:flex-row items-start justify-between mb-5 sm:mb-6 gap-3 sm:gap-0">
+              <div className="flex-1">
+                <p className="text-blue-200 mb-2 text-xs sm:text-sm uppercase tracking-wide">
                   {service} • {plan} Plan
                 </p>
-                <h4 className="text-5xl font-bold mb-2">
+                <h4 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2">
                   {finalPrice ? `$${finalPrice.toLocaleString()}${isOneTimeService ? '' : '/mo'}` : 'Custom Pricing'}
                 </h4>
                 {!isOneTimeService && basePrice && finalPrice !== basePrice && (
-                  <p className="text-sm text-blue-200">
+                  <p className="text-xs sm:text-sm text-blue-200">
                     Base: ${basePrice.toLocaleString()} → {formatAdjustment(SIZE_ADJUSTMENT[size])} (size) {formatAdjustment(COMPETITION_ADJUSTMENT[competition])} (competition)
                   </p>
                 )}
                 {isOneTimeService && (
-                  <p className="text-sm text-blue-200">
+                  <p className="text-xs sm:text-sm text-blue-200">
                     One-time payment • No monthly fees
                   </p>
                 )}
               </div>
               {!isOneTimeService && (
-                <div className="bg-blue-600/30 px-3 py-1 rounded-full text-xs whitespace-nowrap">
+                <div className="bg-blue-600/30 px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs whitespace-nowrap self-start">
                   {size} • {competition} Competition
                 </div>
               )}
               {isOneTimeService && (
-                <div className="bg-purple-600/30 px-3 py-1 rounded-full text-xs whitespace-nowrap">
+                <div className="bg-purple-600/30 px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs whitespace-nowrap self-start">
                   One-Time
                 </div>
               )}
             </div>
 
-            {/* time */}
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <div className="bg-white/10 rounded-lg p-3">
-                <p className="text-xs text-blue-200 mb-1">Timeline</p>
-                <p className="text-sm font-semibold">{features.timeline}</p>
+            {/* Timeline & Support */}
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-5 sm:mb-6">
+              <div className="bg-white/10 rounded-lg p-2.5 sm:p-3">
+                <p className="text-[10px] sm:text-xs text-blue-200 mb-1">Timeline</p>
+                <p className="text-xs sm:text-sm font-semibold">{features.timeline}</p>
               </div>
-              <div className="bg-white/10 rounded-lg p-3">
-                <p className="text-xs text-blue-200 mb-1">Support</p>
-                <p className="text-sm font-semibold">{features.support}</p>
+              <div className="bg-white/10 rounded-lg p-2.5 sm:p-3">
+                <p className="text-[10px] sm:text-xs text-blue-200 mb-1">Support</p>
+                <p className="text-xs sm:text-sm font-semibold">{features.support}</p>
               </div>
             </div>
 
-            {/* divider line */}
-            <div className="border-t border-white/20 mb-6"></div>
+            {/* Divider */}
+            <div className="border-t border-white/20 mb-5 sm:mb-6"></div>
 
-            {/* feature section */}
-            <div className="flex-1 overflow-y-auto mb-6 space-y-3 pr-2 hide-scrollbar">
-              <h5 className="text-lg font-bold text-white mb-4">
+            {/* Features Section */}
+            <div className="flex-1 overflow-y-auto mb-5 sm:mb-6 space-y-2.5 sm:space-y-3 pr-2 hide-scrollbar max-h-[300px] sm:max-h-[400px]">
+              <h5 className="text-base sm:text-lg font-bold text-white mb-3 sm:mb-4">
                 What's Included
               </h5>
               
@@ -762,19 +757,19 @@ export default function MarketingPriceCalculator() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: idx * 0.03 }}
-                  className="flex items-start gap-3"
+                  className="flex items-start gap-2.5 sm:gap-3"
                 >
                   <div className="bg-green-400/20 rounded-full p-1 mt-0.5 flex-shrink-0">
-                    <Check className="w-4 h-4 text-green-300" />
+                    <Check className="w-3 h-3 sm:w-4 sm:h-4 text-green-300" />
                   </div>
-                  <p className="text-blue-50 text-sm flex-1">{feature}</p>
+                  <p className="text-blue-50 text-xs sm:text-sm flex-1">{feature}</p>
                 </motion.div>
               ))}
 
               {features.extras && features.extras.length > 0 && (
-                <div className="mt-6 pt-4 border-t border-white/20">
-                  <p className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-                    <span className="bg-blue-400/30 text-blue-100 px-2 py-1 rounded text-xs">
+                <div className="mt-5 sm:mt-6 pt-3 sm:pt-4 border-t border-white/20">
+                  <p className="text-xs sm:text-sm font-semibold text-white mb-2.5 sm:mb-3 flex items-center gap-2">
+                    <span className="bg-blue-400/30 text-blue-100 px-2 py-1 rounded text-[10px] sm:text-xs">
                       BONUS
                     </span>
                     Additional Features
@@ -785,31 +780,31 @@ export default function MarketingPriceCalculator() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: (features.included.length + idx) * 0.03 }}
-                      className="flex items-start gap-3 mb-2"
+                      className="flex items-start gap-2.5 sm:gap-3 mb-2"
                     >
                       <div className="bg-blue-400/20 rounded-full p-1 mt-0.5 flex-shrink-0">
-                        <Check className="w-4 h-4 text-blue-300" />
+                        <Check className="w-3 h-3 sm:w-4 sm:h-4 text-blue-300" />
                       </div>
-                      <p className="text-blue-50 text-sm flex-1">{extra}</p>
+                      <p className="text-blue-50 text-xs sm:text-sm flex-1">{extra}</p>
                     </motion.div>
                   ))}
                 </div>
               )}
             </div>
 
-            {/* Button */}
-            <Link href="/contact">
-              <Button className="w-full bg-white text-blue-900 hover:bg-blue-50 font-semibold py-6 text-lg shadow-lg">
+            {/* CTA Button */}
+            <Link href="/contact" className="w-full">
+              <Button className="w-full bg-white text-blue-900 hover:bg-blue-50 font-semibold py-4 sm:py-5 lg:py-6 text-sm sm:text-base lg:text-lg shadow-lg">
                 Get Exact Quote →
               </Button>
             </Link>
 
-            {/* price for monthly service */}
+            {/* Price Breakdown */}
             {!isOneTimeService && finalPrice && basePrice && finalPrice !== basePrice && (
-              <div className="mt-4 bg-white/10 rounded-lg p-4">
+              <div className="mt-3 sm:mt-4 bg-white/10 rounded-lg p-3 sm:p-4">
                 <div className="flex items-start gap-2">
-                  <Info className="w-4 h-4 text-blue-200 mt-0.5 flex-shrink-0" />
-                  <p className="text-xs text-blue-100">
+                  <Info className="w-3 h-3 sm:w-4 sm:h-4 text-blue-200 mt-0.5 flex-shrink-0" />
+                  <p className="text-[10px] sm:text-xs text-blue-100">
                     <span className="font-semibold">Calculation:</span> ${basePrice.toLocaleString()} + {formatAdjustment(SIZE_ADJUSTMENT[size])} + {formatAdjustment(COMPETITION_ADJUSTMENT[competition])} = ${finalPrice.toLocaleString()}/mo
                   </p>
                 </div>
