@@ -140,7 +140,7 @@ const Footer: React.FC = () => {
                   </Link>
                 </li>
                 <li className="mb-6">
-                  <Link href="/blog" className="text-gray-600 hover:text-gray-900">
+                  <Link href="/blogs" className="text-gray-600 hover:text-gray-900">
                     Blog
                   </Link>
                 </li>
@@ -150,7 +150,7 @@ const Footer: React.FC = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/free-seo-audit" className="text-gray-600 hover:text-gray-900">
+                  <Link href="http://vaphers.com/seo-services/seo-audit-services" className="text-gray-600 hover:text-gray-900">
                     Free Audit
                   </Link>
                 </li>
@@ -191,7 +191,7 @@ const Footer: React.FC = () => {
           <div className="py-7 border-t border-gray-200">
             <div className="flex items-center justify-center flex-col lg:justify-between lg:flex-row">
               <span className="text-sm text-gray-500">
-                ©<Link href="/" className="hover:text-blue-600 font-medium">Vaphers</Link> 2025, All rights reserved.
+                ©<Link href="/" className="hover:text-blue-600 font-medium">Vaphers</Link> 2026, All rights reserved.
               </span>
               <div className="flex mt-4 space-x-4 sm:justify-center lg:mt-0">
                 <a href="https://twitter.com" className="w-9 h-9 rounded-full bg-gray-700 flex justify-center items-center hover:bg-indigo-600 transition-all duration-300">
