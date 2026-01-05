@@ -25,25 +25,25 @@ const FeatureCard = ({ icon, title, description, className = "", isDark = false,
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay }}
-      className={`rounded-sm p-4 sm:p-6 flex flex-col gap-3 sm:gap-4 ${isDark ? 'bg-[#012e6a] text-white' : 'bg-gray-50 text-gray-800'} ${className}`}
+      className={`rounded-sm p-5 sm:p-6 md:p-7 flex flex-col gap-3 sm:gap-4 ${isDark ? 'bg-[#012e6a] text-white' : 'bg-gray-50 text-gray-800'} ${className}`}
     >
-      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full border flex items-center justify-center ${isDark ? 'border-white/20 bg-white/10' : 'border-gray-200 bg-white'}`}>
+      <div className={`w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full border flex items-center justify-center ${isDark ? 'border-white/20 bg-white/10' : 'border-gray-200 bg-white'}`}>
         {icon}
       </div>
       <div className="flex flex-col gap-2 sm:gap-3 flex-grow">
-        <h3 className={`text-xl sm:text-2xl ${isDark ? 'text-white' : 'text-slate-900'}`}>
+        <h3 className={`text-lg sm:text-xl md:text-2xl font-semibold ${isDark ? 'text-white' : 'text-slate-900'}`}>
           {title}
         </h3>
-        <p className={`text-xs sm:text-sm leading-relaxed ${isDark ? 'text-blue-100/80' : 'text-gray-500'}`}>
+        <p className={`text-sm sm:text-base leading-relaxed ${isDark ? 'text-blue-100/90' : 'text-gray-600'}`}>
           {description}
         </p>
       </div>
       {showButton && (
         <a 
           href="https://vaphers.com/seo-services/ai-seo-services"
-          className="mt-2 w-fit bg-white hover:bg-gray-100 text-[#012e6a] font-bold py-2 sm:py-2.5 px-5 sm:px-6 rounded-full flex items-center gap-2 transition-colors text-xs sm:text-sm"
+          className="mt-2 sm:mt-3 w-fit bg-white hover:bg-gray-100 text-[#012e6a] font-bold py-2.5 sm:py-3 px-6 sm:px-7 rounded-full flex items-center gap-2 transition-colors text-sm sm:text-base"
         >
-          Get Started <ArrowRight size={16} />
+          Get Started <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
         </a>
       )}
     </motion.div>
@@ -55,7 +55,7 @@ const WhyVaphersSection: React.FC = () => {
   const isInView = useInView(ref, { margin: "-100px", once: true })
 
   return (
-    <div className=" w-full relative bg-white">
+    <div className="w-full relative bg-white">
       {/* Dashed Grid Background */}
       <div
         className="absolute inset-0 z-0"
@@ -103,7 +103,7 @@ const WhyVaphersSection: React.FC = () => {
         }}
       />
 
-      <div className="py-12 sm:py-16 px-4 sm:px-6 md:px-12 lg:px-20 relative z-10">
+      <div className="py-10 sm:py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-20 relative z-10">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <motion.h2
@@ -111,13 +111,13 @@ const WhyVaphersSection: React.FC = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="text-3xl sm:text-4xl md:text-5xl text-center text-slate-800 mb-8 sm:mb-12 bungee-inline-regular leading-tight"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-center text-slate-800 mb-6 sm:mb-8 md:mb-12 bungee-inline-regular leading-tight px-2"
           >
             Why <span className="text-blue-600">Vaphers</span> for Perplexity SEO?
           </motion.h2>
 
           {/* Grid Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 auto-rows-fr">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
             {/* Left Column - Stacked */}
             <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <FeatureCard
@@ -126,9 +126,9 @@ const WhyVaphersSection: React.FC = () => {
                   <Image
                     src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1767347766/device_hub_hqmian.png"
                     alt="High Intent Traffic"
-                    width={22}
-                    height={22}
-                    className="object-contain w-5 h-5 sm:w-[22px] sm:h-[22px]"
+                    width={24}
+                    height={24}
+                    className="object-contain w-5 h-5 sm:w-6 sm:h-6"
                   />
                 }
                 title="High-Intent Traffic Targeting"
@@ -136,14 +136,14 @@ const WhyVaphersSection: React.FC = () => {
               />
               <FeatureCard
                 delay={0.2}
-                icon={<Award className="text-slate-700 w-5 h-5 sm:w-[22px] sm:h-[22px]" />}
+                icon={<Award className="text-slate-700 w-5 h-5 sm:w-6 sm:h-6" />}
                 title="Authority-Building Expertise"
                 description="Build E-E-A-T signals that AI engines trust. Our strategies help you become Perplexity's go-to recommendation through expert content, verified data, and citation-worthy authority in your niche."
               />
               <FeatureCard
                 delay={0.3}
                 className="sm:col-span-2"
-                icon={<TrendingUp className="text-slate-700 w-5 h-5 sm:w-[22px] sm:h-[22px]" />}
+                icon={<TrendingUp className="text-slate-700 w-5 h-5 sm:w-6 sm:h-6" />}
                 title="780M Monthly Query Reach"
                 description="Vaphers specializes in getting you cited in Perplexity's 780 million monthly queries across 238 countries. Whether you're targeting voice search, mobile researchers, or desktop users, our AI SEO Services provide proven strategies to dominate citations and drive measurable growth in brand awareness and conversions."
               />
@@ -155,20 +155,18 @@ const WhyVaphersSection: React.FC = () => {
                 delay={0.4}
                 isDark
                 showButton
-                className="h-full"
+                className="h-full min-h-[400px] sm:min-h-0"
                 icon={
                   <Image
                     src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1767348259/memory_1_wlnhdv.png"
                     alt="Real-Time Performance"
-                    width={22}
-                    height={22}
-                    className="object-contain w-5 h-5 sm:w-[22px] sm:h-[22px]"
+                    width={24}
+                    height={24}
+                    className="object-contain w-5 h-5 sm:w-6 sm:h-6"
                   />
                 }
                 title="Real-Time Performance Tracking"
-                description="At Vaphers, we understand the importance of measurable results. That's why our AI SEO Services include real-time citation monitoring, weekly optimization sprints, and transparent reporting.
-
-Track your Perplexity rankings, citation frequency, and traffic from AI search—all with data-driven insights that prove ROI and guide next steps."
+                description="At Vaphers, we understand the importance of measurable results. That's why our AI SEO Services include real-time citation monitoring, weekly optimization sprints, and transparent reporting. Track your Perplexity rankings, citation frequency, and traffic from AI search—all with data-driven insights that prove ROI and guide next steps."
               />
             </div>
           </div>
