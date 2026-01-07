@@ -3,7 +3,6 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   swcMinify: true, 
-  
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -29,6 +28,11 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'i.pravatar.cc',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
         pathname: '/**',
       },
     ],
