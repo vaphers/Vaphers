@@ -86,8 +86,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="google-site-verification" content="_jKz-Nn1SbmybTMfTSQNuWSiY79pDFJTVfNEqZKc33w" />
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
-        <link rel="icon" href="/icon.png" type="image/png" sizes="192x192" />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body>
         {children}
