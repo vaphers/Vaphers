@@ -94,8 +94,8 @@ const CenterImage = ({ progress }) => {
 const ParallaxImages = ({ isMobile }) => (
   <div className={`relative z-20 mx-auto max-w-5xl px-4 ${isMobile ? 'pt-[100px]' : 'pt-[200px]'}`}>
     <ParallaxImg
-      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761047482/GSC-Dashboard_ilqkvd.jpg"
-      alt="Example launch"
+      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1768565732/1uk1dfu3ch7g1_bgrvxu.jpg"
+      alt="Google Search Console Dashboard"
       start={isMobile ? -100 : -200}
       end={isMobile ? 100 : 200}
       className="w-2/4"
@@ -103,8 +103,8 @@ const ParallaxImages = ({ isMobile }) => (
       height={338}
     />
     <ParallaxImg
-      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_800/v1761047482/GSC-Dashboard_ilqkvd.jpg"
-      alt="Example launch 2"
+      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1768565732/0nsyv0pqrl0g1_obuapg.jpg"
+      alt="Google Search Console Dashboard"
       start={isMobile ? 100 : 200}
       end={isMobile ? -125 : -250}
       className="mx-auto w-2/3"
@@ -112,8 +112,8 @@ const ParallaxImages = ({ isMobile }) => (
       height={450}
     />
     <ParallaxImg
-      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_900/v1761047472/Analytics_nqehtk.png"
-      alt="Orbiting satellite"
+      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1768565732/exl6ordv4ibg1_zu4wua.jpg"
+      alt="Google Search Console Dashboard"
       start={isMobile ? -100 : -200}
       end={isMobile ? 100 : 200}
       className="ml-auto w-3/4"
@@ -121,8 +121,8 @@ const ParallaxImages = ({ isMobile }) => (
       height={506}
     />
     <ParallaxImg
-      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_700/v1761047472/Analytics_nqehtk.png"
-      alt="Orbiting satellite 2"
+      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1768565732/2ricge7cocbg1_lstgm0.jpg"
+      alt="Google Search Console Dashboard"
       start={0}
       end={isMobile ? -250 : -500}
       className="ml-24 w-7/12"

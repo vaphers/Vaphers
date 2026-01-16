@@ -1,8 +1,8 @@
 import './globals.css'
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Bungee_Inline } from 'next/font/google'
-import { GoogleAnalytics } from '@next/third-parties/google';
-import { Toaster } from '@/components/ui/sonner' 
+import { GoogleAnalytics } from '@next/third-parties/google'
+import { Toaster } from '@/components/ui/sonner'
 
 const bungeeInline = Bungee_Inline({
   weight: '400',
@@ -11,13 +11,31 @@ const bungeeInline = Bungee_Inline({
   variable: '--font-bungee-inline',
 })
 
-
+// ✅ SEO updates:
+// 1) metadataBase
+// 2) canonical
+// 3) hreflang via alternates.languages
 export const metadata = {
+  metadataBase: new URL('https://vaphers.com'),
+
   title: {
-    default: 'Affordable Digital Marketing Agency | SEO, PPC & Web Development - Vaphers',
+    default:
+      'Affordable Digital Marketing Agency | SEO, PPC & Web Development - Vaphers',
   },
+
   description:
     'Vaphers is an affordable digital marketing agency offering expert SEO, PPC advertising, and web development services. Drive qualified traffic and grow your revenue with data-driven strategies that deliver measurable results.',
+
+  alternates: {
+    canonical: 'https://vaphers.com/',
+    languages: {
+      'en-US': 'https://vaphers.com/us',
+      'en-IN': 'https://vaphers.com/in',
+      'de-DE': 'https://vaphers.com/de',
+      'x-default': 'https://vaphers.com/',
+    },
+  },
+
   keywords: [
     'affordable digital marketing agency',
     'digital marketing services',
@@ -28,14 +46,17 @@ export const metadata = {
     'content marketing',
     'online marketing agency',
   ],
+
   authors: [{ name: 'Vaphers' }],
   creator: 'Vaphers',
   publisher: 'Vaphers',
+
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
+
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -53,6 +74,7 @@ export const metadata = {
       },
     ],
   },
+
   twitter: {
     card: 'summary_large_image',
     title: 'Affordable Digital Marketing Agency | Vaphers',
@@ -62,6 +84,7 @@ export const metadata = {
       'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047482/vaphers-og-image.png',
     ],
   },
+
   robots: {
     index: true,
     follow: true,
@@ -75,21 +98,27 @@ export const metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html
-      lang="en"
-      className={`${bungeeInline.variable}`}
-    >
+    <html lang="en" className={bungeeInline.variable}>
       <head>
-        <meta name="google-site-verification" content="_jKz-Nn1SbmybTMfTSQNuWSiY79pDFJTVfNEqZKc33w" />
+        <meta
+          name="google-site-verification"
+          content="_jKz-Nn1SbmybTMfTSQNuWSiY79pDFJTVfNEqZKc33w"
+        />
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
       </head>
+
       <body>
         {children}
+
         <Toaster richColors position="top-right" closeButton duration={5000} />
+
         <SpeedInsights />
         <GoogleAnalytics gaId="G-0CXH1J99VZ" />
       </body>
