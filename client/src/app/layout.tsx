@@ -10,11 +10,6 @@ const bungeeInline = Bungee_Inline({
   display: 'swap',
   variable: '--font-bungee-inline',
 })
-
-// ✅ SEO updates:
-// 1) metadataBase
-// 2) canonical
-// 3) hreflang via alternates.languages
 export const metadata = {
   metadataBase: new URL('https://vaphers.com'),
 
@@ -30,8 +25,8 @@ export const metadata = {
     canonical: 'https://vaphers.com/',
     languages: {
       'en-US': 'https://vaphers.com/us',
-      'en-IN': 'https://vaphers.com/in',
-      'de-DE': 'https://vaphers.com/de',
+      // 'en-IN': 'https://vaphers.com/in',
+      // 'de-DE': 'https://vaphers.com/de',
       'x-default': 'https://vaphers.com/',
     },
   },

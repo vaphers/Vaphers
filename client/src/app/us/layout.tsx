@@ -12,12 +12,24 @@ const bungeeInline = Bungee_Inline({
 })
 
 export const metadata = {
+  metadataBase: new URL('https://vaphers.com'),
+
+  alternates: {
+    canonical: '/us',
+    languages: {
+      'en-US': '/us',
+      'en': '/',
+    },
+  },
+
   title: {
     default:
       'Affordable Digital Marketing Agency in the USA | SEO, PPC & Web Development – Vaphers',
   },
+
   description:
     'Vaphers is a US-focused digital marketing agency delivering expert SEO, PPC advertising, and web development services. Grow your American business with data-driven strategies that convert.',
+
   keywords: [
     'digital marketing agency USA',
     'SEO services USA',
@@ -26,18 +38,22 @@ export const metadata = {
     'ecommerce SEO USA',
     'affordable digital marketing USA',
   ],
+
   authors: [{ name: 'Vaphers' }],
   creator: 'Vaphers',
   publisher: 'Vaphers',
+
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://vaphers.com/us',
     siteName: 'Vaphers USA',
-    title:
-      'Affordable Digital Marketing Agency in the USA | Vaphers',
+
+    title: 'Affordable Digital Marketing Agency in the USA | Vaphers',
+
     description:
       'US-based SEO, PPC, and web development services built to drive traffic, leads, and revenue for American businesses.',
+
     images: [
       {
         url: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047482/vaphers-og-image.png',
@@ -47,6 +63,7 @@ export const metadata = {
       },
     ],
   },
+
   twitter: {
     card: 'summary_large_image',
     title: 'Digital Marketing Agency in the USA | Vaphers',
@@ -56,6 +73,7 @@ export const metadata = {
       'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047482/vaphers-og-image.png',
     ],
   },
+
   robots: {
     index: true,
     follow: true,

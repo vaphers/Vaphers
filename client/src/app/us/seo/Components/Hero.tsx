@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
-// Custom hook for mobile detection
+// hook to detect mobile screens
 const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -29,7 +29,7 @@ function Hero() {
   const isMobile = useIsMobile();
 
   return (
-    <div className="relative mx-auto mb-10 flex max-w-full flex-col items-center justify-center bg-gradient-to-b from-[#01091c] via-[#0a244d] to-[#0f3064] lg:-mt-28 lg:pt-40 lg:mx-3 lg:rounded-4xl">
+    <div className="relative mx-auto mb-10 flex max-w-full flex-col items-center justify-center bg-gradient-to-b from-[#01091c] via-[#0a244d] to-[#0f3064] lg:-mt-28 lg:pt-40 lg:pb-10 lg:mx-3 lg:rounded-4xl">
       <div className="mt-5"></div>
       <div className="border border-indigo-600 p-1 w-75 mx-auto rounded-full flex items-center justify-between mb-7">
         <span className="font-inter text-base font-medium text-gray-300 ml-3">
@@ -59,10 +59,10 @@ function Hero() {
       <div className="px-4 pb-10">
         <h1 className="relative z-10 mx-auto max-w-4xl text-center text-2xl font-bold text-slate-200 md:text-4xl lg:text-7xl dark:text-slate-300 bungee-inline-regular">
           {isMobile ? (
-            // No animation on mobile 
+            // no animations on mobile screens 
             "SEO Services That Transforms Your Business"
           ) : (
-            // animated text only on desktop
+            // animated text animation for desktop and larger screens
             "SEO Services That Transforms Your Business"
               .split(" ")
               .map((word, index) => (
@@ -84,10 +84,12 @@ function Hero() {
         </h1>
         
         {isMobile ? (
-          // Static content on mobile
+          // no animatied sequiential animation on mobile screens
           <>
             <p className="relative z-10 mx-auto max-w-xl py-4 text-center text-lg font-normal text-neutral-400 dark:text-neutral-400">
-              Grow your brand faster with data-driven digital marketing strategies designed to increase traffic, leads, and measurable revenue.       
+              With AI, you can launch your website in hours, not days. Try our best
+              in class, state of the art, cutting edge AI tools to get your website
+              up.
             </p>
             
             <div className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4">
@@ -119,7 +121,7 @@ function Hero() {
             </div>
           </>
         ) : (
-          // Animated content on desktop
+          // this is animated content for the desktop screens and larger than desktops
           <>
             <motion.p
               initial={{ opacity: 0 }}
@@ -146,7 +148,7 @@ function Hero() {
               </button>
             </motion.div>
             
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 1.2 }}
@@ -163,7 +165,7 @@ function Hero() {
                   priority
                 />
               </div>
-            </motion.div>
+            </motion.div> */}
           </>
         )}
       </div>
