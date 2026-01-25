@@ -6,7 +6,7 @@ import Footer from '@/PageComponents/Global Components/Footer';
 import Script from 'next/script'; 
 
 export const metadata = {
-  title: 'Vaphers Technologies | Blog', 
+  title: 'Vaphers | Read Our Blogs', 
   description: 'Read our latest articles, insights, and updates on digital marketing, SEO, and web development.',
   keywords: ['blog', 'digital marketing', 'SEO', 'articles'],
   openGraph: {
