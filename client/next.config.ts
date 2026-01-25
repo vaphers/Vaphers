@@ -7,6 +7,16 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   
+  async redirects() {
+    return [
+      {
+        source: '/seo-services/industries/:slug*',
+        destination: '/seo-services',
+        permanent: true,
+      },
+    ]
+  },
+
   images: {
     remotePatterns: [
       {
@@ -45,9 +55,7 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['framer-motion', 'lucide-react', '@headlessui/react', '@heroicons/react'],
   },
 
-  // Webpack optimizations for Framer Motion and bundle size
   webpack: (config, { isServer }) => {
-    // Optimize Framer Motion imports
     if (!isServer) {
       config.resolve.alias = {
         ...config.resolve.alias,
@@ -55,7 +63,6 @@ const nextConfig: NextConfig = {
       }
     }
     
-    // Additional optimizations for production
     if (config.mode === 'production') {
       config.optimization = {
         ...config.optimization,
@@ -67,14 +74,12 @@ const nextConfig: NextConfig = {
     return config
   },
 
-  // Optimize production builds
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production' ? {
       exclude: ['error', 'warn'],
     } : false,
   },
 
-  // Disable source maps in production for faster builds
   productionBrowserSourceMaps: false,
   
   // Redirect rules (when you're ready to use them)

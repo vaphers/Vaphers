@@ -117,7 +117,7 @@ const AboutSection = () => {
             viewport={{ once: true }}
             className="text-4xl font-bold leading-[1.1] tracking-tight md:text-6xl lg:text-7xl"
           >
-            We’re Smiling Wolf – a brand and digital agency, blending strategic insight with creative craft.
+            We’re Vaphers – a brand and digital agency, blending strategic insight with creative craft.
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 30 }}
