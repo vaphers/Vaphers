@@ -10,12 +10,45 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: '/industries/:slug*',
+        destination: '/seo-services',
+        permanent: true,
+      },
+      {
         source: '/seo-services/industries/:slug*',
         destination: '/seo-services',
         permanent: true,
       },
+
+      {
+        source: '/blog',
+        destination: '/blogs',
+        permanent: true,
+      },
+      {
+        source: '/faq',
+        destination: '/blogs',
+        permanent: true,
+      },
+      {
+        source: '/case-studies',
+        destination: '/blogs',
+        permanent: true,
+      },
+
+      {
+        source: '/seo-audit',
+        destination: '/seo-services/seo-audit-services',
+        permanent: true,
+      },
+      {
+        source: '/free-seo-audit',
+        destination: '/seo-services/seo-audit-services',
+        permanent: true,
+      },
     ]
   },
+
 
   images: {
     remotePatterns: [

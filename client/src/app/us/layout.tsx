@@ -15,10 +15,10 @@ export const metadata = {
   metadataBase: new URL('https://vaphers.com'),
 
   alternates: {
-    canonical: '/us',
+    canonical: 'https://vaphers.com/us',
     languages: {
-      'en-US': '/us',
-      'en': '/',
+      'en-US': 'https://vaphers.com/us',
+      'x-default': 'https://vaphers.com/',
     },
   },
 

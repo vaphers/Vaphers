@@ -24,10 +24,11 @@ export const metadata = {
   alternates: {
     canonical: 'https://vaphers.com/',
     languages: {
+      'x-default': 'https://vaphers.com/',
       'en-US': 'https://vaphers.com/us',
       // 'en-IN': 'https://vaphers.com/in',
       // 'de-DE': 'https://vaphers.com/de',
-      'x-default': 'https://vaphers.com/',
+
     },
   },
 
