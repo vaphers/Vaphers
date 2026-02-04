@@ -10,8 +10,9 @@ const bungeeInline = Bungee_Inline({
   display: 'swap',
   variable: '--font-bungee-inline',
 })
+
 export const metadata = {
-  metadataBase: new URL('https://vaphers.com'),
+  metadataBase: new URL('https://vaphers.com/'),
 
   title: {
     default:
@@ -23,13 +24,6 @@ export const metadata = {
 
   alternates: {
     canonical: 'https://vaphers.com/',
-    languages: {
-      'x-default': 'https://vaphers.com/',
-      'en-US': 'https://vaphers.com/us',
-      // 'en-IN': 'https://vaphers.com/in',
-      // 'de-DE': 'https://vaphers.com/de',
-
-    },
   },
 
   keywords: [
@@ -56,11 +50,11 @@ export const metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://vaphers.com',
+    url: 'https://vaphers.com/',
     siteName: 'Vaphers',
     title: 'Affordable Digital Marketing Agency | Vaphers',
     description:
-      'Expert SEO, PPC, and web development services that grow your revenue. Get data-driven digital marketing strategies without the premium agency price tag.',
+      'Expert SEO, PPC, and web development services that grow your revenue.',
     images: [
       {
         url: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047482/vaphers-og-image.png',
@@ -75,7 +69,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Affordable Digital Marketing Agency | Vaphers',
     description:
-      'Expert SEO, PPC, and web development services that deliver measurable results and grow your revenue.',
+      'Expert SEO, PPC, and web development services that deliver measurable results.',
     images: [
       'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047482/vaphers-og-image.png',
     ],
