@@ -12,10 +12,10 @@ const bungeeInline = Bungee_Inline({
 })
 
 export const metadata = {
-  metadataBase: new URL('https://vaphers.com/'),
+  metadataBase: new URL('https:www.//vaphers.com/'),
 
   alternates: {
-    canonical: 'https://vaphers.com/us',
+    canonical: 'https://www.vaphers.com/us',
   },
 
   title: {
@@ -42,7 +42,7 @@ export const metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://vaphers.com/us',
+    url: 'https://www.vaphers.com/us',
     siteName: 'Vaphers USA',
     title: 'Affordable Digital Marketing Agency in the USA | Vaphers',
     description:

@@ -12,7 +12,7 @@ const bungeeInline = Bungee_Inline({
 })
 
 export const metadata = {
-  metadataBase: new URL('https://vaphers.com/'),
+  metadataBase: new URL('https://www.vaphers.com/'),
 
   title: {
     default:
@@ -23,7 +23,7 @@ export const metadata = {
     'Vaphers is an affordable digital marketing agency offering expert SEO, PPC advertising, and web development services. Drive qualified traffic and grow your revenue with data-driven strategies that deliver measurable results.',
 
   alternates: {
-    canonical: 'https://vaphers.com/',
+    canonical: 'https://www.vaphers.com/',
   },
 
   keywords: [
@@ -50,7 +50,7 @@ export const metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://vaphers.com/',
+    url: 'https://www.vaphers.com/',
     siteName: 'Vaphers',
     title: 'Affordable Digital Marketing Agency | Vaphers',
     description:
