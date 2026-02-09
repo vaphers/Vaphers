@@ -2,37 +2,10 @@ import { MetadataRoute } from 'next';
 
 export const dynamic = 'force-static';
 
-const industrySlugToKey: Record<string, string> = {
-  'plumbers': 'plumbers',
-  'restaurants': 'restaurants',
-  'real-estate': 'realEstate',
-  'doctors': 'doctors',
-  'fashion': 'fashion',
-  'lawyers': 'lawyers',
-  'accountants': 'accountants',
-  'salons': 'salons',
-  'roofers': 'roofers',
-  'seal-coating': 'sealCoaters',
-  'signage': 'signage',
-  'packers-movers': 'packersMovers',
-  'beauty-spas': 'beautySpas',
-  'builders': 'builders',
-  'dentists': 'dentists',
-  'chiropractors': 'chiropractors',
-  'veterinarians': 'veterinarians',
-  'pest-control': 'pestControl',
-  'gyms': 'gyms',
-  'car-detailers': 'carDetailers',
-  'mechanics': 'mechanics',
-};
+
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const industryRoutes = Object.keys(industrySlugToKey).map((slug) => ({
-    url: `https://www.vaphers.com/seo-services/industries/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.8,
-  }));
+
 
   // Static routes
   const staticRoutes = [
@@ -152,5 +125,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  return [...staticRoutes, ...industryRoutes];
+  return [...staticRoutes, ];
 }
