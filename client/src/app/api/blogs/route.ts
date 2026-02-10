@@ -11,7 +11,7 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
-// POST
+// POST api
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -87,7 +87,7 @@ export async function GET(req: NextRequest) {
       authorId: doc.data().authorId,
     }));
 
-    console.log(`API returned ${blogs.length} blogs`); // DEBUG
+    // console.log(`API returned ${blogs.length} blogs`); // DEBUG
 
     return NextResponse.json({ blogs });
   } catch (err) {
