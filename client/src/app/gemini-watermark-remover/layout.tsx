@@ -23,12 +23,12 @@ export const metadata: Metadata = {
     title: 'Free Gemini Watermark Remover - Remove AI Watermarks Online | Vaphers',
     description:
       'Remove watermarks from Google Gemini AI images for free. 100% browser-based processing ensures your privacy. Fast, lossless watermark removal using advanced alpha blending algorithm.',
-    url: 'https://vaphers.com/tools/gemini-watermark-remover',
+    url: 'https://www.vaphers.com/tools/gemini-watermark-remover',
     type: 'website',
     siteName: 'Vaphers',
     images: [
       {
-        url: 'https://vaphers.com/og-gemini-watermark-remover.jpg',
+        url: 'https://www.vaphers.com/og-gemini-watermark-remover.jpg',
         width: 1200,
         height: 630,
         alt: 'Gemini Watermark Remover Tool by Vaphers'
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Free Gemini Watermark Remover - Remove AI Watermarks Online',
     description: 'Remove watermarks from Google Gemini AI images instantly. Free, privacy-focused, browser-based tool.',
-    images: ['https://vaphers.com/og-gemini-watermark-remover.jpg']
+    images: ['https://www.vaphers.com/og-gemini-watermark-remover.jpg']
   },
   robots: {
     index: true,
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     }
   },
   alternates: {
-    canonical: 'https://vaphers.com/tools/gemini-watermark-remover'
+    canonical: 'https://www.vaphers.com/tools/gemini-watermark-remover'
   },
   other: {
     'application-name': 'Gemini Watermark Remover',

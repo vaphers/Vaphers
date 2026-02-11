@@ -125,36 +125,6 @@ const portfolioImages = [
   },
 ]
 
-// Organization Schema Data
-const organizationSchemaData = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Vaphers",
-  "url": "https://www.vaphers.com",
-  "logo": "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1767349560/VaphersLogo_xggglq.png",
-  "foundingDate": "2025",
-  "founder": {
-    "@type": "Person",
-    "name": "Muhammad Asad"
-  },
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": "+91-9641861932",
-    "contactType": "customer service"
-  },
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Kolkata",
-    "addressRegion": "West Bengal",
-    "addressCountry": "IN"
-  },
-  "sameAs": [
-    "https://x.com/VaphersTech",
-    "https://www.instagram.com/vaphers/",
-    "https://www.linkedin.com/in/vaphers-technologies"
-  ],
-  "description": "Vaphers is a digital marketing agency specializing in SEO, AI SEO, PPC management, and Next.js web development services."
-}
 
 // FAQ Schema Data
 const faqSchemaDataUS = {
@@ -284,15 +254,6 @@ export default function Page() {
 
   return (
     <>
-      {/* Organization Schema Markup */}
-      <Script
-        id="organization-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(organizationSchemaData)
-        }}
-        strategy="beforeInteractive"
-      />
 
       {/* FAQ Schema Markup */}
       <Script

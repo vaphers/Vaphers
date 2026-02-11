@@ -139,9 +139,7 @@
             <div className="mt-4">
               <span className="font-semibold text-xl block mb-3">Connect</span>
               <div className="flex gap-3">
-                <a href="#" className="w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-100 flex items-center justify-center transition-colors">
-                  <Globe className="w-5 h-5 text-gray-600 hover:text-blue-600" />
-                </a>
+
                 <a href="#" className="w-10 h-10 rounded-full bg-gray-100 hover:bg-blue-100 flex items-center justify-center transition-colors">
                   <Twitter className="w-5 h-5 text-gray-600 hover:text-blue-600" />
                 </a>
@@ -201,7 +199,7 @@
                     <Textarea id="message" name="message" placeholder="Your message" rows={4} required />
                   </div>
                   <div className="md:col-span-2 ">
-                    <Button className="w-full mt-2 rounded-lg px-6 bg-blue-600" type="submit" disabled={loading}>
+                    <Button className="w-full mt-2 rounded-lg px-6 bg-blue-600 hover:bg-blue-700 cursor-pointer" type="submit" disabled={loading}>
                       {loading ? 'Sending...' : 'Send Message'}
                     </Button>
                   </div>

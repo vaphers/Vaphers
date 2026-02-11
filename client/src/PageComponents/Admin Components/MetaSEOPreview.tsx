@@ -26,7 +26,7 @@ const MetaSEOPreview: React.FC<MetaSEOPreviewProps> = ({
   onMetaTitleChange,
   onMetaDescriptionChange,
   onSlugChange,
-  baseUrl = 'https://vaphers.com/blogs',
+  baseUrl = 'https://www.vaphers.com/blogs',
   siteName = 'Vaphers',
 }) => {
   const titleCharCount = metaTitle.length;

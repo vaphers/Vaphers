@@ -23,11 +23,11 @@ export const metadata: Metadata = {
     title: 'We Get You Cited in ChatGPT - AI SEO That Works | Vaphers',
     description:
       'Get your business cited in ChatGPT with expert AI SEO strategies. Capture high-intent traffic from 37.5M daily searches through proven ChatGPT optimization that delivers real citations and measurable results.',
-    url: 'https://vaphers.com/chatgpt-seo',
+    url: 'https://www.vaphers.com/chatgpt-seo',
     type: 'website',
     images: [
       {
-        url: 'https://vaphers.com/og-chatgpt-seo.jpg',
+        url: 'https://www.vaphers.com/og-chatgpt-seo.jpg',
         width: 1200,
         height: 630,
         alt: 'ChatGPT SEO Services - Get Cited in AI Search by Vaphers'
@@ -39,10 +39,10 @@ export const metadata: Metadata = {
     title: 'We Get You Cited in ChatGPT - AI SEO That Works',
     description:
       'Professional ChatGPT SEO that gets your business featured in AI responses. Proven strategies for 3.7B+ monthly users.',
-    images: ['https://vaphers.com/og-chatgpt-seo.jpg']
+    images: ['https://www.vaphers.com/og-chatgpt-seo.jpg']
   },
   alternates: {
-    canonical: 'https://vaphers.com/chatgpt-seo'
+    canonical: 'https://www.vaphers.com/chatgpt-seo'
   },
   robots: {
     index: true,

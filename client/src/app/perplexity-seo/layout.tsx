@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: 'Perplexity SEO Services for Real Visibility | Vaphers',
     description:
       'Straightforward Perplexity SEO services that help your brand show up in AI-driven answers and modern search results—without hype.',
-    url: 'https://vaphers.com/perplexity-seo',
+    url: 'https://www.vaphers.com/perplexity-seo',
     type: 'website'
   }
 };

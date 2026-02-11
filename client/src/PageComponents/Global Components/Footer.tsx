@@ -67,7 +67,7 @@ const Footer: React.FC = () => {
               </p>
               <Link
                 href="/contact"
-                className="py-2.5 px-5 h-9 block w-fit bg-indigo-600 rounded-full shadow-sm text-xs text-white mx-auto transition-all duration-500 hover:bg-indigo-700 lg:mx-0"
+                className="py-2.5 px-5  block w-fit bg-blue-600 rounded-4xl shadow-sm text-sm text-white mx-auto transition-all duration-500 hover:bg-blue-700 lg:mx-0"
               >
                 Get Free Audit
               </Link>

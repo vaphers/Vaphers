@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'AI SEO Services That Transform Your Business',
     description: 'AI-powered SEO strategies that deliver real results',
-    url: 'https://vaphers.com/seo-services/ai-seo-service',
+    url: 'https://www.vaphers.com/seo-services/ai-seo-service',
     type: 'website',
   },
 };

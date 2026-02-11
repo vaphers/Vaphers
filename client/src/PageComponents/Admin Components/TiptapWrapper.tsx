@@ -90,7 +90,7 @@ const handlePublish = async () => {
           onSlugChange={setSlug}
           onMetaTitleChange={setMetaTitle}
           onMetaDescriptionChange={setMetaDescription}
-          baseUrl="https://vaphers.com"
+          baseUrl="https://www.vaphers.com"
         />
         {/* Publish Button */}
         <button

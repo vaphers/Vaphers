@@ -31,7 +31,7 @@ export default function HomeFiller() {
         <p className="text-lg text-[#1a3d5c] leading-relaxed">
           As a trusted <span className="font-medium">best AI SEO agency</span>, we use intelligent algorithms and real-time data to improve rankings, attract high-intent traffic, and deliver measurable outcomes through modern{' '}
           <a
-            href="https://vaphers.com/seo-services/ai-seo-services"
+            href="https://www.vaphers.com/seo-services/ai-seo-services"
             className="text-blue-700 underline hover:text-blue-800 font-medium"
           >
             AI SEO services

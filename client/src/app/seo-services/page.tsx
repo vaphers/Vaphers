@@ -176,8 +176,8 @@ export default function Page() {
             "serviceType": "SEO Services",
             "provider": {
               "@type": "Organization",
-              "name": "Vaphers", // Fixed typo: "Virtual Orbit" -> "Vaphers"
-              "url": "https://www.vaphers.com" // Fixed generic URL
+              "name": "Vaphers",
+              "url": "https://www.vaphers.com" 
             },
             "areaServed": {
               "@type": "Country",

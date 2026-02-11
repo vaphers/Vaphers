@@ -43,7 +43,7 @@ const PerplexityLeadsSection: React.FC = () => {
               Perplexity users aren't casually browsing, they're actively researching solutions and making buying decisions. When your business gets cited, you're reaching prospects at peak intent who trust AI recommendations over traditional ads.
             </p>
             <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-              Our <a href="https://vaphers.com/seo-services/ai-seo-services" className="text-blue-600 hover:text-blue-700 font-medium underline decoration-2 underline-offset-2">LLM Citations Services</a> position you as Perplexity's go-to recommendation through technical optimization, authority building, and content that AI engines trust and cite repeatedly.
+              Our <a href="https://www.vaphers.com/seo-services/ai-seo-services" className="text-blue-600 hover:text-blue-700 font-medium underline decoration-2 underline-offset-2">LLM Citations Services</a> position you as Perplexity's go-to recommendation through technical optimization, authority building, and content that AI engines trust and cite repeatedly.
             </p>
             <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
               The result? Qualified leads who already view you as the expert before they even visit your site. Citations create instant credibility that shortens sales cycles and improves conversion rates dramatically.

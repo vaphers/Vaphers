@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: 'Google Gemini SEO Services for AI Search Visibility | Vaphers',
     description:
       'Get your brand cited in Google Gemini AI answers. Expert Gemini SEO services that optimize content for AI Overviews, conversational search, and generative AI visibility.',
-    url: 'https://vaphers.com/gemini-seo',
+    url: 'https://www.vaphers.com/gemini-seo',
     type: 'website',
     siteName: 'Vaphers',
   },
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     follow: true
   },
   alternates: {
-    canonical: 'https://vaphers.com/gemini-seo'
+    canonical: 'https://www.vaphers.com/gemini-seo'
   }
 };
 

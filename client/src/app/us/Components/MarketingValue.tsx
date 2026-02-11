@@ -77,7 +77,7 @@ const DMvalue: React.FC = () => {
                 layout, interaction, and user journey is designed with performance in mind, so your website supports
                 growth from day one. As a trusted{' '}
                 <a
-                  href="https://vaphers.com/website-development-services/nextjs-website-development"
+                  href="https://www.vaphers.com/website-development-services/nextjs-website-development"
                   className="text-blue-700 underline hover:text-blue-800 font-medium"
                 >
                   Next.js website development agency

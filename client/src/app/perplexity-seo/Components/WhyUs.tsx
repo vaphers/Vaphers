@@ -40,7 +40,7 @@ const FeatureCard = ({ icon, title, description, className = "", isDark = false,
       </div>
       {showButton && (
         <a 
-          href="https://vaphers.com/seo-services/ai-seo-services"
+          href="https://www.vaphers.com/seo-services/ai-seo-services"
           className="mt-2 sm:mt-3 w-fit bg-white hover:bg-gray-100 text-[#012e6a] font-bold py-2.5 sm:py-3 px-6 sm:px-7 rounded-full flex items-center gap-2 transition-colors text-sm sm:text-base"
         >
           Get Started <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />

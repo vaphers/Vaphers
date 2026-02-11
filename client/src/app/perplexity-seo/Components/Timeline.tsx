@@ -135,7 +135,7 @@ const PerplexityTimeline: React.FC = () => {
                     {part}
                     {i < arr.length - 1 && (
                       <a 
-                        href="https://vaphers.com/seo-services/ai-seo-services"
+                        href="https://www.vaphers.com/seo-services/ai-seo-services"
                         className="text-blue-600 hover:text-blue-700 font-medium underline decoration-2 underline-offset-2 transition-colors"
                       >
                         AI SEO Services

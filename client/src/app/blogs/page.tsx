@@ -12,7 +12,7 @@ export const metadata = {
   openGraph: {
     title: 'Blog | Vaphers',
     description: 'Read our latest articles and insights.',
-    url: 'https://vaphers.com/blogs', 
+    url: 'https://www.vaphers.com/blogs', 
   },
 };
 

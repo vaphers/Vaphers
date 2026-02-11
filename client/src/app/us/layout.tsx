@@ -12,16 +12,13 @@ const bungeeInline = Bungee_Inline({
 })
 
 export const metadata = {
-  metadataBase: new URL('https:www.//vaphers.com/'),
-
+  // ✅ Fully hardcoded canonical
   alternates: {
     canonical: 'https://www.vaphers.com/us',
   },
 
-  title: {
-    default:
-      'Affordable Digital Marketing Agency in the USA | SEO, PPC & Web Development – Vaphers',
-  },
+  title:
+    'Affordable Digital Marketing Agency in the USA | SEO, PPC & Web Development – Vaphers',
 
   description:
     'Vaphers is a US-focused digital marketing agency delivering expert SEO, PPC advertising, and web development services.',
@@ -42,7 +39,7 @@ export const metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://www.vaphers.com/us',
+    url: 'https://www.vaphers.com/us', // ✅ hardcoded
     siteName: 'Vaphers USA',
     title: 'Affordable Digital Marketing Agency in the USA | Vaphers',
     description:
@@ -83,7 +80,12 @@ export default function USLayout({
       <body>
         {children}
 
-        <Toaster richColors position="top-right" closeButton duration={5000} />
+        <Toaster
+          richColors
+          position="top-right"
+          closeButton
+          duration={5000}
+        />
 
         <SpeedInsights />
         <GoogleAnalytics gaId="G-0CXH1J99VZ" />
@@ -91,6 +93,3 @@ export default function USLayout({
     </html>
   )
 }
-
-
-// Filler 
