@@ -87,7 +87,6 @@ export async function GET(req: NextRequest) {
       authorId: doc.data().authorId,
     }));
 
-    // console.log(`API returned ${blogs.length} blogs`); // DEBUG
 
     return NextResponse.json({ blogs });
   } catch (err) {

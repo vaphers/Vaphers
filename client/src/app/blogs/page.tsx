@@ -20,7 +20,6 @@ export default async function BlogPage() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ""}/api/blogs?limit=9`, { cache: 'no-store' });
   const { blogs } = await res.json();
 
-  // Breadcrumb JSON-LD
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
