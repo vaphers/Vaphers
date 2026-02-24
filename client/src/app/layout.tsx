@@ -57,7 +57,7 @@ export const metadata = {
       'Expert SEO, PPC, and web development services that grow your revenue.',
     images: [
       {
-        url: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047482/vaphers-og-image.png',
+        url: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1771932308/creative-marketing-dashboard-hero_axibff.png',
         width: 1200,
         height: 630,
         alt: 'Vaphers - Affordable Digital Marketing Agency',
