@@ -158,121 +158,132 @@ const BlogList = ({ initialBlogs }: BlogListProps) => {
               if (isLoading) return <BlogCardSkeleton key={blog.id} />;
 
               return (
-                <div
-                  key={blog.id}
-                  onClick={() => handleBlogClick(blog.slug, blog.id)}
-                  className={`block group cursor-pointer transition-opacity ${
-                    isPending ? "opacity-50" : "opacity-100"
-                  }`}
-                >
-                  <Card className="shadow-none overflow-hidden rounded-lg border hover:shadow-lg transition-shadow cursor-pointer group pt-0 h-full flex flex-col">
-                    <CardHeader className="p-0">
-                      {blog.featuredImage ? (
-                        <Image
-                          src={blog.featuredImage}
-                          alt={blog.title}
-                          width={800}
-                          height={450}
-                          quality={60}
-                          priority={index < 3}
-                          className="aspect-video w-full object-cover"
-                        />
-                      ) : (
-                        <div className="aspect-video bg-blue-100 w-full border-b" />
-                      )}
-                    </CardHeader>
-                    <CardContent className="p-6 flex-1 flex flex-col">
-                      <div className="flex items-center gap-3 mb-4">
-                        {blog.categories.slice(0, 3).map((cat) => (
-                          <Badge key={cat} className="bg-blue-100 text-blue-700">
-                            {cat}
-                          </Badge>
-                        ))}
-                      </div>
-                      <h3 className="mt-4 text-xl font-semibold tracking-tight group-hover:text-blue-600 transition-colors">
-                        {blog.title}
-                      </h3>
-                      <p className="mt-2 text-muted-foreground text-sm line-clamp-2 mb-4">
-                        {blog.metaDescription}
-                      </p>
-                      <div className="mt-auto pt-2">
-                        <Button size="sm" className="shadow-none bg-blue-600 hover:bg-blue-700 text-white w-full sm:w-auto">
-                          Read more <ChevronRight className="w-4 h-4 ml-1" />
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
+                <div key={blog.id} className="relative group/blog-container">
+                  {/* Hidden anchor for right-click "Copy link" functionality */}
+                  <a
+                    href={`/blogs/${blog.slug}`}
+                    className="absolute inset-0 w-full h-full z-20 block"
+                    aria-hidden="true"
+                  />
+                  
+                  {/* Clickable card wrapper */}
+                  <div
+                    onClick={() => handleBlogClick(blog.slug, blog.id)}
+                    className={`block cursor-pointer transition-opacity h-full pointer-events-none group-hover/blog-container:shadow-lg ${
+                      isPending ? "opacity-50" : "opacity-100"
+                    }`}
+                  >
+                    <Card className="shadow-none overflow-hidden rounded-lg border hover:shadow-lg transition-all duration-200 pt-0 h-full flex flex-col group-hover/blog-container:border-blue-300">
+                      <CardHeader className="p-0">
+                        {blog.featuredImage ? (
+                          <Image
+                            src={blog.featuredImage}
+                            alt={blog.title}
+                            width={800}
+                            height={450}
+                            quality={60}
+                            priority={index < 3}
+                            className="aspect-video w-full object-cover group-hover/blog-container:scale-[1.02] transition-transform duration-200"
+                          />
+                        ) : (
+                          <div className="aspect-video bg-gradient-to-br from-blue-100 to-indigo-100 w-full border-b group-hover/blog-container:from-blue-200 group-hover/blog-container:to-indigo-200 transition-colors duration-200" />
+                        )}
+                      </CardHeader>
+                      <CardContent className="p-6 flex-1 flex flex-col">
+                        <div className="flex items-center gap-3 mb-4 flex-wrap">
+                          {blog.categories.slice(0, 3).map((cat) => (
+                            <Badge key={cat} className="bg-blue-100 text-blue-700 hover:bg-blue-200 transition-colors">
+                              {cat}
+                            </Badge>
+                          ))}
+                        </div>
+                        <h3 className="mt-4 text-xl font-semibold tracking-tight leading-tight group-hover/blog-container:text-blue-600 transition-colors duration-200 line-clamp-2">
+                          {blog.title}
+                        </h3>
+                        <p className="mt-3 text-muted-foreground text-sm leading-relaxed line-clamp-2 mb-6 flex-1">
+                          {blog.metaDescription}
+                        </p>
+                        <div className="mt-auto">
+                          <Button 
+                            size="sm" 
+                            className="shadow-none bg-blue-600 hover:bg-blue-700 text-white w-full sm:w-auto transition-all duration-200 group-hover/blog-container:scale-[1.02] group-hover/blog-container:shadow-md"
+                          >
+                            Read more <ChevronRight className="w-4 h-4 ml-1 group-hover/blog-container:translate-x-1 transition-transform duration-200" />
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
                 </div>
               );
             })}
           </div>
         )}
 
-      {/* PAGINATION - Updated with blue-600 active state */}
-      {filteredBlogs.length > 0 && (
-        <div className="flex items-center justify-center pt-12 gap-2 flex-wrap">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => goToPage(page - 1)}
-            disabled={page === 1}
-            className="w-28 h-10"
-          >
-            Previous
-          </Button>
+        {/* PAGINATION */}
+        {filteredBlogs.length > 0 && (
+          <div className="flex items-center justify-center pt-12 gap-2 flex-wrap">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => goToPage(page - 1)}
+              disabled={page === 1}
+              className="w-28 h-10"
+            >
+              Previous
+            </Button>
 
-          <div className="flex items-center gap-1">
-            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-              const pageNum = i + 1;
-              return (
-                <Button
-                  key={pageNum}
-                  size="sm"
-                  onClick={() => goToPage(pageNum)}
-                  className={`h-10 w-10 transition-all ${
-                    page === pageNum
-                      ? "bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/25 border-blue-600"
-                      : "bg-background hover:bg-muted text-foreground border-border"
-                  }`}
-                >
-                  {pageNum}
-                </Button>
-              );
-            })}
-            {totalPages > 5 && (
-              <>
-                <span className="px-2 text-sm text-muted-foreground">...</span>
-                <Button
-                  size="sm"
-                  onClick={() => goToPage(totalPages)}
-                  className={`h-10 w-10 transition-all ${
-                    page === totalPages
-                      ? "bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/25 border-blue-600"
-                      : "bg-background hover:bg-muted text-foreground border-border"
-                  }`}
-                >
-                  {totalPages}
-                </Button>
-              </>
-            )}
+            <div className="flex items-center gap-1">
+              {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                const pageNum = i + 1;
+                return (
+                  <Button
+                    key={pageNum}
+                    size="sm"
+                    onClick={() => goToPage(pageNum)}
+                    className={`h-10 w-10 transition-all duration-200 ${
+                      page === pageNum
+                        ? "bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/25 border-blue-600"
+                        : "bg-background hover:bg-muted text-foreground border-border hover:shadow-sm"
+                    }`}
+                  >
+                    {pageNum}
+                  </Button>
+                );
+              })}
+              {totalPages > 5 && (
+                <>
+                  <span className="px-2 text-sm text-muted-foreground">...</span>
+                  <Button
+                    size="sm"
+                    onClick={() => goToPage(totalPages)}
+                    className={`h-10 w-10 transition-all duration-200 ${
+                      page === totalPages
+                        ? "bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/25 border-blue-600"
+                        : "bg-background hover:bg-muted text-foreground border-border hover:shadow-sm"
+                    }`}
+                  >
+                    {totalPages}
+                  </Button>
+                </>
+              )}
+            </div>
+
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => goToPage(page + 1)}
+              disabled={page === totalPages}
+              className="w-28 h-10"
+            >
+              Next
+            </Button>
+
+            <div className="text-sm text-muted-foreground ml-4">
+              ({filteredBlogs.length} total)
+            </div>
           </div>
-
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => goToPage(page + 1)}
-            disabled={page === totalPages}
-            className="w-28 h-10"
-          >
-            Next
-          </Button>
-
-          <div className="text-sm text-muted-foreground ml-4">
-            ({filteredBlogs.length} total)
-          </div>
-        </div>
-      )}
-
+        )}
       </div>
     </div>
   );
