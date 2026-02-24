@@ -159,7 +159,7 @@ export default async function BlogPage({ params }: Props) {
           </article>
 
           {/* RECENT POSTS SIDEBAR */}
-          <aside className="lg:col-span-1 border-l">
+          {/* <aside className="lg:col-span-1 border-l">
             <div className="sticky top-30 pl-5">
               <h4 className="text-3xl  font-base mb-6 text-gray-900">
                 Recent Posts - 
@@ -205,7 +205,75 @@ export default async function BlogPage({ params }: Props) {
                 </ul>
               )}
             </div>
+          </aside> */}
+
+
+          <aside className="lg:col-span-1 border-l">
+            <div className="sticky top-30 pl-5">
+              <h4 className="text-3xl font-base mb-6 text-gray-900">
+                Recent Posts -
+              </h4>
+
+              {latestBlogs.length === 0 ? (
+                <p className="text-gray-500 text-sm">No other posts yet.</p>
+              ) : (
+                <ul className="space-y-6">
+                  {latestBlogs
+                    .slice(0, 6) // ✅ Limit to 6 latest blogs
+                    .map((item: any) => {
+                      const d =
+                        item.createdAt && typeof item.createdAt.toDate === "function"
+                          ? item.createdAt.toDate()
+                          : item.createdAt && item.createdAt.seconds
+                          ? new Date(item.createdAt.seconds * 1000)
+                          : null;
+
+                      const sidebarDate = d
+                        ? d.toLocaleDateString(undefined, {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })
+                        : "";
+
+                      return (
+                        <li key={item.id}>
+                          <a
+                            href={`/blogs/${item.slug}`}
+                            className="flex gap-4 group"
+                          >
+                            {/* Featured Image */}
+                            {item.featuredImage && (
+                              <div className="w-20 h-20 flex-shrink-0 overflow-hidden rounded-md">
+                                <img
+                                  src={item.featuredImage}
+                                  alt={item.title}
+                                  className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                                />
+                              </div>
+                            )}
+
+                            {/* Content */}
+                            <div className="flex flex-col">
+                              <h3 className="text-base font-semibold text-gray-900 leading-snug group-hover:text-blue-700 transition duration-300">
+                                {item.title}
+                              </h3>
+
+                              {sidebarDate && (
+                                <p className="mt-2 text-xs text-gray-500">
+                                  {sidebarDate}
+                                </p>
+                              )}
+                            </div>
+                          </a>
+                        </li>
+                      );
+                    })}
+                </ul>
+              )}
+            </div>
           </aside>
+
         </div>
       </main>
       <CTA />
