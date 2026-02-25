@@ -794,7 +794,7 @@ export default function MarketingPriceCalculator() {
 
             {/* CTA Button */}
             <Link href="/contact" className="w-full">
-              <Button className="w-full bg-white text-blue-900 hover:bg-blue-50 font-semibold py-4 sm:py-5 lg:py-6 text-sm sm:text-base lg:text-lg shadow-lg">
+              <Button className="w-full bg-white text-blue-900 hover:bg-blue-50 font-semibold py-4 sm:py-5 lg:py-6 text-sm sm:text-base lg:text-lg shadow-lg cursor-pointer">
                 Get Exact Quote →
               </Button>
             </Link>

@@ -4,6 +4,8 @@ import Footer from "@/PageComponents/Global Components/Footer";
 import type { Metadata } from "next";
 import ContactForm from "@/PageComponents/Global Components/Contact";
 import CTA from "@/PageComponents/Global Components/CTA";
+import { Calendar } from "lucide-react";
+import BlogLeadForm from "@/PageComponents/Blogs Components/BlogLeadForm";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -29,7 +31,7 @@ async function fetchAuthors() {
   return res.json();
 }
 
-// Latest blogs excluding current, by id
+// Latest blogs excluding current
 async function fetchLatestBlogsExcludeCurrent(currentId: string) {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs?limit=5`,
@@ -41,7 +43,7 @@ async function fetchLatestBlogsExcludeCurrent(currentId: string) {
   return blogs.filter((b: any) => b && b.id && b.id !== currentId);
 }
 
-// Blog with authorName
+// Blog with author
 async function fetchBlogWithAuthor(slug: string) {
   const blog = await fetchBlog(slug);
   if (!blog) return null;
@@ -79,6 +81,7 @@ export default async function BlogPage({ params }: Props) {
   const { slug } = await params;
 
   const blog = await fetchBlogWithAuthor(slug);
+
   if (!blog || blog.error) {
     return (
       <>
@@ -86,7 +89,7 @@ export default async function BlogPage({ params }: Props) {
         <main className="max-w-2xl mx-auto py-32 text-center text-2xl text-red-600">
           Blog Not Found
         </main>
-        <ContactForm/>
+        <ContactForm />
         <Footer />
       </>
     );
@@ -94,13 +97,12 @@ export default async function BlogPage({ params }: Props) {
 
   const latestBlogs = await fetchLatestBlogsExcludeCurrent(blog.id);
 
-  // Date for main post
-  const createdAtDate =
-    blog.createdAt && typeof blog.createdAt.toDate === "function"
-      ? blog.createdAt.toDate()
-      : blog.createdAt && blog.createdAt.seconds
-      ? new Date(blog.createdAt.seconds * 1000)
-      : null;
+  // Date formatting
+  let createdAtDate: Date | null = null;
+
+  if (blog.createdAt?._seconds) {
+    createdAtDate = new Date(blog.createdAt._seconds * 1000);
+  }
 
   const formattedDate = createdAtDate
     ? createdAtDate.toLocaleDateString(undefined, {
@@ -110,177 +112,329 @@ export default async function BlogPage({ params }: Props) {
       })
     : null;
 
+  // ChatGPT Summary Kind Of 
+
+const blogUrl = `https://www.vaphers.com/blogs/${slug}`;
+
+const summaryPrompt = `
+Summarize this helpful article from SEO and PPC leader Vaphers:
+
+Title: "${blog.title}"
+URL: ${blogUrl}
+
+Please provide:
+• A concise summary
+• Key takeaways
+• Who this article is for
+`;
+
+const encodedPrompt = encodeURIComponent(summaryPrompt);
+
+const chatGptUrl = `https://chat.openai.com/?q=${encodedPrompt}`;
+
   return (
     <div className="min-h-screen bg-white">
       <NavBar />
-      <main className="max-w-fit mx-auto px-6 sm:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
-          {/* MAIN CONTENT */}
-          <article className="lg:col-span-3">
-            <h1 className="text-4xl sm:text-5xl font-base leading-tight mb-4 tracking-tight text-gray-900">
-              {blog.title}
-            </h1>
 
-            <div className="flex flex-wrap items-center gap-4 text-gray-600 text-sm mb-10">
-              <span>
-                By{" "}
-                <strong className="text-gray-900 font-semibold">
-                  {blog.authorName}
-                </strong>
-              </span>
-              {formattedDate && <span>• {formattedDate}</span>}
-              {blog.categories?.length > 0 && (
-                <div className="flex gap-2">
-                  {blog.categories.map((cat: string) => (
-                    <Badge
-                      key={cat}
-                      className="bg-gray-100 text-gray-700 cursor-default"
-                    >
-                      {cat}
-                    </Badge>
-                  ))}
+      <main className="w-full px-4 sm:px-6 lg:px-8 py-12">
+        <div className="mx-auto max-w-7xl">
+
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
+
+            {/* ARTICLE */}
+            <article className="w-full max-w-4xl mx-auto lg:mx-0 flex-1">
+
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl leading-tight mb-4 tracking-tight text-gray-900">
+                {blog.title}
+              </h1>
+
+                <div className="flex flex-wrap items-center gap-4 text-gray-600 text-sm mb-8">
+
+                  {/* Author */}
+                  <span>
+                     {" "}
+                    <strong className="text-gray-900 font-semibold">
+                      Author: {blog.authorName}
+                    </strong>
+                  </span>
+                  {/* Date */}
+                  {formattedDate && (
+                    <span className="inline-flex items-center gap-1.5 font-semibold text-gray-800">
+                      <Calendar className="w-4 h-4 text-gray-800" />
+                      Published: {formattedDate}
+                    </span>
+                  )}
+
+                  {/* ChatGTP Summarization */}
+                  <a
+                    href={chatGptUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className=" inline-flex items-center gap-2 px-2 py-1 bg-blue-50 text-gray-700 rounded-full text-xs font-semibold hover:bg-blue-100 transition"
+                  >
+                    <img
+                      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047474/chat-gpt-logo_qf83fb.png"
+                      alt="ChatGPT"
+                      className="w-4 h-4"
+                    />
+                    Summarize with ChatGPT
+                  </a>
+
                 </div>
-              )}
-            </div>
 
-            {blog.featuredImage && (
-              <img
-                src={blog.featuredImage}
-                alt={blog.title}
-                className="w-full aspect-video object-cover rounded-lg shadow mb-10"
-                loading="eager"
+              {blog.featuredImage && (
+                <img
+                  src={blog.featuredImage}
+                  alt={blog.title}
+                  className="w-full aspect-video object-cover rounded-xl shadow mb-8"
+                  loading="eager"
+                />
+              )}
+
+              <div
+                className="prose prose-base sm:prose-lg max-w-none text-gray-800"
+                dangerouslySetInnerHTML={{ __html: blog.contentHtml ?? "" }}
               />
-            )}
 
-            <div
-              className="prose prose-lg max-w-none text-gray-800"
-              dangerouslySetInnerHTML={{ __html: blog.contentHtml ?? "" }}
-            />
-          </article>
+              {/* Author / Company Bio Section */}
+              <div className="mt-2 border-t pt-10">
+                <div className="bg-gray-50 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row gap-6 items-start shadow-sm border">
+                  
+                  {/* Profile Image */}
+                  <img
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772005005/Logo_edsgzp.jpg"
+                    alt="Vaphers Logo"
+                    className="w-16 h-16 rounded-full object-cover"
+                  />
 
-          {/* RECENT POSTS SIDEBAR */}
-          {/* <aside className="lg:col-span-1 border-l">
-            <div className="sticky top-30 pl-5">
-              <h4 className="text-3xl  font-base mb-6 text-gray-900">
-                Recent Posts - 
-              </h4>
+                  {/* Content */}
+                  <div>
+                    {/* <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      About Vaphers
+                    </h3> */}
 
-              {latestBlogs.length === 0 ? (
-                <p className="text-gray-500 text-sm">No other posts yet.</p>
-              ) : (
-                <ul className="space-y-6">
-                  {latestBlogs.map((item: any) => {
-                    const d =
-                      item.createdAt && typeof item.createdAt.toDate === "function"
-                        ? item.createdAt.toDate()
-                        : item.createdAt && item.createdAt.seconds
-                        ? new Date(item.createdAt.seconds * 1000)
-                        : null;
+                    <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
+                      The Vaphers team consists of SEO strategists, PPC specialists, web designers, 
+                      and analytics experts dedicated to driving measurable digital growth. 
+                      Using data-driven strategies, advanced search marketing techniques, and 
+                      conversion-focused design, Vaphers helps businesses increase visibility, 
+                      generate qualified leads, and scale revenue sustainably.
+                    </p>
 
-                    const sidebarDate = d
-                      ? d.toLocaleDateString(undefined, {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        })
-                      : "";
+                    <div className="mt-4">
+                      <a
+                        href="https://www.vaphers.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 font-semibold text-sm hover:underline"
+                      >
+                        www.vaphers.com
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                    return (
-                      <li key={item.id}>
-                        <a
-                          href={`/blogs/${item.slug}`}
-                          className="block group"
-                        >
-                          <h3 className="text-lg font-semibold text-gray-900 leading-snug group-hover:text-blue-700 transition duration-300">
-                            {item.title}
-                          </h3>
+            </article>
 
-                          <p className="mt-1 text-xs text-gray-500">
-                            {sidebarDate ? ` | ${sidebarDate}` : ""}
-                          </p>
-                        </a>
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
-            </div>
-          </aside> */}
+            {/* SIDEBAR */}
+            <aside className="w-full max-w-sm mx-auto lg:mx-0">
+              <div className="lg:sticky lg:top-32 space-y-8">
 
+                {/* Share Section */}
+                <div>
+                  <h4 className="text-2xl font-semibold text-gray-900 mb-4">
+                    Share this article
+                  </h4>
 
-          <aside className="lg:col-span-1 border-l">
-            <div className="sticky top-30 pl-5">
-              <h4 className="text-3xl font-base mb-6 text-gray-900">
-                Recent Posts -
-              </h4>
+                  <div className="flex items-center gap-5">
 
-              {latestBlogs.length === 0 ? (
-                <p className="text-gray-500 text-sm">No other posts yet.</p>
-              ) : (
-                <ul className="space-y-6">
-                  {latestBlogs
-                    .slice(0, 6) // ✅ Limit to 6 latest blogs
-                    .map((item: any) => {
-                      const d =
-                        item.createdAt && typeof item.createdAt.toDate === "function"
-                          ? item.createdAt.toDate()
-                          : item.createdAt && item.createdAt.seconds
-                          ? new Date(item.createdAt.seconds * 1000)
-                          : null;
+                    {/* Facebook */}
+                    <a
+                      href={`https://www.facebook.com/sharer/sharer.php?u=${blogUrl}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:scale-110 transition"
+                    >
+                      <img
+                        src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772000879/Platform_Facebook_Color_Original_kwwle4.svg"
+                        alt="Share on Facebook"
+                        className="w-7 h-7"
+                      />
+                    </a>
 
-                      const sidebarDate = d
-                        ? d.toLocaleDateString(undefined, {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          })
-                        : "";
+                    {/* X */}
+                    <a
+                      href={`https://twitter.com/intent/tweet?url=${blogUrl}&text=${blog.title}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:scale-110 transition"
+                    >
+                      <img
+                        src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772000877/Platform_X_Twitter_Color_Original_qdvllx.png"
+                        alt="Share on X"
+                        className="w-7 h-7 object-contain"
+                      />
+                    </a>
 
-                      return (
-                        <li key={item.id}>
-                          <a
-                            href={`/blogs/${item.slug}`}
-                            className="flex gap-4 group"
-                          >
-                            {/* Featured Image */}
-                            {item.featuredImage && (
-                              <div className="w-20 h-20 flex-shrink-0 overflow-hidden rounded-md">
-                                <img
-                                  src={item.featuredImage}
-                                  alt={item.title}
-                                  className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-                                />
-                              </div>
-                            )}
+                    {/* LinkedIn */}
+                    <a
+                      href={`https://www.linkedin.com/sharing/share-offsite/?url=${blogUrl}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:scale-110 transition"
+                    >
+                      <img
+                        src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772000875/Platform_LinkedIn_Color_Original_gbuviy.svg"
+                        alt="Share on LinkedIn"
+                        className="w-7 h-7"
+                      />
+                    </a>
 
-                            {/* Content */}
-                            <div className="flex flex-col">
-                              <h3 className="text-base font-semibold text-gray-900 leading-snug group-hover:text-blue-700 transition duration-300">
-                                {item.title}
-                              </h3>
+                    {/* Reddit */}
+                    <a
+                      href={`https://www.reddit.com/submit?url=${blogUrl}&title=${blog.title}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:scale-110 transition"
+                    >
+                      <img
+                        src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772000873/Platform_Reddit_Color_Original_m07wa6.png"
+                        alt="Share on Reddit"
+                        className="w-7 h-7 object-contain"
+                      />
+                    </a>
 
-                              {sidebarDate && (
-                                <p className="mt-2 text-xs text-gray-500">
-                                  {sidebarDate}
-                                </p>
-                              )}
-                            </div>
-                          </a>
-                        </li>
-                      );
-                    })}
-                </ul>
-              )}
-            </div>
-          </aside>
+                  </div>
+                </div>
 
+                {/* Lead Card */}
+                <div className="bg-gray-50 rounded-2xl p-6 shadow-sm border">
+
+                  <img
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772000439/ChatGPT_Image_Feb_25_2026_11_50_44_AM_tgsao7.png"
+                    alt="Local SEO growth"
+                    className="w-full rounded-xl mb-6"
+                  />
+
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3 text-center">
+                    Outrank Your Competitors This Season
+                  </h3>
+
+                  <p className="text-gray-600 text-sm mb-6 text-center">
+                    See how you can dominate Google search results and book more jobs.
+                  </p>
+                  <BlogLeadForm/>
+
+                </div>
+
+              </div>
+            </aside>
+
+          </div>
         </div>
       </main>
+
+      {/* Recent Posts */}
+      <section className="w-full py-12 ">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+          <h3 className="text-3xl sm:text-3xl md:text-5xl font-bold mb-10 text-gray-800 bungee-inline-regular text-center sm:text-left">
+            What To Read Next?
+          </h3>
+
+          {latestBlogs.length === 0 ? (
+            <p className="text-gray-500">No other posts yet.</p>
+          ) : (
+            <div className="
+              grid 
+              grid-cols-1 
+              sm:grid-cols-2 
+              lg:grid-cols-3 
+              gap-6 
+              sm:gap-8
+            ">
+              {latestBlogs.slice(0, 6).map((item: any) => {
+                const d =
+                  item.createdAt?._seconds
+                    ? new Date(item.createdAt._seconds * 1000)
+                    : null;
+
+                const sidebarDate = d
+                  ? d.toLocaleDateString(undefined, {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })
+                  : "";
+
+                return (
+                  <a
+                    key={item.id}
+                    href={`/blogs/${item.slug}`}
+                    className="
+                      group 
+                      border 
+                      rounded-2xl 
+                      overflow-hidden 
+                      bg-white
+                      hover:shadow-xl 
+                      transition-all 
+                      duration-300
+                    "
+                  >
+                    {item.featuredImage && (
+                      <div className="
+                        relative 
+                        w-full 
+                        aspect-[16/10] 
+                        overflow-hidden
+                      ">
+                        <img
+                          src={item.featuredImage}
+                          alt={item.title}
+                          className="
+                            w-full 
+                            h-full 
+                            object-cover 
+                            group-hover:scale-105 
+                            transition 
+                            duration-500
+                          "
+                        />
+                      </div>
+                    )}
+
+                    <div className="p-5 sm:p-6">
+                      <h3 className="
+                        text-base 
+                        sm:text-lg 
+                        font-semibold 
+                        text-gray-900 
+                        group-hover:text-blue-600 
+                        transition 
+                        mb-2
+                      ">
+                        {item.title}
+                      </h3>
+
+                      {sidebarDate && (
+                        <p className="text-sm text-gray-500">
+                          {sidebarDate}
+                        </p>
+                      )}
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </section>
+
       <CTA />
-      <ContactForm/>
+      <ContactForm />
       <Footer />
     </div>
   );
 }
-
-
