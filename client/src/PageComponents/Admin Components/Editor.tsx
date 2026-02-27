@@ -12,7 +12,7 @@ import TextAlign from '@tiptap/extension-text-align';
 import Link from '@tiptap/extension-link';
 import Underline from '@tiptap/extension-underline';
 import Blockquote from '@tiptap/extension-blockquote';
-import HardBreak from '@tiptap/extension-hard-break'; // Added for line breaks
+import HardBreak from '@tiptap/extension-hard-break'; 
 import { Table } from '@tiptap/extension-table';
 import TableRow from '@tiptap/extension-table-row';
 import TableCell from '@tiptap/extension-table-cell';
@@ -112,7 +112,7 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange
       TableRow,
       TableCell,
       TableHeader,
-      HardBreak, // Added for line breaks
+      HardBreak, 
     ],
     content,
     onUpdate: ({ editor }) => {
@@ -120,6 +120,7 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange
       setLinkSelectionActive(editor.isActive('link'));
     },
     immediatelyRender: false,
+
     // Keyboard shortcut for shift+enter to insert hard break
     editorProps: {
       handleKeyDown(view, event) {
@@ -204,7 +205,7 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange
 
   return (
     <>
-      {/* Blog Title as H1 - Editable */}
+      {/* Blog Title */}
       <h1
         ref={(el) => {
           if (el && !title) {
@@ -261,7 +262,7 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="mx-auto max-w-3xl rounded bg-white p-6 shadow-lg">
+              <Dialog.Panel className="mx-auto max-w-5xl rounded bg-white p-6 shadow-lg">
                 <Dialog.Title className="text-lg font-bold mb-2">Insert Link</Dialog.Title>
                 <input
                   type="url"
@@ -378,6 +379,8 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange
         >
           <Code size={20} />
         </button>
+
+        
         {/* Blockquote */}
         <button
           onClick={() => editor?.chain().focus().toggleBlockquote().run()}
