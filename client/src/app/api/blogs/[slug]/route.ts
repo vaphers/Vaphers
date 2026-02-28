@@ -57,3 +57,39 @@ export async function GET(
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
+
+
+export async function PUT(
+  req: NextRequest,
+  context: { params: Promise<{ slug: string }> }
+) {
+  try {
+    const { slug } = await context.params;
+    const body = await req.json();
+
+    if (!slug) {
+      return NextResponse.json({ error: "Missing slug" }, { status: 400 });
+    }
+
+    const query = db.collection("blogs").where("slug", "==", slug).limit(1);
+    const snapshot = await query.get();
+
+    if (snapshot.empty) {
+      return NextResponse.json({ error: "Blog not found" }, { status: 404 });
+    }
+
+    // Get the document reference and update it
+    const docRef = snapshot.docs[0].ref;
+    
+    // Pass the payload sent from the client
+    await docRef.update({
+      ...body,
+      updatedAt: admin.firestore.FieldValue.serverTimestamp() 
+    });
+
+    return NextResponse.json({ success: true, id: docRef.id });
+  } catch (err) {
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
+  }
+}
