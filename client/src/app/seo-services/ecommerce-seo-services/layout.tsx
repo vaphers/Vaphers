@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Affordable Ecommerce SEO Services | Shopify & WooCommerce SEO | Vaphers',
-  description: 'Expert ecommerce SEO services for Shopify, WooCommerce, and online stores. Increase organic traffic, improve product rankings, and boost sales with our proven SEO strategies. Get a free audit today!',
+  title: 'Ecommerce SEO That Skyrocket Traffic & Sales | Vaphers',
+  description:
+    'Turn your online store into a revenue machine. Our ecommerce SEO services increase product rankings, drive high-intent organic traffic, and boost sales for Shopify, WooCommerce, and fast-growing brands.',
+
   keywords: [
     'ecommerce SEO services',
     'Shopify SEO optimization',
@@ -15,17 +17,29 @@ export const metadata: Metadata = {
     'Google Shopping optimization',
     'technical ecommerce SEO'
   ],
+
   authors: [{ name: 'Vaphers' }],
   creator: 'Vaphers',
   publisher: 'Vaphers',
+
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://www.vaphers.com/seo-services/ecommerce-seo-services',
-    title: 'Affordable Ecommerce SEO Services | Shopify & WooCommerce SEO',
-    description: 'Boost your online store visibility with expert ecommerce SEO. Specializing in Shopify, WooCommerce, and multi-platform optimization.',
+    title: 'High-Performance Ecommerce SEO | More Rankings. More Sales.',
+    description:
+      'Increase visibility, outrank competitors, and drive consistent sales with conversion-focused ecommerce SEO strategies.',
     siteName: 'Vaphers',
+    images: [
+      {
+        url: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761651901/ProductPageOptimization_wllf6g.png',
+        width: 1200,
+        height: 630,
+        alt: 'Ecommerce SEO Services by Vaphers',
+      },
+    ],
   },
+
   robots: {
     index: true,
     follow: true,
@@ -37,6 +51,7 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+
   alternates: {
     canonical: 'https://www.vaphers.com/seo-services/ecommerce-seo-services',
   },

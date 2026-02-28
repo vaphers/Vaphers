@@ -13,13 +13,26 @@ export const metadata: Metadata = {
     'AI SEO services',
     'Vaphers Perplexity SEO'
   ],
+
+  alternates: {
+    canonical: 'https://www.vaphers.com/perplexity-seo',
+  },
+
   openGraph: {
     title: 'Perplexity SEO Services for Real Visibility | Vaphers',
     description:
       'Straightforward Perplexity SEO services that help your brand show up in AI-driven answers and modern search results—without hype.',
     url: 'https://www.vaphers.com/perplexity-seo',
-    type: 'website'
-  }
+    type: 'website',
+    images: [
+      {
+        url: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1767602830/ChatGPT_Citations_infbw4.png',
+        width: 1200,
+        height: 630,
+        alt: 'Perplexity SEO Services by Vaphers',
+      },
+    ],
+  },
 };
 
 export default function PerplexitySeoLayout({
@@ -27,8 +40,11 @@ export default function PerplexitySeoLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>
-  <NavBar/>
-  {children}
-  <Footer/>
-  </>}
+  return (
+    <>
+      <NavBar />
+      {children}
+      <Footer />
+    </>
+  );
+}

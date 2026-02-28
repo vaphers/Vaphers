@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.vaphers.com/og-chatgpt-seo.jpg',
+        url: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1767602634/ChatGPT_Shopping_lbdifj.png',
         width: 1200,
         height: 630,
         alt: 'ChatGPT SEO Services - Get Cited in AI Search by Vaphers'
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: 'We Get You Cited in ChatGPT - AI SEO That Works',
     description:
       'Professional ChatGPT SEO that gets your business featured in AI responses. Proven strategies for 3.7B+ monthly users.',
-    images: ['https://www.vaphers.com/og-chatgpt-seo.jpg']
+    images: ['https://res.cloudinary.com/dbwrnwa3l/image/upload/v1767602634/ChatGPT_Shopping_lbdifj.png']
   },
   alternates: {
     canonical: 'https://www.vaphers.com/chatgpt-seo'

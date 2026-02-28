@@ -38,7 +38,7 @@ const handlePublish = async () => {
   try {
     const payload = {
       title,
-      content,           // HTML from TipTap
+      content,           
       slug,
       metaTitle,
       metaDescription,

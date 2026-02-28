@@ -8,7 +8,7 @@ interface WatermarkConfig {
 }
 
 export function detectWatermarkConfig(imageWidth: number, imageHeight: number): WatermarkConfig {
-    // Gemini uses 96×96 for images > 1024 in both dimensions, else 48×48
+    // gemini me larger image ke liye 96x96 ka watermark rehta hai or doosre images me 48x48
     if (imageWidth > 1024 && imageHeight > 1024) {
         return {
             logoSize: 96,
@@ -63,14 +63,14 @@ export class WatermarkEngine {
     }
 
     async getAlphaMap(size: number): Promise<Float32Array> {
-        // Return cached if available
+       
         if (this.alphaMaps[size]) {
             return this.alphaMaps[size];
         }
 
         const bgImage = size === 48 ? this.bgCaptures.bg48 : this.bgCaptures.bg96;
 
-        // Create temporary canvas to extract ImageData
+        // here i am creatib a temp canvas to extract the image data
         const canvas = document.createElement('canvas');
         canvas.width = size;
         canvas.height = size;
@@ -80,7 +80,7 @@ export class WatermarkEngine {
         ctx.drawImage(bgImage, 0, 0);
         const imageData = ctx.getImageData(0, 0, size, size);
 
-        // Calculate and cache alpha map
+        // cache the alpha map
         const alphaMap = calculateAlphaMap(imageData);
         this.alphaMaps[size] = alphaMap;
 
@@ -94,23 +94,22 @@ export class WatermarkEngine {
         const ctx = canvas.getContext('2d');
         if (!ctx) throw new Error('Cannot get canvas context');
 
-        // Draw original image
         ctx.drawImage(image, 0, 0);
 
-        // Get image data
+        // extract the image data 
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
-        // Detect watermark configuration
+        // detect the watermark configuration in the image
         const config = detectWatermarkConfig(canvas.width, canvas.height);
         const position = calculateWatermarkPosition(canvas.width, canvas.height, config);
 
-        // Get alpha map
+        // get the alpha map
         const alphaMap = await this.getAlphaMap(config.logoSize);
 
-        // Remove watermark
+        // remoce the watermark
         removeWatermark(imageData, alphaMap, position);
 
-        // Write back to canvas
+        // return it back to the canvas
         ctx.putImageData(imageData, 0, 0);
 
         return canvas;
