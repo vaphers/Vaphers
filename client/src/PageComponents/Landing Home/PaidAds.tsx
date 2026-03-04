@@ -11,7 +11,7 @@ const HomePaidAds = () => {
           {/* Left Image */}
           <div className="relative w-full h-[400px] lg:h-[600px] rounded-2xl overflow-hidden shadow-2xl order-2 lg:order-1">
             <Image
-              src="https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772636628/Leading_paid_search_marketing_agency_owavgz.png"
               alt="Digital marketing analytics dashboard showing paid advertising campaign performance and ROI metrics"
               fill
               className="object-cover"
@@ -27,7 +27,7 @@ const HomePaidAds = () => {
                 Affordable Paid Ads Company
               </p>
             <h4 className="text-3xl md:text-4xl lg:text-5xl font-base text-center lg:text-start tracking-[-0.03em] text-gray-700 bungee-inline-regular">
-              Grow With An <span className="bg-blue-600 bg-clip-text text-transparent">Affordable Paid Ads Company</span>
+              Leading <span className="bg-blue-600 bg-clip-text text-transparent">paid search marketing agency </span>
             </h4>
             </div>
 

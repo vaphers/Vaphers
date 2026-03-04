@@ -10,6 +10,7 @@ const DmNeed: React.FC = () => {
     <section className="max-w-full bg-[#0b254f] lg:overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-16 pb-8 sm:pb-12 lg:pb-6">
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 sm:gap-10 lg:gap-35">
+          
           {/* Image */}
           <div className="w-full lg:w-1/2 flex justify-center">
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-none">
@@ -56,13 +57,14 @@ const DmNeed: React.FC = () => {
                   {' '}Web Design & Digital Marketing Agency
                 </span>
               </h2>
+
               <p className="text-sm sm:text-base lg:text-lg text-center lg:text-start text-blue-200 font-medium">
                 Helping Businesses Build, Market, and Scale Online
               </p>
             </div>
 
             <p className="text-sm sm:text-base lg:text-xl text-white leading-relaxed text-center lg:text-left">
-              Vaphers is a leading web design and digital marketing agency helping businesses establish a strong and reliable online presence. 
+              Vaphers is a leading web design, SaaS marketing agency, and SEM marketing agency helping businesses establish a strong and reliable online presence. 
               We deliver performance-focused websites through <a className='text-blue-200 underline' href="https://www.vaphers.com/seo-services">
               affordable web design for small business</a>, ensuring every site is fast, conversion-driven, and built for long-term growth. 
               Alongside this, our proven <a className='text-blue-200 underline' href="https://www.vaphers.com/seo-services">
@@ -78,6 +80,7 @@ const DmNeed: React.FC = () => {
                 </div>
               </div>
             </a>
+
           </div>
         </div>
       </div>

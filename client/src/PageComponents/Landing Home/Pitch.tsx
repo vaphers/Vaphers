@@ -79,7 +79,7 @@ const AiSection: React.FC = () => {
   }, [])
 
   return (
-    <div className="min-h-screen w-full bg-white relative">
+    <div className="min-h-screen w-full bg-white relative pt-10">
       <div
         className="absolute inset-0 z-0"
         style={{

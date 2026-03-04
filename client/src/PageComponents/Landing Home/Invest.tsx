@@ -6,7 +6,8 @@ import { motion, useScroll, useTransform, Variants } from 'framer-motion'
 import { TrendingUp } from 'lucide-react'
 import Link from 'next/link'
 
-const PatternBG = 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047483/PatternBG_kv4ubo.jpg'
+const PatternBG =
+  'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047483/PatternBG_kv4ubo.jpg'
 
 const floatingVariants: Variants = {
   animate: (custom: number) => ({
@@ -22,13 +23,17 @@ const floatingVariants: Variants = {
 
 const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(false)
+
   useEffect(() => {
     const mql = window.matchMedia('(max-width: 1024px)')
     const handleChange = () => setIsMobile(mql.matches)
+
     setIsMobile(mql.matches)
     mql.addEventListener('change', handleChange)
+
     return () => mql.removeEventListener('change', handleChange)
   }, [])
+
   return isMobile
 }
 
@@ -73,9 +78,10 @@ const Invest: React.FC = () => {
 
               <p className="text-sm sm:text-base lg:text-xl text-gray-700 leading-relaxed text-center lg:text-left break-words">
                 Vaphers helps businesses build a strong and reliable digital foundation that supports long-term growth.
-                From improving website structure and performance to aligning strategy with real user intent, we focus on
-                solutions that drive visibility, engagement, and consistent results. Every recommendation is guided by
-                data, experience, and a clear understanding of what your business needs to scale online.
+                As a franchise marketing agency and B2B SaaS SEO partner, we improve website structure, search visibility,
+                and performance while aligning strategy with real user intent. Our focus is on scalable solutions that
+                drive engagement, qualified traffic, and consistent results. Every recommendation is guided by data,
+                experience, and a clear understanding of what your business needs to grow online.
               </p>
             </div>
 
@@ -84,7 +90,7 @@ const Invest: React.FC = () => {
               <h4 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl text-center lg:text-start font-montserrat text-gray-700 mb-3 sm:mb-4 bungee-inline-regular break-words">
                 What
                 <span className="bg-blue-600 bg-clip-text text-transparent">
-                  {' '}Marketing 
+                  {' '}Marketing
                 </span> Can Do for You?
               </h4>
 
@@ -105,11 +111,13 @@ const Invest: React.FC = () => {
                 </div>
               </Link>
             </div>
+
           </motion.div>
 
           {/* Images */}
           <div className="w-full h-auto lg:w-1/2 flex justify-center items-center relative order-1 lg:order-2">
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-full">
+
               <Image
                 src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto,c_limit,w_600/v1761569143/Frame_1_s7kydx.png"
                 alt="Digital marketing platforms illustration"
@@ -120,6 +128,7 @@ const Invest: React.FC = () => {
               />
 
               <div className="absolute inset-0">
+
                 <motion.div
                   animate={{ x: [0, 10, 0], y: [0, 10, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
@@ -163,6 +172,7 @@ const Invest: React.FC = () => {
                     className="w-28 h-28 lg:w-44 lg:h-44 object-contain"
                   />
                 </motion.div>
+
               </div>
             </div>
           </div>

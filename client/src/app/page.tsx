@@ -9,7 +9,7 @@ import Result from "@/PageComponents/Landing Home/Results"
 import Grow from "@/PageComponents/Landing Home/Grow"
 import Need from "@/PageComponents/Landing Home/Need"
 import Banner from "@/PageComponents/Global Components/Banner"
-import Testimonial from '@/PageComponents/Global Components/Testimonial'
+import TestimonialSection from '@/PageComponents/Global Components/Testimonial'
 import DMvalue from '@/PageComponents/Landing Home/DMvalue'
 import Services from '@/PageComponents/Landing Home/Services'
 import WhyUs from '@/PageComponents/Global Components/WhyUs'
@@ -28,6 +28,9 @@ import Footer from '@/PageComponents/Global Components/Footer'
 import PricingComponent from '@/PageComponents/Global Components/Pricing'
 import PricingCalc from '@/PageComponents/Global Components/Pricing'
 import MarketingPriceCalculator from '@/PageComponents/Global Components/PriceCalc'
+import WebsiteSection from '@/PageComponents/Landing Home/WebsiteSection'
+import ImageComparisonSlider from '@/PageComponents/Landing Home/ImageComparison'
+
 
 const featuresList = [
   {
@@ -306,14 +309,17 @@ export default function Page() {
       <main>
         <NavBar/>
         <Hero />
-        <Pitch />
         <Result />
+        <ImageComparisonSlider/>
         <Grow/>
         <Need/>
         <Banner/>
-        <Testimonial/>
-        <DMvalue/>
-        <PortfolioMarquee images={portfolioImages}  />
+        {/* <Testimonial/> */}
+        <TestimonialSection/>
+        <Pitch />
+        {/* <DMvalue/> */}
+        <WebsiteSection />
+        {/* <PortfolioMarquee images={portfolioImages}  /> */}
         {/* Filler & Services */}
         <div className="min-h-screen w-full relative">
           <div
@@ -372,7 +378,6 @@ export default function Page() {
         </div>
         <Invest/>
         <HomePaidAds/>
-        <WhyUs/>
         <div className='pb-15'>
         <Stats />
         </div>
