@@ -1,9 +1,14 @@
-
 "use client"
 
 import React, { useState } from 'react';
 import { Upload } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+
+declare global {
+    interface Window {
+        gtag: (...args: any[]) => void;
+    }
+}
 
 interface UploadDropboxProps {
     onFilesSelected: (files: File[]) => void;
@@ -13,6 +18,16 @@ interface UploadDropboxProps {
 export function UploadDropbox({ onFilesSelected, onUploadClick }: UploadDropboxProps) {
     const [dragOver, setDragOver] = useState(false);
     const [dragCounter, setDragCounter] = useState(0);
+
+    // GA4 event helper
+    const trackEvent = (eventName: string, data?: Record<string, any>) => {
+        if (typeof window !== "undefined" && window.gtag) {
+            window.gtag("event", eventName, {
+                event_category: "watermark_tool",
+                ...data
+            });
+        }
+    };
 
     const handleDragEnter = (e: React.DragEvent) => {
         e.preventDefault();
@@ -47,14 +62,31 @@ export function UploadDropbox({ onFilesSelected, onUploadClick }: UploadDropboxP
         setDragCounter(0);
         
         if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+
+            // GA4 event → user uploaded image via drag/drop
+            trackEvent("image_upload", {
+                upload_method: "drag_drop",
+                file_count: e.dataTransfer.files.length
+            });
+
             onFilesSelected(Array.from(e.dataTransfer.files));
         }
+    };
+
+    const handleUploadClick = () => {
+
+        // GA4 event → user clicked upload box
+        trackEvent("upload_click", {
+            upload_method: "click"
+        });
+
+        onUploadClick();
     };
 
     return (
         <div className="w-full max-w-5xl mx-auto">
             <div
-                onClick={onUploadClick}
+                onClick={handleUploadClick}
                 onDragEnter={handleDragEnter}
                 onDragLeave={handleDragLeave}
                 onDragOver={handleDragOver}
@@ -69,7 +101,7 @@ export function UploadDropbox({ onFilesSelected, onUploadClick }: UploadDropboxP
                 `}
             >
                 <div className="flex flex-col items-center justify-center -space-y-2 pointer-events-none">
-                    {/* Custom Image - Increased size, pulling it closer to text with negative space */}
+                    
                     <div className={`
                         relative transition-all duration-500 ease-out z-10
                         ${dragOver ? 'scale-105' : 'hover:scale-[1.02]'}
@@ -82,7 +114,6 @@ export function UploadDropbox({ onFilesSelected, onUploadClick }: UploadDropboxP
                             draggable={false}
                         />
                         
-                        {/* Upload Icon Overlay on Drag */}
                         {dragOver && (
                             <div className="absolute inset-0 flex items-center justify-center">
                                 <div className="w-20 h-20 rounded-full bg-blue-600/90 backdrop-blur-sm shadow-2xl flex items-center justify-center">
@@ -92,7 +123,6 @@ export function UploadDropbox({ onFilesSelected, onUploadClick }: UploadDropboxP
                         )}
                     </div>
 
-                    {/* Text Content - Positioned slightly higher to overlap image margin */}
                     <div className="space-y-1 pb-6 relative z-20">
                         <p className="text-2xl font-semibold tracking-tight text-slate-800">
                             {dragOver ? (
@@ -112,7 +142,6 @@ export function UploadDropbox({ onFilesSelected, onUploadClick }: UploadDropboxP
                     </div>
                 </div>
 
-                {/* Decorative Elements - Subtle Glass Effect */}
                 <div className="absolute top-6 left-6 w-12 h-12 border-l border-t border-slate-200 rounded-tl-2xl pointer-events-none"></div>
                 <div className="absolute bottom-6 right-6 w-12 h-12 border-r border-b border-slate-200 rounded-br-2xl pointer-events-none"></div>
             </div>
