@@ -29,7 +29,7 @@ function Hero() {
   const isMobile = useIsMobile();
 
   return (
-    <div className="relative mx-auto mb-10 flex max-w-full flex-col items-center justify-center bg-gradient-to-b from-blue-950 via-blue-900 to-blue-600 lg:-mt-28 lg:pt-40 lg:mx-3 lg:rounded-4xl">
+    <div className="relative mx-auto mb-10 flex max-w-full flex-col items-center justify-center bg-gradient-to-b from-blue-950 via-blue-900 to-blue-600 lg:-mt-28 lg:pt-40 lg:pb-20 lg:mx-3 lg:rounded-4xl">
       <div className="mt-5"></div>
       <div className="border border-indigo-600 p-1 w-75 mx-auto rounded-full flex items-center justify-between mb-7">
         <span className="font-inter text-base font-medium text-gray-300 ml-3">
@@ -106,7 +106,7 @@ function Hero() {
             <div className="relative z-10 mt-20 rounded-3xl border border-neutral-300 bg-neutral-200 p-4 shadow-md dark:border-neutral-800 dark:bg-neutral-900">
               <div className="w-full overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700">
                 <Image
-                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761121505/aceternity-landing_ou3duw.webp"
+                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1770818890/ChatGPT_Image_Feb_11_2026_07_37_55_PM_q9spwb.png"
                   alt="Landing page preview"
                   className="aspect-[16/9] h-auto w-full object-cover"
                   height={1000}
@@ -146,7 +146,7 @@ function Hero() {
               </button>
             </motion.div>
             
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 1.2 }}
@@ -163,7 +163,7 @@ function Hero() {
                   priority
                 />
               </div>
-            </motion.div>
+            </motion.div> */}
           </>
         )}
       </div>

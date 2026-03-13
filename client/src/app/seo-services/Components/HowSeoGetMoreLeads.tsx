@@ -41,7 +41,7 @@ const useIsMobile = () => {
   return isMobile
 }
 
-const SeoLeads: React.FC = () => {
+const HowSeoGetsMoreLeads: React.FC = () => {
   const ref = useRef<HTMLElement | null>(null)
   const isMobile = useIsMobile()
 
@@ -52,18 +52,18 @@ const SeoLeads: React.FC = () => {
 
   const xLeft = useTransform(
     scrollYProgress,
-    [0, 0.5],
+    [0, 0.4],
     isMobile ? [0, 0] : [-200, 0]
   )
   const xRight = useTransform(
     scrollYProgress,
-    [0, 0.5],
+    [0, 0.4],
     isMobile ? [0, 0] : [200, 0]
   )
 
   const opacity = useTransform(
     scrollYProgress,
-    [0, 0.5],
+    [0, 0.2],
     isMobile ? [1, 1] : [0, 1]
   )
 
@@ -92,7 +92,7 @@ const SeoLeads: React.FC = () => {
               <h3 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-start font-montserrat text-gray-700 mb-3 sm:mb-4 lg:mb-5 bungee-inline-regular">
                 How{' '}
                 <span className="bg-blue-600 bg-clip-text text-transparent ">
-                  SEO Services
+                  Organic SEO Marketing
                 </span>{' '}
                 Generate More Leads?
               </h3>
@@ -102,28 +102,14 @@ const SeoLeads: React.FC = () => {
             </div>
 
             <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed text-center lg:text-left">
-              SEO generates qualified leads by positioning your business where potential customers are actively searching for solutions. Research shows that 57% of B2B businesses report getting more leads from search engines than any other channel. When prospects search for what you offer, a comprehensive{' '}
-              <a
-                href="https://www.vaphers.com/seo-services/seo-audit-services"
-                className="text-blue-700 underline hover:text-blue-800 font-medium"
-              >
-                SEO audit
-              </a>{' '}
-              identifies opportunities to capture this high-intent traffic, while{' '}
-              <a
-                href="https://www.vaphers.com/seo-services/technical-seo-services"
-                className="text-blue-700 underline hover:text-blue-800 font-medium"
-              >
-                technical optimization
-              </a>{' '}
-              ensures your site performs flawlessly when they arrive.
+              SEO generates qualified leads by positioning your business where potential customers are actively searching for solutions. Research shows that 57% of B2B businesses report getting more leads from search engines than any other channel. By investing in professional <strong>organic search engine optimization services</strong>, you can identify opportunities to capture this high-intent traffic and ensure your site performs flawlessly when users arrive.
             </p>
 
             <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed text-center lg:text-left">
               The power of SEO lies in targeting every stage of the customer journey. Educational content builds trust during the awareness phase, while optimized service pages convert ready-to-buy prospects. Modern{' '}
               <a
                 href="https://www.vaphers.com/seo-services/ai-seo-services"
-                className="text-blue-700 underline hover:text-blue-800 font-medium"
+                className="text-blue-700 underline hover:text-blue-800 font-medium transition-colors"
               >
                 AI-powered SEO strategies
               </a>{' '}
@@ -132,7 +118,7 @@ const SeoLeads: React.FC = () => {
 
             {/* button */}
             <div className="pt-4 sm:pt-6 lg:pt-5 pb-4 flex justify-center lg:justify-start">
-              <Link href="https://www.vaphers.com/seo-services/ai-seo-services">
+              <Link href="https://www.vaphers.com/contact">
                 <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
                   <span className="mr-2 sm:mr-3">Start Generating Leads Today</span>
                   <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
@@ -171,11 +157,11 @@ const SeoLeads: React.FC = () => {
                   className="absolute top-2 left-2 sm:top-4 sm:left-4 lg:top-8 lg:left-4 p-1 sm:p-2 lg:p-3"
                 >
                   <Image
-                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047482/google_jze9mq.png"
-                    alt="Google search visibility"
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761747776/Google-G-icon-favicon-PNG-large_lcye0c.png"
+                    alt="Google Logo"
                     width={80}
                     height={80}
-                    className="w-12 h-12 sm:w-10 sm:h-10 lg:w-16 lg:h-16 object-contain"
+                    className="w-12 h-12 sm:w-10 sm:h-10 lg:w-20 lg:h-20 object-contain"
                   />
                 </motion.div>
 
@@ -186,11 +172,11 @@ const SeoLeads: React.FC = () => {
                   className="absolute -top-2 right-2 sm:top-0 sm:right-4 lg:top-0 lg:right-0"
                 >
                   <Image
-                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047484/seo-rank_l7ekja.png"
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761747669/Rank_One_On_Google_v7q5as.png"
                     alt="Ranking growth indicator"
                     width={176}
                     height={176}
-                    className="w-24 h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain"
+                    className="w-24 h-24 sm:w-28 sm:h-28 lg:w-52 lg:h-52 object-contain"
                   />
                 </motion.div>
 
@@ -201,11 +187,11 @@ const SeoLeads: React.FC = () => {
                   className="absolute bottom-4 left-2 sm:bottom-8 sm:left-4 lg:bottom-8 lg:left-0"
                 >
                   <Image
-                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047474/competitor_co9leg.png"
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773322596/Competitor_Research_xucf3d.png"
                     alt="Competitive advantage in search results"
                     width={176}
                     height={176}
-                    className="w-24 h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain"
+                    className="w-24 h-24 sm:w-28 sm:h-28 lg:w-52 lg:h-52 object-contain"
                   />
                 </motion.div>
               </div>
@@ -217,4 +203,4 @@ const SeoLeads: React.FC = () => {
   )
 }
 
-export default SeoLeads
+export default HowSeoGetsMoreLeads

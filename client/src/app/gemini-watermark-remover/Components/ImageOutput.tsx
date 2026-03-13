@@ -3,6 +3,12 @@
 import React from "react";
 import { Download, RefreshCw } from "lucide-react";
 
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+  }
+}
+
 interface ImageItem {
   id: number;
   file: File;
@@ -32,6 +38,37 @@ export function ImageOutput({
   onDownloadAll,
   onReset,
 }: ImageOutputProps) {
+
+  const trackEvent = (eventName: string, data?: Record<string, any>) => {
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", eventName, {
+        event_category: "watermark_tool",
+        ...data
+      });
+    }
+  };
+
+  const handleDownload = (item: ImageItem) => {
+
+    // GA4 event
+    trackEvent("image_download", {
+      file_type: item.file.type,
+      file_size: item.file.size
+    });
+
+    onDownload(item);
+  };
+
+  const handleDownloadAll = () => {
+
+    // GA4 event
+    trackEvent("download_all_images", {
+      image_count: images.length
+    });
+
+    onDownloadAll();
+  };
+
   const formatFileSize = (bytes: number) => {
     if (bytes < 1024) return bytes + " B";
     if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + " KB";
@@ -60,27 +97,24 @@ export function ImageOutput({
           </div>
 
           <div className="flex gap-2 w-full sm:w-auto">
-            {/* Reset button */}
+
             <button
               type="button"
               onClick={onReset}
               className="inline-flex items-center justify-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-gray-100 transition-colors flex-1 sm:flex-none"
             >
               <RefreshCw className="w-4 h-4 sm:mr-2" />
-              <span className="hidden sm:inline">Reset</span>
-              <span className="sm:hidden">Reset</span>
+              Reset
             </button>
 
-            {/* Download all button */}
             {completedCount > 0 && (
               <button
                 type="button"
-                onClick={onDownloadAll}
+                onClick={handleDownloadAll}
                 className="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-500 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-600 transition-colors cursor-pointer flex-1 sm:flex-none"
               >
                 <Download className="w-4 h-4 sm:mr-2" />
-                <span className="hidden sm:inline">Download all images</span>
-                <span className="sm:hidden">Download All</span>
+                Download all images
               </button>
             )}
           </div>
@@ -89,91 +123,67 @@ export function ImageOutput({
 
       {/* Images List */}
       <div className="border border-gray-200 rounded-b-lg border-t-0">
-        <div className="p-0">
-          <div className="divide-y divide-gray-200">
-            {images.map((item) => (
-              <div
-                key={item.id}
-                className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3 sm:p-4 hover:bg-gray-50 transition-colors gap-3 sm:gap-0"
-              >
-                <div className="flex items-center gap-3 sm:gap-4 flex-1 w-full">
-                  {/* Thumbnail */}
-                  <div
-                    className="w-14 h-14 sm:w-12 sm:h-12 rounded-lg overflow-hidden flex-shrink-0 cursor-pointer border border-gray-200 hover:border-blue-400 transition-colors"
-                    onClick={() =>
-                      item.status === "completed" && onPreview(item)
-                    }
-                  >
-                    <img
-                      src={item.processedUrl || item.originalUrl || ""}
-                      alt={item.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+        <div className="divide-y divide-gray-200">
+          {images.map((item) => (
+            <div
+              key={item.id}
+              className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3 sm:p-4 hover:bg-gray-50 transition-colors gap-3 sm:gap-0"
+            >
 
-                  {/* File Info */}
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium text-sm sm:text-base text-gray-900 mb-1 truncate">
-                      {item.name}
-                    </p>
-                    <div className="flex items-center gap-2 flex-wrap">
-                      {/* Badge replacement */}
-                      <span className="inline-flex items-center rounded-full bg-blue-100 px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide text-blue-700">
-                        {item.file.type.split("/")[1]}
-                      </span>
-                      <span className="text-xs sm:text-sm text-gray-500">
-                        {formatFileSize(item.file.size)}
-                      </span>
-                    </div>
-                  </div>
+              <div className="flex items-center gap-3 sm:gap-4 flex-1 w-full">
+
+                <div
+                  className="w-14 h-14 sm:w-12 sm:h-12 rounded-lg overflow-hidden flex-shrink-0 cursor-pointer border border-gray-200 hover:border-blue-400 transition-colors"
+                  onClick={() =>
+                    item.status === "completed" && onPreview(item)
+                  }
+                >
+                  <img
+                    src={item.processedUrl || item.originalUrl || ""}
+                    alt={item.name}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
 
-                {/* Right Side - Status & Download */}
-                <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-4 w-full sm:w-auto pl-[3.75rem] sm:pl-0">
-                  {/* Status */}
-                  <div className="flex-1 sm:flex-none">
-                    {item.status === "completed" && (
-                      <div className="text-xs sm:text-sm font-medium text-green-600">
-                        Complete
-                      </div>
-                    )}
-
-                    {item.status === "processing" && (
-                      <div className="text-xs sm:text-sm font-medium text-orange-600">
-                        Processing...
-                      </div>
-                    )}
-
-                    {item.status === "pending" && (
-                      <div className="text-xs sm:text-sm font-medium text-gray-500">
-                        Pending
-                      </div>
-                    )}
-
-                    {item.status === "error" && (
-                      <div className="text-xs sm:text-sm font-medium text-red-600">
-                        Failed
-                      </div>
-                    )}
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium text-sm sm:text-base text-gray-900 mb-1 truncate">
+                    {item.name}
+                  </p>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="inline-flex items-center rounded-full bg-blue-100 px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide text-blue-700">
+                      {item.file.type.split("/")[1]}
+                    </span>
+                    <span className="text-xs sm:text-sm text-gray-500">
+                      {formatFileSize(item.file.size)}
+                    </span>
                   </div>
-
-                  {/* Download Button */}
-                  {item.status === "completed" && (
-                    <button
-                      type="button"
-                      onClick={() => onDownload(item)}
-                      className="inline-flex items-center justify-center rounded-md border-2 border-blue-500 px-2.5 py-1.5 text-xs sm:text-sm font-medium text-blue-600 hover:bg-blue-50 transition-colors"
-                    >
-                      <Download className="w-4 h-4 sm:mr-1" />
-                      <span className="hidden sm:inline">
-                        {item.file.type.split("/")[1].toUpperCase()}
-                      </span>
-                    </button>
-                  )}
                 </div>
               </div>
-            ))}
-          </div>
+
+              <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-4 w-full sm:w-auto pl-[3.75rem] sm:pl-0">
+
+                <div className="flex-1 sm:flex-none">
+                  {item.status === "completed" && (
+                    <div className="text-xs sm:text-sm font-medium text-green-600">
+                      Complete
+                    </div>
+                  )}
+                </div>
+
+                {item.status === "completed" && (
+                  <button
+                    type="button"
+                    onClick={() => handleDownload(item)}
+                    className="inline-flex items-center justify-center rounded-md border-2 border-blue-500 px-2.5 py-1.5 text-xs sm:text-sm font-medium text-blue-600 hover:bg-blue-50 transition-colors"
+                  >
+                    <Download className="w-4 h-4 sm:mr-1" />
+                    {item.file.type.split("/")[1].toUpperCase()}
+                  </button>
+                )}
+              </div>
+
+            </div>
+          ))}
         </div>
       </div>
     </div>
