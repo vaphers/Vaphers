@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useMemo } from 'react'
 import Script from 'next/script'
 import Lenis from '@studio-freight/lenis'
 import Hero from "@/PageComponents/Landing Home/Hero"
-import Pitch from "@/PageComponents/Landing Home/Pitch"
+import AiSeoSection from "@/PageComponents/Landing Home/AiSeoSection"
 import Result from "@/PageComponents/Landing Home/Results"
 import Grow from "@/PageComponents/Landing Home/Grow"
 import Need from "@/PageComponents/Landing Home/Need"
@@ -314,13 +314,9 @@ export default function Page() {
         <Grow/>
         <Need/>
         <Banner/>
-        {/* <Testimonial/> */}
         <TestimonialSection/>
-        <Pitch />
-        {/* <DMvalue/> */}
+        <AiSeoSection />
         <WebsiteSection />
-        {/* <PortfolioMarquee images={portfolioImages}  /> */}
-        {/* Filler & Services */}
         <div className="min-h-screen w-full relative">
           <div
             className="absolute inset-0 z-0"
@@ -430,11 +426,7 @@ export default function Page() {
               WebkitMaskComposite: "source-in",
             }}
           />
-          <div className="relative z-10">
-            <Faq />
-          </div>
-        </div>
-
+        </div>        
         <ContactForm />
         <Footer/>
       </main>

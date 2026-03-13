@@ -146,6 +146,10 @@
   font-style: normal;
 }
 
+.bungee-shade {
+  font-family: var(--font-bungee-shade), sans-serif;
+}
+
 p {
   font-family: sans-serif;
 }

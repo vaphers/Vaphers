@@ -33,12 +33,12 @@ export default function MarketingComparisonSection() {
   });
 
   return (
-    <section className="w-full py-10 px-4 md:px-8 bg-white font-sans overflow-hidden">
+    <section className="w-full py-10 px-4 md:px-8 bg-white font-sans overflow-hidden pb-20">
       <div className="w-full mx-auto flex flex-col items-center">
         
         {/* --- Header Section --- */}
         <div className="text-center  mb-12">
-            <h2 className="bungee-inline-regular text-3xl md:text-3xl lg:text-6xl font-extrabold text-gray-800 leading-tight tracking-tight">
+            <h2 className="bungee-inline-regular text-3xl md:text-3xl lg:text-6xl font-extrabold text-gray-700 leading-tight tracking-tight">
             Stop Tracking Meaningless Clicks And <br className="hidden md:block" />
             <span className="text-[#3b82f6]">Start Driving Real Business Revenue</span>
             </h2>

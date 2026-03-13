@@ -4,22 +4,13 @@ import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useMotionTemplate, useScroll, useTransform } from "framer-motion";
 
-const SECTION_HEIGHT_MOBILE = 600; 
-const SECTION_HEIGHT_DESKTOP = 1300; 
+// 1. Reduced scroll track heights to compress the whitespace
+const SECTION_HEIGHT_MOBILE = 450; 
+const SECTION_HEIGHT_DESKTOP = 900; 
 
 export default function SmoothScrollHero() {
   return (
     <div className="min-h-screen w-full bg-white relative">
-      {/* <div
-        className="absolute inset-0 z-0"
-        style={{
-          background: "#ffffff",
-          backgroundImage: "radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.35) 1px, transparent 0)",
-          backgroundSize: "20px 20px",
-        }}
-      /> */}
-      
-      {/* Content */}
       <div className="relative z-10">
         <Hero />
       </div>
@@ -79,7 +70,7 @@ const CenterImage = ({ progress }) => {
         filter: "brightness(1.1)",
       }}
     >
-      <div className="text-center text-blue-600 px-8 bungee-inline-regular">
+      <div className="text-center text-blue-600 px-8 bungee-shade">
         <h4 className="text-5xl sm:text-6xl md:text-9xl leading-none tracking-tight">
           We Give
         </h4>
@@ -92,7 +83,8 @@ const CenterImage = ({ progress }) => {
 };
 
 const ParallaxImages = ({ isMobile }) => (
-  <div className={`relative z-20 mx-auto max-w-5xl px-4 ${isMobile ? 'pt-[100px]' : 'pt-[200px]'}`}>
+  // 2. Reduced the initial top padding (pt-[50px] and pt-[100px])
+  <div className={`relative z-20 mx-auto max-w-5xl px-4 ${isMobile ? 'pt-[50px]' : 'pt-[100px]'}`}>
     <ParallaxImg
       src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1768565732/1uk1dfu3ch7g1_bgrvxu.jpg"
       alt="Google Search Console Dashboard"
@@ -102,12 +94,13 @@ const ParallaxImages = ({ isMobile }) => (
       width={600}
       height={338}
     />
+    {/* 3. Added negative top margins (-mt-8 md:-mt-16) to pull images closer together */}
     <ParallaxImg
       src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1768565732/0nsyv0pqrl0g1_obuapg.jpg"
       alt="Google Search Console Dashboard"
       start={isMobile ? 100 : 200}
       end={isMobile ? -125 : -250}
-      className="mx-auto w-2/3"
+      className="mx-auto w-2/3 -mt-8 md:-mt-16" 
       width={800}
       height={450}
     />
@@ -116,7 +109,7 @@ const ParallaxImages = ({ isMobile }) => (
       alt="Google Search Console Dashboard"
       start={isMobile ? -100 : -200}
       end={isMobile ? 100 : 200}
-      className="ml-auto w-3/4"
+      className="ml-auto w-3/4 -mt-8 md:-mt-16"
       width={900}
       height={506}
     />
@@ -125,7 +118,7 @@ const ParallaxImages = ({ isMobile }) => (
       alt="Google Search Console Dashboard"
       start={0}
       end={isMobile ? -250 : -500}
-      className="ml-24 w-7/12"
+      className="ml-24 w-7/12 -mt-8 md:-mt-16"
       width={700}
       height={394}
     />

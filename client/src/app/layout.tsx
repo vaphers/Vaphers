@@ -1,14 +1,23 @@
 import './globals.css'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import { Bungee_Inline } from 'next/font/google'
+import { Bungee_Inline, Bungee_Shade } from 'next/font/google'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { Toaster } from '@/components/ui/sonner'
 
+// Initialize Bungee Inline
 const bungeeInline = Bungee_Inline({
   weight: '400',
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-bungee-inline',
+})
+
+// Initialize Bungee Shade
+const bungeeShade = Bungee_Shade({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-bungee-shade',
 })
 
 export const metadata = {
@@ -67,8 +76,8 @@ export const metadata = {
 
   twitter: {
     card: 'summary_large_image',
-      title: 'Vaphers: Data-Driven SEO & Performance Marketing — America’s Top-Rated Growth Agency',
-      description:
+    title: 'Vaphers: Data-Driven SEO & Performance Marketing — America’s Top-Rated Growth Agency',
+    description:
       'We don’t just rank keywords; we scale businesses. By merging elite frontend engineering with precision SEO strategies, Vaphers helps brands dominate search results and achieve measurable, 4x revenue growth through technical excellence and aggressive digital marketing..',
     images: [
       'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047482/vaphers-og-image.png',
@@ -94,7 +103,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={bungeeInline.variable}>
+    <html 
+      lang="en" 
+      className={`${bungeeInline.variable} ${bungeeShade.variable}`}
+    >
       <head>
         <meta
           name="google-site-verification"
@@ -115,6 +127,3 @@ export default function RootLayout({
     </html>
   )
 }
-
-
-// gg
