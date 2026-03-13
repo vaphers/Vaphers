@@ -86,7 +86,7 @@ const WhyVaphers: FC = () => {
         {/* Top Layout: Heading (Left) & Text (Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 mb-20">
           <motion.div variants={textVariants} className="lg:col-span-5">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl text-blue-950 tracking-tight font-medium bungee-inline-regular">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl text-blue-950 tracking-tight font-medium bungee-shade">
               Why <span className="text-blue-600">Vaphers?</span>
             </h2>
           </motion.div>

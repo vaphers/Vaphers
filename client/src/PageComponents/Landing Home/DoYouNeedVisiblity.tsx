@@ -20,10 +20,10 @@ const DoYouNeedSEO: React.FC = () => {
         top-0 -left-0 w-[200px] 
         md:top-8 md:left-0 md:w-[150px] 
         lg:top-4 lg:left-4 lg:w-[350px]
-        xl:top-3 xl:left-40 xl:w-[400px]
+        xl:top-3 xl:left-20 xl:w-[500px]
       ">
         <Image
-          src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773253899/Just-Sold-Seo-To-This-Guy_3_a8ljhs.png"
+          src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773389206/Sold_marketing_package_to_this_guy_xu88vg.png"
           alt="Decoration Top Left"
           width={500} 
           height={500}
@@ -71,10 +71,10 @@ const DoYouNeedSEO: React.FC = () => {
           {/* Content Right */}
           <div className="lg:col-span-6 w-full space-y-4 sm:space-y-6 pb-8 sm:pb-12 lg:pb-16">
             <div>
-              <h3 className="text-4xl sm:text-3xl md:text-4xl lg:text-4xl text-center lg:text-start text-gray-200 mb-3 sm:mb-4 lg:mb-5 leading-tight bungee-inline-regular">
+              <h3 className="text-4xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-start text-gray-200 mb-3 sm:mb-4 lg:mb-5 leading-tight bungee-inline-regular">
                 Do You Even Need{' '}
                 <span className="bg-blue-400 bg-clip-text text-transparent">
-                 Organic SEO Marketing?
+                 Visibility?
                 </span>
               </h3>
               <p className="text-sm sm:text-base lg:text-lg text-center lg:text-start text-blue-200 font-medium">
@@ -97,17 +97,16 @@ const DoYouNeedSEO: React.FC = () => {
               >
                 <strong>effective lead generation</strong>
               </a>
-              . Unlike paid ads that vanish when your budget runs out, investing in <strong>affordable seo marketing</strong> creates a compounding digital asset that continuously attracts qualified traffic and drives sustainable revenue.
+              . Unlike paid ads that vanish when your budget runs out, investing in <strong>organic search visibility</strong> creates a compounding digital asset that continuously attracts qualified traffic and drives sustainable revenue.
             </p>
 
             {/* Button */}
             <div className="pt-4 sm:pt-4 lg:pb-4 flex justify-center lg:justify-start">
-              <Link href={"https://www.vaphers.com/contact"}>
-                <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
-                  <span className="mr-2 sm:mr-3">Start Your SEO Journey</span>
-                  <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                </div>
-              </Link>
+          <Link href="/contact" className="w-60">
+            <button className="w-full rounded-lg bg-blue-600 px-6 py-2.5 font-medium text-white transition-colors hover:bg-blue-800 cursor-pointer">
+              Wanna Get On a Call?
+            </button>
+          </Link>
             </div>
           </div>
           

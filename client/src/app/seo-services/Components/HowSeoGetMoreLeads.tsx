@@ -89,9 +89,9 @@ const HowSeoGetsMoreLeads: React.FC = () => {
             className="w-full lg:w-2/3 space-y-4 sm:space-y-6"
           >
             <div>
-              <h3 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-start font-montserrat text-gray-700 mb-3 sm:mb-4 lg:mb-5 bungee-inline-regular">
+              <h3 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-start font-montserrat text-gray-900 mb-3 sm:mb-4 lg:mb-5 bungee-shade">
                 How{' '}
-                <span className="bg-blue-600 bg-clip-text text-transparent ">
+                <span className="bg-blue-700 bg-clip-text text-transparent ">
                   Organic SEO Marketing
                 </span>{' '}
                 Generate More Leads?

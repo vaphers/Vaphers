@@ -9,9 +9,9 @@ export default function HealthcarePartnerSection() {
         {/* LEFT COLUMN (70%) */}
         <div>
           {/* Heading & Subtitle */}
-          <h3 className="text-5xl lg:text-5xl font-serif text-[#2b301f] leading-tight mb-4 bungee-inline-regular">
+          <h3 className="text-5xl lg:text-5xl font-serif text-gray-900 leading-tight mb-4 bungee-shade">
             Your trusted partner <br className="hidden sm:block" />
-            in <span className="text-blue-600 ">digital growth</span>
+            in <span className="text-blue-700 ">digital growth</span>
           </h3>
           <p className="text-xl text-gray-800 mb-6">
             Take control, make scaling your goal

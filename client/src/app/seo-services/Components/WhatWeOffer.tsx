@@ -35,8 +35,8 @@ export default function WhatWeOffer() {
       <div className="max-w-[1400px] mx-auto">
         
         {/* Section Heading */}
-        <h3 className="text-4xl md:text-6xl font-medium tracking-tight text-gray-800 mb-16 lg:mb-16 bungee-inline-regular">
-          What You Get At <span className='text-blue-600'>Vaphers?</span>
+        <h3 className="text-4xl md:text-6xl font-medium tracking-tight text-gray-900 mb-16 lg:mb-16 bungee-shade">
+          What You Get At <span className='text-blue-700'>Vaphers?</span>
         </h3>
 
         {/* Staggered Grid Layout */}

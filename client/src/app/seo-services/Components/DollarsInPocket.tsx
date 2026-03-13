@@ -44,8 +44,8 @@ export default function DollarsInPocket() {
         
         {/* Top Half: Heading & Text */}
         <div className="mb-1 lg:pl-12">
-          <h2 className="text-4xl md:text-6xl text-gray-700 mb-6 leading-[1.15] bungee-inline-regular">
-            SEO that brings <span className='text-blue-600'>dollars in your pocket!</span>
+          <h2 className="text-4xl md:text-5xl text-gray-900 mb-6 leading-[1.15] bungee-shade">
+            SEO that brings <span className='text-blue-700'>dollars in your pocket!</span>
           </h2>
           <p className="text-gray-600 text-[17px] leading-relaxed">
             We believe that your digital presence should be a powerful growth engine. Through tailored organic seo services, we help brands build lasting visibility. As a specialized b2b saas seo agency, our commitment to high-performance strategies and seamless execution ensures that every click translates into tangible results, especially when capturing high-intent audiences in the US market.

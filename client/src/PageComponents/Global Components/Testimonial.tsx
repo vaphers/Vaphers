@@ -83,25 +83,23 @@ export default function SocialProofSection() {
       
       {/* Header Section */}
       <div className="text-center max-w-4xl mx-auto px-4 mb-16">
-        <h3 className="text-4xl md:text-6xl bungee-shade text-slate-800 mb-4">
-          <span className="text-blue-600">Social proof?</span> Here.
+        <h3 className="text-4xl md:text-6xl bungee-shade text-slate-900 mb-4">
+          <span className="text-blue-700">Social proof?</span> Here.
         </h3>
         <p className="text-slate-600 text-base md:text-lg mb-8 max-w-2xl mx-auto">
           From SaaS startups to non-profits. 210+ happy clients. Still counting.
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md mx-auto sm:max-w-none">
-          <Link 
-            href="/contact" 
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-medium transition-colors w-full sm:w-auto shadow-sm text-center cursor-pointer"
-          >
-            Book a call
+          <Link href="/contact" className="w-60">
+            <button className="w-full rounded-lg bg-blue-600 px-6 py-2.5 font-medium text-white transition-colors hover:bg-blue-800 cursor-pointer">
+              Book a Call
+            </button>
           </Link>
-          <Link 
-            href="mailto:vaphersonline@gmail.com"
-            className="bg-white/60 hover:bg-white/90 backdrop-blur-sm text-blue-900 border border-blue-100 px-6 py-3 rounded-full font-medium transition-colors w-full sm:w-auto shadow-sm text-center cursor-pointer"
-          >
-            Prefer writing instead? Email us.
+          <Link href="mailto:vaphersonline@gmail.com" className="w-90">
+            <button className="w-full rounded-lg bg-blue-600 px-12 py-2.5 font-medium text-white transition-colors hover:bg-blue-800 cursor-pointer">
+              Prefer writing instead? Email us.
+            </button>
           </Link>
         </div>
       </div>

@@ -116,7 +116,7 @@ const DesignPartnerSection = () => {
                 <div>
                 <h3 className="text-3xl md:text-4xl lg:text-5xl text-center lg:text-left font-sans text-gray-900 mb-4 bungee-shade">
                     We Design
-                    <span className="bg-blue-600 bg-clip-text text-transparent block sm:inline">
+                    <span className="bg-blue-700 bg-clip-text text-transparent block sm:inline">
                     {' '}Conversion-Driven Websites
                     </span>
                 </h3>

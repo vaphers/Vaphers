@@ -38,9 +38,9 @@ export default function MarketingComparisonSection() {
         
         {/* --- Header Section --- */}
         <div className="text-center  mb-12">
-            <h2 className="bungee-inline-regular text-3xl md:text-3xl lg:text-6xl font-extrabold text-gray-700 leading-tight tracking-tight">
+            <h2 className="bungee-shade text-3xl md:text-3xl lg:text-6xl text-gray-900 leading-tight tracking-tight">
             Stop Tracking Meaningless Clicks And <br className="hidden md:block" />
-            <span className="text-[#3b82f6]">Start Driving Real Business Revenue</span>
+            <span className="text-blue-700">Start Driving Real Business Revenue</span>
             </h2>
             <p className="mt-6 text-base md:text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
             Most search engine marketing companies show you charts of website visitors. We show you the actual money those visitors generated. Partnering with Vaphers ensures <strong className="text-gray-900 font-semibold">every marketing dollar you spend is tracked directly back to your bottom line.</strong>

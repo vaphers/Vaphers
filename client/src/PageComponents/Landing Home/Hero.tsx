@@ -7,18 +7,18 @@ function Hero() {
       <div className="mt-5"></div>
 
       {/* Top pill */}
-      <div className="border border-indigo-600 p-1 w-75 mx-auto rounded-full flex items-center justify-between mb-7">
+      <div className="border border-blue-600 p-1 w-75 mx-auto rounded-full flex items-center justify-between mb-7">
         <span className="font-inter text-base font-medium text-gray-300 ml-3">
           Explore how to use for brands.
         </span>
         <Link
           href="/about-us"
-          className="w-8 h-8 rounded-full flex justify-center items-center bg-indigo-600"
+          className="w-8 h-8 rounded-full flex justify-center items-center bg-blue-600"
           aria-label="Learn more about Vaphers"
         >
           <svg
             width="17"
-            height="16"
+            height="17"
             viewBox="0 0 17 16"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -48,13 +48,13 @@ function Hero() {
         {/* Buttons */}
         <div className="relative z-10 mt-8 flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4 w-full">
           <Link href="/seo-services" className="w-60">
-            <button className="w-full rounded-lg bg-blue-600 px-6 py-2.5 font-medium text-white transition-colors hover:bg-blue-800">
-              Explore Now
+            <button className="w-full rounded-lg bg-blue-600 px-6 py-2.5 font-medium text-white transition-colors hover:bg-blue-800 cursor-pointer">
+              Not Sure Where to Start?
             </button>
           </Link>
           <Link href="/contact" className="w-60">
-            <button className="w-full rounded-lg border border-blue-600 bg-white px-6 py-2.5 font-medium text-blue-600 transition-colors hover:bg-gray-50">
-              Contact Support
+            <button className="w-full rounded-lg border border-blue-600 bg-white px-6 py-2.5 font-medium text-blue-600 transition-colors hover:bg-gray-50 cursor-pointer">
+              Get a Proposal
             </button>
           </Link>
         </div>

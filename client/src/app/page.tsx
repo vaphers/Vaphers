@@ -7,29 +7,24 @@ import Hero from "@/PageComponents/Landing Home/Hero"
 import AiSeoSection from "@/PageComponents/Landing Home/AiSeoSection"
 import Result from "@/PageComponents/Landing Home/Results"
 import Grow from "@/PageComponents/Landing Home/Grow"
-import Need from "@/PageComponents/Landing Home/Need"
+import Need from "@/PageComponents/Landing Home/DoYouNeedVisiblity"
 import Banner from "@/PageComponents/Global Components/Banner"
 import TestimonialSection from '@/PageComponents/Global Components/Testimonial'
-import DMvalue from '@/PageComponents/Landing Home/DMvalue'
 import Services from '@/PageComponents/Landing Home/Services'
-import WhyUs from '@/PageComponents/Global Components/WhyUs'
 import Stats from '@/PageComponents/Global Components/Stats'
 import BannerMarqee from '@/PageComponents/Landing Home/BannerMarqee'
 import Invest from '@/PageComponents/Landing Home/Invest'
-import Faq from '@/PageComponents/Landing Home/Faq'
 import ContactForm from '@/PageComponents/Global Components/Contact'
-import { PortfolioMarquee } from '@/PageComponents/Global Components/ImageMarqee'
-
 import { Search, Target, Facebook, Globe, BrainCircuit, Smartphone } from 'lucide-react'
 import HomeFiller from '@/PageComponents/Landing Home/FillerSection'
 import HomePaidAds from '@/PageComponents/Landing Home/PaidAds'
 import NavBar from '@/PageComponents/Global Components/Header'
-import Footer from '@/PageComponents/Global Components/Footer'
-import PricingComponent from '@/PageComponents/Global Components/Pricing'
-import PricingCalc from '@/PageComponents/Global Components/Pricing'
 import MarketingPriceCalculator from '@/PageComponents/Global Components/PriceCalc'
 import WebsiteSection from '@/PageComponents/Landing Home/WebsiteSection'
 import ImageComparisonSlider from '@/PageComponents/Landing Home/ImageComparison'
+import InternaionalSEO from '@/PageComponents/Landing Home/InternationalSEO'
+import Footer from '@/PageComponents/Global Components/Footer'
+import MarketingStagesSection from '@/PageComponents/Landing Home/MarketingStages'
 
 
 const featuresList = [
@@ -95,38 +90,6 @@ const featuresList = [
   },
 ]
 
-const portfolioImages = [
-  {
-    id: '1',
-    src: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_60,c_limit,w_1200/v1762166010/FixItNow_fbpzfx.png',
-    alt: 'Website Design 1',
-    title: 'E-Commerce Platform',
-  },
-  {
-    id: '2',
-    src: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_60,c_limit,w_1200/v1762166006/Interio_gqpsbc.png',
-    alt: 'Website Design 2',
-    title: 'SaaS Dashboard',
-  },
-  {
-    id: '3',
-    src: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_60,c_limit,w_1200/v1762166003/Trivaa_jvqmzk.png',
-    alt: 'Website Design 3',
-    title: 'Corporate Website',
-  },
-  {
-    id: '4',
-    src: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_60,c_limit,w_1200/v1762166001/Verzon_owqvnt.png',
-    alt: 'Website Design 4',
-    title: 'Mobile App UI',
-  },
-  {
-    id: '5',
-    src: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_60,c_limit,w_1200/v1762165991/Dravii_Lifestyles_1_jcavgn.png',
-    alt: 'Website Design 5',
-    title: 'Fitness Landing Page',
-  },
-]
 
 // Organization Schema Data
 const organizationSchemaData = {
@@ -311,9 +274,9 @@ export default function Page() {
         <Hero />
         <Result />
         <ImageComparisonSlider/>
-        <Grow/>
+        <InternaionalSEO/>
         <Need/>
-        <Banner/>
+        <MarketingStagesSection/>
         <TestimonialSection/>
         <AiSeoSection />
         <WebsiteSection />
