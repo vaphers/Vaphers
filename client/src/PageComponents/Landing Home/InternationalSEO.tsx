@@ -9,9 +9,9 @@ export default function InternaionalSEO() {
         
         {/* Top Row: Heading */}
         <div className="flex flex-col lg:flex-row justify-between items-start mb-16 lg:mb-24 gap-6 lg:gap-16">
-          <h2 className="text-xl md:text-6xl font-medium bungee-shade text-blue-700 lg:w-1/3 shrink-0">
+          <h3 className="text-xl md:text-6xl font-medium bungee-shade text-blue-700 lg:w-1/3 shrink-0">
             V<span className="text-gray-900 md:text-5xl">aphers</span>
-          </h2>
+          </h3>
           <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-medium leading-[1.1] tracking-tight lg:w-2/3">
             We blend data-driven strategies with modern innovation to deliver <span className="text-blue-600">global SEO services</span> that empower your brand worldwide.
           </h3>

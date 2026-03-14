@@ -1,125 +1,244 @@
-'use client'
+"use client";
 
-import type { ComponentType } from 'react'
-import { useState, useEffect } from 'react'
+import React, { useState } from "react";
+import { motion, AnimatePresence, Variants } from "framer-motion";
+import { ArrowLeft, ArrowRight, ArrowDownRight } from "lucide-react";
 
-import { ArrowRightIcon } from 'lucide-react'
-import { motion, Variants } from 'framer-motion'
+// Types
+interface Service {
+  id: string;
+  title: string;
+  description: string;
+  color: string;
+  imageUrl: string;
+}
 
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
+// Your Specific Services Array
+const services: Service[] = [
+  {
+    id: "01",
+    title: "SEARCH ENGINE OPTIMIZATION",
+    description:
+      "Command the top positions in search. We engineer SEO strategies that transform visibility into compounding organic revenue. From resolving complex technical hurdles to building unshakeable topical authority, we secure the rankings that drive sustainable, high-intent traffic to your brand.",
+    color: "#2A59A3", 
+    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773481288/search-engine-optimization-Vaphers_w89yqk.jpg",
+  },
+  {
+    id: "02",
+    title: "LOCAL SEARCH OPTIMIZATION",
+    description:
+      "Dominate your immediate market. We optimize your local digital footprint—from Google Business Profiles to hyper-local citations—ensuring Vaphers clients capture the 'near me' searches that drive high-intent foot traffic and inbound calls.",
+    color: "#2A59A3", 
+    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773481288/Local-Search-Optimization-Vaphers_fe4gtt.jpg",
+  },
+  {
+    id: "03",
+    title: "LLM & AI SEO",
+    description:
+      "Future-proof your digital footprint. We optimize your content architecture to be naturally sourced and cited by leading generative AI assistants like ChatGPT and Gemini. By mastering entity association, we ensure your brand remains the absolute authority in the new era of AI-driven search.",
+    color: "#2A59A3", 
+    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773481289/LLM-AI-SEO-Vaphers_vamwj8.jpg",
+  },
+  {
+    id: "04",
+    title: "WEBSITE DESIGN & DEVELOPMENT",
+    description:
+      "Craft digital experiences that relentlessly convert. We merge intuitive user journeys with striking, modern aesthetics to build platforms that serve as your ultimate growth engine. Our web architecture guarantees blazing-fast load times, seamless responsiveness, and flawless user retention.",
+    color: "#2A59A3", 
+    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773481289/WebsiteDesignServices_-_Vaphers_a6rb3g.jpg",
+  },
+  {
+    id: "05",
+    title: "GOOGLE ADS MANAGEMENT",
+    description:
+      "Maximize your ROI with precision-targeted search campaigns. We optimize complex bidding strategies, construct compelling ad copy, and refine landing page experiences to ensure you appear exactly when customers are searching—turning every ad dollar into measurable, bottom-line revenue growth.",
+    color: "#2A59A3", 
+    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773481289/Google-Ads-Management-Vaphers_dlxpyw.jpg",
+  },
+  {
+    id: "06",
+    title: "META ADS MANAGEMENT",
+    description:
+      "Engage and convert at scale across social platforms. We deploy scroll-stopping, data-driven creatives and leverage advanced machine learning audience targeting to aggressively scale your revenue on Facebook and Instagram, turning passive social scrollers into loyal, high-value customers.",
+    color: "#2A59A3", 
+    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773482014/Meta-Ads-Management-Vaphers_ehf9k6.jpg",
+  },
+];
 
-import { cn } from '@/lib/utils'
+export default function ServicesShowcase() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
 
-type Features = {
-  icon: ComponentType
-  title: string
-  description: string
-  cardBorderColor: string
-  avatarTextColor: string
-  avatarBgColor: string
-  link: string
-}[]
+  const activeService = services[currentIndex];
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.1,
+  const paginate = (newDirection: number) => {
+    setDirection(newDirection);
+    setCurrentIndex((prevIndex) => {
+      let nextIndex = prevIndex + newDirection;
+      if (nextIndex < 0) nextIndex = services.length - 1;
+      if (nextIndex >= services.length) nextIndex = 0;
+      return nextIndex;
+    });
+  };
+
+  const slideVariants: Variants = {
+    enter: (direction: number) => ({
+      y: direction > 0 ? 30 : -30,
+      opacity: 0,
+    }),
+    center: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.5, ease: [0.32, 0.72, 0, 1] },
     },
-  },
-}
-
-const cardVariants: Variants = {
-  hidden: { 
-    opacity: 0, 
-    y: 50 
-  },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: 'easeOut',
-    },
-  },
-}
-
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const mql = window.matchMedia('(max-width: 1024px)')
-    
-    const handleChange = () => {
-      setIsMobile(mql.matches)
-    }
-    
-    setIsMobile(mql.matches)
-    mql.addEventListener('change', handleChange)
-    
-    return () => mql.removeEventListener('change', handleChange)
-  }, [])
-
-  return isMobile
-}
-
-const Services = ({ featuresList }: { featuresList: Features }) => {
-  const isMobile = useIsMobile()
+    exit: (direction: number) => ({
+      y: direction < 0 ? 30 : -30,
+      opacity: 0,
+      transition: { duration: 0.3, ease: [0.32, 0.72, 0, 1] },
+    }),
+  };
 
   return (
-    <section className='min-h-screen py-8 sm:py-16 lg:py-16'>
-      <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
-        {/* Header */}
-        <div className='mb-3 space-y-4 sm:mb-4 lg:mb-8'>
-          <h3 className="text-4xl sm:text-3xl md:text-4xl lg:text-6xl text-center font-montserrat text-gray-700 mb-3 sm:mb-4 lg:mb-5 bungee-inline-regular">
-            Discover Affordable <br/>{' '}
-            <span className="bg-blue-600 bg-clip-text text-transparent">
-              Digital Marketing Services
+    <section className="relative w-full min-h-screen bg-[#fcfcfc] flex flex-col items-center py-10 lg:py-20 overflow-hidden font-sans">
+      
+      {/* 1. TOP THUMBNAILS NAVIGATION */}
+      <div className="relative z-20 flex md:justify-center gap-4 md:gap-6 mb-12 md:mb-24 px-6 overflow-x-auto pb-6 max-w-5xl mx-auto scrollbar-hide snap-x snap-mandatory w-full">
+        {services.map((service, index) => {
+          const isActive = index === currentIndex;
+          return (
+            <button
+              key={service.id}
+              onClick={() => {
+                setDirection(index > currentIndex ? 1 : -1);
+                setCurrentIndex(index);
+              }}
+              className={`relative flex-shrink-0 w-24 h-32 md:w-24 md:h-32 bg-white p-1.5 rounded-sm transition-all duration-300 focus:outline-none flex flex-col items-center justify-center snap-center ${
+                isActive ? "shadow-md scale-105 md:scale-110 z-10" : "shadow-sm scale-100 opacity-60 hover:opacity-100"
+              }`}
+            >
+              <div 
+                className="w-full h-full relative overflow-hidden flex flex-col p-2"
+                style={{ backgroundColor: service.color }}
+              >
+                <span className="text-white/60 text-[8px] uppercase tracking-wider mb-1 block w-full text-left">
+                   #0{index + 1}
+                </span>
+                <span className="text-white font-sans text-[9px] font-semibold leading-tight text-left break-words line-clamp-3">
+                  {service.title}
+                </span>
+                <div className="absolute bottom-0 right-0 w-full h-[40%]">
+                   <img src={service.imageUrl} alt="" className="w-full h-full object-cover opacity-90" />
+                </div>
+              </div>
+              {isActive && (
+                <motion.div
+                  layoutId="active-thumbnail-outline"
+                  className="absolute inset-0 border border-gray-400 rounded-sm pointer-events-none"
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                />
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* 2. MAIN CONTENT AREA */}
+      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 flex items-center justify-center min-h-[550px] md:min-h-[700px]">
+        
+        {/* Giant Background Letters */}
+        <div className="absolute inset-0 flex justify-between items-center pointer-events-none z-0 overflow-hidden w-full px-2 md:px-8 opacity-40">
+          {['V', 'A', 'P', 'H', 'E', 'R', 'S'].map((letter, index) => (
+            <span 
+              key={index} 
+              className="text-[14vw] md:text-[12vw] text-[#cfccc9] bungee-shade leading-none select-none"
+            >
+              {letter}
             </span>
-          </h3>
-          <p className='text-muted-foreground text-xl'>
-            Explore key features designed to enhance your shopping experience with intuitive navigation, robust
-            security, and seamless functionality.
-          </p>
+          ))}
         </div>
 
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          animate={isMobile ? "visible" : undefined}
-          whileInView={isMobile ? undefined : "visible"}
-          viewport={isMobile ? undefined : { once: true, amount: 0.3, margin: "0px" }}
-          className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3'
+        {/* Global Left Nav Arrow (Desktop) */}
+        <button
+          onClick={() => paginate(-1)}
+          className="absolute left-2 lg:left-32 z-30 p-3 rounded-full border border-gray-400 bg-white/50 backdrop-blur-sm hover:bg-white transition-colors text-gray-600 focus:outline-none hidden md:flex"
         >
-          {featuresList.map((features, index) => (
-            <motion.div key={index} variants={cardVariants}>
-              <Card className={cn('shadow-none transition-colors duration-300', features.cardBorderColor)}>
-                <CardContent>
-                  <Avatar className={cn('mb-6 size-10 rounded-md', features.avatarTextColor)}>
-                    <AvatarFallback className={cn('rounded-md [&>svg]:size-6', features.avatarBgColor)}>
-                      <features.icon />
-                    </AvatarFallback>
-                  </Avatar>
-                  <h6 className='mb-2 text-lg font-semibold'>{features.title}</h6>
-                  <p className='text-muted-foreground'>{features.description}</p>
-                  <Button variant='outline' className='mt-4 rounded-lg text-base shadow-none has-[>svg]:px-4' size='sm' asChild>
-                    <a href={features.link}>
-                      Learn More
-                      <ArrowRightIcon />
-                    </a>
-                  </Button>
-                </CardContent>
-              </Card>
+          <ArrowLeft size={20} strokeWidth={1} />
+        </button>
+
+        {/* The Animating Main Container */}
+        <div className="relative w-full max-w-5xl h-auto md:h-[650px]">
+          <AnimatePresence initial={false} custom={direction} mode="wait">
+            <motion.div
+              key={currentIndex}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              className="relative w-full h-auto md:absolute md:inset-0 md:h-full flex flex-col md:block shadow-xl md:shadow-none rounded-xl md:rounded-none overflow-hidden md:overflow-visible"
+            >
+              
+              {/* IMAGE SIDE (Right) - Adjusted width and right margin for perfect centering */}
+              <div className="relative md:absolute md:right-[5%] md:top-1/2 md:-translate-y-1/2 w-full md:w-[50%] h-[350px] md:h-[650px] z-0 overflow-hidden">
+                <img
+                  src={activeService.imageUrl}
+                  alt={activeService.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* TEXT SIDE (Left) - Adjusted width and left margin for perfect centering */}
+              <div
+                className="relative md:absolute md:left-[5%] md:top-1/2 md:-translate-y-1/2 w-full md:w-[48%] h-auto md:h-[700px] p-8 md:p-10 lg:p-14 flex flex-col justify-center text-white z-10 md:[-webkit-mask-image:radial-gradient(circle_at_100%_50%,transparent_65px,black_66px)] md:[mask-image:radial-gradient(circle_at_100%_50%,transparent_65px,black_66px)] md:drop-shadow-[5px_15px_25px_rgba(0,0,0,0.15)]"
+                style={{ backgroundColor: activeService.color }}
+              >
+                <div className="inline-block border border-white/50 rounded-full px-4 py-1 text-xs md:text-sm tracking-wide w-max mb-6">
+                  Service {activeService.id}
+                </div>
+                
+                <h3 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-sans font-bold tracking-tight leading-[1.15] mb-6 md:mb-8">
+                  {activeService.title}
+                </h3>
+                
+                <p className="text-white/90 leading-relaxed mb-10 md:mb-12 text-sm sm:text-base font-light">
+                  {activeService.description}
+                  <br /><br className="hidden md:block" />
+                  <span className="opacity-80 hidden md:block text-sm">
+                    - At Vaphers, every service we offer is designed to transform
+                  </span>
+                </p>
+                
+                <div className="flex items-center justify-between mt-auto">
+                  <button className="flex items-center gap-2 md:gap-3 border border-white/60 rounded-full px-5 py-2 md:px-6 md:py-2.5 w-max hover:bg-white hover:text-black transition-all group">
+                    <span className="text-xs md:text-sm tracking-wide font-light">Know More</span>
+                    <ArrowDownRight size={16} strokeWidth={1} className="group-hover:rotate-[-45deg] transition-transform" />
+                  </button>
+
+                  {/* Mobile Nav Arrows */}
+                  <div className="flex gap-2 md:hidden">
+                    <button onClick={() => paginate(-1)} className="p-2.5 rounded-full border border-white/40 hover:bg-white/10 transition-colors">
+                      <ArrowLeft size={16} />
+                    </button>
+                    <button onClick={() => paginate(1)} className="p-2.5 rounded-full border border-white/40 hover:bg-white/10 transition-colors">
+                      <ArrowRight size={16} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
             </motion.div>
-          ))}
-        </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Global Right Nav Arrow (Desktop) */}
+        <button
+          onClick={() => paginate(1)}
+          className="absolute right-2 lg:right-32 z-30 p-3 rounded-full border border-gray-400 bg-white/50 backdrop-blur-sm hover:bg-white transition-colors text-gray-600 focus:outline-none hidden md:flex"
+        >
+          <ArrowRight size={20} strokeWidth={1} />
+        </button>
+
       </div>
     </section>
-  )
+  );
 }
-
-export default Services

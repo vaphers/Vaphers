@@ -16,7 +16,6 @@ import WhyUs from '@/PageComponents/Global Components/WhyUs'
 import Stats from '@/PageComponents/Global Components/Stats'
 import BannerMarqee from '@/app/us/Components/BannerMarqee'
 import Invest from '@/app/us/Components/Invest'
-import Faq from '@/PageComponents/Landing Home/Faq'
 import ContactForm from '@/PageComponents/Global Components/Contact'
 import { PortfolioMarquee } from '@/PageComponents/Global Components/ImageMarqee'
 
@@ -25,8 +24,6 @@ import HomeFiller from '@/app/us/Components/FillerSection'
 import HomePaidAds from '@/PageComponents/Landing Home/PaidAds'
 import NavBar from '@/PageComponents/Global Components/Header'
 import Footer from '@/PageComponents/Global Components/Footer'
-import PricingComponent from '@/PageComponents/Global Components/Pricing'
-import PricingCalc from '@/PageComponents/Global Components/Pricing'
 import MarketingPriceCalculator from '@/PageComponents/Global Components/PriceCalc'
 
 const featuresList = [
@@ -387,9 +384,7 @@ export default function Page() {
               WebkitMaskComposite: "source-in",
             }}
           />
-          <div className="relative z-10">
-            <Faq />
-          </div>
+
         </div>
 
         <ContactForm />

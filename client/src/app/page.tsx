@@ -25,6 +25,7 @@ import ImageComparisonSlider from '@/PageComponents/Landing Home/ImageComparison
 import InternaionalSEO from '@/PageComponents/Landing Home/InternationalSEO'
 import Footer from '@/PageComponents/Global Components/Footer'
 import MarketingStagesSection from '@/PageComponents/Landing Home/MarketingStages'
+import ContactSection from '@/PageComponents/Landing Home/ContactSection'
 
 
 const featuresList = [
@@ -279,58 +280,8 @@ export default function Page() {
         <MarketingStagesSection/>
         <TestimonialSection/>
         <AiSeoSection />
+        <Services/>
         <WebsiteSection />
-        <div className="min-h-screen w-full relative">
-          <div
-            className="absolute inset-0 z-0"
-            style={{
-              backgroundImage: `
-                linear-gradient(to right, #e7e5e4 1px, transparent 1px),
-                linear-gradient(to bottom, #e7e5e4 1px, transparent 1px)
-              `,
-              backgroundSize: "20px 20px",
-              backgroundPosition: "0 0, 0 0",
-              maskImage: `
-                repeating-linear-gradient(
-                  to right,
-                  black 0px,
-                  black 3px,
-                  transparent 3px,
-                  transparent 8px
-                ),
-                repeating-linear-gradient(
-                  to bottom,
-                  black 0px,
-                  black 3px,
-                  transparent 3px,
-                  transparent 8px
-                )
-              `,
-              WebkitMaskImage: `
-                repeating-linear-gradient(
-                  to right,
-                  black 0px,
-                  black 3px,
-                  transparent 3px,
-                  transparent 8px
-                ),
-                repeating-linear-gradient(
-                  to bottom,
-                  black 0px,
-                  black 3px,
-                  transparent 3px,
-                  transparent 8px
-                )
-              `,
-              maskComposite: "intersect",
-              WebkitMaskComposite: "source-in",
-            }}
-          />
-          <div className="relative z-10">
-            <HomeFiller />
-            <Services featuresList={featuresList} />
-          </div>
-        </div>
 
         <div className='hidden lg:block'>
           <BannerMarqee/>
@@ -341,56 +292,7 @@ export default function Page() {
         <Stats />
         </div>
         <MarketingPriceCalculator/>
-
-        {/* Paid Ads % Faq & Stats */}
-        <div className="w-full relative">
-          <div
-            className="absolute inset-0 z-0"
-            style={{
-              backgroundImage: `
-                linear-gradient(to right, #e7e5e4 1px, transparent 1px),
-                linear-gradient(to bottom, #e7e5e4 1px, transparent 1px)
-              `,
-              backgroundSize: "20px 20px",
-              backgroundPosition: "0 0, 0 0",
-              maskImage: `
-                repeating-linear-gradient(
-                  to right,
-                  black 0px,
-                  black 3px,
-                  transparent 3px,
-                  transparent 8px
-                ),
-                repeating-linear-gradient(
-                  to bottom,
-                  black 0px,
-                  black 3px,
-                  transparent 3px,
-                  transparent 8px
-                )
-              `,
-              WebkitMaskImage: `
-                repeating-linear-gradient(
-                  to right,
-                  black 0px,
-                  black 3px,
-                  transparent 3px,
-                  transparent 8px
-                ),
-                repeating-linear-gradient(
-                  to bottom,
-                  black 0px,
-                  black 3px,
-                  transparent 3px,
-                  transparent 8px
-                )
-              `,
-              maskComposite: "intersect",
-              WebkitMaskComposite: "source-in",
-            }}
-          />
-        </div>        
-        <ContactForm />
+        <ContactSection/>
         <Footer/>
       </main>
     </>

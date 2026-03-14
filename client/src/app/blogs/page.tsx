@@ -49,7 +49,7 @@ export default async function BlogPage() {
 
       <NavBar/>
       <BlogList initialBlogs={blogs}/>
-      <Testimonial/>
+      {/* <Testimonial/> */}
       <ContactForm/>
       <Footer/>
     </main>
