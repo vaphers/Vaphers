@@ -533,7 +533,7 @@ export default function MarketingPriceCalculator() {
   }
 
   return (
-    <section className="w-full py-8 sm:py-12 lg:py-16 bg-gradient-to-b from-gray-50 to-white">
+    <section className="w-full py-8 sm:py-12 lg:py-16 bg-gradient-to-b from-white via-blue-100 to-blue-600">
       <style jsx>{`
         .hide-scrollbar {
           -ms-overflow-style: none;
@@ -547,8 +547,8 @@ export default function MarketingPriceCalculator() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title - Responsive text sizing */}
         <div className="text-center mb-8 sm:mb-12 lg:mb-14">
-          <h4 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-700 mb-3 sm:mb-4 bungee-inline-regular leading-tight">
-            <span className='text-blue-600'>Marketing Price</span> Calculator
+          <h4 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-gray-900 mb-3 sm:mb-4 bungee-shade leading-tight">
+            <span className='text-blue-700'>Marketing Price</span> Calculator
           </h4>
           <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto px-4">
             Customize your requirements and see real-time pricing with included features
@@ -623,7 +623,7 @@ export default function MarketingPriceCalculator() {
               <div>
                 <p className="font-semibold text-gray-800 mb-3 sm:mb-4 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-sm sm:text-base">
                   <span>Business Size</span>
-                  <span className="text-xs sm:text-sm font-normal text-gray-500">Step 3/4</span>
+                  <span className="text-xs sm:text-sm font-normal text-gray-700">Step 3/4</span>
                 </p>
                 <div className="grid grid-cols-3 gap-2 sm:gap-4">
                   {(['Small', 'Medium', 'Large'] as const).map(s => (
@@ -637,7 +637,7 @@ export default function MarketingPriceCalculator() {
                       }`}
                     >
                       <p className="font-semibold text-gray-800 text-xs sm:text-base">{s}</p>
-                      <p className="text-[10px] sm:text-xs text-gray-500 mt-1">
+                      <p className="text-[10px] sm:text-xs text-gray-700 mt-1">
                         {formatAdjustment(SIZE_ADJUSTMENT[s])}
                       </p>
                     </div>
@@ -666,7 +666,7 @@ export default function MarketingPriceCalculator() {
                       }`}
                     >
                       <p className="font-semibold text-gray-800 text-xs sm:text-base">{c}</p>
-                      <p className="text-[10px] sm:text-xs text-gray-500 mt-1">
+                      <p className="text-[10px] sm:text-xs text-gray-700 mt-1">
                         {formatAdjustment(COMPETITION_ADJUSTMENT[c])}
                       </p>
                     </div>

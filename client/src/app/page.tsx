@@ -26,6 +26,7 @@ import InternaionalSEO from '@/PageComponents/Landing Home/InternationalSEO'
 import Footer from '@/PageComponents/Global Components/Footer'
 import MarketingStagesSection from '@/PageComponents/Landing Home/MarketingStages'
 import ContactSection from '@/PageComponents/Landing Home/ContactSection'
+import WhyVaphers from '@/PageComponents/Landing Home/WhyVaphers'
 
 
 const featuresList = [
@@ -282,11 +283,10 @@ export default function Page() {
         <AiSeoSection />
         <Services/>
         <WebsiteSection />
-
         <div className='hidden lg:block'>
           <BannerMarqee/>
         </div>
-        <Invest/>
+        <WhyVaphers/>
         <HomePaidAds/>
         <div className='pb-15'>
         <Stats />

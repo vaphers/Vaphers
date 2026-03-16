@@ -1,6 +1,9 @@
+"use client"
+
 import Mission from "@/PageComponents/About Components/Mission"
 import ContactForm from '@/PageComponents/Global Components/Contact'
 import SubHero from "@/PageComponents/Global Components/HeroSubpage"
+import MarketingPriceCalculator from "@/PageComponents/Global Components/PriceCalc"
 import Stats from "@/PageComponents/Global Components/Stats"
 import Testimonial from "@/PageComponents/Global Components/Testimonial"
 
@@ -17,6 +20,7 @@ export default function ContactPage() {
         <Mission/>
         <Stats/>
         <Testimonial/>
+        <MarketingPriceCalculator/>
     </main>
   )
 }

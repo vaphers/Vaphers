@@ -1,3 +1,5 @@
+"use client"
+
 import Head from "next/head";
 import Banner from "@/PageComponents/Global Components/Banner";
 import ContactForm from "@/PageComponents/Global Components/Contact";
@@ -10,6 +12,7 @@ import TechnicalFAQ from "@/PageComponents/Technical SEO Components/FAQ";
 import TechnicalServicesAccordion from "@/PageComponents/Technical SEO Components/Services";
 import TechnicalSEOSection from "@/PageComponents/Technical SEO Components/TechnicalSeoFirst";
 import PromoFiller from "@/PageComponents/Technical SEO Components/Filler";
+import ContactSection from "@/PageComponents/Landing Home/ContactSection";
 
 export default function Page() {
   // FAQ Schema data
@@ -124,7 +127,7 @@ export default function Page() {
         <PromoFiller/>
         <TechnicalSEOSection/>
         <TechnicalFAQ/>
-        <ContactForm />
+        <ContactSection/>
       </main>
     </>
   );

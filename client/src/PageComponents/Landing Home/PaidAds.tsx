@@ -26,8 +26,8 @@ const HomePaidAds = () => {
               <p className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">
                 Affordable Paid Ads Company
               </p>
-            <h4 className="text-3xl md:text-4xl lg:text-5xl font-base text-center lg:text-start tracking-[-0.03em] text-gray-700 bungee-inline-regular">
-              Leading <span className="bg-blue-600 bg-clip-text text-transparent">paid search marketing agency </span>
+            <h4 className="text-3xl md:text-4xl lg:text-5xl font-base text-center lg:text-start tracking-[-0.03em] text-gray-900 bungee-shade">
+              Leading <span className="bg-blue-700 bg-clip-text text-transparent">paid search marketing agency </span>
             </h4>
             </div>
 

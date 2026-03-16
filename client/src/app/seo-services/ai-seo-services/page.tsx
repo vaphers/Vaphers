@@ -17,6 +17,7 @@ import Stats from '@/PageComponents/Global Components/Stats';
 import AiSeoProcess from '@/PageComponents/AI SEO Components/Process';
 import SeoFaq from '@/PageComponents/AI SEO Components/Faq'; 
 import ContactForm from '@/PageComponents/Global Components/Contact';
+import ContactSection from '@/PageComponents/Landing Home/ContactSection';
 
 // FAQ data
 const aiSeoFaqs = [
@@ -169,7 +170,7 @@ export default function Page() {
         <WhyUs/>
         <Stats/>
         <SeoFaq data={aiSeoFaqs} />
-        <ContactForm/>
+        <ContactSection/>
       </main>
     </>
   );

@@ -14,6 +14,7 @@ import EcommerceServicesAccordion from '@/PageComponents/Ecommerce SEO Component
 import ContactForm from '@/PageComponents/Global Components/Contact';
 import EcommerceFaq from '@/PageComponents/Ecommerce SEO Components/FAQ';
 import PromoFiller from '@/PageComponents/Ecommerce SEO Components/PromoFiller';
+import ContactSection from '@/PageComponents/Landing Home/ContactSection';
 
 export default function Page() {
   const lenisRef = useRef<Lenis | null>(null)
@@ -163,7 +164,7 @@ export default function Page() {
         <PromoFiller/>
         <EcommerceServicesAccordion/>
         <EcommerceFaq/>
-        <ContactForm/>
+        <ContactSection/>
       </div>
     </>
   )

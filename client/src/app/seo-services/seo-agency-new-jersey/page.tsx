@@ -1,5 +1,6 @@
-import Head from "next/head";
+"use client"
 
+import Head from "next/head";
 import Banner from "@/PageComponents/City Page Components/Banner";
 import CityPageFAQ from "@/PageComponents/City Page Components/FAQ";
 import CityHero from "@/PageComponents/City Page Components/Hero";

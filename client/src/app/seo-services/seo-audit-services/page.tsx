@@ -1,3 +1,5 @@
+"use client"
+
 import { Metadata } from "next";
 import Script from "next/script";
 import Banner from "@/PageComponents/Global Components/Banner";
@@ -8,6 +10,7 @@ import SEOAuditBenefits from "@/PageComponents/SEO Audit Coponents/HowItHelps";
 import Testimonial04 from "@/PageComponents/Global Components/Testimonial";
 import AuditServicesAccordion from "@/PageComponents/SEO Audit Coponents/Services";
 import SeoAuditFaq from "@/PageComponents/SEO Audit Coponents/FAQ";
+import ContactSection from "@/PageComponents/Landing Home/ContactSection";
 
 // Metadata for SEO
 export const metadata: Metadata = {
@@ -129,7 +132,7 @@ export default function Page() {
         <Testimonial04 />
         <AuditServicesAccordion />
         <SeoAuditFaq />
-        <ContactForm />
+        <ContactSection/>
       </main>
     </>
   );

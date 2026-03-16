@@ -1,3 +1,5 @@
+"use client"
+
 import Head from "next/head";
 import Banner from "@/PageComponents/Global Components/Banner";
 import ContactForm from "@/PageComponents/Global Components/Contact";
@@ -12,6 +14,7 @@ import LocalPitch from "@/PageComponents/Local Seo Components/Pitch";
 import Promo from "@/PageComponents/Local Seo Components/Promo";
 import LocalServicesAccordion from "@/PageComponents/Local Seo Components/Services";
 import WhyLocalSEO from "@/PageComponents/Local Seo Components/WhatsLocal";
+import ContactSection from "@/PageComponents/Landing Home/ContactSection";
 
 export default function Page() {
   const faqSchema = {
@@ -127,7 +130,7 @@ export default function Page() {
         <ChooseCompany />
         <Stats />
         <LocalFaq />
-        <ContactForm />
+        <ContactSection/>
       </main>
     </>
   );

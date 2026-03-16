@@ -38,7 +38,7 @@ export default function MarketingComparisonSection() {
         
         {/* --- Header Section --- */}
         <div className="text-center  mb-12">
-            <h2 className="bungee-shade text-3xl md:text-3xl lg:text-6xl text-gray-900 leading-tight tracking-tight">
+            <h2 className="bungee-shade text-3xl md:text-3xl lg:text-5xl  text-gray-900 leading-tight tracking-tight">
             Stop Tracking Meaningless Clicks And <br className="hidden md:block" />
             <span className="text-blue-700">Start Driving Real Business Revenue</span>
             </h2>

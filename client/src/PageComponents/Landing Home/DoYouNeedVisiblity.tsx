@@ -19,8 +19,7 @@ const DoYouNeedSEO: React.FC = () => {
       <div className="absolute opacity-80 pointer-events-none z-0
         top-0 -left-0 w-[200px] 
         md:top-8 md:left-0 md:w-[150px] 
-        lg:top-4 lg:left-4 lg:w-[350px]
-        xl:top-3 xl:left-20 xl:w-[500px]
+        lg:top-4 lg:left-0 lg:w-[350px]
       ">
         <Image
           src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773389206/Sold_marketing_package_to_this_guy_xu88vg.png"
@@ -41,7 +40,6 @@ const DoYouNeedSEO: React.FC = () => {
         top-16 left-[75%] w-[150px] 
         md:top-[20%] md:left-[80%] md:w-[250px] 
         lg:top-25 lg:left-150 lg:w-[300px]
-        xl:top-25 xl:left-200 xl:w-[350px]
       ">
         <Image
           src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773253613/Why_did_i_buy_it__4_y6yiji.png"

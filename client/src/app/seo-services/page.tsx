@@ -13,6 +13,7 @@ import HowSeoGetsMoreLeads from './Components/HowSeoGetMoreLeads'
 import Hero from './Components/Hero'
 import WhyVaphers from './Components/WhyVaphers'
 import GrowthSection from './Components/GrowthSection'
+import ContactSection from '@/PageComponents/Landing Home/ContactSection'
 
 
 export default function Page() {
@@ -86,7 +87,7 @@ export default function Page() {
         <HowSeoGetsMoreLeads/>
         <WhyVaphers/>
         <GrowthSection/>
-        <ContactForm />
+        <ContactSection/>
       </div>
     </>
   )
