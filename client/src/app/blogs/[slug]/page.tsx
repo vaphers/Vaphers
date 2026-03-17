@@ -6,6 +6,8 @@ import ContactForm from "@/PageComponents/Global Components/Contact";
 import CTA from "@/PageComponents/Global Components/CTA";
 import { Calendar } from "lucide-react";
 import BlogLeadForm from "@/PageComponents/Blogs Components/BlogLeadForm";
+import ContactSection from "@/PageComponents/Landing Home/ContactSection";
+import MarketingPriceCalculator from "@/PageComponents/Global Components/PriceCalc";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -89,7 +91,8 @@ export default async function BlogPage({ params }: Props) {
         <main className="max-w-2xl mx-auto py-32 text-center text-2xl text-red-600">
           Blog Not Found
         </main>
-        <ContactForm />
+        {/* <ContactForm /> */}
+        <ContactSection/>
         <Footer />
       </>
     );
@@ -431,9 +434,9 @@ const chatGptUrl = `https://chat.openai.com/?q=${encodedPrompt}`;
           )}
         </div>
       </section>
-
-      <CTA />
-      <ContactForm />
+      {/* <ContactForm /> */}
+      <MarketingPriceCalculator/>
+      <ContactSection/>
       <Footer />
     </div>
   );
