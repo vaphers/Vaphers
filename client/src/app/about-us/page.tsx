@@ -1,3 +1,5 @@
+"use client"
+
 import type { Metadata } from 'next'
 import OurStorySection from '@/PageComponents/About Components/Story'
 import Mission from "@/PageComponents/About Components/Mission"
