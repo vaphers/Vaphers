@@ -1,6 +1,5 @@
 "use client"
 
-import { Metadata } from "next";
 import Script from "next/script";
 import Banner from "@/PageComponents/Global Components/Banner";
 import ContactForm from "@/PageComponents/Global Components/Contact";
@@ -11,17 +10,6 @@ import Testimonial04 from "@/PageComponents/Global Components/Testimonial";
 import AuditServicesAccordion from "@/PageComponents/SEO Audit Coponents/Services";
 import SeoAuditFaq from "@/PageComponents/SEO Audit Coponents/FAQ";
 import ContactSection from "@/PageComponents/Landing Home/ContactSection";
-
-// Metadata for SEO
-export const metadata: Metadata = {
-  title: "Free SEO Audit Services | Vaphers - Comprehensive Website Analysis",
-  description: "Get your free SEO audit today. Discover critical issues holding your website back with our comprehensive analysis. Actionable recommendations to boost traffic, improve rankings, and outperform competitors.",
-  openGraph: {
-    title: "Free SEO Audit Services | Vaphers",
-    description: "Discover critical issues holding your website back with our comprehensive free SEO audit. Get actionable recommendations to boost traffic and rankings.",
-    type: "website",
-  },
-};
 
 export default function Page() {
   const faqSchema = {

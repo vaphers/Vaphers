@@ -61,7 +61,7 @@ const bottomMarqueeStyle: CSSProperties = {
 
 const textStyleTop: CSSProperties = {
   fontSize: "8vw",
-  fontWeight: 400,
+  fontWeight: 500,
   color: "#fff",
   letterSpacing: 1,
   paddingRight: '50%',
@@ -70,7 +70,7 @@ const textStyleTop: CSSProperties = {
 
 const textStyleBottom: CSSProperties = {
   fontSize: "8vw",
-  fontWeight: 400,
+  fontWeight: 500,
   color: "#ffffffff",
   opacity: 0.98,
   letterSpacing: 2,
@@ -93,7 +93,7 @@ const BannerMarqee: React.FC = () => {
     <section style={containerStyle}>
       {/* Top Marquee */}
       <div style={topMarqueeStyle}>
-        <motion.div variants={marqueeVariants} animate="animateRight" style={{ display: 'inline-block' }} className="bungee-inline-regular">
+        <motion.div variants={marqueeVariants} animate="animateRight" style={{ display: 'inline-block' }} className="bungee-shade">
           <span style={textStyleTop}>
             Vaphers - SEO - Vaphers - Web Design - Vaphers - Paid Ads -
           </span>
@@ -118,7 +118,7 @@ const BannerMarqee: React.FC = () => {
 
       {/* Bottom Marquee */}
       <div style={bottomMarqueeStyle}>
-        <motion.div variants={marqueeVariants} animate="animateLeft" style={{ display: 'inline-block' }} className="bungee-inline-regular">
+        <motion.div variants={marqueeVariants} animate="animateLeft" style={{ display: 'inline-block' }} className="bungee-shade">
           <span style={textStyleBottom}>
             SEO - Paid Ads - Website Dev - Social Media - Ai SEO -
           </span>

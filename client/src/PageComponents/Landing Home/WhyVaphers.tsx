@@ -93,7 +93,7 @@ const WhyVaphers: FC = () => {
 
           <motion.div variants={textVariants} className="lg:col-span-7 space-y-6">
             <p className="text-base lg:text-lg text-slate-800 font-medium leading-relaxed">
-              At Vaphers, we specialize in innovative digital marketing strategies that drive results. Our team is dedicated to helping businesses grow and succeed online.
+              At Vaphers, we specialize in innovative digital marketing strategies that drive results. As a premier <strong>SEM marketing agency</strong>, our team is dedicated to helping businesses grow and succeed online through precision targeting and top-tier search visibility.
             </p>
             <p className="text-base lg:text-lg text-slate-600 leading-relaxed">
               With tailored solutions and a focus on measurable outcomes, we provide top-tier <strong>data-driven growth strategies</strong> to empower brands to connect with their audience. Our dedicated <strong>digital strategist</strong> team works closely with you to achieve your goals in the digital landscape.

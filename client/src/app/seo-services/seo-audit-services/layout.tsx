@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Free SEO Audit Services | Website Analysis & Technical SEO Audit | Vaphers',
+  title: 'Get a Free SEO Audit of Your Website | Vaphers',
   description: 'Get a comprehensive free SEO audit identifying critical issues affecting your rankings. Expert technical, on-page, and ecommerce SEO audits with actionable recommendations. Request your free website audit today!',
   keywords: [
     'SEO audit services',
@@ -21,8 +21,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://www.vaphers.com/seo-audit',
-    title: 'Free SEO Audit Services | Website Analysis & Technical SEO Audit',
+    url: 'https://www.vaphers.com/seo-audit-services',
+    // Updated promotional title for social sharing
+    title: 'Unlock Your Rankings: Get a Free SEO Audit of Your Website',
     description: 'Comprehensive SEO audits revealing critical issues and opportunities. Get expert technical, on-page, and ecommerce SEO analysis with actionable recommendations.',
     siteName: 'Vaphers',
     images: [
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free SEO Audit Services | Vaphers',
+    title: 'Get a Free SEO Audit of Your Website | Vaphers',
     description: 'Get a comprehensive free SEO audit revealing issues holding your website back. Expert analysis with actionable recommendations.',
     images: ['https://www.vaphers.com/twitter-seo-audit.jpg'],
     creator: '@vaphers',

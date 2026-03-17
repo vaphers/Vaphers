@@ -288,7 +288,7 @@ const ProjectGrid = () => {
 export default function Home() {
   return (
     <main className="w-full bg-white relative">
-      <div className="sticky top-0 z-0 w-full min-h-screen flex items-center">
+      <div className="sticky top-0 z-0 w-full flex items-center">
         <DesignPartnerSection />
       </div>
 

@@ -16,7 +16,7 @@ const DoYouNeedSEO: React.FC = () => {
         - Tablet (md): top-8 left-0
         - Desktop (lg): top-4 left-4 (Your original)
       */}
-      <div className="absolute opacity-80 pointer-events-none z-0
+      {/* <div className="absolute opacity-80 pointer-events-none z-0
         top-0 -left-0 w-[200px] 
         md:top-8 md:left-0 md:w-[150px] 
         lg:top-4 lg:left-0 lg:w-[350px]
@@ -28,7 +28,7 @@ const DoYouNeedSEO: React.FC = () => {
           height={500}
           className="w-full h-auto object-contain"
         />
-      </div>
+      </div> */}
 
       {/* Absolute Image 2 (Middle/Right) 
         HOW TO CHANGE POSITION:
@@ -36,7 +36,7 @@ const DoYouNeedSEO: React.FC = () => {
         - Tablet (md): top-[20%] left-[80%]
         - Desktop (lg): top-25 left-150 (Your original)
       */}
-      <div className="absolute transform -translate-x-1/2 -translate-y-1/2 opacity-80 pointer-events-none z-0
+      {/* <div className="absolute transform -translate-x-1/2 -translate-y-1/2 opacity-80 pointer-events-none z-0
         top-16 left-[75%] w-[150px] 
         md:top-[20%] md:left-[80%] md:w-[250px] 
         lg:top-25 lg:left-150 lg:w-[300px]
@@ -48,7 +48,7 @@ const DoYouNeedSEO: React.FC = () => {
           height={500}
           className="w-full h-auto object-contain"
         />
-      </div>
+      </div> */}
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-20 items-end">
@@ -57,7 +57,7 @@ const DoYouNeedSEO: React.FC = () => {
           <div className="lg:col-span-6 w-full flex justify-center lg:justify-start">
             <div className="relative w-full">
               <Image
-                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773251597/freepik_br_7fd8e8f0-b36e-414e-8de5-af0ceb3c54b7_eddxuf.png"
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773728243/Just-sold-marketing-package-to-this-guy_tcx2g2.png"
                 alt="Do You Even Need SEO Services?"
                 width={800}
                 height={800}

@@ -172,7 +172,7 @@ export default function NavBar() {
         {/* CTA Button */}
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Link href="/contact" className="text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
-            Work With Us <span aria-hidden="true">&rarr;</span>
+            Get A Proposal <span aria-hidden="true">&rarr;</span>
           </Link>
         </div>
       </nav>

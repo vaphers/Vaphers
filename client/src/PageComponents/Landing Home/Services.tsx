@@ -3,17 +3,19 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { ArrowLeft, ArrowRight, ArrowDownRight } from "lucide-react";
+import Link from "next/link"; // 1. Added Link import
 
-// Types
+// Types - 2. Added link property
 interface Service {
   id: string;
   title: string;
   description: string;
   color: string;
   imageUrl: string;
+  link: string; 
 }
 
-// Your Specific Services Array
+// 3. Added relative URLs to each service
 const services: Service[] = [
   {
     id: "01",
@@ -22,6 +24,7 @@ const services: Service[] = [
       "Command the top positions in search. We engineer SEO strategies that transform visibility into compounding organic revenue. From resolving complex technical hurdles to building unshakeable topical authority, we secure the rankings that drive sustainable, high-intent traffic to your brand.",
     color: "#2A59A3", 
     imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773481288/search-engine-optimization-Vaphers_w89yqk.jpg",
+    link: "/seo-services",
   },
   {
     id: "02",
@@ -30,6 +33,7 @@ const services: Service[] = [
       "Dominate your immediate market. We optimize your local digital footprint—from Google Business Profiles to hyper-local citations—ensuring Vaphers clients capture the 'near me' searches that drive high-intent foot traffic and inbound calls.",
     color: "#2A59A3", 
     imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773481288/Local-Search-Optimization-Vaphers_fe4gtt.jpg",
+    link: "/seo-services/local-seo-services",
   },
   {
     id: "03",
@@ -38,6 +42,7 @@ const services: Service[] = [
       "Future-proof your digital footprint. We optimize your content architecture to be naturally sourced and cited by leading generative AI assistants like ChatGPT and Gemini. By mastering entity association, we ensure your brand remains the absolute authority in the new era of AI-driven search.",
     color: "#2A59A3", 
     imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773481289/LLM-AI-SEO-Vaphers_vamwj8.jpg",
+    link: "/seo-services/ai-seo-services",
   },
   {
     id: "04",
@@ -46,6 +51,7 @@ const services: Service[] = [
       "Craft digital experiences that relentlessly convert. We merge intuitive user journeys with striking, modern aesthetics to build platforms that serve as your ultimate growth engine. Our web architecture guarantees blazing-fast load times, seamless responsiveness, and flawless user retention.",
     color: "#2A59A3", 
     imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773481289/WebsiteDesignServices_-_Vaphers_a6rb3g.jpg",
+    link: "/website-development-services",
   },
   {
     id: "05",
@@ -54,6 +60,7 @@ const services: Service[] = [
       "Maximize your ROI with precision-targeted search campaigns. We optimize complex bidding strategies, construct compelling ad copy, and refine landing page experiences to ensure you appear exactly when customers are searching—turning every ad dollar into measurable, bottom-line revenue growth.",
     color: "#2A59A3", 
     imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773481289/Google-Ads-Management-Vaphers_dlxpyw.jpg",
+    link: "/ppc-marketing/google-ads-management-services",
   },
   {
     id: "06",
@@ -62,6 +69,7 @@ const services: Service[] = [
       "Engage and convert at scale across social platforms. We deploy scroll-stopping, data-driven creatives and leverage advanced machine learning audience targeting to aggressively scale your revenue on Facebook and Instagram, turning passive social scrollers into loyal, high-value customers.",
     color: "#2A59A3", 
     imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773482014/Meta-Ads-Management-Vaphers_ehf9k6.jpg",
+    link: "/ppc-marketing/meta-ads-management-services",
   },
 ];
 
@@ -178,7 +186,7 @@ export default function ServicesShowcase() {
               className="relative w-full h-auto md:absolute md:inset-0 md:h-full flex flex-col md:block shadow-xl md:shadow-none rounded-xl md:rounded-none overflow-hidden md:overflow-visible"
             >
               
-              {/* IMAGE SIDE (Right) - Adjusted width and right margin for perfect centering */}
+              {/* IMAGE SIDE (Right) */}
               <div className="relative md:absolute md:right-[5%] md:top-1/2 md:-translate-y-1/2 w-full md:w-[50%] h-[350px] md:h-[650px] z-0 overflow-hidden">
                 <img
                   src={activeService.imageUrl}
@@ -187,7 +195,7 @@ export default function ServicesShowcase() {
                 />
               </div>
 
-              {/* TEXT SIDE (Left) - Adjusted width and left margin for perfect centering */}
+              {/* TEXT SIDE (Left) */}
               <div
                 className="relative md:absolute md:left-[5%] md:top-1/2 md:-translate-y-1/2 w-full md:w-[48%] h-auto md:h-[700px] p-8 md:p-10 lg:p-14 flex flex-col justify-center text-white z-10 md:[-webkit-mask-image:radial-gradient(circle_at_100%_50%,transparent_65px,black_66px)] md:[mask-image:radial-gradient(circle_at_100%_50%,transparent_65px,black_66px)] md:drop-shadow-[5px_15px_25px_rgba(0,0,0,0.15)]"
                 style={{ backgroundColor: activeService.color }}
@@ -209,10 +217,15 @@ export default function ServicesShowcase() {
                 </p>
                 
                 <div className="flex items-center justify-between mt-auto">
-                  <button className="flex items-center gap-2 md:gap-3 border border-white/60 rounded-full px-5 py-2 md:px-6 md:py-2.5 w-max hover:bg-white hover:text-black transition-all group">
+                  
+                  {/* 4. Swapped button for Link component here */}
+                  <Link 
+                    href={activeService.link}
+                    className="flex items-center gap-2 md:gap-3 border border-white/60 rounded-full px-5 py-2 md:px-6 md:py-2.5 w-max hover:bg-white hover:text-black transition-all group"
+                  >
                     <span className="text-xs md:text-sm tracking-wide font-light">Know More</span>
                     <ArrowDownRight size={16} strokeWidth={1} className="group-hover:rotate-[-45deg] transition-transform" />
-                  </button>
+                  </Link>
 
                   {/* Mobile Nav Arrows */}
                   <div className="flex gap-2 md:hidden">

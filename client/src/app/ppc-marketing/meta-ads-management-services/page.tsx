@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react'
 import SubHero from '@/PageComponents/Global Components/HeroSubpage'
 import ContactForm from '@/PageComponents/Global Components/Contact'

@@ -42,10 +42,10 @@ const HeroCard = ({ className = "" }: { className?: string }) => (
   )}>
     <div className="relative z-10 mb-4 px-6 pt-6 md:px-8 md:pt-8">
       <h3 className="text-2xl md:text-3xl font-semibold leading-tight text-white">
-        Proven SEO Strategy That Drives Rankings & Revenue
+        Tested SEO Strategies That Drive Rankings & Revenue
       </h3>
       <p className="mt-2 text-sm md:text-base opacity-80 text-blue-100">
-        Turn organic search into your most reliable growth channel with data-driven SEO that improves visibility, attracts high-intent traffic, and delivers measurable, long-term business results.
+        We turn organic search into your most reliable growth channel with data-driven SEO that improves visibility, attracts high-intent traffic, and delivers measurable business results.
       </p>
     </div>
     {/* Image container adjusted for mobile overflow */}
@@ -75,11 +75,11 @@ const LocalSeoCard = ({ className = "" }: { className?: string }) => (
     <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] h-full relative z-10">
       <div className="flex flex-col justify-center p-6 md:pl-8 md:pr-6">
         <h3 className="text-2xl md:text-3xl font-semibold text-slate-900 leading-tight">
-          Get More Local Leads
+          Drive More Local Leads
         </h3>
         <p className="mt-2 text-sm text-slate-600 max-w-sm">
-          Dominate local search results and attract high-intent customers near your business
-          with location-focused SEO that converts.
+          We help you dominate local search results and attract high-intent customers near your business
+          with custom location-focused SEO that converts.
         </p>
         <div className="mt-5 text-xs font-semibold text-blue-600">
           Local SEO • Google Maps • Nearby Searches
@@ -106,7 +106,7 @@ const TrustedByCard = ({ className = "" }: { className?: string }) => (
     <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-blue-200/30 rounded-full blur-3xl pointer-events-none" />
     <div className="relative z-10">
       <div className="mb-4">
-        <h3 className="text-xl md:text-2xl font-bold text-slate-800">Trusted By<br/>130+ Businesses</h3>
+        <h3 className="text-xl md:text-2xl font-bold text-slate-800">Trusted By<br/>210+ Businesses</h3>
       </div>
       <div className="flex items-center justify-center gap-3">
         <div className="flex -space-x-3">
@@ -142,7 +142,7 @@ const KeywordGapCard = ({ className = "" }: { className?: string }) => (
         Keyword Gap Analysis
       </h3>
       <p className="mt-2 text-sm md:text-base opacity-80 text-blue-100 max-w-[80%]">
-        Find easy-to-rank keywords your competitors are missing.
+        Our team uncovers the easy-to-rank keywords your competitors are currently missing.
       </p>
     </div>
     
@@ -195,16 +195,16 @@ const TechnicalSeoCard = ({ className = "" }: { className?: string }) => (
   )}>
     <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
       <div className="max-w-sm space-y-3">
-        <h3 className="text-2xl md:text-3xl font-bold">Technical SEO<br className="hidden md:block"/> With Pro Audits</h3>
+        <h3 className="text-2xl md:text-3xl font-bold">Expert Technical SEO<br className="hidden md:block"/> & Deep Site Audits</h3>
         <p className="text-blue-100 opacity-90 text-sm">
-          Automated crawling for broken links, core web vitals, and schema errors.
+          Our specialists manually resolve broken links, core web vitals, and complex schema errors.
         </p>
         <p className="text-blue-50 text-xs md:text-sm leading-relaxed hidden sm:block">
-          Our advanced technical SEO audits identify and fix critical issues that prevent search engines from properly crawling and indexing your site.
+          Our technical SEO services go far beyond basic automated tools. We dive deep into your website's architecture to manually identify and permanently fix the critical backend issues that prevent search engines from properly crawling, indexing, and ranking your highest-converting pages.
         </p>
         <div className="flex items-center gap-2 text-xs text-blue-200 mt-2">
           <CheckCircle2 size={14} />
-          <span>Real-time monitoring & alerts</span>
+          <span>Continuous site monitoring & maintenance</span>
         </div>
       </div>
 
@@ -216,9 +216,9 @@ const TechnicalSeoCard = ({ className = "" }: { className?: string }) => (
             <div className="absolute top-0 right-0 w-2.5 h-2.5 md:w-3 md:h-3 bg-green-500 rounded-full border border-white" />
           </div>
           <div>
-            <h4 className="font-bold text-base md:text-lg">Site Health: 98%</h4>
+            <h4 className="font-bold text-base md:text-lg">Target Health: 98%</h4>
             <p className="text-[10px] text-gray-300 leading-tight mt-0.5 md:mt-1">
-              0 Critical Errors found<br className="hidden sm:block"/> Core Web Vitals passed
+              0 Critical Errors left<br className="hidden sm:block"/> Core Web Vitals passed
             </p>
           </div>
         </div>
@@ -229,9 +229,9 @@ const TechnicalSeoCard = ({ className = "" }: { className?: string }) => (
             <div className="absolute top-0 right-0 w-2.5 h-2.5 md:w-3 md:h-3 bg-blue-500 rounded-full border border-white" />
           </div>
           <div>
-            <h4 className="font-bold text-base md:text-lg">Backlink Health: 94%</h4>
+            <h4 className="font-bold text-base md:text-lg">Link Profile: 94%</h4>
             <p className="text-[10px] text-gray-300 leading-tight mt-0.5 md:mt-1">
-              342 Quality Backlinks<br className="hidden sm:block"/> 12 Toxic Links Removed
+              342 Quality Backlinks<br className="hidden sm:block"/> 12 Toxic Links Disavowed
             </p>
           </div>
         </div>
@@ -250,10 +250,10 @@ const TrafficSourcesCard = ({ className = "" }: { className?: string }) => (
     <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-blue-200/30 rounded-full blur-3xl pointer-events-none" />
     <div className="relative z-10 mb-4 text-center md:text-left">
       <h3 className="text-2xl md:text-3xl font-semibold leading-tight text-slate-800">
-        Track Traffic Sources
+        Transparent Reporting
       </h3>
       <p className="mt-2 text-sm md:text-base opacity-80 text-slate-600">
-        Analyze Direct, Organic, and AI channels.
+        We track your Direct, Organic, and AI growth.
       </p>
     </div>
     <div className="mt-2 md:mt-6 bg-white rounded-2xl p-4 md:p-5 shadow-sm border border-slate-100 relative z-10">
