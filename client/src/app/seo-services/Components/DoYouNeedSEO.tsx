@@ -10,56 +10,17 @@ const DoYouNeedSEO: React.FC = () => {
   return (
     <section className="relative max-w-full bg-[#0b254f] overflow-hidden">
       
-      {/* Absolute Image 1 (Top Left) 
-        HOW TO CHANGE POSITION:
-        - Mobile default: top-0 -left-6 (slightly off-screen top left)
-        - Tablet (md): top-8 left-0
-        - Desktop (lg): top-4 left-4 (Your original)
-      */}
-      <div className="absolute opacity-80 pointer-events-none z-0
-        top-0 -left-0 w-[200px] 
-        md:top-8 md:left-0 md:w-[150px] 
-        lg:top-4 lg:left-4 lg:w-[350px]
-        xl:top-3 xl:left-40 xl:w-[400px]
-      ">
-        <Image
-          src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773253899/Just-Sold-Seo-To-This-Guy_3_a8ljhs.png"
-          alt="Decoration Top Left"
-          width={500} 
-          height={500}
-          className="w-full h-auto object-contain"
-        />
-      </div>
-
-      {/* Absolute Image 2 (Middle/Right) 
-        HOW TO CHANGE POSITION:
-        - Mobile default: top-[15%] left-[85%]
-        - Tablet (md): top-[20%] left-[80%]
-        - Desktop (lg): top-25 left-150 (Your original)
-      */}
-      <div className="absolute transform -translate-x-1/2 -translate-y-1/2 opacity-80 pointer-events-none z-0
-        top-16 left-[75%] w-[150px] 
-        md:top-[20%] md:left-[80%] md:w-[250px] 
-        lg:top-25 lg:left-150 lg:w-[300px]
-        xl:top-25 xl:left-200 xl:w-[350px]
-      ">
-        <Image
-          src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773253613/Why_did_i_buy_it__4_y6yiji.png"
-          alt="Decoration Middle"
-          width={500} 
-          height={500}
-          className="w-full h-auto object-contain"
-        />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-20 items-end">
+      {/* Absolute Images (Commented out as in your original code) */}
+      
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-10 sm:pt-12 lg:pt-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 lg:gap-20 items-end">
           
           {/* Image Left */}
+          {/* Reduced gap and adjusted max-width on mobile to prevent the image from becoming too overwhelmingly tall before the user reads the text */}
           <div className="lg:col-span-6 w-full flex justify-center lg:justify-start">
-            <div className="relative w-full">
+            <div className="relative w-full max-w-[320px] sm:max-w-[450px] lg:max-w-none mx-auto">
               <Image
-                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773251597/freepik_br_7fd8e8f0-b36e-414e-8de5-af0ceb3c54b7_eddxuf.png"
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773824392/Just-sold-seo-to-this-guy_akoylq.png"
                 alt="Do You Even Need SEO Services?"
                 width={800}
                 height={800}
@@ -69,20 +30,23 @@ const DoYouNeedSEO: React.FC = () => {
           </div>
 
           {/* Content Right */}
-          <div className="lg:col-span-6 w-full space-y-4 sm:space-y-6 pb-8 sm:pb-12 lg:pb-16">
-            <div>
-              <h3 className="text-4xl sm:text-3xl md:text-4xl lg:text-4xl text-center lg:text-start text-gray-200 mb-3 sm:mb-4 lg:mb-5 leading-tight bungee-inline-regular">
-                Do You Even Need{' '}
+          {/* Pulled padding down slightly on mobile to reduce dead space */}
+          <div className="lg:col-span-6 w-full space-y-4 sm:space-y-6 pb-10 sm:pb-12 lg:pb-16 flex flex-col items-center lg:items-start text-center lg:text-left">
+            <div className="w-full">
+              {/* FIXED: Scaled typography UP correctly (28px -> 3xl -> 4xl -> 5xl). 
+                  Added a forced line break on mobile so "Organic" doesn't get orphaned. */}
+              <h3 className="text-[28px] sm:text-3xl md:text-4xl lg:text-5xl text-gray-200 mb-3 sm:mb-4 lg:mb-6 leading-[1.2] bungee-inline-regular">
+                Do You Even Need <br className="block sm:hidden" />
                 <span className="bg-blue-400 bg-clip-text text-transparent">
-                 Organic SEO Marketing?
+                  Organic SEO Marketing?
                 </span>
               </h3>
-              <p className="text-sm sm:text-base lg:text-lg text-center lg:text-start text-blue-200 font-medium">
+              <p className="text-[13px] sm:text-base lg:text-lg text-blue-200 font-medium">
                 Stay Competitive in the Digital-First Marketplace
               </p>
             </div>
 
-            <p className="text-sm sm:text-base lg:text-lg text-white leading-relaxed text-center lg:text-left">
+            <p className="text-[14px] sm:text-base lg:text-lg text-white leading-relaxed max-w-[95%] sm:max-w-none mx-auto">
               With 93% of online experiences starting on search engines, staying off the first page means missing out on capturing high-intent US customers. Building strong, targeted{' '}
               <a 
                 href="https://www.vaphers.com/seo-services/local-seo-services" 
@@ -101,11 +65,12 @@ const DoYouNeedSEO: React.FC = () => {
             </p>
 
             {/* Button */}
-            <div className="pt-4 sm:pt-4 lg:pb-4 flex justify-center lg:justify-start">
-              <Link href={"https://www.vaphers.com/contact"}>
-                <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
-                  <span className="mr-2 sm:mr-3">Start Your SEO Journey</span>
-                  <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
+            {/* FIXED: Made the button full-width on mobile (w-full) with rounded-xl for easier tapping, returns to rounded-full & auto-width on desktop. */}
+            <div className="pt-2 sm:pt-4 lg:pb-4 w-full sm:w-auto flex justify-center lg:justify-start">
+              <Link href={"https://www.vaphers.com/contact"} className="w-full sm:w-auto">
+                <div className="flex items-center justify-center w-full px-4 py-3.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm lg:text-base font-semibold rounded-xl sm:rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                  <span className="mr-2 sm:mr-3 whitespace-nowrap">Start Your SEO Journey</span>
+                  <TrendingUp className="w-4 h-4 lg:w-5 lg:h-5 shrink-0 group-hover:translate-x-1 transition-transform duration-300" />
                 </div>
               </Link>
             </div>

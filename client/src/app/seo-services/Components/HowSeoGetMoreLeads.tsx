@@ -8,7 +8,7 @@ import Link from 'next/link'
 
 const floatingVariants: Variants = {
   animate: (custom: number) => ({
-    y: [0, -20, 0],
+    y: [0, -15, 0], // Tightened the float distance slightly for mobile comfort
     transition: {
       duration: 4 + custom * 0.7,
       repeat: Infinity,
@@ -18,19 +18,21 @@ const floatingVariants: Variants = {
   }),
 }
 
+// FIXED: Using a safe mounted pattern to prevent Next.js Hydration errors
 const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
+  const [isMobile, setIsMobile] = useState(true) // Default to true for mobile-first SSR
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    if (typeof window === 'undefined') return
-
+    setMounted(true)
     const mql = window.matchMedia('(max-width: 1024px)')
+    
+    // Set initial value
+    setIsMobile(mql.matches)
 
     const handleChange = (event: MediaQueryListEvent) => {
       setIsMobile(event.matches)
     }
-
-    setIsMobile(mql.matches)
 
     mql.addEventListener('change', handleChange)
     return () => {
@@ -38,7 +40,7 @@ const useIsMobile = () => {
     }
   }, [])
 
-  return isMobile
+  return mounted ? isMobile : true // Return mobile default until hydrated
 }
 
 const HowSeoGetsMoreLeads: React.FC = () => {
@@ -79,33 +81,36 @@ const HowSeoGetsMoreLeads: React.FC = () => {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 lg:pt-12 pb-8 sm:pb-12 lg:pb-12">
-        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 sm:gap-10 lg:gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-10 sm:pt-12 lg:pt-16 pb-10 sm:pb-12 lg:pb-16">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-10 sm:gap-12 lg:gap-16">
+          
+          {/* Left Content */}
           <motion.div
             style={{
               x: xLeft,
               opacity,
             }}
-            className="w-full lg:w-2/3 space-y-4 sm:space-y-6"
+            className="w-full lg:w-[55%] space-y-5 sm:space-y-6 flex flex-col items-center lg:items-start text-center lg:text-left z-10"
           >
-            <div>
-              <h3 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl text-center lg:text-start font-montserrat text-gray-900 mb-3 sm:mb-4 lg:mb-5 bungee-shade">
+            <div className="w-full">
+              {/* FIXED: Scaled heading down to text-[28px] for the absolute smallest screens to prevent breaking. */}
+              <h3 className="text-[28px] sm:text-4xl lg:text-5xl font-montserrat text-gray-900 mb-3 sm:mb-4 lg:mb-5 bungee-shade leading-[1.2]">
                 How{' '}
                 <span className="bg-blue-700 bg-clip-text text-transparent ">
                   Organic SEO Marketing
                 </span>{' '}
                 Generate More Leads?
               </h3>
-              <p className="text-sm sm:text-base lg:text-lg text-center lg:text-start text-blue-600 font-medium">
+              <p className="text-[13px] sm:text-base lg:text-lg text-blue-600 font-medium px-2 sm:px-0">
                 Turn Search Engine Visibility Into Qualified Business Opportunities
               </p>
             </div>
 
-            <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed text-center lg:text-left">
+            <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed">
               SEO generates qualified leads by positioning your business where potential customers are actively searching for solutions. Research shows that 57% of B2B businesses report getting more leads from search engines than any other channel. By investing in professional <strong>organic search engine optimization services</strong>, you can identify opportunities to capture this high-intent traffic and ensure your site performs flawlessly when users arrive.
             </p>
 
-            <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed text-center lg:text-left">
+            <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed">
               The power of SEO lies in targeting every stage of the customer journey. Educational content builds trust during the awareness phase, while optimized service pages convert ready-to-buy prospects. Modern{' '}
               <a
                 href="https://www.vaphers.com/seo-services/ai-seo-services"
@@ -117,86 +122,99 @@ const HowSeoGetsMoreLeads: React.FC = () => {
             </p>
 
             {/* button */}
-            <div className="pt-4 sm:pt-6 lg:pt-5 pb-4 flex justify-center lg:justify-start">
-              <Link href="https://www.vaphers.com/contact">
-                <div className="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-sm lg:text-base font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
-                  <span className="mr-2 sm:mr-3">Start Generating Leads Today</span>
-                  <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform duration-300" />
+            {/* FIXED: Fluid full-width button for tiny screens */}
+            <div className="pt-2 sm:pt-4 w-full sm:w-auto">
+              <Link href="https://www.vaphers.com/contact" className="block w-full sm:w-auto">
+                <div className="flex justify-center items-center w-full px-4 py-3.5 sm:px-6 sm:py-4 lg:px-8 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[13px] sm:text-sm lg:text-base font-semibold rounded-xl sm:rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
+                  <span className="mr-2 sm:mr-3 whitespace-nowrap">Start Generating Leads Today</span>
+                  <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 group-hover:translate-x-1 transition-transform duration-300" />
                 </div>
               </Link>
             </div>
           </motion.div>
 
+          {/* Right Images */}
           <motion.div
             style={{
               x: xRight,
               opacity,
             }}
-            className="w-full lg:w-1/2 flex justify-center relative"
+            className="w-full lg:w-[45%] flex justify-center relative mt-4 lg:mt-0"
           >
-            <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg">
+            {/* FIXED: Added a slightly restricted max-width (w-[85%]) on mobile. This gives the floating icons room to stick out without blowing up the screen width. */}
+            <div className="relative w-[85%] max-w-[280px] sm:w-full sm:max-w-md lg:max-w-lg">
               <Image
                 src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047483/MoreLeads_dpwsz2.png"
                 alt="SEO lead generation strategy showing increased traffic and conversions"
                 width={600}
                 height={600}
-                className="w-full h-auto object-contain"
+                className="w-full h-auto object-contain relative z-10"
               />
 
-              <div className="absolute inset-0">
+              {/* Floating Icons Container */}
+              <div className="absolute inset-0 z-20 pointer-events-none">
+                
+                {/* Google Logo */}
                 <motion.div
                   animate={{
-                    x: [0, 10, 0],
-                    y: [0, 10, 0],
+                    x: [0, 8, 0],
+                    y: [0, 8, 0],
                   }}
                   transition={{
                     duration: 5,
                     repeat: Infinity,
                     ease: 'easeInOut',
                   }}
-                  className="absolute top-2 left-2 sm:top-4 sm:left-4 lg:top-8 lg:left-4 p-1 sm:p-2 lg:p-3"
+                  // FIXED: Pulled inwards slightly so it doesn't clip off the left edge of tiny phones
+                  className="absolute -top-2 -left-2 sm:top-4 sm:left-4 lg:top-8 lg:-left-4"
                 >
                   <Image
                     src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761747776/Google-G-icon-favicon-PNG-large_lcye0c.png"
                     alt="Google Logo"
                     width={80}
                     height={80}
-                    className="w-12 h-12 sm:w-10 sm:h-10 lg:w-20 lg:h-20 object-contain"
+                    className="w-10 h-10 sm:w-14 sm:h-14 lg:w-20 lg:h-20 object-contain drop-shadow-md"
                   />
                 </motion.div>
 
+                {/* Rank One Icon */}
                 <motion.div
                   custom={1}
                   variants={floatingVariants}
                   animate="animate"
-                  className="absolute -top-2 right-2 sm:top-0 sm:right-4 lg:top-0 lg:right-0"
+                  // FIXED: Allowed it to hang off the right side since we restricted the parent width to 85%
+                  className="absolute top-4 -right-6 sm:top-8 sm:-right-8 lg:top-4 lg:-right-12"
                 >
                   <Image
                     src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761747669/Rank_One_On_Google_v7q5as.png"
                     alt="Ranking growth indicator"
                     width={176}
                     height={176}
-                    className="w-24 h-24 sm:w-28 sm:h-28 lg:w-52 lg:h-52 object-contain"
+                    className="w-20 h-20 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain drop-shadow-lg"
                   />
                 </motion.div>
 
+                {/* Competitor Research Icon */}
                 <motion.div
                   custom={2}
                   variants={floatingVariants}
                   animate="animate"
-                  className="absolute bottom-4 left-2 sm:bottom-8 sm:left-4 lg:bottom-8 lg:left-0"
+                  // FIXED: Pulled it up and left slightly so it overlaps nicely on small screens
+                  className="absolute bottom-6 -left-6 sm:bottom-12 sm:-left-8 lg:bottom-12 lg:-left-12"
                 >
                   <Image
                     src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773322596/Competitor_Research_xucf3d.png"
                     alt="Competitive advantage in search results"
                     width={176}
                     height={176}
-                    className="w-24 h-24 sm:w-28 sm:h-28 lg:w-52 lg:h-52 object-contain"
+                    className="w-20 h-20 sm:w-28 sm:h-28 lg:w-44 lg:h-44 object-contain drop-shadow-lg"
                   />
                 </motion.div>
               </div>
+
             </div>
           </motion.div>
+
         </div>
       </div>
     </section>

@@ -5,11 +5,12 @@ import Link from "next/link"
 
 const HomePaidAds = () => {
   return (
-    <section className="w-full py-8 lg:py-12 px-6">
+    <section className="w-full py-10 lg:py-16 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          
           {/* Left Image */}
-          <div className="relative w-full h-[400px] lg:h-[600px] rounded-2xl overflow-hidden shadow-2xl order-2 lg:order-1">
+          <div className="relative w-full h-[250px] sm:h-[400px] lg:h-[600px] rounded-2xl overflow-hidden shadow-2xl order-2 lg:order-1">
             <Image
               src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772636628/Leading_paid_search_marketing_agency_owavgz.png"
               alt="Digital marketing analytics dashboard showing paid advertising campaign performance and ROI metrics"
@@ -21,17 +22,18 @@ const HomePaidAds = () => {
           </div>
 
           {/* Content */}
-          <div className="space-y-8 order-1 lg:order-2">
+          <div className="space-y-6 md:space-y-8 order-1 lg:order-2">
             <div>
-              <p className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">
+              <p className="text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider mb-3 sm:mb-4">
                 Affordable Paid Ads Company
               </p>
-            <h4 className="text-3xl md:text-4xl lg:text-5xl font-base text-center lg:text-start tracking-[-0.03em] text-gray-900 bungee-shade">
-              Leading <span className="bg-blue-700 bg-clip-text text-transparent">paid search marketing agency </span>
-            </h4>
+              {/* Removed text-center to keep alignment consistent with the paragraph on mobile */}
+              <h4 className="text-3xl sm:text-4xl lg:text-5xl font-base tracking-[-0.03em] text-gray-900 bungee-shade leading-tight">
+                Leading <span className="bg-blue-700 bg-clip-text text-transparent">paid search marketing agency </span>
+              </h4>
             </div>
 
-            <p className="text-lg text-gray-600 leading-relaxed">
+            <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
               Partner with an affordable paid ads company that delivers exceptional ROI without breaking your budget. 
               Our{' '}
               <a href="https://www.vaphers.com/ppc-marketing" className="text-blue-700 underline hover:text-blue-800 font-medium">
@@ -49,43 +51,43 @@ const HomePaidAds = () => {
               campaigns. Experience transparent pricing, data-driven optimization, and measurable results that drive sustainable growth.
             </p>
 
-            {/* Stats */}
-            <div className="grid grid-cols-2 gap-8 pt-4">
+            {/* Stats - Stacks on tiny screens (grid-cols-1), side-by-side on sm+ */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 pt-2 sm:pt-4">
               <div>
-                <h3 className="text-5xl md:text-6xl font-bold text-gray-700">200%</h3>
-                <p className="text-gray-600 mt-2">
+                <h3 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-700">200%</h3>
+                <p className="text-sm sm:text-base text-gray-600 mt-2">
                   Average ROI from well-optimized paid ad campaigns for growing businesses
                 </p>
               </div>
               <div>
-                <h3 className="text-5xl md:text-6xl font-bold text-gray-700">65%</h3>
-                <p className="text-gray-600 mt-2">
+                <h3 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-700">65%</h3>
+                <p className="text-sm sm:text-base text-gray-600 mt-2">
                   Lower cost per acquisition compared to traditional advertising channels
                 </p>
               </div>
             </div>
 
-            {/* Buttons */}
-            <div className="flex flex-wrap gap-4 pt-4">
-            <Link href="/contact">
+            {/* Buttons - Stack on tiny screens, inline on sm+ */}
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 pt-2 sm:pt-4">
+              <Link href="/contact" className="w-full sm:w-auto">
                 <Button 
-                size="lg" 
-                className="bg-blue-600 hover:bg-blue-800 text-white px-8 cursor-pointer"
+                  size="lg" 
+                  className="w-full sm:w-auto bg-blue-600 hover:bg-blue-800 text-white px-8 cursor-pointer"
                 >
-                Get Started
+                  Get Started
                 </Button>
-            </Link>
-            
-            <Link href="https://www.vaphers.com/ppc-marketing">
+              </Link>
+              
+              <Link href="https://www.vaphers.com/ppc-marketing" className="w-full sm:w-auto">
                 <Button 
-                size="lg" 
-                variant="ghost" 
-                className="group cursor-pointer"
+                  size="lg" 
+                  variant="ghost" 
+                  className="w-full sm:w-auto group cursor-pointer justify-center"
                 >
-                Learn More 
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  Learn More 
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
-            </Link>
+              </Link>
             </div>
           </div>
         </div>

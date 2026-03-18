@@ -44,8 +44,8 @@ const CustomBarShape = (props: any) => {
     <g>
       {/* Main soft blue bar (Tailwind blue-100) */}
       <rect x={x} y={y} width={width} height={height} fill="#dbeafe" />
-      {/* Vibrant blue top border (Tailwind blue-600) */}
-      <rect x={x} y={y} width={width} height={3} fill="#2563eb" />
+      {/* Vibrant blue top border - Only renders when height > 0 during animation */}
+      {height > 0 && <rect x={x} y={y} width={width} height={3} fill="#2563eb" />}
     </g>
   );
 };
@@ -56,18 +56,56 @@ const CustomLabel = (props: any) => {
   const parts = value.split(' / ');
 
   return (
-    <text
-      x={x + width / 2}
-      y={y - 15}
-      textAnchor="middle"
-      dominantBaseline="middle"
-      className="text-lg sm:text-xl lg:text-2xl"
-    >
-      {/* Dark Navy for the main percentage */}
-      <tspan fill="#1e3a8a" fontWeight="600">{parts[0]}</tspan>
-      {/* Lighter Slate-Blue for the / 100% */}
-      <tspan fill="#64748b" fontWeight="400" fontSize="14"> / {parts[1]}</tspan>
-    </text>
+    <g>
+      {/* Mobile Label: Stacked vertically to fit thin bars on sub-360px screens */}
+      <text x={x + width / 2} y={y - 24} textAnchor="middle" className="sm:hidden">
+        <tspan x={x + width / 2} dy="0" fill="#1e3a8a" fontWeight="600" fontSize="11">{parts[0]}</tspan>
+        <tspan x={x + width / 2} dy="12" fill="#64748b" fontWeight="400" fontSize="9">/ {parts[1]}</tspan>
+      </text>
+
+      {/* Desktop/Tablet Label: Side-by-side standard layout */}
+      <text x={x + width / 2} y={y - 15} textAnchor="middle" dominantBaseline="middle" className="hidden sm:block">
+        <tspan fill="#1e3a8a" fontWeight="600" fontSize="16">{parts[0]}</tspan>
+        <tspan fill="#64748b" fontWeight="400" fontSize="12"> / {parts[1]}</tspan>
+      </text>
+    </g>
+  );
+};
+
+// Custom X-Axis Tick to handle long text on mobile
+const CustomXAxisTick = (props: any) => {
+  const { x, y, payload } = props;
+  
+  return (
+    <g transform={`translate(${x},${y})`}>
+      {/* Mobile Tick: Angled at -45 degrees with shifted anchor so it doesn't clip */}
+      <text
+        x={0}
+        y={0}
+        dx={-5} 
+        dy={15}  
+        textAnchor="end"
+        fill="#475569"
+        fontSize={10} 
+        transform="rotate(-45)"
+        className="sm:hidden"
+      >
+        {payload.value}
+      </text>
+      
+      {/* Desktop/Tablet Tick: Flat and centered */}
+      <text
+        x={0}
+        y={0}
+        dy={20}
+        textAnchor="middle"
+        fill="#475569"
+        fontSize={13}
+        className="hidden sm:block"
+      >
+        {payload.value}
+      </text>
+    </g>
   );
 };
 
@@ -78,42 +116,45 @@ const WhyVaphers: FC = () => {
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
       variants={mainVariants}
-      // Changed background to a very faint blue (sky-50)
-      className="max-w-full bg-[#f0f9ff] overflow-hidden py-16 lg:py-24"
+      className="max-w-full bg-[#f0f9ff] overflow-hidden py-14 sm:py-16 lg:py-24"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* Top Layout: Heading (Left) & Text (Right) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 lg:gap-16 mb-12 sm:mb-16 lg:mb-20 text-center lg:text-left">
           <motion.div variants={textVariants} className="lg:col-span-5">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl text-blue-950 tracking-tight font-medium bungee-shade">
+            {/* Scaled down to text-3xl for mobile to prevent wide font from breaking */}
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-blue-950 tracking-tight font-medium bungee-shade">
               Why <span className="text-blue-600">Vaphers?</span>
             </h2>
           </motion.div>
 
-          <motion.div variants={textVariants} className="lg:col-span-7 space-y-6">
-            <p className="text-base lg:text-lg text-slate-800 font-medium leading-relaxed">
+          <motion.div variants={textVariants} className="lg:col-span-7 space-y-4 sm:space-y-6">
+            <p className="text-[15px] sm:text-base lg:text-lg text-slate-800 font-medium leading-relaxed">
               At Vaphers, we specialize in innovative digital marketing strategies that drive results. Our team is dedicated to helping businesses grow and succeed online.
             </p>
-            <p className="text-base lg:text-lg text-slate-600 leading-relaxed">
+            <p className="text-[15px] sm:text-base lg:text-lg text-slate-600 leading-relaxed">
               With tailored solutions and a focus on measurable outcomes, we provide top-tier <strong>seo for b2b companies</strong> to empower brands to connect with their audience. Our dedicated <strong>organic seo specialist</strong> team works closely with you to achieve your goals in the digital landscape.
             </p>
           </motion.div>
         </div>
 
-        {/* Bottom Layout: The Bar Chart */}
-        <motion.div variants={mainVariants} className="w-full h-[350px] sm:h-[400px]">
+        {/* Bottom Layout: The Bar Chart Container - Increased mobile height to 450px to fit angled labels */}
+        <motion.div variants={mainVariants} className="w-full h-[450px] sm:h-[400px] md:h-[450px]">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={barData}
-              margin={{ top: 40, right: 0, bottom: 20, left: 0 }}
+              // Increased bottom margin from 20 to 80 to fit the angled text on mobile
+              margin={{ top: 50, right: 10, bottom: 80, left: 10 }}
               barCategoryGap="15%"
             >
               <XAxis 
                 dataKey="category" 
-                axisLine={{ stroke: '#cbd5e1', strokeWidth: 1 }} // Slate-300 axis line
+                axisLine={{ stroke: '#cbd5e1', strokeWidth: 1 }} 
                 tickLine={false}
-                tick={{ fill: '#475569', fontSize: 13, dy: 15 }} // Slate-600 text
+                height={100} // Increased to 100 for angled label breathing room
+                tick={<CustomXAxisTick />} 
+                interval={0} // CRITICAL FIX: Forces Recharts to render all labels on mobile
               />
               <YAxis hide domain={[0, 100]} />
               <Bar

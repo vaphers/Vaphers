@@ -79,25 +79,26 @@ export default function SocialProofSection() {
   const duplicatedTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <section className="bg-gradient-to-br from-[#e0f2fe] via-[#f0f9ff] to-[#dbeafe] py-14 overflow-hidden flex flex-col justify-center">
+    <section className="bg-gradient-to-br from-[#e0f2fe] via-[#f0f9ff] to-[#dbeafe] py-10 md:py-14 overflow-hidden flex flex-col justify-center">
       
       {/* Header Section */}
-      <div className="text-center max-w-4xl mx-auto px-4 mb-16">
-        <h3 className="text-4xl md:text-6xl bungee-shade text-slate-900 mb-4">
+      <div className="text-center w-full max-w-4xl mx-auto px-4 mb-12 md:mb-16">
+        <h3 className="text-3xl sm:text-4xl md:text-6xl bungee-shade text-slate-900 mb-4">
           <span className="text-blue-700">Social proof?</span> Here.
         </h3>
-        <p className="text-slate-600 text-base md:text-lg mb-8 max-w-2xl mx-auto">
+        <p className="text-slate-600 text-sm sm:text-base md:text-lg mb-8 max-w-2xl mx-auto">
           From SaaS startups to non-profits. 210+ happy clients. Still counting.
         </p>
         
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md mx-auto sm:max-w-none">
-          <Link href="/contact" className="w-60">
-            <button className="w-full rounded-lg bg-blue-600 px-6 py-2.5 font-medium text-white transition-colors hover:bg-blue-800 cursor-pointer">
+        {/* Fixed Button Layout */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full px-4 sm:px-0">
+          <Link href="/contact" className="w-full sm:w-auto">
+            <button className="w-full sm:w-auto rounded-lg bg-blue-600 px-8 py-3 font-medium text-white transition-colors hover:bg-blue-800 cursor-pointer">
               Book a Call
             </button>
           </Link>
-          <Link href="mailto:vaphersonline@gmail.com" className="w-90">
-            <button className="w-full rounded-lg bg-blue-600 px-12 py-2.5 font-medium text-white transition-colors hover:bg-blue-800 cursor-pointer">
+          <Link href="mailto:vaphersonline@gmail.com" className="w-full sm:w-auto">
+            <button className="w-full sm:w-auto rounded-lg bg-blue-600 px-8 py-3 font-medium text-white transition-colors hover:bg-blue-800 cursor-pointer">
               Prefer writing instead? Email us.
             </button>
           </Link>
@@ -107,7 +108,7 @@ export default function SocialProofSection() {
       {/* Infinite Slider Section */}
       <div className="relative w-full flex items-center">
         <motion.div
-          className="flex gap-6 md:gap-8 w-max px-4 py-8 items-center"
+          className="flex gap-4 sm:gap-6 md:gap-8 w-max px-4 py-8 items-center"
           animate={{
             x: ["0%", "-50%"],
           }}
@@ -120,18 +121,20 @@ export default function SocialProofSection() {
           {duplicatedTestimonials.map((testimonial, index) => (
             <div
               key={index}
-              className={`bg-white p-6 md:p-8 w-[300px] sm:w-[350px] md:w-[400px] h-[350px] md:h-[400px] shrink-0 shadow-xl flex flex-col justify-between ${testimonial.rotation} transition-transform hover:rotate-0 hover:z-10`}
+              // {/* Adjusted Card Dimensions for Mobile */}
+              className={`bg-white p-5 sm:p-6 md:p-8 w-[280px] sm:w-[350px] md:w-[400px] h-[320px] sm:h-[350px] md:h-[400px] shrink-0 shadow-xl flex flex-col justify-between ${testimonial.rotation} transition-transform hover:rotate-0 hover:z-10`}
               style={{
                 borderBottomRightRadius: index % 2 === 0 ? "2rem" : "0",
                 borderTopRightRadius: index % 2 !== 0 ? "2rem" : "0",
               }}
             >
-              <p className="text-slate-600 leading-relaxed mb-6 md:mb-8 text-sm md:text-base overflow-y-auto custom-scrollbar">
+              <p className="text-slate-600 leading-relaxed mb-4 md:mb-8 text-sm md:text-base overflow-y-auto custom-scrollbar">
                 "{testimonial.text}"
               </p>
               
-              <div className="flex items-center justify-between mt-auto">
-                <div className="flex items-center gap-3">
+              {/* Fixed Bottom Content Layout */}
+              <div className="flex items-center justify-between mt-auto gap-2">
+                <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                   {testimonial.avatar ? (
                     <img
                       src={testimonial.avatar}
@@ -144,18 +147,19 @@ export default function SocialProofSection() {
                     </div>
                   )}
                   
-                  <div className="overflow-hidden">
+                  {/* Added min-w-0 to allow standard CSS flex truncation */}
+                  <div className="overflow-hidden min-w-0">
                     <h4 className="text-slate-800 font-bold text-sm truncate">
                       {testimonial.name}
                     </h4>
-                    <p className="text-slate-500 text-xs max-w-[120px] sm:max-w-[140px] leading-tight truncate">
+                    <p className="text-slate-500 text-xs truncate">
                       {testimonial.role}
                     </p>
                   </div>
                 </div>
                 
                 <div 
-                  className="text-xl md:text-2xl text-slate-700 opacity-80 shrink-0 ml-2 whitespace-nowrap" 
+                  className="text-lg sm:text-xl md:text-2xl text-slate-700 opacity-80 shrink-0 ml-auto whitespace-nowrap" 
                   style={{ fontFamily: "'Caveat', 'Dancing Script', cursive" }}
                 >
                   {testimonial.signature}

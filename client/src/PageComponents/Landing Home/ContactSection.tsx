@@ -41,36 +41,42 @@ const ContactSection: React.FC = () => {
 
   return (
     <div 
-      className="min-h-screen w-full bg-cover bg-center flex flex-col items-center justify-center p-6 md:p-12 relative"
+      // FIXED: Dropped base padding to p-4 so tiny screens have maximum horizontal room for the form
+      className="min-h-screen w-full bg-cover bg-center flex flex-col items-center justify-center p-4 sm:p-6 md:p-12 relative"
       style={{ backgroundImage: `url('https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773495466/ContactBG_yh5k2r.png')` }}
     >
       {/* Headings */}
-      <div className="text-center text-white mb-8 max-w-2xl z-10">
-        <h4 className="text-4xl md:text-5xl bungee-shade tracking-tight">
-          Get A Free Consultation
+      <div className="text-center text-white mb-6 sm:mb-8 max-w-2xl z-10 px-2">
+        {/* FIXED: Scaled to text-[28px] for mobile, added a forced line break so "Consultation" doesn't hit the screen edges */}
+        <h4 className="text-[28px] sm:text-4xl md:text-5xl bungee-shade tracking-tight leading-[1.2]">
+          Get A Free <br className="block sm:hidden" /> Consultation
         </h4>
       </div>
 
       {/* Form Container */}
-      <form className="w-full max-w-md flex flex-col gap-4 z-10" onSubmit={handleSubmit}>
+      <form className="w-full max-w-md flex flex-col gap-3 sm:gap-4 z-10" onSubmit={handleSubmit}>
         <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" />
 
-        <Input 
-          id="first_name" 
-          name="first_name" 
-          type="text" 
-          placeholder="First name*" 
-          required 
-          className="bg-[#FFF9EA] border-none text-slate-800 placeholder:text-slate-400 placeholder:font-medium h-14 rounded-xl px-6 text-base focus-visible:ring-2 focus-visible:ring-white/50" 
-        />
-        
-        <Input 
-          id="last_name" 
-          name="last_name" 
-          type="text" 
-          placeholder="Last name" 
-          className="bg-[#FFF9EA] border-none text-slate-800 placeholder:text-slate-400 placeholder:font-medium h-14 rounded-xl px-6 text-base focus-visible:ring-2 focus-visible:ring-white/50" 
-        />
+        {/* FIXED: Grouped First and Last name into a grid. Stacks on mobile, side-by-side on sm+ */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+          <Input 
+            id="first_name" 
+            name="first_name" 
+            type="text" 
+            placeholder="First name*" 
+            required 
+            // FIXED: Fluid height (h-12 to h-14) and padding (px-4 to px-6)
+            className="bg-[#FFF9EA] border-none text-slate-800 placeholder:text-slate-400 placeholder:font-medium h-12 sm:h-14 rounded-xl px-4 sm:px-6 text-sm sm:text-base focus-visible:ring-2 focus-visible:ring-white/50" 
+          />
+          
+          <Input 
+            id="last_name" 
+            name="last_name" 
+            type="text" 
+            placeholder="Last name" 
+            className="bg-[#FFF9EA] border-none text-slate-800 placeholder:text-slate-400 placeholder:font-medium h-12 sm:h-14 rounded-xl px-4 sm:px-6 text-sm sm:text-base focus-visible:ring-2 focus-visible:ring-white/50" 
+          />
+        </div>
 
         <Input 
           id="email" 
@@ -78,7 +84,7 @@ const ContactSection: React.FC = () => {
           type="email" 
           placeholder="Email*" 
           required 
-          className="bg-[#FFF9EA] border-none text-slate-800 placeholder:text-slate-400 placeholder:font-medium h-14 rounded-xl px-6 text-base focus-visible:ring-2 focus-visible:ring-white/50" 
+          className="bg-[#FFF9EA] border-none text-slate-800 placeholder:text-slate-400 placeholder:font-medium h-12 sm:h-14 rounded-xl px-4 sm:px-6 text-sm sm:text-base focus-visible:ring-2 focus-visible:ring-white/50" 
         />
 
         <Input 
@@ -86,11 +92,11 @@ const ContactSection: React.FC = () => {
           name="website" 
           type="text" 
           placeholder="Website" 
-          className="bg-[#FFF9EA] border-none text-slate-800 placeholder:text-slate-400 placeholder:font-medium h-14 rounded-xl px-6 text-base focus-visible:ring-2 focus-visible:ring-white/50" 
+          className="bg-[#FFF9EA] border-none text-slate-800 placeholder:text-slate-400 placeholder:font-medium h-12 sm:h-14 rounded-xl px-4 sm:px-6 text-sm sm:text-base focus-visible:ring-2 focus-visible:ring-white/50" 
         />
 
         <Select value={service} onValueChange={setService} name="service">
-          <SelectTrigger className="bg-[#FFF9EA] border-none text-slate-800 h-14 rounded-xl px-6 text-base w-full data-[placeholder]:text-slate-400 data-[placeholder]:font-medium focus:ring-2 focus:ring-white/50">
+          <SelectTrigger className="bg-[#FFF9EA] border-none text-slate-800 h-12 sm:h-14 rounded-xl px-4 sm:px-6 text-sm sm:text-base w-full data-[placeholder]:text-slate-400 data-[placeholder]:font-medium focus:ring-2 focus:ring-white/50">
             <SelectValue placeholder="Select service*" />
           </SelectTrigger>
           <SelectContent className="rounded-xl border-none shadow-xl">
@@ -110,13 +116,14 @@ const ContactSection: React.FC = () => {
           placeholder="Message*" 
           rows={4} 
           required 
-          className="bg-[#FFF9EA] border-none text-slate-800 placeholder:text-slate-400 placeholder:font-medium min-h-[120px] rounded-2xl px-6 py-4 text-base resize-none focus-visible:ring-2 focus-visible:ring-white/50" 
+          // FIXED: Adjusted min-height and padding for tiny screens
+          className="bg-[#FFF9EA] border-none text-slate-800 placeholder:text-slate-400 placeholder:font-medium min-h-[100px] sm:min-h-[120px] rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base resize-none focus-visible:ring-2 focus-visible:ring-white/50" 
         />
 
         <Button 
           type="submit" 
           disabled={loading} 
-          className="bg-blue-600 hover:bg-blue-700 border border-white text-white h-14 rounded-xl text-base font-semibold w-full mt-2 transition-all cursor-pointer"
+          className="bg-blue-600 hover:bg-blue-700 border border-white text-white h-12 sm:h-14 rounded-xl text-sm sm:text-base font-semibold w-full mt-1 sm:mt-2 transition-all cursor-pointer"
         >
           {loading ? 'Sending...' : 'Submit application'}
         </Button>
