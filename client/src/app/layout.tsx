@@ -108,6 +108,7 @@ export default function RootLayout({
       className={`${bungeeInline.variable} ${bungeeShade.variable}`}
     >
       <head>
+        <script src="https://analytics.ahrefs.com/analytics.js" data-key="R7lOm40+Rsly7oGYYcI9cQ" async></script>
         <meta
           name="google-site-verification"
           content="_jKz-Nn1SbmybTMfTSQNuWSiY79pDFJTVfNEqZKc33w"
