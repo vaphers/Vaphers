@@ -70,6 +70,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: blog.metaTitle || blog.title,
     description: blog.metaDescription,
+
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/blogs/${slug}`,
+    },
+
     openGraph: {
       title: blog.metaTitle || blog.title,
       description: blog.metaDescription,
