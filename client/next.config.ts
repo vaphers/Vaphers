@@ -70,6 +70,11 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'www.pexels.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'i.pravatar.cc',
         pathname: '/**',
       },
