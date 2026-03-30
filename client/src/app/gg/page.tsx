@@ -5,6 +5,7 @@ import Lenis from '@studio-freight/lenis'
 import PropsHero from '@/PageComponents/Props Based Components/Hero'
 import NavBar from '@/PageComponents/Global Components/Header'
 import ExplainSection from '@/PageComponents/Props Based Components/Explain'
+import WhatYouGetAtVaphers from '@/PageComponents/Props Based Components/WhatYouGetAtVaphers'
 
 
 const myCards = [
@@ -35,6 +36,49 @@ const customLogos = [
   "https://logo-url-4.png",
   "https://logo-url-5.png",
 ];
+
+
+
+  const myTabs = [
+    {
+      id: "tab-1",
+      label: "Multi-Tenant Architecture",
+      contentTitle: "Built for Scale",
+      contentImage: "/icons/scale.png", // Optional image!
+      content: (
+        <div className="space-y-4">
+          <p>We design ERP systems that can handle multiple tenants securely from day one.</p>
+          <p>Our modular approach means you only load the services you need, keeping your infrastructure costs low and performance high.</p>
+        </div>
+      )
+    },
+    {
+      id: "tab-2",
+      label: "Seamless Integration",
+      contentTitle: "Connects with Everything",
+      // Notice: No image passed here, the component handles it gracefully!
+      content: (
+        <p>Our event bus architecture ensures that your new ERP talks flawlessly to your existing payment gateways, CRMs, and email providers.</p>
+      )
+    },
+    {
+      id: "tab-3",
+      label: "Real-Time Reporting",
+      contentTitle: "Data at your fingertips",
+      contentImage: "/icons/chart.png",
+      content: (
+        <p>Get insights immediately with our optimized database structures and fast front-end rendering using Next.js.</p>
+      )
+    }
+  ];
+
+
+    const myStats = [
+    "50+ ERP SYSTEMS BUILT",
+    "99% UPTIME",
+    "MODULAR ARCHITECTURE",
+    "KOLKATA BASED"
+  ];
 
 export default function Page() {
   const lenisRef = useRef<Lenis | null>(null)
@@ -118,7 +162,12 @@ export default function Page() {
             heroImage: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047483/MoreLeads_dpwsz2.png"
           }}
         />
-
+        <WhatYouGetAtVaphers 
+        topStats={myStats}
+        heading="Enterprise-Grade ERP Solutions"
+        description="Stop fighting with off-the-shelf software. We build custom dashboards that map exactly to your business operations."
+        tabs={myTabs}
+        />
       </main>
     </>
   );

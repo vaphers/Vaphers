@@ -80,7 +80,6 @@ export class WatermarkEngine {
         ctx.drawImage(bgImage, 0, 0);
         const imageData = ctx.getImageData(0, 0, size, size);
 
-        // cache the alpha map
         const alphaMap = calculateAlphaMap(imageData);
         this.alphaMaps[size] = alphaMap;
 
@@ -96,17 +95,14 @@ export class WatermarkEngine {
 
         ctx.drawImage(image, 0, 0);
 
-        // extract the image data 
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
-        // detect the watermark configuration in the image
         const config = detectWatermarkConfig(canvas.width, canvas.height);
         const position = calculateWatermarkPosition(canvas.width, canvas.height, config);
 
-        // get the alpha map
         const alphaMap = await this.getAlphaMap(config.logoSize);
 
-        // remoce the watermark
+        // remove the watermark
         removeWatermark(imageData, alphaMap, position);
 
         // return it back to the canvas
