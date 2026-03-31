@@ -279,8 +279,8 @@ export default function GeminiWatermarkRemover() {
 
             <div className="w-full mx-auto">
               <BeforeAfterComparison
-                beforeImage="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1769765120/Gemini_Generated_Image_jfxraijfxraijfxr_hq4gw1.png"
-                afterImage="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1769765118/unwatermarked_Gemini_Generated_Image_jfxraijfxraijfxr_l86eai.png"
+                beforeImage="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1769765120/Gemini_Generated_Image_jfxraijfxraijfxr_hq4gw1.png"
+                afterImage="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1769765118/unwatermarked_Gemini_Generated_Image_jfxraijfxraijfxr_l86eai.png"
               />
             </div>
           </div>

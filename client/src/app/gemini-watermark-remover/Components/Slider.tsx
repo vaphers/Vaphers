@@ -17,7 +17,7 @@ export function BeforeAfterComparison({
   afterImage,
   beforeLabel = "Before (Watermarked)",
   afterLabel = "After (Clean)",
-  arrowImage = "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1769769716/Frame_79_wnq6ix.png",
+  arrowImage = "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1769769716/Frame_79_wnq6ix.png",
   className
 }: BeforeAfterComparisonProps) {
   return (

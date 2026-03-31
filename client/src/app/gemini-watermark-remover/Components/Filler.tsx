@@ -88,7 +88,7 @@ export function HowItWorksSection() {
               
               {/* Actual Image */}
               <img 
-                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1769779478/Frame_78_ccsfdv.png" 
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1769779478/Frame_78_ccsfdv.png" 
                 alt="Gemini Watermark Removal Demo - AI Watermark Remover" 
                 className="w-full h-auto object-cover"
               />

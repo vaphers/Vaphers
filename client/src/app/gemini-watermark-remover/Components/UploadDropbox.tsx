@@ -107,7 +107,7 @@ export function UploadDropbox({ onFilesSelected, onUploadClick }: UploadDropboxP
                         ${dragOver ? 'scale-105' : 'hover:scale-[1.02]'}
                     `}>
                         <img
-                            src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1769762606/Gemini_Generated_Image_po28s2po28s2po28-removebg-preview_xtkrf0.png"
+                            src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1769762606/Gemini_Generated_Image_po28s2po28s2po28-removebg-preview_xtkrf0.png"
                             alt="Upload illustration"
                             className="object-contain drop-shadow-2xl"
                             style={{ width: '400px', height: '380px' }}
