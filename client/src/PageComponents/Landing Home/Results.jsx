@@ -86,7 +86,7 @@ const ParallaxImages = ({ isMobile }) => (
   // 2. Reduced the initial top padding (pt-[50px] and pt-[100px])
   <div className={`relative z-20 mx-auto max-w-5xl px-4 ${isMobile ? 'pt-[50px]' : 'pt-[100px]'}`}>
     <ParallaxImg
-      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1768565732/1uk1dfu3ch7g1_bgrvxu.jpg"
+      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1768565732/1uk1dfu3ch7g1_bgrvxu.jpg"
       alt="Google Search Console Dashboard"
       start={isMobile ? -100 : -200}
       end={isMobile ? 100 : 200}
@@ -96,7 +96,7 @@ const ParallaxImages = ({ isMobile }) => (
     />
     {/* 3. Added negative top margins (-mt-8 md:-mt-16) to pull images closer together */}
     <ParallaxImg
-      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1768565732/0nsyv0pqrl0g1_obuapg.jpg"
+      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1768565732/0nsyv0pqrl0g1_obuapg.jpg"
       alt="Google Search Console Dashboard"
       start={isMobile ? 100 : 200}
       end={isMobile ? -125 : -250}
@@ -105,7 +105,7 @@ const ParallaxImages = ({ isMobile }) => (
       height={450}
     />
     <ParallaxImg
-      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1768565732/exl6ordv4ibg1_zu4wua.jpg"
+      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1768565732/exl6ordv4ibg1_zu4wua.jpg"
       alt="Google Search Console Dashboard"
       start={isMobile ? -100 : -200}
       end={isMobile ? 100 : 200}
@@ -114,7 +114,7 @@ const ParallaxImages = ({ isMobile }) => (
       height={506}
     />
     <ParallaxImg
-      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1768565732/2ricge7cocbg1_lstgm0.jpg"
+      src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1768565732/2ricge7cocbg1_lstgm0.jpg"
       alt="Google Search Console Dashboard"
       start={0}
       end={isMobile ? -250 : -500}

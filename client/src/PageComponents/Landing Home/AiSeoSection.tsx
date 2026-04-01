@@ -102,7 +102,7 @@ export default function AISeoHero() {
         {/* RIGHT COLUMN - Image */}
         <div className="relative w-full h-[350px] sm:h-[450px] lg:h-full lg:min-h-[75vh] rounded-[1.5rem] lg:rounded-[2.5rem] overflow-hidden order-first lg:order-last">
           <Image
-            src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773317259/Untitled_design_3_pfr2ks.png"
+            src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1773317259/Untitled_design_3_pfr2ks.png"
             alt="get featured in ai search results"
             fill
             className="object-cover object-center"

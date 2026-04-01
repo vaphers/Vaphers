@@ -12,7 +12,7 @@ const HomePaidAds = () => {
           {/* Left Image */}
           <div className="relative w-full h-[250px] sm:h-[400px] lg:h-[600px] rounded-2xl overflow-hidden shadow-2xl order-2 lg:order-1">
             <Image
-              src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772636628/Leading_paid_search_marketing_agency_owavgz.png"
+              src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1772636628/Leading_paid_search_marketing_agency_owavgz.png"
               alt="Digital marketing analytics dashboard showing paid advertising campaign performance and ROI metrics"
               fill
               className="object-cover"

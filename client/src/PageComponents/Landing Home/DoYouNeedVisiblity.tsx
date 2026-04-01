@@ -57,7 +57,7 @@ const DoYouNeedSEO: React.FC = () => {
           <div className="lg:col-span-6 w-full flex justify-center lg:justify-start">
             <div className="relative w-full">
               <Image
-                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773728243/Just-sold-marketing-package-to-this-guy_tcx2g2.png"
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1773728243/Just-sold-marketing-package-to-this-guy_tcx2g2.png"
                 alt="Do You Even Need SEO Services?"
                 width={800}
                 height={800}

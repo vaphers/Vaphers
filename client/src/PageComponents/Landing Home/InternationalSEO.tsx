@@ -28,7 +28,7 @@ export default function InternaionalSEO() {
               {/* Image Container - Needs explicit height on mobile since parent is h-auto */}
               <div className="relative w-full h-[250px] sm:h-full rounded-sm overflow-hidden border border-gray-200 shadow-sm">
                 <Image
-                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773382246/Leading_International_SEO_Agency_zcmimt.png"
+                  src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1773382246/Leading_International_SEO_Agency_zcmimt.png"
                   alt="International SEO Expert"
                   fill
                   className="object-cover"

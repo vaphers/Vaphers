@@ -23,7 +23,7 @@ const services: Service[] = [
     description:
       "Command the top positions in search. We engineer SEO strategies that transform visibility into compounding organic revenue. From resolving complex technical hurdles to building unshakeable topical authority, we secure the rankings that drive sustainable, high-intent traffic to your brand.",
     color: "#2A59A3", 
-    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773481288/search-engine-optimization-Vaphers_w89yqk.jpg",
+    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1773481288/search-engine-optimization-Vaphers_w89yqk.jpg",
     link: "/seo-services",
   },
   {
@@ -32,7 +32,7 @@ const services: Service[] = [
     description:
       "Dominate your immediate market. We optimize your local digital footprint—from Google Business Profiles to hyper-local citations—ensuring Vaphers clients capture the 'near me' searches that drive high-intent foot traffic and inbound calls.",
     color: "#2A59A3", 
-    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773481288/Local-Search-Optimization-Vaphers_fe4gtt.jpg",
+    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1773481288/Local-Search-Optimization-Vaphers_fe4gtt.jpg",
     link: "/seo-services/local-seo-services",
   },
   {
@@ -41,7 +41,7 @@ const services: Service[] = [
     description:
       "Future-proof your digital footprint. We optimize your content architecture to be naturally sourced and cited by leading generative AI assistants like ChatGPT and Gemini. By mastering entity association, we ensure your brand remains the absolute authority in the new era of AI-driven search.",
     color: "#2A59A3", 
-    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773481289/LLM-AI-SEO-Vaphers_vamwj8.jpg",
+    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1773481289/LLM-AI-SEO-Vaphers_vamwj8.jpg",
     link: "/seo-services/ai-seo-services",
   },
   {
@@ -50,7 +50,7 @@ const services: Service[] = [
     description:
       "Craft digital experiences that relentlessly convert. We merge intuitive user journeys with striking, modern aesthetics to build platforms that serve as your ultimate growth engine. Our web architecture guarantees blazing-fast load times, seamless responsiveness, and flawless user retention.",
     color: "#2A59A3", 
-    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773481289/WebsiteDesignServices_-_Vaphers_a6rb3g.jpg",
+    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1773481289/WebsiteDesignServices_-_Vaphers_a6rb3g.jpg",
     link: "/website-development-services",
   },
   {
@@ -59,7 +59,7 @@ const services: Service[] = [
     description:
       "Maximize your ROI with precision-targeted search campaigns. We optimize complex bidding strategies, construct compelling ad copy, and refine landing page experiences to ensure you appear exactly when customers are searching—turning every ad dollar into measurable, bottom-line revenue growth.",
     color: "#2A59A3", 
-    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773481289/Google-Ads-Management-Vaphers_dlxpyw.jpg",
+    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1773481289/Google-Ads-Management-Vaphers_dlxpyw.jpg",
     link: "/ppc-marketing/google-ads-management-services",
   },
   {
@@ -68,7 +68,7 @@ const services: Service[] = [
     description:
       "Engage and convert at scale across social platforms. We deploy scroll-stopping, data-driven creatives and leverage advanced machine learning audience targeting to aggressively scale your revenue on Facebook and Instagram, turning passive social scrollers into loyal, high-value customers.",
     color: "#2A59A3", 
-    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773482014/Meta-Ads-Management-Vaphers_ehf9k6.jpg",
+    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1773482014/Meta-Ads-Management-Vaphers_ehf9k6.jpg",
     link: "/ppc-marketing/meta-ads-management-services",
   },
 ];

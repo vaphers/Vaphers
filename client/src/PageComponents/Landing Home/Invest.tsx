@@ -135,7 +135,7 @@ const Invest: React.FC = () => {
                   className="absolute top-2 left-1 sm:top-4 sm:left-2 lg:top-8 lg:-left-1 p-1 sm:p-2 lg:p-3"
                 >
                   <Image
-                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761658327/Adobe_Express_-_file_p0mimj.png"
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761658327/Adobe_Express_-_file_p0mimj.png"
                     alt="Shopify Logo"
                     width={56}
                     height={56}
@@ -150,7 +150,7 @@ const Invest: React.FC = () => {
                   className="absolute -top-2 right-1 sm:top-0 sm:right-2 lg:-top-4 lg:-right-12"
                 >
                   <Image
-                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761657677/WooCommerce-Logo_ef4x1p.png"
+                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761657677/WooCommerce-Logo_ef4x1p.png"
                     alt="WooCommerce Logo"
                     width={176}
                     height={176}

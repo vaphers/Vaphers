@@ -54,7 +54,7 @@ export default function MarketingComparisonSection() {
         >
           {/* Base Image (Right Side / Revenue Marketing) */}
           <img
-            src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772618593/revenue-marketing_1_g5hgbu.jpg"
+            src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1772618593/revenue-marketing_1_g5hgbu.jpg"
             alt="Revenue Marketing Funnel"
             className="absolute inset-0 w-full h-full object-contain md:object-cover pointer-events-none"
             draggable="false"
@@ -66,7 +66,7 @@ export default function MarketingComparisonSection() {
             style={{ clipPath }}
           >
             <img
-              src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772618595/generic-marketing_1_jatlu3.jpg"
+              src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1772618595/generic-marketing_1_jatlu3.jpg"
               alt="Traditional Marketing Funnel"
               className="absolute inset-0 w-full h-full object-contain md:object-cover"
               draggable="false"

@@ -169,7 +169,7 @@ const DesignPartnerSection = () => {
                     className="absolute -top-2 -left-4 sm:top-0 sm:-left-4"
                     >
                     <Image
-                        src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765277333/Google_LOGO_kybgvd.png"
+                        src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1765277333/Google_LOGO_kybgvd.png"
                         alt="Google"
                         width={80}
                         height={80}
@@ -185,7 +185,7 @@ const DesignPartnerSection = () => {
                     className="absolute top-8 -right-6 sm:top-14 sm:-right-8"
                     >
                     <Image
-                        src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1765277313/Get_More_Clients_mx49qw.png"
+                        src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1765277313/Get_More_Clients_mx49qw.png"
                         alt="SEO ranking growth"
                         width={176}
                         height={176}
