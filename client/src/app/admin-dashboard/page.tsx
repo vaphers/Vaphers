@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
+import AnalyticsDashboard from "./Components/Dashboard";
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
@@ -19,8 +20,7 @@ export default async function AdminDashboard() {
 
   return (
     <div>
-      <h1>Welcome to Admin Dashboard</h1>
-      {/* Your dashboard content */}
+      <AnalyticsDashboard/>
     </div>
   );
 }
