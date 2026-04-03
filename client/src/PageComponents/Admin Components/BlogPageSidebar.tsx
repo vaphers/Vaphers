@@ -295,7 +295,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               onKeyDown={(e) => e.key === 'Enter' && addCategory(newCategory)}
               className="h-9"
             />
-            <Button size="sm" className="h-9 px-4" onClick={() => addCategory(newCategory)}>
+            <Button size="sm" className="h-9 px-4 bg-blue-900 rounded-sm" onClick={() => addCategory(newCategory)}>
               Add
             </Button>
           </div>

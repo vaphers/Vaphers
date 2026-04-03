@@ -71,21 +71,21 @@ export default function AdminPostsPage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] p-4 sm:p-8 py-10 font-sans">
-      <div className="max-w-7xl mx-auto space-y-8">
+      <div className="max-w-full mx-auto space-y-8">
         
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Posts</h1>
+            <h1 className="text-3xl font-base text-gray-900 tracking-tight">Posts</h1>
             <p className="text-sm text-gray-500 mt-1">Manage and organize your blog content.</p>
           </div>
           <Link href="/add-posts">
-            <button className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-all shadow-sm">
+            <button className="flex items-center gap-2 px-5 py-2.5 bg-blue-900 text-white rounded-xs font-medium hover:bg-blue-700 transition-all shadow-sm cursor-pointer">
               <Plus size={18} /> Add New Post
             </button>
           </Link>
         </div>
 
-        <div className="flex flex-col sm:flex-row flex-wrap gap-4 bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+        <div className="flex flex-col sm:flex-row flex-wrap gap-4 bg-white p-4 rounded-sm border border-gray-200 shadow-xs">
           <div className="relative flex-1 min-w-[280px]">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <Search className="h-5 w-5 text-gray-400" />
@@ -95,7 +95,7 @@ export default function AdminPostsPage() {
               value={search}
               onChange={(e) => { setSearch(e.target.value); setPage(1); }}
               placeholder="Search posts by title..."
-              className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg bg-gray-50/50 text-gray-900 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors sm:text-sm"
+              className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-sm bg-gray-50/50 text-gray-900 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors sm:text-sm"
             />
           </div>
 
@@ -103,7 +103,7 @@ export default function AdminPostsPage() {
             <select
               value={selectedCategory}
               onChange={(e) => { setSelectedCategory(e.target.value); setPage(1); }}
-              className="block w-full px-3 py-2.5 border border-gray-300 rounded-lg bg-gray-50/50 text-gray-900 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors sm:text-sm appearance-none cursor-pointer"
+              className="block w-full px-3 py-2.5 border border-gray-300 rounded-sm bg-gray-50/50 text-gray-900 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors sm:text-sm appearance-none cursor-pointer"
               style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`, backgroundPosition: `right 0.75rem center`, backgroundRepeat: `no-repeat`, backgroundSize: `1.2em 1.2em` }}
             >
               <option value="all">All Categories</option>
@@ -114,7 +114,7 @@ export default function AdminPostsPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col">
+        <div className="bg-white rounded-sm  border border-gray-200 shadow-sm overflow-hidden flex flex-col">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200 text-left text-sm">
               <thead className="bg-gray-50/80">
@@ -161,7 +161,7 @@ export default function AdminPostsPage() {
                         <td className="px-6 py-4 whitespace-nowrap text-right">
                           <Link 
                             href={`/admin-dashboard/edit-post/${post.slug || post.id}`} 
-                            className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors inline-flex rounded-lg shadow-sm border border-transparent hover:border-blue-100"
+                            className="p-2 text-gray-400 hover:text-blue-900 hover:bg-blue-100 transition-colors inline-flex rounded-sm shadow-sm border border-transparent hover:border-blue-100"
                             title="Edit Post"
                           >
                             <Edit size={18} />

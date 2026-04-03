@@ -19,7 +19,7 @@ export default async function AdminDashboard() {
   }
 
   return (
-    <div className="p-0">
+    <div >
       <AdminDashboardClientWrapper />
     </div>
   );

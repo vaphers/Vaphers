@@ -10,8 +10,9 @@ import TrafficSources from './TrafficSources';
 
 const MAIN_TABS = ['Traffic sources', 'Audience', 'Pages', 'Conversions'];
 
-// Helper to get today's date in YYYY-MM-DD
+// Helpers for default dates
 const getTodayStr = () => format(new Date(), 'yyyy-MM-dd');
+const getStartOfMonthStr = () => format(startOfMonth(new Date()), 'yyyy-MM-dd');
 
 // --- PRESET LOGIC ---
 const PRESETS = [
@@ -26,20 +27,20 @@ const PRESETS = [
 export default function AnalyticsDashboard() {
   const [activeMainTab, setActiveMainTab] = useState('Traffic sources');
   
-  // Dashboard Master State
-  const [dateRange, setDateRange] = useState({ start: getTodayStr(), end: getTodayStr() });
+  // Dashboard Master State (Updated default to This Month)
+  const [dateRange, setDateRange] = useState({ start: getStartOfMonthStr(), end: getTodayStr() });
   
   // Comparison Master State
   const [isComparing, setIsComparing] = useState(false);
   const [compareMode, setCompareMode] = useState<'previous' | 'previous-year' | 'custom'>('previous');
   const [compareDateRange, setCompareDateRange] = useState({ start: '', end: '' });
 
-  // Popover UI State
+  // Popover UI State (Updated default preset)
   const [isPickerOpen, setIsPickerOpen] = useState(false);
-  const [activePreset, setActivePreset] = useState('Today');
+  const [activePreset, setActivePreset] = useState('This month');
 
-  // Temporary State (inside popover before hitting Apply)
-  const [tempRange, setTempRange] = useState<{ from: Date | undefined; to: Date | undefined }>({ from: new Date(), to: new Date() });
+  // Temporary State (inside popover before hitting Apply) (Updated default temp range)
+  const [tempRange, setTempRange] = useState<{ from: Date | undefined; to: Date | undefined }>({ from: startOfMonth(new Date()), to: new Date() });
   const [tempIsComparing, setTempIsComparing] = useState(false);
   const [tempCompareMode, setTempCompareMode] = useState<'previous' | 'previous-year' | 'custom'>('previous');
   const [tempCompareRange, setTempCompareRange] = useState<{ start: string; end: string }>({ start: '', end: '' });
@@ -277,6 +278,12 @@ export default function AnalyticsDashboard() {
                       </div>
                     )}
                   </div>
+
+                  {/* Show Previous Values Checkbox */}
+                  <label className="flex items-center gap-2 cursor-pointer mt-1">
+                    <input type="checkbox" className="w-3.5 h-3.5 rounded-sm border-slate-300 text-blue-900 focus:ring-blue-900 cursor-pointer" />
+                    <span className="text-[13px] text-slate-600">Show previous values <i className="text-xs text-slate-400 not-italic ml-1">i</i></span>
+                  </label>
 
                   {/* Action Buttons */}
                   <div className="mt-auto flex justify-end gap-2 pt-4 border-t border-slate-100">

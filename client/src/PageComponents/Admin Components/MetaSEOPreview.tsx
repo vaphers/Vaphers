@@ -60,16 +60,16 @@ const MetaSEOPreview: React.FC<MetaSEOPreviewProps> = ({
   };
 
   return (
-    <div className="w-full space-y-6 mt-8">
+    <div className="max-w-7xl space-y-6 mx-auto mt-8">
       
       <Separator className="my-6" />
       
-      <h2 className="text-2xl font-bold bungee-inline-regular">Edit Meta Data</h2>
+      <h2 className="text-3xl font-base ">Edit Meta Data</h2>
       
       {/* SERP Preview - Improved Design */}
       <Card className="max-w-2xl p-6 bg-gray-50 shadow-none ">
         <div className="flex items-center justify-between">
-          <Label className="text-base font-bold text-gray-800 ">Search Appearance</Label>
+          <Label className="text-2xl font-base text-gray-800 ml-2">Search Appearance</Label>
           <div className="flex items-center gap-2 text-xs text-gray-500">
             <Globe size={14} />
             <span>Google Preview</span>
@@ -100,7 +100,7 @@ const MetaSEOPreview: React.FC<MetaSEOPreviewProps> = ({
           </p>
         </div>
 
-        {/* Character count indicators */}
+        {/* Character count indicators
         <div className="flex gap-4 text-xs">
           <div className="flex items-center gap-2">
             <span className="text-gray-600">Title:</span>
@@ -114,7 +114,7 @@ const MetaSEOPreview: React.FC<MetaSEOPreviewProps> = ({
               {descCharCount}/{descLimit}
             </span>
           </div>
-        </div>
+        </div> */}
       </Card>
 
       {/* Slug Input */}

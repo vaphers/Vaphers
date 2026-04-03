@@ -5,7 +5,7 @@ import { Home, Users, Settings, BarChart, FileText, LogOut, ChevronLeft, Chevron
 import Link from "next/link"
 
 const menuItems = [
-  { title: "Analytics", url: "admin-dashboard", icon: Home },
+  { title: "Analytics", url: "/admin-dashboard", icon: Home },
   { title: "Posts", url: "/admin-dashboard/posts", icon: Users },
   { title: "New Post", url: "/admin-dashboard/posts/add-posts", icon: BarChart },
   // { title: "Reports", url: "/admin-dashboard/reports", icon: FileText },

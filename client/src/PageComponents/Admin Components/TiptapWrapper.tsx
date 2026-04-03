@@ -6,7 +6,7 @@ import MetaSEOPreview from './MetaSEOPreview';
 import Sidebar from './BlogPageSidebar'; 
 
 export default function TiptapWrapper() {
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState('Add a spectacular title...');
   const [content, setContent] = useState('<p>Start typing your blog...</p>');
   const [slug, setSlug] = useState('');
   const [metaTitle, setMetaTitle] = useState('');
@@ -74,7 +74,7 @@ const handlePublish = async () => {
 
 
   return (
-    <div className="flex px-10 mx-auto pt-0">
+    <div className="flex mx-auto pt-0">
       {/* Center Editor and Meta area */}
       <div className="flex-1 p-5" >
         <Tiptap
@@ -95,7 +95,7 @@ const handlePublish = async () => {
         {/* Publish Button */}
         <button
           onClick={handlePublish}
-          className="mt-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+          className="mt-6 px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-700 transition cursor-pointer"
         >
           Publish
         </button>

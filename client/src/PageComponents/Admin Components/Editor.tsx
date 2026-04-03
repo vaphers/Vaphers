@@ -346,7 +346,7 @@ const applyLink = () => {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto space-y-6">
+    <div className="w-full max-w-7xl mx-auto space-y-6">
       
       <style dangerouslySetInnerHTML={{__html: `
         .hljs-comment, .hljs-quote { color: #008080; font-style: italic; }
@@ -380,16 +380,16 @@ const applyLink = () => {
         onBlur={(e) => {
           if (e.currentTarget.textContent?.trim() === '') {
             e.currentTarget.textContent = 'Add a spectacular title...';
-            e.currentTarget.classList.add('text-gray-300');
+            e.currentTarget.classList.add('text-gray-800');
           }
         }}
-        className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 focus:outline-none border-b border-transparent focus:border-gray-200 pb-4 transition-colors leading-tight px-2 sm:px-0 text-gray-300"
+        className="text-4xl md:text-5xl font-base tracking-tight mb-4 focus:outline-none border-b border-transparent focus:border-gray-200 pb-4 transition-colors leading-tight px-2 sm:px-0 text-gray-300"
         style={{ minHeight: '1.2em', direction: 'ltr', textAlign: 'left' }}
       >
         Add a spectacular title...
       </h1>
 
-      <div className="sticky top-4 z-40 flex flex-wrap items-center gap-1.5 px-3 py-2 bg-white/80 backdrop-blur-md shadow-sm border border-gray-200 rounded-xl mb-4">
+      <div className="sticky top-4 z-40 flex flex-wrap items-center gap-1.5 px-3 py-2 bg-white/80 backdrop-blur-md shadow-xs border border-gray-200 rounded-sm mb-4">
         
         <div className="flex items-center gap-0.5">
           <button onClick={() => editor?.chain().focus().undo().run()} disabled={!editor?.can().undo()} className={`${btnBase} disabled:opacity-30`} title="Undo"><Undo size={18} /></button>
@@ -486,7 +486,7 @@ const applyLink = () => {
         </Dialog>
       </Transition>
 
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm focus-within:shadow-md focus-within:border-gray-200 transition-all duration-300 px-6 py-8 sm:px-12 sm:py-16">
+      <div className="bg-white rounded-sm border border-gray-100 shadow-xs focus-within:shadow-md focus-within:border-gray-200 transition-all duration-300 px-6 py-8 sm:px-12 sm:py-16">
         <EditorContent editor={editor} className="w-full" />
       </div>
     </div>
