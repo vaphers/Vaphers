@@ -2,47 +2,55 @@
 
 import React, { useState, useEffect } from 'react';
 import { AlertCircle } from 'lucide-react';
-// Import both components here
 import OverviewTab from './Traffic Source Component/Overview'; 
 import OrganicTraffic from './Traffic Source Component/OrganicTraffic'; 
 import PaidTraffic from './Traffic Source Component/PaidTraffic';
+import ReferralTraffic from './Traffic Source Component/ReferralTraffic'; 
+import SocialTraffic from './Traffic Source Component/SocialTraffic'; 
 
-const SUB_TABS = ['Overview', 'Organic Traffic', 'Paid Traffic', 'Referral Traffic', 'Social Traffic'];
+const SUB_TABS = ['Overview', 'Organic Traffic',  'Referral Traffic', 'Social Traffic' , 'Paid Traffic'];
 
 interface TrafficSourcesProps {
-  dateRange: {
-    start: string;
-    end: string;
-  };
+  dateRange: { start: string; end: string };
+  compareDateRange?: { start: string; end: string };
 }
 
-export default function TrafficSources({ dateRange }: TrafficSourcesProps) {
+export default function TrafficSources({ dateRange, compareDateRange }: TrafficSourcesProps) {
   const [rawData, setRawData] = useState<any[] | null>(null);
+  const [compareData, setCompareData] = useState<any[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState('Overview');
 
   useEffect(() => {
     const fetchDashboardData = async () => {
+      // Don't fetch if dates are empty
+      if (!dateRange.start || !dateRange.end) return;
+
       try {
         setLoading(true);
         setError(null);
         
-        const queryParams = new URLSearchParams({
+        const params: Record<string, string> = {
           startDate: dateRange.start,
           endDate: dateRange.end,
-        });
+        };
 
+        if (compareDateRange?.start && compareDateRange?.end) {
+          params.compareStart = compareDateRange.start;
+          params.compareEnd = compareDateRange.end;
+        }
+
+        const queryParams = new URLSearchParams(params);
         const res = await fetch(`/api/analytics?${queryParams.toString()}`);
         const json = await res.json();
         
-        if (!json.success) {
-          throw new Error(json.error || `Server Error: Failed to fetch`);
-        }
+        if (!json.success) throw new Error(json.error || `Server Error`);
 
         setRawData(json.data);
+        setCompareData(json.compareData || null);
+
       } catch (err: any) {
-        console.error("Dashboard failed to load:", err);
         setError(err.message || "Failed to load analytics data");
       } finally {
         setLoading(false);
@@ -50,25 +58,26 @@ export default function TrafficSources({ dateRange }: TrafficSourcesProps) {
     };
 
     fetchDashboardData();
-  }, [dateRange]); 
+  }, [dateRange, compareDateRange]); 
 
-  // Helper function to render the correct component based on activeTab
   const renderTabContent = () => {
     if (!rawData) return null;
 
     switch (activeTab) {
       case 'Overview':
-        return <OverviewTab rawData={rawData} dateRange={dateRange} />;
+        return <OverviewTab rawData={rawData} compareData={compareData} />;
       case 'Organic Traffic':
-        return <OrganicTraffic rawData={rawData} dateRange={dateRange} />;
+        return <OrganicTraffic rawData={rawData} compareData={compareData} />;
       case 'Paid Traffic':
-        return <PaidTraffic rawData={rawData} dateRange={dateRange} />;
-      default:
-        // Empty state for Paid, Referral, Social
+        return <PaidTraffic rawData={rawData} compareData={compareData} />;
+      case 'Referral Traffic':
+        return <ReferralTraffic rawData={rawData} compareData={compareData} />;
+      case 'Social Traffic':
+        return <SocialTraffic rawData={rawData} compareData={compareData} />;
+      default:  
         return (
-          <div className="p-20 text-center text-slate-500 flex flex-col items-center justify-center h-full min-h-[400px]">
+          <div className="p-20 text-center text-slate-500 h-full min-h-[400px]">
             <h3 className="text-xl font-semibold mb-2">Coming Soon</h3>
-            <p>The {activeTab} tab is currently under development.</p>
           </div>
         );
     }
@@ -76,9 +85,9 @@ export default function TrafficSources({ dateRange }: TrafficSourcesProps) {
 
   if (loading) {
     return (
-      <div className="py-20 flex flex-col items-center justify-center text-slate-500 gap-4 bg-white rounded-xl border border-slate-200">
-        <div className="w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
-        <p className="animate-pulse font-medium">Fetching live data...</p>
+      <div className="py-20 flex flex-col items-center justify-center text-slate-500 gap-4 bg-white rounded-sm border border-slate-200">
+        <div className="w-8 h-8 border-4 border-blue-900 border-t-transparent rounded-full animate-spin"></div>
+        <p className="animate-pulse font-medium">Just a Second</p>
       </div>
     );
   }
@@ -86,30 +95,24 @@ export default function TrafficSources({ dateRange }: TrafficSourcesProps) {
   if (error || !rawData) {
     return (
       <div className="py-20 flex items-center justify-center bg-white rounded-xl border border-slate-200 p-6">
-        <div className="bg-white p-6 rounded-xl border border-red-200 shadow-sm max-w-md w-full text-center">
-          <AlertCircle className="w-10 h-10 text-red-500 mx-auto mb-4" />
-          <h3 className="text-lg font-bold text-slate-800 mb-2">Failed to load Data</h3>
-          <p className="text-sm text-slate-600 bg-red-50 p-3 rounded-md border border-red-100 font-mono break-words">
-            {error || "Unknown error occurred"}
-          </p>
-        </div>
+         <div className="flex items-center gap-2 text-red-500">
+           <AlertCircle className="w-5 h-5" />
+           <p className="font-medium">{error || "Failed to load data"}</p>
+         </div>
       </div>
     );
   }
 
   return (
     <div className="animate-in fade-in duration-500">
-      {/* SUB TABS ROUTER */}
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-4 bg-white p-2 rounded border border-slate-200 shadow-xm gap-4">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-4 bg-white p-2 rounded border border-slate-200 shadow-xs gap-4">
         <div className="flex flex-wrap p-2 w-full lg:w-auto">
           {SUB_TABS.map(tab => (
             <button 
               key={tab} 
               onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 border text-xs font-bold uppercase tracking-wider transition-colors  ${
-                activeTab === tab 
-                  ? 'bg-blue-600 text-white border-blue-600' 
-                  : 'text-slate-600 hover:bg-slate-50 border-slate-200 cursor-pointer'
+              className={`px-4 py-2 border text-xs font-bold uppercase tracking-wider transition-colors ${
+                activeTab === tab ? 'bg-blue-900 text-white border-indigo-900' : 'text-slate-600 hover:bg-slate-50 border-slate-200 cursor-pointer'
               }`}
             >
               {tab}
@@ -118,14 +121,10 @@ export default function TrafficSources({ dateRange }: TrafficSourcesProps) {
         </div>
       </div>
 
-      {/* DASHBOARD CONTAINER */}
-      <div className="bg-white rounded shadow-xm border border-slate-200 overflow-hidden min-h-[500px]">
-        {/* We keep the title rendering here so it's consistent across all tabs */}
-        <h2 className="text-xl font-semibold p-4 md:px-6 pt-6 flex items-center gap-2 text-slate-800">
+      <div className="bg-white rounded shadow-xs border border-slate-200 overflow-hidden min-h-[500px]">
+        <h2 className="text-xl font-semibold p-4 md:px-6 pt-6 text-slate-800">
           {activeTab}
         </h2>
-        
-        {/* Render the selected component */}
         {renderTabContent()}
       </div>
     </div>

@@ -16,112 +16,168 @@ const METRIC_KEYS: Record<string, string> = {
 
 interface PaidTrafficProps {
   rawData: any[];
-  dateRange: { start: string; end: string };
+  compareData?: any[] | null;
 }
 
-export default function PaidTraffic({ rawData, dateRange }: PaidTrafficProps) {
+// Helper to turn GA4 '20260401' into 'Apr 01'
+const formatGa4Date = (dateStr: string) => {
+  if (!dateStr || dateStr.length !== 8) return dateStr;
+  const year = dateStr.slice(0, 4);
+  const month = dateStr.slice(4, 6);
+  const day = dateStr.slice(6, 8);
+  const d = new Date(`${year}-${month}-${day}T00:00:00`);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+};
+
+// Helper to fill in missing days (GA4 drops rows if traffic is 0)
+const fillMissingDates = (startStr: string, endStr: string) => {
+  if (!startStr || !endStr) return [];
+  const startDate = new Date(`${startStr.slice(0, 4)}-${startStr.slice(4, 6)}-${startStr.slice(6, 8)}T12:00:00Z`);
+  const endDate = new Date(`${endStr.slice(0, 4)}-${endStr.slice(4, 6)}-${endStr.slice(6, 8)}T12:00:00Z`);
+  const dateArray = [];
+
+  for (let dt = new Date(startDate); dt <= endDate; dt.setDate(dt.getDate() + 1)) {
+    const y = dt.getFullYear();
+    const m = String(dt.getMonth() + 1).padStart(2, '0');
+    const d = String(dt.getDate()).padStart(2, '0');
+    dateArray.push(`${y}${m}${d}`);
+  }
+  return dateArray;
+};
+
+// Helper to catch all variations of paid traffic in GA4
+const isPaidTraffic = (channelGroup: string) => {
+  if (!channelGroup) return false;
+  const group = channelGroup.toLowerCase();
+  return group.includes('paid') || group.includes('cpc') || group.includes('display') || group.includes('cross-network');
+};
+
+export default function PaidTraffic({ rawData, compareData }: PaidTrafficProps) {
   const [activeMetric, setActiveMetric] = useState('Sessions');
 
   const displayData = useMemo(() => {
     if (!rawData || rawData.length === 0) return null;
+    const activeDataKey = METRIC_KEYS[activeMetric] || 'sessions';
 
-    // Simulating specific Ad Networks for the Paid Traffic breakdown
-    const adNetworks = [
-      { name: 'Google Ads', shareMultiplier: 0.55 },
-      { name: 'Facebook Ads', shareMultiplier: 0.25 },
-      { name: 'LinkedIn Ads', shareMultiplier: 0.12 },
-      { name: 'TikTok Ads', shareMultiplier: 0.05 },
-      { name: 'Twitter Ads', shareMultiplier: 0.03 },
-    ];
+    // 1. FILTER (Catch Paid Search, Display, Cross-Network, Paid Social)
+    const paidData = rawData.filter(row => isPaidTraffic(row.channelGroup));
+    const paidCompare = compareData ? compareData.filter(row => isPaidTraffic(row.channelGroup)) : [];
 
-    // Calculate base totals from the raw data 
-    // (In a real scenario, you'd filter rawData for Paid channels only)
-    const baseTotals = rawData.reduce((acc: any, curr: any) => {
-      acc.sessions = (acc.sessions || 0) + curr.sessions;
-      acc.engagedSessions = (acc.engagedSessions || 0) + curr.engagedSessions;
-      acc.newUsers = (acc.newUsers || 0) + curr.newUsers;
-      acc.users = (acc.users || 0) + curr.users;
-      acc.views = (acc.views || 0) + curr.views;
-      acc.conversions = (acc.conversions || 0) + curr.conversions;
-      acc.avgEngagementTime = acc.avgEngagementTime || parseFloat(curr.avgEngagementTime); 
-      acc.engagementRate = acc.engagementRate || parseFloat(curr.engagementRate);
-      return acc;
-    }, {});
+    // 2. AGGREGATE TOTALS
+    const calculateTotals = (data: any[]) => {
+      const summed = data.reduce((acc: any, curr: any) => {
+        acc.sessions += (curr.sessions || 0);
+        acc.engagedSessions += (curr.engagedSessions || 0);
+        acc.newUsers += (curr.newUsers || 0);
+        acc.users += (curr.users || 0);
+        acc.views += (curr.views || 0);
+        acc.conversions += (curr.conversions || 0);
+        acc._totalEngagementTime += (parseFloat(curr.avgEngagementTime) || 0) * (curr.sessions || 0);
+        return acc;
+      }, {
+        sessions: 0, engagedSessions: 0, newUsers: 0, users: 0, 
+        views: 0, conversions: 0, _totalEngagementTime: 0
+      });
 
-    // Scale down the totals to represent Paid Traffic (e.g., 30% of overall traffic)
-    const paidScale = 0.3; 
-    const totals = {
-      sessions: Math.round(baseTotals.sessions * paidScale),
-      engagedSessions: Math.round(baseTotals.engagedSessions * paidScale),
-      newUsers: Math.round(baseTotals.newUsers * paidScale),
-      users: Math.round(baseTotals.users * paidScale),
-      views: Math.round(baseTotals.views * paidScale),
-      conversions: Math.round(baseTotals.conversions * paidScale),
-      avgEngagementTime: baseTotals.avgEngagementTime * 0.8, // Paid traffic often has slightly lower avg time
-      engagementRate: baseTotals.engagementRate * 0.9,       
+      summed.engagementRate = summed.sessions > 0 ? summed.engagedSessions / summed.sessions : 0;
+      summed.avgEngagementTime = summed.sessions > 0 ? summed._totalEngagementTime / summed.sessions : 0;
+      return summed;
+    };
+
+    const totals = calculateTotals(paidData);
+    const prevTotals = compareData ? calculateTotals(paidCompare) : null;
+
+    // Helper to calculate % trend
+    const getTrend = (current: number, previous?: number) => {
+      if (previous === undefined || previous === null) return 0;
+      if (previous === 0) return current > 0 ? 100 : 0; 
+      return Number((((current - previous) / previous) * 100).toFixed(1));
     };
 
     const summary = [
-      { title: 'Sessions', value: totals.sessions.toLocaleString() },
-      { title: 'Engaged Sessions', value: totals.engagedSessions.toLocaleString() },
-      { title: 'New Users', value: totals.newUsers.toLocaleString() },
-      { title: 'Users', value: totals.users.toLocaleString() },
-      { title: 'Views', value: totals.views.toLocaleString() },
-      { title: 'Avg. Engagement Time', value: totals.avgEngagementTime.toFixed(1), isTime: true },
-      { title: 'Engagement Rate', value: (totals.engagementRate * 100).toFixed(1), isPercent: true },
-      { title: 'Conversions', value: totals.conversions.toLocaleString() }
+      { title: 'Sessions', value: totals.sessions?.toLocaleString() || 0, trend: getTrend(totals.sessions, prevTotals?.sessions) },
+      { title: 'Engaged Sessions', value: totals.engagedSessions?.toLocaleString() || 0, trend: getTrend(totals.engagedSessions, prevTotals?.engagedSessions) },
+      { title: 'New Users', value: totals.newUsers?.toLocaleString() || 0, trend: getTrend(totals.newUsers, prevTotals?.newUsers) },
+      { title: 'Users', value: totals.users?.toLocaleString() || 0, trend: getTrend(totals.users, prevTotals?.users) },
+      { title: 'Views', value: totals.views?.toLocaleString() || 0, trend: getTrend(totals.views, prevTotals?.views) },
+      { title: 'Avg. Engagement Time', value: totals.avgEngagementTime?.toFixed(1) || 0, isTime: true, trend: getTrend(totals.avgEngagementTime, prevTotals?.avgEngagementTime) },
+      { title: 'Engagement Rate', value: ((totals.engagementRate || 0) * 100).toFixed(1), isPercent: true, trend: getTrend(totals.engagementRate, prevTotals?.engagementRate) },
+      { title: 'Conversions', value: totals.conversions?.toLocaleString() || 0, trend: getTrend(totals.conversions, prevTotals?.conversions) }
     ];
 
-    const activeDataKey = METRIC_KEYS[activeMetric] || 'sessions';
-    const totalForActiveMetric = totals[activeDataKey as keyof typeof totals] || 1;
+    // 3. AD SOURCE BREAKDOWN (e.g., google, facebook, bing)
+    const colors = ['bg-amber-500', 'bg-orange-500', 'bg-red-500', 'bg-slate-400', 'bg-slate-300']; 
+    const adSourceMap = paidData.reduce((acc: any, curr: any) => {
+      const source = curr.source || 'Direct / None';
+      if (!acc[source]) acc[source] = { ...curr, name: source };
+      else {
+        acc[source].sessions += curr.sessions;
+        acc[source].engagedSessions += curr.engagedSessions;
+        acc[source].newUsers += curr.newUsers;
+      }
+      return acc;
+    }, {});
 
-    // Using an Emerald/Teal palette to distinguish from Organic's Indigo/Blue
-    const colors = ['bg-emerald-500', 'bg-teal-400', 'bg-cyan-500', 'bg-green-400', 'bg-lime-400'];
+    const adSourceBreakdown = Object.values(adSourceMap)
+      .sort((a: any, b: any) => b.sessions - a.sessions)
+      .slice(0, 5)
+      .map((source: any, i: number) => {
+        const share = totals.sessions > 0 ? Math.round((source.sessions / totals.sessions) * 100) : 0;
+        return {
+          name: source.name,
+          share,
+          sessions: source.sessions.toLocaleString(),
+          engaged: source.engagedSessions.toLocaleString(),
+          newUsers: source.newUsers.toLocaleString(),
+          users: source.users.toLocaleString(),
+          views: source.views.toLocaleString(),
+          color: colors[i % colors.length],
+        };
+      });
 
-    // Map Ad Networks with dynamic metrics
-    const networkBreakdown = adNetworks.map((network, i) => {
-      const metricValue = activeDataKey === 'avgEngagementTime' || activeDataKey === 'engagementRate' 
-        ? totals[activeDataKey as keyof typeof totals] * (1 - i * 0.05) 
-        : Math.round(totals[activeDataKey as keyof typeof totals] * network.shareMultiplier);
+    // 4. CHART DATA MAPPER (Continuous Timeline)
+    const currentByDate = paidData.reduce((acc: any, curr: any) => {
+      acc[curr.date] = (acc[curr.date] || 0) + (Number(curr[activeDataKey]) || 0);
+      return acc;
+    }, {});
+
+    const compareByDate = paidCompare.reduce((acc: any, curr: any) => {
+      acc[curr.date] = (acc[curr.date] || 0) + (Number(curr[activeDataKey]) || 0);
+      return acc;
+    }, {});
+
+    const rawCurrentDates = Object.keys(currentByDate).sort();
+    const rawCompareDates = Object.keys(compareByDate).sort();
+
+    const fullCurrentDates = rawCurrentDates.length > 0 
+      ? fillMissingDates(rawCurrentDates[0], rawCurrentDates[rawCurrentDates.length - 1]) 
+      : [];
+      
+    const fullCompareDates = rawCompareDates.length > 0 
+      ? fillMissingDates(rawCompareDates[0], rawCompareDates[rawCompareDates.length - 1]) 
+      : [];
+
+    const maxLength = Math.max(fullCurrentDates.length, fullCompareDates.length);
+
+    const chart = Array.from({ length: maxLength }).map((_, index) => {
+      const currDateStr = fullCurrentDates[index];
+      const compDateStr = fullCompareDates[index];
 
       return {
-        name: network.name,
-        share: Math.round(network.shareMultiplier * 100),
-        sessions: Math.round(totals.sessions * network.shareMultiplier).toLocaleString(),
-        engaged: Math.round(totals.engagedSessions * network.shareMultiplier).toLocaleString(),
-        newUsers: Math.round(totals.newUsers * network.shareMultiplier).toLocaleString(),
-        users: Math.round(totals.users * network.shareMultiplier).toLocaleString(),
-        views: Math.round(totals.views * network.shareMultiplier).toLocaleString(),
-        color: colors[i % colors.length],
-        value: metricValue 
+        date: currDateStr ? formatGa4Date(currDateStr) : (compDateStr ? `Day ${index + 1}` : ''),
+        current: currDateStr ? (currentByDate[currDateStr] || 0) : 0,
+        compare: compDateStr ? (compareByDate[compDateStr] || 0) : null,
       };
     });
 
-    let dataPoints = 30; 
-    if (dateRange.start === 'today') dataPoints = 24; 
-    else if (dateRange.start === '7daysAgo') dataPoints = 7;
-    else if (dateRange.start === '90daysAgo') dataPoints = 90;
-
-    const chart = Array.from({ length: dataPoints }).map((_, i) => {
-      const baseValue = totalForActiveMetric / dataPoints;
-      // Paid traffic is often more volatile/spiky than organic
-      const variance = baseValue * 0.4; 
-      const label = dateRange.start === 'today' ? `${i}:00` : `Day ${i + 1}`;
-      return {
-        date: label,
-        current: Math.max(0, Math.round(baseValue + (Math.random() * variance * 2 - variance))),
-        compare: Math.max(0, Math.round((baseValue * 0.8) + (Math.random() * variance * 2 - variance))),
-      };
-    });
-
-    return { summary, networkBreakdown, chart };
-  }, [rawData, activeMetric, dateRange.start]);
+    return { summary, adSourceBreakdown, chart, isComparing: !!compareData };
+  }, [rawData, compareData, activeMetric]);
 
   if (!displayData) return null;
 
   return (
     <div className="p-4 md:p-6">
-      {/* PAID METRIC CARDS */}
+      {/* SUMMARY CARDS */}
       <div className="flex flex-wrap w-full border-y border-slate-100 mb-8 bg-white">
         {displayData.summary?.map((metric: any, idx: number) => {
           const isActive = activeMetric === metric.title;
@@ -129,15 +185,27 @@ export default function PaidTraffic({ rawData, dateRange }: PaidTrafficProps) {
             <button 
               key={idx} 
               onClick={() => setActiveMetric(metric.title)}
-              className={`flex-1 min-w-[140px] text-left border-r border-slate-100 last:border-r-0 py-4 px-4 sm:px-6 transition-colors outline-none hover:bg-slate-50 cursor-pointer`}
+              className="flex-1 min-w-[140px] text-left border-r border-slate-100 last:border-r-0 py-4 px-4 sm:px-6 transition-colors outline-none hover:bg-slate-50 cursor-pointer"
             >
-              <div className={`text-[11px] font-bold uppercase tracking-wider mb-2 ${isActive ? 'text-emerald-600' : 'text-slate-500'}`}>
+              <div className={`text-[11px] font-bold uppercase tracking-wider mb-2 ${isActive ? 'text-[#4678e5]' : 'text-slate-500'}`}>
                 {metric.title}
               </div>
               <div className="flex items-baseline gap-2 flex-wrap">
-                <span className={`text-2xl sm:text-3xl font-medium ${isActive ? 'text-emerald-600' : 'text-slate-900'}`}>
+                <span className={`text-2xl sm:text-3xl font-base ${isActive ? 'text-[#4678e5]' : 'text-slate-900'}`}>
                   {metric.value}{metric.isPercent ? '%' : ''}
                 </span>
+                
+                {/* DYNAMIC TREND INDICATOR */}
+                {displayData.isComparing && (
+                  <span className={`text-xs flex items-center font-medium ${
+                    metric.trend > 0 ? 'text-teal-700' : 
+                    metric.trend < 0 ? 'text-red-600' : 
+                    'text-slate-500'
+                  }`}>
+                    {metric.trend > 0 ? '▲ ' : metric.trend < 0 ? '▼ ' : '— '} 
+                    {Math.abs(metric.trend)}%
+                  </span>
+                )}
               </div>
             </button>
           );
@@ -145,7 +213,7 @@ export default function PaidTraffic({ rawData, dateRange }: PaidTrafficProps) {
       </div>
 
       <div className="flex flex-col lg:flex-row gap-10">
-        {/* PAID TREND LINE */}
+        {/* TREND LINE */}
         <div className="flex-1 min-w-0">
           <div className="mb-4 text-sm font-semibold text-slate-700 flex items-center gap-2">
             Paid {activeMetric} Trend
@@ -156,42 +224,42 @@ export default function PaidTraffic({ rawData, dateRange }: PaidTrafficProps) {
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                 <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 11 }} />
                 <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 11 }} />
-                <Tooltip 
-                  contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} 
-                />
-                <Line type="monotone" dataKey="current" stroke="#10b981" strokeWidth={2.5} dot={false} activeDot={{ r: 6, strokeWidth: 0 }} />
-                <Line type="monotone" dataKey="compare" stroke="#cbd5e1" strokeWidth={2} strokeDasharray="6 4" dot={false} />
+                <Tooltip contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} />
+                
+                {/* Current Data Line */}
+                <Line type="monotone" dataKey="current" name="Current" stroke="#4678e5" strokeWidth={2.5} dot={false} activeDot={{ r: 6, strokeWidth: 0 }} />
+                
+                {/* Dynamic Comparison Line */}
+                {displayData.isComparing && (
+                  <Line type="monotone" dataKey="compare" name="Previous" stroke="#cbd5e1" strokeWidth={2.5} strokeDasharray="6 4" dot={false} />
+                )}
               </LineChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        {/* AD NETWORK PROGRESS BARS */}
+        {/* DOMAIN PROGRESS BARS */}
         <div className="w-full lg:w-80 flex flex-col justify-center gap-7 border-t lg:border-t-0 lg:border-l border-slate-100 pt-8 lg:pt-0 pl-0 lg:pl-10">
-          <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Ad Networks</h3>
-          {displayData.networkBreakdown?.map((network: any) => (
-            <div key={network.name}>
-              <div className="flex justify-between text-xs font-bold text-slate-700 mb-2">
-                <span className="flex items-center gap-2">{network.name}</span>
-                <span>{network.share}%</span>
+          <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Ad Sources</h3>
+          {displayData.adSourceBreakdown?.map((source: any) => (
+            <div key={source.name}>
+              <div className="flex justify-between text-xs font-bold text-slate-700 mb-2 truncate pr-2">
+                <span className="truncate capitalize" title={source.name}>{source.name}</span>
+                <span>{source.share}%</span>
               </div>
               <div className="w-full bg-slate-100 rounded-full h-2">
-                <div 
-                  className={`h-2 rounded-full transition-all duration-1000 ${network.color}`} 
-                  style={{ width: `${network.share}%` }}
-                ></div>
+                <div className={`h-2 rounded-full transition-all duration-1000 ${source.color}`} style={{ width: `${source.share}%` }}></div>
               </div>
             </div>
           ))}
         </div>
       </div>
       
-      {/* PAID TRAFFIC TABLE */}
       <div className="overflow-x-auto mt-12 border border-slate-200 rounded-xl overflow-hidden">
         <table className="w-full text-sm text-left">
           <thead className="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-200">
             <tr>
-              <th className="px-6 py-5 font-bold whitespace-nowrap">Ad Network</th>
+              <th className="px-6 py-5 font-bold whitespace-nowrap">Ad Source</th>
               <th className="px-6 py-5 font-bold whitespace-nowrap text-right">Sessions</th>
               <th className="px-6 py-5 font-bold whitespace-nowrap text-right">Engaged</th>
               <th className="px-6 py-5 font-bold whitespace-nowrap text-right">New Users</th>
@@ -200,11 +268,11 @@ export default function PaidTraffic({ rawData, dateRange }: PaidTrafficProps) {
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100 bg-white">
-            {displayData.networkBreakdown?.map((row: any, idx: number) => (
+            {displayData.adSourceBreakdown?.map((row: any, idx: number) => (
               <tr key={idx} className="hover:bg-slate-50/80 transition-colors">
-                <td className="px-6 py-4 font-semibold text-slate-900">{row.name}</td>
+                <td className="px-6 py-4 font-semibold text-slate-900 truncate max-w-[200px] capitalize" title={row.name}>{row.name}</td>
                 <td className="px-6 py-4 text-right text-slate-600">{row.sessions}</td>
-                <td className="px-6 py-4 text-right text-emerald-600 font-medium">{row.engaged}</td>
+                <td className="px-6 py-4 text-right text-amber-600 font-medium">{row.engaged}</td>
                 <td className="px-6 py-4 text-right text-slate-600">{row.newUsers}</td>
                 <td className="px-6 py-4 text-right text-slate-600">{row.users}</td>
                 <td className="px-6 py-4 text-right text-slate-600">{row.views}</td>

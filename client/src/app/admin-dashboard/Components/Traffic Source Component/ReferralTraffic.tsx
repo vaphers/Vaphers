@@ -14,10 +14,9 @@ const METRIC_KEYS: Record<string, string> = {
   'Conversions': 'conversions'
 };
 
-interface OrganicTrafficProps {
+interface ReferralTrafficProps {
   rawData: any[];
   compareData?: any[] | null;
-  dateRange?: { start: string; end: string }; 
 }
 
 // Helper to turn GA4 '20260401' into 'Apr 01'
@@ -46,16 +45,16 @@ const fillMissingDates = (startStr: string, endStr: string) => {
   return dateArray;
 };
 
-export default function OrganicTraffic({ rawData, compareData }: OrganicTrafficProps) {
+export default function ReferralTraffic({ rawData, compareData }: ReferralTrafficProps) {
   const [activeMetric, setActiveMetric] = useState('Sessions');
 
   const displayData = useMemo(() => {
     if (!rawData || rawData.length === 0) return null;
     const activeDataKey = METRIC_KEYS[activeMetric] || 'sessions';
 
-    // 1. FILTER (Case-insensitive to catch 'Organic search' or 'Organic Search')
-    const organicData = rawData.filter(row => row.channelGroup?.toLowerCase().includes('organic'));
-    const organicCompare = compareData ? compareData.filter(row => row.channelGroup?.toLowerCase().includes('organic')) : [];
+    // 1. FILTER (Catch 'Referral' or 'referral')
+    const referralData = rawData.filter(row => row.channelGroup?.toLowerCase().includes('referral'));
+    const referralCompare = compareData ? compareData.filter(row => row.channelGroup?.toLowerCase().includes('referral')) : [];
 
     // 2. AGGREGATE TOTALS
     const calculateTotals = (data: any[]) => {
@@ -78,8 +77,8 @@ export default function OrganicTraffic({ rawData, compareData }: OrganicTrafficP
       return summed;
     };
 
-    const totals = calculateTotals(organicData);
-    const prevTotals = compareData ? calculateTotals(organicCompare) : null;
+    const totals = calculateTotals(referralData);
+    const prevTotals = compareData ? calculateTotals(referralCompare) : null;
 
     // Helper to calculate % trend
     const getTrend = (current: number, previous?: number) => {
@@ -99,10 +98,10 @@ export default function OrganicTraffic({ rawData, compareData }: OrganicTrafficP
       { title: 'Conversions', value: totals.conversions?.toLocaleString() || 0, trend: getTrend(totals.conversions, prevTotals?.conversions) }
     ];
 
-    // 3. ENGINE BREAKDOWN
-    const colors = ['bg-indigo-600', 'bg-blue-500', 'bg-sky-400', 'bg-slate-400', 'bg-slate-300'];
-    const engineMap = organicData.reduce((acc: any, curr: any) => {
-      const source = curr.source || 'Other';
+    // 3. SOURCE BREAKDOWN (e.g., facebook.com, custom-domain.net)
+    const colors = ['bg-emerald-500', 'bg-teal-400', 'bg-cyan-500', 'bg-slate-400', 'bg-slate-300']; // Slightly different color palette to distinguish from Organic
+    const sourceMap = referralData.reduce((acc: any, curr: any) => {
+      const source = curr.source || 'Direct / None';
       if (!acc[source]) acc[source] = { ...curr, name: source };
       else {
         acc[source].sessions += curr.sessions;
@@ -112,30 +111,30 @@ export default function OrganicTraffic({ rawData, compareData }: OrganicTrafficP
       return acc;
     }, {});
 
-    const engineBreakdown = Object.values(engineMap)
+    const sourceBreakdown = Object.values(sourceMap)
       .sort((a: any, b: any) => b.sessions - a.sessions)
       .slice(0, 5)
-      .map((engine: any, i: number) => {
-        const share = totals.sessions > 0 ? Math.round((engine.sessions / totals.sessions) * 100) : 0;
+      .map((source: any, i: number) => {
+        const share = totals.sessions > 0 ? Math.round((source.sessions / totals.sessions) * 100) : 0;
         return {
-          name: engine.name,
+          name: source.name,
           share,
-          sessions: engine.sessions.toLocaleString(),
-          engaged: engine.engagedSessions.toLocaleString(),
-          newUsers: engine.newUsers.toLocaleString(),
-          users: engine.users.toLocaleString(),
-          views: engine.views.toLocaleString(),
+          sessions: source.sessions.toLocaleString(),
+          engaged: source.engagedSessions.toLocaleString(),
+          newUsers: source.newUsers.toLocaleString(),
+          users: source.users.toLocaleString(),
+          views: source.views.toLocaleString(),
           color: colors[i % colors.length],
         };
       });
 
     // 4. CHART DATA MAPPER (Continuous Timeline)
-    const currentByDate = organicData.reduce((acc: any, curr: any) => {
+    const currentByDate = referralData.reduce((acc: any, curr: any) => {
       acc[curr.date] = (acc[curr.date] || 0) + (Number(curr[activeDataKey]) || 0);
       return acc;
     }, {});
 
-    const compareByDate = organicCompare.reduce((acc: any, curr: any) => {
+    const compareByDate = referralCompare.reduce((acc: any, curr: any) => {
       acc[curr.date] = (acc[curr.date] || 0) + (Number(curr[activeDataKey]) || 0);
       return acc;
     }, {});
@@ -164,7 +163,7 @@ export default function OrganicTraffic({ rawData, compareData }: OrganicTrafficP
       };
     });
 
-    return { summary, engineBreakdown, chart, isComparing: !!compareData };
+    return { summary, sourceBreakdown, chart, isComparing: !!compareData };
   }, [rawData, compareData, activeMetric]);
 
   if (!displayData) return null;
@@ -200,7 +199,6 @@ export default function OrganicTraffic({ rawData, compareData }: OrganicTrafficP
                     {Math.abs(metric.trend)}%
                   </span>
                 )}
-
               </div>
             </button>
           );
@@ -211,7 +209,7 @@ export default function OrganicTraffic({ rawData, compareData }: OrganicTrafficP
         {/* TREND LINE */}
         <div className="flex-1 min-w-0">
           <div className="mb-4 text-sm font-semibold text-slate-700 flex items-center gap-2">
-            Organic {activeMetric} Trend
+            Referral {activeMetric} Trend
           </div>
           <div className="h-[320px] w-full">
             <ResponsiveContainer width="100%" height="100%">
@@ -233,17 +231,17 @@ export default function OrganicTraffic({ rawData, compareData }: OrganicTrafficP
           </div>
         </div>
 
-        {/* ENGINE PROGRESS BARS */}
+        {/* DOMAIN PROGRESS BARS */}
         <div className="w-full lg:w-80 flex flex-col justify-center gap-7 border-t lg:border-t-0 lg:border-l border-slate-100 pt-8 lg:pt-0 pl-0 lg:pl-10">
-          <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Search Engines</h3>
-          {displayData.engineBreakdown?.map((engine: any) => (
-            <div key={engine.name}>
-              <div className="flex justify-between text-xs font-bold text-slate-700 mb-2">
-                <span>{engine.name}</span>
-                <span>{engine.share}%</span>
+          <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Referring Sources</h3>
+          {displayData.sourceBreakdown?.map((source: any) => (
+            <div key={source.name}>
+              <div className="flex justify-between text-xs font-bold text-slate-700 mb-2 truncate pr-2">
+                <span className="truncate" title={source.name}>{source.name}</span>
+                <span>{source.share}%</span>
               </div>
               <div className="w-full bg-slate-100 rounded-full h-2">
-                <div className={`h-2 rounded-full transition-all duration-1000 ${engine.color}`} style={{ width: `${engine.share}%` }}></div>
+                <div className={`h-2 rounded-full transition-all duration-1000 ${source.color}`} style={{ width: `${source.share}%` }}></div>
               </div>
             </div>
           ))}
@@ -254,7 +252,7 @@ export default function OrganicTraffic({ rawData, compareData }: OrganicTrafficP
         <table className="w-full text-sm text-left">
           <thead className="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-200">
             <tr>
-              <th className="px-6 py-5 font-bold whitespace-nowrap">Search Engine</th>
+              <th className="px-6 py-5 font-bold whitespace-nowrap">Source Domain</th>
               <th className="px-6 py-5 font-bold whitespace-nowrap text-right">Sessions</th>
               <th className="px-6 py-5 font-bold whitespace-nowrap text-right">Engaged</th>
               <th className="px-6 py-5 font-bold whitespace-nowrap text-right">New Users</th>
@@ -263,11 +261,11 @@ export default function OrganicTraffic({ rawData, compareData }: OrganicTrafficP
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100 bg-white">
-            {displayData.engineBreakdown?.map((row: any, idx: number) => (
+            {displayData.sourceBreakdown?.map((row: any, idx: number) => (
               <tr key={idx} className="hover:bg-slate-50/80 transition-colors">
-                <td className="px-6 py-4 font-semibold text-slate-900">{row.name}</td>
+                <td className="px-6 py-4 font-semibold text-slate-900 truncate max-w-[200px]" title={row.name}>{row.name}</td>
                 <td className="px-6 py-4 text-right text-slate-600">{row.sessions}</td>
-                <td className="px-6 py-4 text-right text-indigo-600 font-medium">{row.engaged}</td>
+                <td className="px-6 py-4 text-right text-emerald-600 font-medium">{row.engaged}</td>
                 <td className="px-6 py-4 text-right text-slate-600">{row.newUsers}</td>
                 <td className="px-6 py-4 text-right text-slate-600">{row.users}</td>
                 <td className="px-6 py-4 text-right text-slate-600">{row.views}</td>
@@ -279,6 +277,3 @@ export default function OrganicTraffic({ rawData, compareData }: OrganicTrafficP
     </div>
   );
 }
-
-
-
