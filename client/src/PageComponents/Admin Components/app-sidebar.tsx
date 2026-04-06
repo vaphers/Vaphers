@@ -8,6 +8,7 @@ const menuItems = [
   { title: "Analytics", url: "/admin-dashboard", icon: Home },
   { title: "Posts", url: "/admin-dashboard/posts", icon: Users },
   { title: "New Post", url: "/admin-dashboard/posts/add-posts", icon: BarChart },
+  { title: "Tasks", url: "/admin-dashboard/tasks", icon: BarChart },
   // { title: "Reports", url: "/admin-dashboard/reports", icon: FileText },
   // { title: "Settings", url: "/dashboard/settings", icon: Settings },
   // { title: "Users", url: "/dashboard/settings", icon: Settings },
@@ -21,25 +22,22 @@ const menuItems = [
 
 
 export function AppSidebar() {
-  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [isCollapsed, setIsCollapsed] = useState(true)
 
   return (
     <div 
-      className={`${isCollapsed ? 'w-16' : 'w-64'} h-screen bg-blue-900  text-white transition-all duration-300 flex flex-col sticky top-0`}
+      className={`${isCollapsed ? 'w-16' : 'w-64'} h-screen bg-[#2383e2]  text-white transition-all duration-300 flex flex-col sticky top-0`}
     >
       {/* Header */}
       <div className="border-b border-indigo`-800 p-4 flex items-center justify-between">
         {!isCollapsed && (
           <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-sm bg-blue-600 bungee-inline-regular">
-              A
-            </div>
-            <span className="font-semibold text-gray-200 bungee-inline-regular">Admin Panel</span>
+            <span className="text-gray-200 bungee-shade text-3xl tracking-wide">Vaphers</span>
           </div>
         )}
         <button 
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="p-2 hover:bg-blue-600 text-gray-200 hover:text-white rounded-lg transition-colors ml-auto cursor-pointer"
+          className="p-2 text-gray-200 hover:text-white rounded-lg transition-colors ml-auto cursor-pointer"
         >
           {isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
         </button>
@@ -51,7 +49,7 @@ export function AppSidebar() {
           <Link
             key={item.title}
             href={item.url}
-            className={`flex items-center gap-3 p-3 rounded-lg text-white hover:text-blue-200 transition-colors ${isCollapsed ? 'justify-center' : ''}`}
+            className={`flex items-center gap-3 p-3 rounded-lg text-white font-medium transition-colors ${isCollapsed ? 'justify-center' : ''}`}
           >
             <item.icon size={20} />
             {!isCollapsed && <span>{item.title}</span>}
