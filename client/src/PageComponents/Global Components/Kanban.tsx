@@ -1,373 +1,870 @@
-"use client"
+"use client";
 
-import React, { useState, useMemo } from 'react';
-import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd';
-import { MoreHorizontal, Plus, Trash2, Calendar, X, AlignLeft } from 'lucide-react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+} from "react";
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DropResult,
+} from "@hello-pangea/dnd";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Plus,
+  Trash2,
+  Search,
+  X,
+  Calendar as CalendarIcon,
+  GripVertical,
+  AlertCircle,
+  Clock,
+  CheckCircle2,
+  Link2,
+  FileText,
+  ChevronDown,
+} from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { format, differenceInDays, parseISO, isValid } from "date-fns";
 
-// --- Types ---
-type Priority = 'Low' | 'Medium' | 'High';
+// Firebase Imports (Adjust the path to match your project structure)
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { db } from "@/lib/firebaseConfig"; 
 
-type CardItem = {
+// ─── Types ───────────────────────────────────────────────────────────────────
+
+type Priority = "Low" | "Medium" | "High";
+
+interface LinkItem {
+  id: string;
+  title: string;
+  url: string;
+}
+
+interface CardItem {
   id: string;
   title: string;
   description: string;
+  notes: string;
+  links: LinkItem[];
   priority: Priority;
   deadline: string; // YYYY-MM-DD
-};
+}
 
-type ColumnData = {
+interface ColumnData {
   id: string;
   title: string;
   items: CardItem[];
-};
+}
 
-// --- Mock Data ---
-const initialData: Record<string, ColumnData> = {
-  'col-1': {
-    id: 'col-1',
-    title: 'To Do',
-    items: [
-      {
-        id: 'card-1',
-        title: 'Design Database Schema',
-        description: 'Create the initial Prisma schema for the multi-tenant architecture. Ensure we have isolated environments for different orgs. This includes setting up the pgvector extension for future AI features.',
-        priority: 'High',
-        deadline: new Date(Date.now() - 86400000).toISOString().split('T')[0], // Yesterday (Red)
-      },
-      {
-        id: 'card-2',
-        title: 'Setup GitHub Actions',
-        description: 'Configure CI/CD pipeline for automated deployments to Hostinger. Needs to run linting, type checks, and build steps before pushing.',
-        priority: 'Medium',
-        deadline: new Date(Date.now() + 86400000 * 2).toISOString().split('T')[0], // In 2 days (Yellow)
-      },
-    ]
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+const uid = () => Math.random().toString(36).slice(2, 10);
+
+const PRIORITY_CONFIG: Record<Priority, { label: string; bg: string; text: string; dot: string }> = {
+  High: {
+    label: "High",
+    bg: "bg-red-50",
+    text: "text-red-600",
+    dot: "bg-red-500",
   },
-  'col-2': {
-    id: 'col-2',
-    title: 'In Progress',
-    items: [
-      {
-        id: 'card-3',
-        title: 'Kanban Board Component',
-        description: 'Build a drag and drop kanban board using @hello-pangea/dnd with shadcn styling and dynamic deadlines.',
-        priority: 'High',
-        deadline: new Date(Date.now() + 86400000 * 10).toISOString().split('T')[0], // In 10 days (Green)
-      }
-    ]
-  }
+  Medium: {
+    label: "Medium",
+    bg: "bg-amber-50",
+    text: "text-amber-600",
+    dot: "bg-amber-400",
+  },
+  Low: {
+    label: "Low",
+    bg: "bg-sky-50",
+    text: "text-sky-600",
+    dot: "bg-sky-400",
+  },
 };
 
-// --- Helper for Deadline Colors ---
-const getDeadlineStatus = (dateString: string) => {
-  if (!dateString) return { color: 'text-gray-500', text: 'No deadline' };
-  
-  const deadline = new Date(dateString);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0); // Normalize to start of day
-  
-  const diffTime = deadline.getTime() - today.getTime();
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+function getDeadlineStatus(deadline: string): {
+  label: string;
+  color: string;
+  icon: React.ReactNode;
+} | null {
+  if (!deadline) return null;
+  const parsed = parseISO(deadline);
+  if (!isValid(parsed)) return null;
+  const days = differenceInDays(parsed, new Date());
+  if (days < 0)
+    return {
+      label: "Overdue",
+      color: "text-red-600 font-bold",
+      icon: <AlertCircle className="w-3 h-3" />,
+    };
+  if (days <= 3)
+    return {
+      label: `Due in ${days}d`,
+      color: "text-amber-600 font-bold",
+      icon: <Clock className="w-3 h-3" />,
+    };
+  return {
+    label: "On track",
+    color: "text-emerald-600",
+    icon: <CheckCircle2 className="w-3 h-3" />,
+  };
+}
 
-  if (diffDays < 0) return { color: 'text-red-600 font-bold', text: 'Overdue' };
-  if (diffDays <= 3) return { color: 'text-yellow-600 font-bold', text: 'Soon' };
-  return { color: 'text-green-600 font-medium', text: 'On track' };
-};
+// ─── Mock Initial State (Fallback if DB is empty) ────────────────────────────
 
-const priorityColors: Record<Priority, { bg: string; text: string }> = {
-  Low: { bg: 'bg-blue-100', text: 'text-blue-700' },
-  Medium: { bg: 'bg-yellow-100', text: 'text-yellow-700' },
-  High: { bg: 'bg-red-100', text: 'text-red-700' },
-};
+const INITIAL_STATE: ColumnData[] = [
+  {
+    id: uid(),
+    title: "📋 Backlog",
+    items: [],
+  },
+  {
+    id: uid(),
+    title: "🚧 In Progress",
+    items: [],
+  },
+  {
+    id: uid(),
+    title: "✅ Done",
+    items: [],
+  },
+];
 
-export default function KanbanBoard() {
-  const [columns, setColumns] = useState<Record<string, ColumnData>>(initialData);
-  
-  // Modal State
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingCard, setEditingCard] = useState<CardItem | null>(null);
-  const [activeColumnId, setActiveColumnId] = useState<string | null>(null);
+// ─── Card Modal ───────────────────────────────────────────────────────────────
 
-  // --- Drag and Drop Logic ---
-  const onDragEnd = (result: DropResult) => {
-    const { source, destination } = result;
-    if (!destination) return;
+interface CardModalProps {
+  card: CardItem | null;
+  isNew: boolean;
+  columnId: string;
+  onSave: (columnId: string, card: CardItem) => void;
+  onDelete: (columnId: string, cardId: string) => void;
+  onClose: () => void;
+}
 
-    const sourceCol = columns[source.droppableId];
-    const destCol = columns[destination.droppableId];
+function CardModal({
+  card,
+  isNew,
+  columnId,
+  onSave,
+  onDelete,
+  onClose,
+}: CardModalProps) {
+  const [title, setTitle] = useState(card?.title ?? "");
+  const [description, setDescription] = useState(card?.description ?? "");
+  const [notes, setNotes] = useState(card?.notes ?? "");
+  const [priority, setPriority] = useState<Priority>(card?.priority ?? "Medium");
+  const [deadline, setDeadline] = useState<string>(card?.deadline ?? "");
+  const [links, setLinks] = useState<LinkItem[]>(card?.links ?? []);
+  const [calOpen, setCalOpen] = useState(false);
+  const [deleteConfirm, setDeleteConfirm] = useState(false);
 
-    if (sourceCol.id === destCol.id) {
-      const copiedItems = [...sourceCol.items];
-      const [removed] = copiedItems.splice(source.index, 1);
-      copiedItems.splice(destination.index, 0, removed);
-      setColumns({ ...columns, [sourceCol.id]: { ...sourceCol, items: copiedItems } });
-      return;
-    }
-
-    const sourceItems = [...sourceCol.items];
-    const destItems = [...destCol.items];
-    const [removed] = sourceItems.splice(source.index, 1);
-    destItems.splice(destination.index, 0, removed);
-
-    setColumns({
-      ...columns,
-      [sourceCol.id]: { ...sourceCol, items: sourceItems },
-      [destCol.id]: { ...destCol, items: destItems }
+  const handleSave = () => {
+    if (!title.trim()) return;
+    onSave(columnId, {
+      id: card?.id ?? uid(),
+      title: title.trim(),
+      description,
+      notes,
+      priority,
+      deadline,
+      links,
     });
   };
 
-  // --- Board Actions ---
-  const addColumn = () => {
-    const id = `col-${Date.now()}`;
-    setColumns({
-      ...columns,
-      [id]: { id, title: 'New Board', items: [] }
-    });
-  };
+  const addLink = () =>
+    setLinks((prev) => [...prev, { id: uid(), title: "", url: "" }]);
 
-  const deleteColumn = (colId: string) => {
-    if (confirm('Are you sure you want to delete this board and all its cards?')) {
-      const newCols = { ...columns };
-      delete newCols[colId];
-      setColumns(newCols);
-    }
-  };
+  const updateLink = (id: string, field: "title" | "url", value: string) =>
+    setLinks((prev) =>
+      prev.map((l) => (l.id === id ? { ...l, [field]: value } : l))
+    );
 
-  const updateColumnTitle = (colId: string, newTitle: string) => {
-    setColumns({
-      ...columns,
-      [colId]: { ...columns[colId], title: newTitle }
-    });
-  };
+  const removeLink = (id: string) =>
+    setLinks((prev) => prev.filter((l) => l.id !== id));
 
-  // --- Card Actions ---
-  const openNewCardModal = (colId: string) => {
-    setActiveColumnId(colId);
-    setEditingCard({
-      id: `card-${Date.now()}`,
-      title: '',
-      description: '',
-      priority: 'Medium',
-      deadline: new Date().toISOString().split('T')[0]
-    });
-    setIsModalOpen(true);
-  };
-
-  const openEditCardModal = (card: CardItem, colId: string) => {
-    setActiveColumnId(colId);
-    setEditingCard({ ...card });
-    setIsModalOpen(true);
-  };
-
-  const deleteCard = (cardId: string, colId: string) => {
-    if (confirm('Delete this card?')) {
-      const col = columns[colId];
-      setColumns({
-        ...columns,
-        [colId]: { ...col, items: col.items.filter(c => c.id !== cardId) }
-      });
-      setIsModalOpen(false);
-    }
-  };
-
-  const saveCard = () => {
-    if (!editingCard || !activeColumnId) return;
-    
-    const col = columns[activeColumnId];
-    const existingIndex = col.items.findIndex(c => c.id === editingCard.id);
-    
-    const newItems = [...col.items];
-    if (existingIndex >= 0) {
-      newItems[existingIndex] = editingCard; // Update
-    } else {
-      newItems.push(editingCard); // Add new
-    }
-
-    setColumns({
-      ...columns,
-      [activeColumnId]: { ...col, items: newItems }
-    });
-    setIsModalOpen(false);
-  };
+  const selectedDate = deadline && isValid(parseISO(deadline)) ? parseISO(deadline) : undefined;
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] p-8 overflow-x-auto">
-      <div className="flex gap-6 items-start">
-        <DragDropContext onDragEnd={onDragEnd}>
-          {Object.values(columns).map((column) => (
-            <div key={column.id} className="flex flex-col w-[320px] flex-shrink-0">
-              
-              {/* Column Header */}
-              <div className="flex items-center justify-between mb-3 bg-white px-3 py-2.5 rounded-sm border border-gray-200 shadow-sm group">
-                <input 
-                  className="font-semibold text-gray-800 text-sm bg-transparent outline-none focus:border-b focus:border-indigo-500 w-full mr-2"
-                  value={column.title}
-                  onChange={(e) => updateColumnTitle(column.id, e.target.value)}
-                />
-                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button onClick={() => openNewCardModal(column.id)} className="p-1 text-gray-400 hover:text-indigo-600 rounded-sm hover:bg-indigo-50">
-                    <Plus size={16} />
-                  </button>
-                  <button onClick={() => deleteColumn(column.id)} className="p-1 text-gray-400 hover:text-red-600 rounded-sm hover:bg-red-50">
-                    <Trash2 size={16} />
-                  </button>
-                </div>
+    <motion.div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <motion.div
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        onClick={onClose}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+      />
+      <motion.div
+        className="relative z-10 w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white shadow-2xl"
+        initial={{ scale: 0.94, opacity: 0, y: 16 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.94, opacity: 0, y: 16 }}
+        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+      >
+        <div className="sticky top-0 z-10 flex items-center justify-between bg-white/95 backdrop-blur px-6 pt-6 pb-4 border-b border-slate-100">
+          <h2 className="text-lg font-semibold text-slate-800">
+            {isNew ? "Add New Card" : "Edit Card"}
+          </h2>
+          <button
+            onClick={onClose}
+            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <div className="px-6 py-5 space-y-5">
+          <div>
+            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1.5">Title</label>
+            <input
+              autoFocus
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Card title…"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1.5">Description</label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="What needs to be done?"
+              rows={3}
+              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition resize-none"
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1.5">Priority</label>
+              <div className="relative">
+                <select
+                  value={priority}
+                  onChange={(e) => setPriority(e.target.value as Priority)}
+                  className="w-full appearance-none px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 transition pr-8"
+                >
+                  <option>High</option>
+                  <option>Medium</option>
+                  <option>Low</option>
+                </select>
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
               </div>
-
-              {/* Droppable Area */}
-              <Droppable droppableId={column.id}>
-                {(provided, snapshot) => (
-                  <div
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                    className={`flex flex-col gap-3 min-h-[150px] transition-colors rounded-sm ${
-                      snapshot.isDraggingOver ? 'bg-gray-100/50' : ''
-                    }`}
-                  >
-                    {column.items.map((item, index) => (
-                      <Draggable key={item.id} draggableId={item.id} index={index}>
-                        {(provided, snapshot) => (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            onClick={() => openEditCardModal(item, column.id)}
-                            className={`bg-white rounded-sm p-3.5 border border-gray-200 shadow-sm flex flex-col gap-3 cursor-pointer hover:border-indigo-300 transition-colors ${
-                              snapshot.isDragging ? 'shadow-lg ring-2 ring-indigo-500/20' : ''
-                            }`}
-                            style={{ ...provided.draggableProps.style }}
-                          >
-                            {/* Card Header: Priority */}
-                            <div className="flex justify-between items-start">
-                              <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-sm ${priorityColors[item.priority].bg} ${priorityColors[item.priority].text}`}>
-                                {item.priority}
-                              </span>
-                            </div>
-
-                            {/* Card Body: Title & Excerpt */}
-                            <div>
-                              <h3 className="text-sm font-semibold text-gray-900 leading-tight mb-1.5">
-                                {item.title}
-                              </h3>
-                              {item.description && (
-                                <p className="text-xs text-gray-500 line-clamp-4 leading-relaxed">
-                                  {item.description}
-                                </p>
-                              )}
-                            </div>
-
-                            {/* Card Footer: Deadline */}
-                            <div className="flex items-center gap-1.5 text-xs mt-1 pt-3 border-t border-gray-100">
-                              <Calendar size={14} className="text-gray-400" />
-                              <span className={getDeadlineStatus(item.deadline).color}>
-                                {item.deadline ? new Date(item.deadline).toLocaleDateString() : 'No date'} 
-                                <span className="text-gray-400 font-normal ml-1">({getDeadlineStatus(item.deadline).text})</span>
-                              </span>
-                            </div>
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
             </div>
-          ))}
-        </DragDropContext>
 
-        {/* Add New Board Button */}
-        <button 
-          onClick={addColumn}
-          className="flex items-center gap-2 w-[320px] flex-shrink-0 bg-gray-100/50 hover:bg-gray-200/50 text-gray-600 font-medium text-sm py-3 px-4 rounded-sm border border-dashed border-gray-300 transition-colors"
-        >
-          <Plus size={16} />
-          Add New Board
-        </button>
-      </div>
-
-      {/* --- Card Edit/Add Modal --- */}
-      {isModalOpen && editingCard && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
-          <div className="bg-white rounded-sm shadow-xl w-full max-w-lg overflow-hidden flex flex-col">
-            <div className="flex justify-between items-center p-4 border-b border-gray-100">
-              <h2 className="text-lg font-semibold text-gray-800">
-                {columns[activeColumnId!]?.items.find(c => c.id === editingCard.id) ? 'Edit Card' : 'New Card'}
-              </h2>
-              <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-gray-600">
-                <X size={20} />
-              </button>
-            </div>
-            
-            <div className="p-5 flex flex-col gap-4 overflow-y-auto max-h-[70vh]">
-              <div>
-                <label className="block text-xs font-semibold text-gray-600 mb-1.5">Title</label>
-                <input 
-                  type="text"
-                  value={editingCard.title}
-                  onChange={(e) => setEditingCard({...editingCard, title: e.target.value})}
-                  className="w-full border border-gray-300 rounded-sm px-3 py-2 text-sm outline-none focus:border-indigo-500"
-                  placeholder="Task title..."
-                />
-              </div>
-
-              <div>
-                <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-600 mb-1.5">
-                  <AlignLeft size={14} /> Description
-                </label>
-                <textarea 
-                  value={editingCard.description}
-                  onChange={(e) => setEditingCard({...editingCard, description: e.target.value})}
-                  className="w-full border border-gray-300 rounded-sm px-3 py-2 text-sm outline-none focus:border-indigo-500 min-h-[120px] resize-y"
-                  placeholder="Add a more detailed description..."
-                />
-              </div>
-
-              <div className="flex gap-4">
-                <div className="flex-1">
-                  <label className="block text-xs font-semibold text-gray-600 mb-1.5">Priority</label>
-                  <select 
-                    value={editingCard.priority}
-                    onChange={(e) => setEditingCard({...editingCard, priority: e.target.value as Priority})}
-                    className="w-full border border-gray-300 rounded-sm px-3 py-2 text-sm outline-none focus:border-indigo-500"
+            <div>
+              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1.5">Deadline</label>
+              <Popover open={calOpen} onOpenChange={setCalOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start text-left font-normal text-sm rounded-xl border-slate-200 bg-slate-50 hover:bg-slate-100 px-3.5 py-2.5 h-auto"
                   >
-                    <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                  </select>
-                </div>
-                <div className="flex-1">
-                  <label className="block text-xs font-semibold text-gray-600 mb-1.5">Deadline</label>
-                  {/* NOTE: You can replace this native input with your shadcn <DatePicker /> here */}
-                  <input 
-                    type="date"
-                    value={editingCard.deadline}
-                    onChange={(e) => setEditingCard({...editingCard, deadline: e.target.value})}
-                    className="w-full border border-gray-300 rounded-sm px-3 py-2 text-sm outline-none focus:border-indigo-500"
+                    <CalendarIcon className="mr-2 h-4 w-4 text-slate-400 shrink-0" />
+                    <span className={deadline ? "text-slate-800" : "text-slate-400"}>
+                      {selectedDate ? format(selectedDate, "MMM d, yyyy") : "Pick date"}
+                    </span>
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0 z-[200]" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={selectedDate}
+                    onSelect={(d) => {
+                      setDeadline(d ? format(d, "yyyy-MM-dd") : "");
+                      setCalOpen(false);
+                    }}
+                    initialFocus
                   />
-                </div>
-              </div>
+                </PopoverContent>
+              </Popover>
             </div>
+          </div>
 
-            <div className="p-4 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
-              <button 
-                onClick={() => activeColumnId && deleteCard(editingCard.id, activeColumnId)}
-                className="text-red-600 hover:bg-red-50 px-3 py-1.5 rounded-sm text-sm font-medium transition-colors flex items-center gap-1.5"
+          <div>
+            <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1.5">
+              <FileText className="w-3.5 h-3.5" /> Notes
+            </label>
+            <textarea
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Extended thoughts, sub-tasks, context…"
+              rows={3}
+              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition resize-none"
+            />
+          </div>
+
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                <Link2 className="w-3.5 h-3.5" /> Links & Attachments
+              </label>
+              <button
+                onClick={addLink}
+                className="flex items-center gap-1 text-xs font-medium text-violet-600 hover:text-violet-700 transition-colors"
               >
-                <Trash2 size={16} /> Delete
+                <Plus className="w-3.5 h-3.5" /> Add Link
               </button>
-              <div className="flex gap-2">
-                <button onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-sm transition-colors">
-                  Cancel
-                </button>
-                <button onClick={saveCard} className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-sm transition-colors shadow-sm">
-                  Save Changes
-                </button>
-              </div>
             </div>
+            <AnimatePresence>
+              {links.map((link) => (
+                <motion.div
+                  key={link.id}
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="flex gap-2 mb-2"
+                >
+                  <input
+                    value={link.title}
+                    onChange={(e) => updateLink(link.id, "title", e.target.value)}
+                    placeholder="Title (optional)"
+                    className="flex-1 px-3 py-2 rounded-lg border border-slate-200 bg-slate-50 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-400 transition"
+                  />
+                  <input
+                    value={link.url}
+                    onChange={(e) => updateLink(link.id, "url", e.target.value)}
+                    placeholder="https://…"
+                    className="flex-[2] px-3 py-2 rounded-lg border border-slate-200 bg-slate-50 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-400 transition"
+                  />
+                  <button
+                    onClick={() => removeLink(link.id)}
+                    className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        </div>
+
+        <div className="sticky bottom-0 bg-white/95 backdrop-blur border-t border-slate-100 px-6 py-4 flex items-center justify-between gap-3">
+          {!isNew && (
+            <>
+              {deleteConfirm ? (
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-red-600 font-medium">Confirm delete?</span>
+                  <button
+                    onClick={() => {
+                      onDelete(columnId, card!.id);
+                      onClose();
+                    }}
+                    className="px-3 py-1.5 rounded-lg bg-red-500 text-white text-xs font-semibold hover:bg-red-600 transition-colors"
+                  >
+                    Delete
+                  </button>
+                  <button
+                    onClick={() => setDeleteConfirm(false)}
+                    className="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-600 text-xs font-semibold hover:bg-slate-200 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setDeleteConfirm(true)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-red-500 hover:bg-red-50 text-sm font-medium transition-colors"
+                >
+                  <Trash2 className="w-4 h-4" /> Delete Card
+                </button>
+              )}
+            </>
+          )}
+          {isNew && <div />}
+          <div className="flex items-center gap-2 ml-auto">
+            <button
+              onClick={onClose}
+              className="px-4 py-2 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleSave}
+              disabled={!title.trim()}
+              className="px-5 py-2 rounded-xl text-sm font-semibold bg-violet-600 text-white hover:bg-violet-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-sm shadow-violet-200"
+            >
+              Save Card
+            </button>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+// ─── Card Component ───────────────────────────────────────────────────────────
+
+interface KanbanCardProps {
+  card: CardItem;
+  index: number;
+  columnId: string;
+  searchQuery: string;
+  isSearchActive: boolean;
+  onClick: () => void;
+}
+
+function KanbanCard({ card, index, searchQuery, isSearchActive, onClick }: KanbanCardProps) {
+  const p = PRIORITY_CONFIG[card.priority];
+  const deadlineStatus = getDeadlineStatus(card.deadline);
+  const matchesSearch =
+    !isSearchActive ||
+    card.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    card.description.toLowerCase().includes(searchQuery.toLowerCase());
+
+  return (
+    <Draggable draggableId={card.id} index={index} isDragDisabled={isSearchActive}>
+      {(provided, snapshot) => (
+        <div
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          style={{
+            ...provided.draggableProps.style,
+            display: matchesSearch ? undefined : "none",
+          }}
+          onClick={onClick}
+          className={`
+            group relative bg-white rounded-xl border cursor-pointer select-none
+            transition-all duration-150
+            ${snapshot.isDragging
+              ? "border-violet-300 shadow-lg shadow-violet-100/60 rotate-1 scale-[1.02]"
+              : "border-slate-200 hover:border-violet-300 hover:shadow-md hover:shadow-slate-100"
+            }
+          `}
+        >
+          <div className="p-3.5">
+            <div className="flex items-start justify-between gap-2 mb-2">
+              <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold ${p.bg} ${p.text}`}>
+                <span className={`w-1.5 h-1.5 rounded-full ${p.dot}`} />
+                {p.label}
+              </span>
+              {card.links.length > 0 && (
+                <span className="flex items-center gap-1 text-[11px] text-slate-400">
+                  <Link2 className="w-3 h-3" />
+                  {card.links.length}
+                </span>
+              )}
+            </div>
+            <p className="text-sm font-semibold text-slate-800 leading-snug mb-1">{card.title}</p>
+            {card.description && (
+              <p className="text-xs text-slate-500 leading-relaxed line-clamp-4 mb-2.5">
+                {card.description}
+              </p>
+            )}
+            {deadlineStatus && (
+              <div className={`flex items-center gap-1 text-[11px] ${deadlineStatus.color}`}>
+                {deadlineStatus.icon}
+                {deadlineStatus.label}
+                {card.deadline && (
+                  <span className="text-slate-400 font-normal ml-1">
+                    · {format(parseISO(card.deadline), "MMM d")}
+                  </span>
+                )}
+              </div>
+            )}
           </div>
         </div>
       )}
+    </Draggable>
+  );
+}
+
+// ─── Column Component ────────────────────────────────────────────────────────
+
+interface KanbanColumnProps {
+  column: ColumnData;
+  index: number;
+  searchQuery: string;
+  isSearchActive: boolean;
+  onAddCard: (columnId: string) => void;
+  onEditCard: (columnId: string, card: CardItem) => void;
+  onDeleteColumn: (columnId: string) => void;
+  onRenameColumn: (columnId: string, title: string) => void;
+}
+
+function KanbanColumn({
+  column,
+  index,
+  searchQuery,
+  isSearchActive,
+  onAddCard,
+  onEditCard,
+  onDeleteColumn,
+  onRenameColumn,
+}: KanbanColumnProps) {
+  const [hovered, setHovered] = useState(false);
+  const [deleteConfirm, setDeleteConfirm] = useState(false);
+  const [editingTitle, setEditingTitle] = useState(false);
+  const [titleVal, setTitleVal] = useState(column.title);
+
+  const commitTitle = () => {
+    setEditingTitle(false);
+    if (titleVal.trim()) onRenameColumn(column.id, titleVal.trim());
+    else setTitleVal(column.title);
+  };
+
+  return (
+    <Draggable draggableId={column.id} index={index}>
+      {(provided, snapshot) => (
+        <div
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          className={`
+            flex flex-col w-80 shrink-0 rounded-2xl bg-slate-50/80 border
+            transition-all duration-200
+            ${snapshot.isDragging ? "border-violet-300 shadow-xl shadow-violet-100/40 rotate-1" : "border-slate-200/80"}
+          `}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => { setHovered(false); setDeleteConfirm(false); }}
+        >
+          <div
+            {...provided.dragHandleProps}
+            className="flex items-center justify-between px-4 py-3.5 border-b border-slate-200/80 cursor-grab active:cursor-grabbing"
+          >
+            <div className="flex items-center gap-2 flex-1 min-w-0">
+              <GripVertical className="w-4 h-4 text-slate-300 shrink-0" />
+              {editingTitle ? (
+                <input
+                  autoFocus
+                  value={titleVal}
+                  onChange={(e) => setTitleVal(e.target.value)}
+                  onBlur={commitTitle}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") commitTitle();
+                    if (e.key === "Escape") {
+                      setTitleVal(column.title);
+                      setEditingTitle(false);
+                    }
+                  }}
+                  onClick={(e) => e.stopPropagation()}
+                  className="flex-1 min-w-0 bg-white border border-violet-300 rounded-lg px-2 py-0.5 text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-violet-400"
+                />
+              ) : (
+                <span
+                  className="text-sm font-semibold text-slate-700 truncate cursor-text"
+                  onDoubleClick={() => setEditingTitle(true)}
+                  title="Double-click to rename"
+                >
+                  {column.title}
+                </span>
+              )}
+              <span className="ml-auto shrink-0 min-w-[20px] text-center text-xs font-bold text-slate-400 bg-slate-200/80 rounded-full px-2 py-0.5">
+                {column.items.length}
+              </span>
+            </div>
+
+            <AnimatePresence>
+              {hovered && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  className="flex items-center gap-1 ml-2"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <button onClick={() => onAddCard(column.id)} className="p-1.5 rounded-lg text-slate-400 hover:text-violet-600 hover:bg-violet-50 transition-colors" title="Add card">
+                    <Plus className="w-4 h-4" />
+                  </button>
+                  {deleteConfirm ? (
+                    <div className="flex items-center gap-1">
+                      <button onClick={() => onDeleteColumn(column.id)} className="px-2 py-1 rounded-lg bg-red-500 text-white text-[11px] font-bold hover:bg-red-600 transition-colors">
+                        Delete
+                      </button>
+                      <button onClick={() => setDeleteConfirm(false)} className="px-2 py-1 rounded-lg bg-slate-200 text-slate-600 text-[11px] font-bold hover:bg-slate-300 transition-colors">
+                        No
+                      </button>
+                    </div>
+                  ) : (
+                    <button onClick={() => setDeleteConfirm(true)} className="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors" title="Delete column">
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          <Droppable droppableId={column.id} type="card">
+            {(dropProvided, dropSnapshot) => (
+              <div
+                ref={dropProvided.innerRef}
+                {...dropProvided.droppableProps}
+                className={`flex-1 px-3 py-3 space-y-2.5 min-h-[80px] rounded-b-2xl transition-colors duration-150 ${dropSnapshot.isDraggingOver ? "bg-violet-50/60" : ""}`}
+              >
+                {column.items.map((card, cardIndex) => (
+                  <KanbanCard key={card.id} card={card} index={cardIndex} columnId={column.id} searchQuery={searchQuery} isSearchActive={isSearchActive} onClick={() => onEditCard(column.id, card)} />
+                ))}
+                {dropProvided.placeholder}
+              </div>
+            )}
+          </Droppable>
+
+          <button onClick={() => onAddCard(column.id)} className="flex items-center gap-2 mx-3 mb-3 px-3 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-violet-600 hover:bg-violet-50 transition-colors border border-dashed border-slate-200 hover:border-violet-300">
+            <Plus className="w-3.5 h-3.5" /> Add a card
+          </button>
+        </div>
+      )}
+    </Draggable>
+  );
+}
+
+// ─── Main Kanban Board ────────────────────────────────────────────────────────
+
+export default function KanbanBoard() {
+  const [columns, setColumns] = useState<ColumnData[]>(INITIAL_STATE);
+  const [isMounted, setIsMounted] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false); // New flag for Firebase
+  const [searchQuery, setSearchQuery] = useState("");
+  const [modal, setModal] = useState<{
+    card: CardItem | null;
+    isNew: boolean;
+    columnId: string;
+  } | null>(null);
+  const isDraggingRef = useRef(false);
+
+  // 1. Fetch Board State from Firestore on Mount
+  useEffect(() => {
+    const fetchBoard = async () => {
+      try {
+        const boardRef = doc(db, "kanban", "vaphers-board");
+        const boardSnap = await getDoc(boardRef);
+        
+        if (boardSnap.exists() && boardSnap.data().columns) {
+          setColumns(boardSnap.data().columns);
+        } else {
+          // If no board exists yet, save the INITIAL_STATE to the db
+          await setDoc(boardRef, { columns: INITIAL_STATE });
+        }
+      } catch (error) {
+        console.error("Error fetching board state:", error);
+      } finally {
+        setIsInitialized(true);
+        setIsMounted(true);
+      }
+    };
+
+    fetchBoard();
+  }, []);
+
+  // 2. Save Board State to Firestore when `columns` change
+  useEffect(() => {
+    if (isInitialized && isMounted) {
+      const saveBoard = async () => {
+        try {
+          const boardRef = doc(db, "kanban", "vaphers-board");
+          await setDoc(boardRef, { columns });
+        } catch (error) {
+          console.error("Error saving board state:", error);
+        }
+      };
+
+      // Simple debounce to prevent slamming Firestore during fast typing/dragging
+      const timeoutId = setTimeout(saveBoard, 500);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [columns, isInitialized, isMounted]);
+
+  const isSearchActive = searchQuery.trim().length > 0;
+
+  // ── DnD ────────────────────────────────────────────────────────────────────
+
+  const onDragEnd = useCallback(
+    (result: DropResult) => {
+      isDraggingRef.current = true;
+      setTimeout(() => { isDraggingRef.current = false; }, 120);
+
+      const { source, destination, type } = result;
+      if (!destination) return;
+      if (
+        source.droppableId === destination.droppableId &&
+        source.index === destination.index
+      )
+        return;
+
+      if (type === "board") {
+        setColumns((prev) => {
+          const next = [...prev];
+          const [moved] = next.splice(source.index, 1);
+          next.splice(destination.index, 0, moved);
+          return next;
+        });
+      } else {
+        setColumns((prev) => {
+          const next = prev.map((c) => ({ ...c, items: [...c.items] }));
+          const srcCol = next.find((c) => c.id === source.droppableId)!;
+          const dstCol = next.find((c) => c.id === destination.droppableId)!;
+          const [movedCard] = srcCol.items.splice(source.index, 1);
+          dstCol.items.splice(destination.index, 0, movedCard);
+          return next;
+        });
+      }
+    },
+    []
+  );
+
+  // ── Modal handlers ─────────────────────────────────────────────────────────
+
+  const openAdd = (columnId: string) =>
+    setModal({ card: null, isNew: true, columnId });
+
+  const openEdit = (columnId: string, card: CardItem) => {
+    if (isDraggingRef.current) return;
+    setModal({ card, isNew: false, columnId });
+  };
+
+  const handleSave = (columnId: string, card: CardItem) => {
+    setColumns((prev) =>
+      prev.map((col) => {
+        if (col.id !== columnId) return col;
+        const exists = col.items.find((c) => c.id === card.id);
+        return {
+          ...col,
+          items: exists
+            ? col.items.map((c) => (c.id === card.id ? card : c))
+            : [...col.items, card],
+        };
+      })
+    );
+    setModal(null);
+  };
+
+  const handleDelete = (columnId: string, cardId: string) => {
+    setColumns((prev) =>
+      prev.map((col) =>
+        col.id === columnId
+          ? { ...col, items: col.items.filter((c) => c.id !== cardId) }
+          : col
+      )
+    );
+    setModal(null);
+  };
+
+  const handleDeleteColumn = (columnId: string) =>
+    setColumns((prev) => prev.filter((c) => c.id !== columnId));
+
+  const handleRenameColumn = (columnId: string, title: string) =>
+    setColumns((prev) =>
+      prev.map((c) => (c.id === columnId ? { ...c, title } : c))
+    );
+
+  const handleAddColumn = () => {
+    setColumns((prev) => [
+      ...prev,
+      { id: uid(), title: "New Board", items: [] },
+    ]);
+  };
+
+  if (!isMounted || !isInitialized) {
+    return (
+      <div className="h-full w-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-2 border-violet-500 border-t-transparent rounded-full animate-spin" />
+          <p className="text-sm text-slate-500 font-medium">Connecting to Firestore...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col h-full w-full overflow-hidden bg-gradient-to-br from-slate-100 via-white to-violet-50/30 font-sans relative">
+      <header className="shrink-0 flex items-center gap-4 px-6 py-3.5 bg-white/80 backdrop-blur-md border-b border-slate-200/80 shadow-sm z-30">
+        <div className="flex items-center gap-2.5">
+          <span className="text-3xl text-blue-700 bungee-shade tracking-tight">
+            V<span className="text-2xl text-slate-800">aphers</span>
+          </span>
+        </div>
+
+        <div className="flex items-center gap-4 ml-auto">
+          <div className="relative w-64 hidden sm:block">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+            <input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search cards…"
+              className="w-full pl-9 pr-9 py-2 rounded-xl bg-slate-100 border border-transparent text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:bg-white focus:border-transparent transition"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+
+          {isSearchActive && (
+            <motion.span
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="text-xs text-violet-600 font-medium bg-violet-50 px-2.5 py-1 rounded-full border border-violet-200 hidden sm:block"
+            >
+              Drag disabled
+            </motion.span>
+          )}
+
+          <button
+            onClick={handleAddColumn}
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-violet-600 text-white text-sm font-semibold hover:bg-violet-700 transition-colors shadow-sm shadow-violet-200 shrink-0"
+          >
+            <Plus className="w-4 h-4" />
+            Add Board
+          </button>
+        </div>
+      </header>
+
+      <div className="flex-1 min-h-0 min-w-0 overflow-x-auto overflow-y-auto px-6 py-6">
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="board" direction="horizontal" type="board">
+            {(provided) => (
+              <div
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+                className="flex items-start gap-4 w-max h-full"
+              >
+                {columns.map((col, idx) => (
+                  <KanbanColumn
+                    key={col.id}
+                    column={col}
+                    index={idx}
+                    searchQuery={searchQuery}
+                    isSearchActive={isSearchActive}
+                    onAddCard={openAdd}
+                    onEditCard={openEdit}
+                    onDeleteColumn={handleDeleteColumn}
+                    onRenameColumn={handleRenameColumn}
+                  />
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </div>
+
+      <AnimatePresence>
+        {modal && (
+          <CardModal
+            key={modal.card?.id ?? "new"}
+            card={modal.card}
+            isNew={modal.isNew}
+            columnId={modal.columnId}
+            onSave={handleSave}
+            onDelete={handleDelete}
+            onClose={() => setModal(null)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

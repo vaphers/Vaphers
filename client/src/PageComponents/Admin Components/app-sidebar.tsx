@@ -26,7 +26,7 @@ export function AppSidebar() {
 
   return (
     <div 
-      className={`${isCollapsed ? 'w-16' : 'w-64'} h-screen bg-[#2383e2]  text-white transition-all duration-300 flex flex-col sticky top-0`}
+      className={`${isCollapsed ? 'w-16' : 'w-64'} h-screen bg-[#2383e2]  text-white transition-all duration-300 flex flex-col sticky top-0 `}
     >
       {/* Header */}
       <div className="border-b border-indigo`-800 p-4 flex items-center justify-between">
