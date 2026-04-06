@@ -7,6 +7,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import TrafficSources from './TrafficSources';
+import Audience from './Audiences';
 
 const MAIN_TABS = ['Traffic sources', 'Audience', 'Pages', 'Conversions'];
 
@@ -134,7 +135,7 @@ export default function AnalyticsDashboard() {
 
           <Popover open={isPickerOpen} onOpenChange={setIsPickerOpen}>
             <PopoverTrigger asChild>
-              <button className="flex items-center gap-2 max-w-fit border border-slate-200 bg-white rounded-sm px-4 py-2.5 shadow-sm transition-colors text-sm font-medium text-slate-700 outline-none">
+              <button className="flex items-center gap-2 max-w-fit border border-slate-200 bg-white rounded-sm px-4 py-2.5 shadow-xs transition-colors text-sm font-medium text-slate-700 outline-none">
                 <CalendarIcon className="w-4 h-4 text-blue-900" />
                 <span className='text-blue-900'>
                   {format(new Date(dateRange.start + 'T12:00:00'), 'MMM d, yyyy')} – {format(new Date(dateRange.end + 'T12:00:00'), 'MMM d, yyyy')}
@@ -336,9 +337,10 @@ export default function AnalyticsDashboard() {
         )}
         
         {activeMainTab === 'Audience' && (
-          <div className="py-20 text-center border-2 border-dashed border-slate-200 rounded-sm text-slate-500 bg-slate-50/50 text-4xl">
-            Audience Component Coming Soon
-          </div>
+          <Audience 
+            dateRange={dateRange} 
+            compareDateRange={isComparing ? compareDateRange : undefined} 
+          />
         )}
         
         {activeMainTab === 'Pages' && (

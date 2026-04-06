@@ -87,7 +87,7 @@ export default function TrafficSources({ dateRange, compareDateRange }: TrafficS
     return (
       <div className="py-20 flex flex-col items-center justify-center text-slate-500 gap-4 bg-white rounded-sm border border-slate-200">
         <div className="w-8 h-8 border-4 border-blue-900 border-t-transparent rounded-full animate-spin"></div>
-        <p className="animate-pulse font-medium">Just a Second</p>
+        <p className="animate-pulse font-medium">Loading live data...</p>
       </div>
     );
   }
