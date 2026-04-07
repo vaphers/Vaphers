@@ -79,7 +79,7 @@ export default function AdminPostsPage() {
             <p className="text-sm text-gray-500 mt-1">Manage and organize your blog content.</p>
           </div>
           <Link href="/add-posts">
-            <button className="flex items-center gap-2 px-5 py-2.5 bg-blue-900 text-white rounded-xs font-medium hover:bg-blue-700 transition-all shadow-sm cursor-pointer">
+            <button className="flex items-center gap-2 px-5 py-2.5 bg-[#2383e2] text-white rounded-xs font-medium hover:bg-[#1d6fc2] transition-all shadow-sm cursor-pointer">
               <Plus size={18} /> Add New Post
             </button>
           </Link>

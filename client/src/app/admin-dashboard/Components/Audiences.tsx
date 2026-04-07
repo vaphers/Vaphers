@@ -47,7 +47,7 @@ export default function Audience({ dateRange, compareDateRange }: AudienceProps)
               key={tab} 
               onClick={() => setActiveTab(tab)}
               className={`px-4 py-2 border text-xs font-bold uppercase tracking-wider transition-colors ${
-                activeTab === tab ? 'bg-blue-900 text-white border-indigo-900' : 'text-slate-600 hover:bg-slate-50 border-slate-200 cursor-pointer'
+                activeTab === tab ? 'bg-[#2383e2] text-white border-[#2383e2]' : 'text-slate-600 hover:bg-slate-50 border-slate-200 cursor-pointer'
               }`}
             >
               {tab}

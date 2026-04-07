@@ -170,7 +170,7 @@ export default function DevicesTab({ dateRange, compareRange }: DevicesTabProps)
   if (loading) {
     return (
       <div className="py-32 flex flex-col items-center justify-center text-slate-500 gap-4">
-        <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#2383e2]" />
         <p className="font-medium animate-pulse">Loading Device Data...</p>
       </div>
     );

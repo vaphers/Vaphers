@@ -17,9 +17,12 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex min-h-screen">
+    // Changed flex direction to support responsive layout
+    <div className="flex flex-col md:flex-row h-screen overflow-hidden bg-gray-50">
       <AppSidebar />
-      <main className="flex-1 bg-gray-50 p- pt-0">
+      
+      {/* Added pb-16 for mobile to account for the 4rem (16) bottom nav height */}
+      <main className="flex-1 min-w-0 overflow-y-auto pb-16 md:pb-0">
         {children}
       </main>
     </div>

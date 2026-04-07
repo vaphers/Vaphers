@@ -86,7 +86,7 @@ export default function TrafficSources({ dateRange, compareDateRange }: TrafficS
   if (loading) {
     return (
       <div className="py-20 flex flex-col items-center justify-center text-slate-500 gap-4 bg-white rounded-sm border border-slate-200">
-        <div className="w-8 h-8 border-4 border-blue-900 border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-8 h-8 border-4 border-[#2383e2] border-t-transparent rounded-full animate-spin"></div>
         <p className="animate-pulse font-medium">Loading live data...</p>
       </div>
     );
@@ -94,25 +94,32 @@ export default function TrafficSources({ dateRange, compareDateRange }: TrafficS
 
   if (error || !rawData) {
     return (
-      <div className="py-20 flex items-center justify-center bg-white rounded-xl border border-slate-200 p-6">
-         <div className="flex items-center gap-2 text-red-500">
-           <AlertCircle className="w-5 h-5" />
-           <p className="font-medium">{error || "Failed to load data"}</p>
+      <div className="py-20 flex items-center justify-center bg-white rounded-xl border border-slate-200 p-6 mx-4">
+         <div className="flex flex-col sm:flex-row items-center gap-2 text-red-500 text-center sm:text-left">
+           <AlertCircle className="w-5 h-5 shrink-0" />
+           <p className="font-medium text-sm sm:text-base">{error || "Failed to load data"}</p>
          </div>
       </div>
     );
   }
 
   return (
-    <div className="animate-in fade-in duration-500">
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-4 bg-white p-2 rounded border border-slate-200 shadow-xs gap-4">
-        <div className="flex flex-wrap p-2 w-full lg:w-auto">
+    <div className="animate-in fade-in duration-500 w-full min-w-0">
+      
+      {/* Tab Navigation Container */}
+      <div className="flex flex-col mb-4 bg-white p-2 rounded border border-slate-200 shadow-xs w-full overflow-hidden">
+        
+        {/* Changed: Used overflow-x-auto to allow horizontal scrolling on mobile instead of messy wrapping */}
+        <div className="flex overflow-x-auto w-full scrollbar-hide lg:flex-wrap gap-1 md:gap-0 pb-1 lg:pb-0">
           {SUB_TABS.map(tab => (
             <button 
               key={tab} 
               onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 border text-xs font-bold uppercase tracking-wider transition-colors ${
-                activeTab === tab ? 'bg-blue-900 text-white border-indigo-900' : 'text-slate-600 hover:bg-slate-50 border-slate-200 cursor-pointer'
+              // Changed: Added shrink-0 and whitespace-nowrap so buttons don't crush on small screens
+              className={`shrink-0 whitespace-nowrap px-4 py-2 border text-xs font-bold uppercase tracking-wider transition-colors ${
+                activeTab === tab 
+                  ? 'bg-[#2383e2] text-white border-[#2383e2]' 
+                  : 'text-slate-600 hover:bg-slate-50 border-slate-200 cursor-pointer'
               }`}
             >
               {tab}
@@ -121,12 +128,18 @@ export default function TrafficSources({ dateRange, compareDateRange }: TrafficS
         </div>
       </div>
 
+      {/* Main Content Container */}
       <div className="bg-white rounded shadow-xs border border-slate-200 overflow-hidden min-h-[500px]">
         <h2 className="text-xl font-semibold p-4 md:px-6 pt-6 text-slate-800">
           {activeTab}
         </h2>
-        {renderTabContent()}
+        
+        {/* Added overflow-x-auto here just in case the inner charts overflow their bounds on mobile */}
+        <div className="w-full overflow-x-auto">
+          {renderTabContent()}
+        </div>
       </div>
+      
     </div>
   );
 }

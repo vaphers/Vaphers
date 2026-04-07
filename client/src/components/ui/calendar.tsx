@@ -210,10 +210,10 @@ function CalendarDayButton({
       className={cn(
         "flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ring/50",
         // The magic happens here: Replaced bg-primary with bg-blue-900, and bg-accent with bg-blue-900/10
-        "data-[range-end=true]:rounded-xs data-[range-end=true]:rounded-r-xs data-[range-end=true]:bg-blue-900 data-[range-end=true]:text-white",
-        "data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-blue-900/10 data-[range-middle=true]:text-blue-900",
-        "data-[range-start=true]:rounded-xs data-[range-start=true]:rounded-l-xs data-[range-start=true]:bg-blue-900 data-[range-start=true]:text-white",
-        "data-[selected-single=true]:bg-blue-900 data-[selected-single=true]:text-white dark:hover:text-accent-foreground [&>span]:text-xs [&>span]:opacity-70",
+        "data-[range-end=true]:rounded-xs data-[range-end=true]:rounded-r-xs data-[range-end=true]:bg-[#2383e2] data-[range-end=true]:text-white",
+        "data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-[#2383e2]/10 data-[range-middle=true]:text-[#2383e2]",
+        "data-[range-start=true]:rounded-xs data-[range-start=true]:rounded-l-xs data-[range-start=true]:bg-[#2383e2] data-[range-start=true]:text-white",
+        "data-[selected-single=true]:bg-[#2383e2] data-[selected-single=true]:text-white dark:hover:text-accent-foreground [&>span]:text-xs [&>span]:opacity-70",
         defaultClassNames.day,
         className
       )}

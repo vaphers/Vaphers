@@ -34,44 +34,43 @@
 //     setSelectedCategories([...selectedCategories, name]);
 //   };
 
-// const handlePublish = async () => {
-//   try {
-//     const payload = {
-//       title,
-//       content,           
-//       slug,
-//       metaTitle,
-//       metaDescription,
-//       featuredImage,
-//       author: currentAuthor,
-//       categories: selectedCategories,
-//     };
+//   const handlePublish = async () => {
+//     try {
+//       const payload = {
+//         title,
+//         content,          
+//         slug,
+//         metaTitle,
+//         metaDescription,
+//         featuredImage,
+//         author: currentAuthor,
+//         categories: selectedCategories,
+//       };
 
-//     const res = await fetch('/api/blogs', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(payload),
-//     });
+//       const res = await fetch('/api/blogs', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(payload),
+//       });
 
-//     if (!res.ok) {
-//       const err = await res.json();
+//       if (!res.ok) {
+//         const err = await res.json();
+//         console.error(err);
+//         alert('Failed to publish blog: ' + (err.error || res.statusText));
+//         return;
+//       }
+
+//       const data = await res.json();
+//       console.log('Blog created with id:', data.id);
+//       alert('Blog published successfully!');
+//       // Optionally: reset state or redirect to /blogs/[slug]
+//     } catch (err) {
 //       console.error(err);
-//       alert('Failed to publish blog: ' + (err.error || res.statusText));
-//       return;
+//       alert('Unexpected error while publishing');
 //     }
-
-//     const data = await res.json();
-//     console.log('Blog created with id:', data.id);
-//     alert('Blog published successfully!');
-//     // Optionally: reset state or redirect to /blogs/[slug]
-//   } catch (err) {
-//     console.error(err);
-//     alert('Unexpected error while publishing');
-//   }
-// };
-
+//   };
 
 //   return (
 //     <div className="flex mx-auto pt-0">
@@ -92,17 +91,12 @@
 //           onMetaDescriptionChange={setMetaDescription}
 //           baseUrl="https://www.vaphers.com"
 //         />
-//         {/* Publish Button */}
-//         <button
-//           onClick={handlePublish}
-//           className="mt-6 px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-700 transition cursor-pointer"
-//         >
-//           Publish
-//         </button>
 //       </div>
 
 //       {/* Sidebar on the right */}
 //       <Sidebar
+//         title={title}
+//         onPublish={handlePublish}
 //         featuredImage={featuredImage}
 //         setFeaturedImage={setFeaturedImage}
 //         authors={authors}
@@ -118,6 +112,7 @@
 //     </div>
 //   );
 // }
+
 
 
 
@@ -200,9 +195,12 @@ export default function TiptapWrapper() {
   };
 
   return (
-    <div className="flex mx-auto pt-0">
+    // Changed: Added flex-col for mobile, lg:flex-row for desktop, min-h-screen
+    <div className="flex flex-col lg:flex-row mx-auto pt-0 w-full min-h-screen">
+      
       {/* Center Editor and Meta area */}
-      <div className="flex-1" >
+      {/* Changed: Added w-full and min-w-0 to prevent flexbox overflow on mobile */}
+      <div className="flex-1 w-full min-w-0 p-4 lg:p-6">
         <Tiptap
           title={title}
           onTitleChange={setTitle}
@@ -220,7 +218,7 @@ export default function TiptapWrapper() {
         />
       </div>
 
-      {/* Sidebar on the right */}
+      {/* Sidebar on the right (bottom on mobile) */}
       <Sidebar
         title={title}
         onPublish={handlePublish}

@@ -22,10 +22,13 @@
 // } from '@/components/ui/dialog';
 // import { Separator } from '@/components/ui/separator';
 // import { ScrollArea } from '@/components/ui/scroll-area';
+// import { Send } from 'lucide-react';
 
 // type Author = { id: string; name: string; avatar?: string };
 
 // type SidebarProps = {
+//   title: string;
+//   onPublish: () => void;
 //   featuredImage: string | null;
 //   setFeaturedImage: (url: string) => void;
 //   authors: { id: string; name: string; avatar?: string }[];
@@ -41,6 +44,8 @@
 
 // const Sidebar: React.FC<SidebarProps> = ({
 //   className = '',
+//   title,
+//   onPublish,
 //   featuredImage,
 //   setFeaturedImage,
 //   authors,
@@ -58,6 +63,11 @@
 //   // Local copies of authors and categories
 //   const [authorsData, setAuthorsData] = useState<Author[]>(authors);
 //   const [categoriesData, setCategoriesData] = useState<string[]>(categories);
+
+//   // Clean up title for display
+//   const displayTitle = !title || title === 'Add a spectacular title...' || title === 'Untitled' 
+//     ? 'Untitled Post' 
+//     : title;
 
 //   // Fetch authors and categories on mount
 //   useEffect(() => {
@@ -167,12 +177,25 @@
 //     >
 //       <div className="p-6 space-y-8">
         
+//         {/* Title & Publish Section */}
+//         <section className="space-y-4">
+//           <div className="space-y-1">
+//             <Label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Post Title</Label>
+//             <h3 className="text-[17px] font-bold text-[#37352f] leading-[1.3] line-clamp-3 break-words" title={displayTitle}>
+//               {displayTitle}
+//             </h3>
+//           </div>
+
+//         </section>
+
+//         <Separator />
+
 //         {/* Featured Image Section */}
 //         <section className="space-y-3">
 //           <Label className="text-sm font-semibold text-gray-900 tracking-tight">
 //             Featured Image
 //           </Label>
-//           <div className="relative group flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors overflow-hidden cursor-pointer">
+//           <div className="relative group flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-[#2383e2] rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors overflow-hidden cursor-pointer">
 //             {featuredImage ? (
 //               <>
 //                 <img
@@ -186,7 +209,7 @@
 //               </>
 //             ) : (
 //               <div className="flex flex-col items-center text-gray-500">
-//                 <svg className="w-8 h-8 mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                 <svg className="w-9 h-9 -2 opacity-100 text-[#2383e2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 //                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
 //                 </svg>
 //                 <span className="text-sm">{isUploading ? 'Uploading...' : 'Click to upload'}</span>
@@ -233,7 +256,7 @@
 
 //           <Dialog>
 //             <DialogTrigger asChild>
-//               <Button size="sm" variant="secondary" className="w-full text-xs font-medium">
+//               <Button size="sm" variant="secondary" className="w-full text-sm font-medium bg-[#2383e2] hover:bg-[#1a66b2] text-white rounded-sm cursor-pointer">
 //                 + Add New Author
 //               </Button>
 //             </DialogTrigger>
@@ -250,7 +273,7 @@
 //                 />
 //               </div>
 //               <DialogFooter>
-//                 <Button onClick={() => addAuthor(newAuthorName)}>Create Author</Button>
+//                 <Button className='bg-[#2383e2] rounded-sm hover:bg-[#1a66b2] cursor-pointer' onClick={() => addAuthor(newAuthorName)}>Create Author</Button>
 //               </DialogFooter>
 //             </DialogContent>
 //           </Dialog>
@@ -271,7 +294,7 @@
 //                     checked={selectedCategories.includes(cat)}
 //                     onChange={() => toggleCategory(cat)}
 //                     id={`cat-${cat}`}
-//                     className="w-4 h-4 rounded border-gray-300 text-black focus:ring-black cursor-pointer"
+//                     className="w-4 h-4 rounded border-gray-300 text-[#2383e2] focus:ring-[#2383e2] cursor-pointer"
 //                   />
 //                   <Label
 //                     htmlFor={`cat-${cat}`}
@@ -295,10 +318,20 @@
 //               onKeyDown={(e) => e.key === 'Enter' && addCategory(newCategory)}
 //               className="h-9"
 //             />
-//             <Button size="sm" className="h-9 px-4 bg-blue-900 rounded-sm" onClick={() => addCategory(newCategory)}>
+//             <Button size="sm" className="h-9 px-4 bg-[#2383e2] hover:bg-[#1a66b2] rounded-sm text-white cursor-pointer" onClick={() => addCategory(newCategory)}>
 //               Add
 //             </Button>
 //           </div>
+//         </section>
+
+//         <section className='space-y-3 '>
+//           <Button 
+//             onClick={onPublish} 
+//             className="w-full bg-[#2383e2] hover:bg-[#1a66b2] text-white font-semibold py-5 flex items-center gap-2 transition-colors rounded-sm cursor-pointer"
+//           >
+//             <Send size={16} />
+//             Publish Post
+//           </Button>
 //         </section>
         
 //       </div>
@@ -307,13 +340,6 @@
 // };
 
 // export default Sidebar;
-
-
-
-
-
-
-
 
 
 
@@ -496,11 +522,13 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`w-[340px] shrink-0 border-l border-gray-200 bg-white sticky top-0 h-screen overflow-y-auto ${className}`}
+      // Changed: Responsive sizing. Full width on mobile, 340px and sticky on desktop (lg).
+      className={`w-full lg:w-[340px] shrink-0 border-t lg:border-t-0 lg:border-l border-gray-200 bg-white lg:sticky lg:top-0 lg:h-screen overflow-y-auto ${className}`}
     >
-      <div className="p-6 space-y-8">
+      {/* Changed: Adjusted padding and flex layout to support responsive grids inside */}
+      <div className="p-5 lg:p-6 flex flex-col gap-8">
         
-        {/* Title & Publish Section */}
+        {/* Title Section (Always Full Width) */}
         <section className="space-y-4">
           <div className="space-y-1">
             <Label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Post Title</Label>
@@ -508,154 +536,162 @@ const Sidebar: React.FC<SidebarProps> = ({
               {displayTitle}
             </h3>
           </div>
-
         </section>
 
-        <Separator />
+        <Separator className="hidden lg:block" />
 
-        {/* Featured Image Section */}
-        <section className="space-y-3">
-          <Label className="text-sm font-semibold text-gray-900 tracking-tight">
-            Featured Image
-          </Label>
-          <div className="relative group flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-[#2383e2] rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors overflow-hidden cursor-pointer">
-            {featuredImage ? (
-              <>
-                <img
-                  src={featuredImage}
-                  alt="Featured"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <span className="text-white text-sm font-medium">Change Image</span>
-                </div>
-              </>
-            ) : (
-              <div className="flex flex-col items-center text-gray-500">
-                <svg className="w-9 h-9 -2 opacity-100 text-[#2383e2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                </svg>
-                <span className="text-sm">{isUploading ? 'Uploading...' : 'Click to upload'}</span>
-              </div>
-            )}
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFeaturedImageUpload}
-              disabled={isUploading}
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
-            />
-          </div>
-        </section>
-
-        <Separator />
-
-        {/* Author Selection Section */}
-        <section className="space-y-3">
-          <div className="flex items-center justify-between">
-            <Label className="text-sm font-semibold text-gray-900 tracking-tight">Author</Label>
-          </div>
-          <Select value={currentAuthor} onValueChange={setCurrentAuthor}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select author" />
-            </SelectTrigger>
-            <SelectContent>
-              {authorsData.map((author) => (
-                <SelectItem key={author.id} value={author.id}>
-                  <div className="flex items-center gap-2">
-                    <Avatar className="w-5 h-5">
-                      {author.avatar ? (
-                        <AvatarImage src={author.avatar} alt={author.name} />
-                      ) : (
-                        <AvatarFallback className="text-[10px]">{author.name[0]}</AvatarFallback>
-                      )}
-                    </Avatar>
-                    <span>{author.name}</span>
-                  </div>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button size="sm" variant="secondary" className="w-full text-sm font-medium bg-[#2383e2] hover:bg-[#1a66b2] text-white rounded-sm cursor-pointer">
-                + Add New Author
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Add a new author</DialogTitle>
-              </DialogHeader>
-              <div className="py-4">
-                <Input
-                  placeholder="e.g. Jane Doe"
-                  value={newAuthorName}
-                  onChange={(e) => setNewAuthorName(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && addAuthor(newAuthorName)}
-                />
-              </div>
-              <DialogFooter>
-                <Button className='bg-[#2383e2] rounded-sm hover:bg-[#1a66b2] cursor-pointer' onClick={() => addAuthor(newAuthorName)}>Create Author</Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        </section>
-
-        <Separator />
-
-        {/* Categories Section */}
-        <section className="space-y-3">
-          <Label className="text-sm font-semibold text-gray-900 tracking-tight">Categories</Label>
+        {/* Changed: Grouped Image and Author into a grid so they sit side-by-side on mobile/tablets */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6 lg:gap-8">
           
-          <ScrollArea className="h-[280px] rounded-md border border-gray-200 bg-gray-50/50 p-3">
-            <div className="space-y-3 p-2">
-              {categoriesData.map((cat) => (
-                <div key={cat} className="flex items-center gap-3 ">
-                  <input
-                    type="checkbox"
-                    checked={selectedCategories.includes(cat)}
-                    onChange={() => toggleCategory(cat)}
-                    id={`cat-${cat}`}
-                    className="w-4 h-4 rounded border-gray-300 text-[#2383e2] focus:ring-[#2383e2] cursor-pointer"
+          {/* Featured Image Section */}
+          <section className="space-y-3">
+            <Label className="text-sm font-semibold text-gray-900 tracking-tight">
+              Featured Image
+            </Label>
+            <div className="relative group flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-[#2383e2] rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors overflow-hidden cursor-pointer">
+              {featuredImage ? (
+                <>
+                  <img
+                    src={featuredImage}
+                    alt="Featured"
+                    className="w-full h-full object-cover"
                   />
-                  <Label
-                    htmlFor={`cat-${cat}`}
-                    className="cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
-                    {cat}
-                  </Label>
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span className="text-white text-sm font-medium">Change Image</span>
+                  </div>
+                </>
+              ) : (
+                <div className="flex flex-col items-center text-gray-500">
+                  <svg className="w-9 h-9 -2 opacity-100 text-[#2383e2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                  <span className="text-sm">{isUploading ? 'Uploading...' : 'Click to upload'}</span>
                 </div>
-              ))}
-              {categoriesData.length === 0 && (
-                <p className="text-sm text-gray-500 italic">No categories yet.</p>
               )}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFeaturedImageUpload}
+                disabled={isUploading}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
+              />
             </div>
-          </ScrollArea>
+          </section>
 
-          <div className="flex gap-2 pt-1">
-            <Input
-              placeholder="New category..."
-              value={newCategory}
-              onChange={(e) => setNewCategory(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && addCategory(newCategory)}
-              className="h-9"
-            />
-            <Button size="sm" className="h-9 px-4 bg-[#2383e2] hover:bg-[#1a66b2] rounded-sm text-white cursor-pointer" onClick={() => addCategory(newCategory)}>
-              Add
+          {/* Author Selection Section */}
+          <section className="space-y-3">
+            <div className="flex items-center justify-between">
+              <Label className="text-sm font-semibold text-gray-900 tracking-tight">Author</Label>
+            </div>
+            <Select value={currentAuthor} onValueChange={setCurrentAuthor}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select author" />
+              </SelectTrigger>
+              <SelectContent>
+                {authorsData.map((author) => (
+                  <SelectItem key={author.id} value={author.id}>
+                    <div className="flex items-center gap-2">
+                      <Avatar className="w-5 h-5">
+                        {author.avatar ? (
+                          <AvatarImage src={author.avatar} alt={author.name} />
+                        ) : (
+                          <AvatarFallback className="text-[10px]">{author.name[0]}</AvatarFallback>
+                        )}
+                      </Avatar>
+                      <span>{author.name}</span>
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button size="sm" variant="secondary" className="w-full text-sm font-medium bg-[#2383e2] hover:bg-[#1a66b2] text-white rounded-sm cursor-pointer">
+                  + Add New Author
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Add a new author</DialogTitle>
+                </DialogHeader>
+                <div className="py-4">
+                  <Input
+                    placeholder="e.g. Jane Doe"
+                    value={newAuthorName}
+                    onChange={(e) => setNewAuthorName(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && addAuthor(newAuthorName)}
+                  />
+                </div>
+                <DialogFooter>
+                  <Button className='bg-[#2383e2] rounded-sm hover:bg-[#1a66b2] cursor-pointer' onClick={() => addAuthor(newAuthorName)}>Create Author</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </section>
+
+        </div>
+
+        <Separator className="hidden lg:block" />
+
+        {/* Changed: Grouped Categories and Publish Button into a grid for mobile screens */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6 lg:gap-8">
+          
+          {/* Categories Section */}
+          <section className="space-y-3">
+            <Label className="text-sm font-semibold text-gray-900 tracking-tight">Categories</Label>
+            
+            <ScrollArea className="h-[280px] rounded-md border border-gray-200 bg-gray-50/50 p-3">
+              <div className="space-y-3 p-2">
+                {categoriesData.map((cat) => (
+                  <div key={cat} className="flex items-center gap-3">
+                    <input
+                      type="checkbox"
+                      checked={selectedCategories.includes(cat)}
+                      onChange={() => toggleCategory(cat)}
+                      id={`cat-${cat}`}
+                      className="w-4 h-4 rounded border-gray-300 text-[#2383e2] focus:ring-[#2383e2] cursor-pointer"
+                    />
+                    <Label
+                      htmlFor={`cat-${cat}`}
+                      className="cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      {cat}
+                    </Label>
+                  </div>
+                ))}
+                {categoriesData.length === 0 && (
+                  <p className="text-sm text-gray-500 italic">No categories yet.</p>
+                )}
+              </div>
+            </ScrollArea>
+
+            <div className="flex gap-2 pt-1">
+              <Input
+                placeholder="New category..."
+                value={newCategory}
+                onChange={(e) => setNewCategory(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && addCategory(newCategory)}
+                className="h-9"
+              />
+              <Button size="sm" className="h-9 px-4 bg-[#2383e2] hover:bg-[#1a66b2] rounded-sm text-white cursor-pointer" onClick={() => addCategory(newCategory)}>
+                Add
+              </Button>
+            </div>
+          </section>
+
+          {/* Publish Section (Aligned to bottom in grid) */}
+          <section className='space-y-3 flex flex-col justify-end'>
+            <Button 
+              onClick={onPublish} 
+              className="w-full bg-[#2383e2] hover:bg-[#1a66b2] text-white font-semibold py-5 flex items-center gap-2 transition-colors rounded-sm cursor-pointer"
+            >
+              <Send size={16} />
+              Publish Post
             </Button>
-          </div>
-        </section>
+          </section>
 
-        <section className='space-y-3 '>
-          <Button 
-            onClick={onPublish} 
-            className="w-full bg-[#2383e2] hover:bg-[#1a66b2] text-white font-semibold py-5 flex items-center gap-2 transition-colors rounded-sm cursor-pointer"
-          >
-            <Send size={16} />
-            Publish Post
-          </Button>
-        </section>
+        </div>
         
       </div>
     </aside>

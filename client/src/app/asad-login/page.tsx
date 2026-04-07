@@ -38,19 +38,19 @@ const handleSubmit = async (e: React.FormEvent) => {
   return (
     <>
     <NavBar/>
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white via-blue-100 to-blue-200 px-4">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white via-blue-100 to-blue-200 px-4 -mt-16">
         <form
           onSubmit={handleSubmit}
           className="max-w-md w-full bg-white p-8 rounded-lg shadow-2xl border-2 border-blue-200"
         >
-          <h2 className="text-2xl font-bold mb-2 text-center text-blue-600 bungee-inline-regular">
+          <h2 className="text-2xl mb-2 text-center text-blue-700 bungee-shade">
             Admin Login
           </h2>
           <p className="text-center text-sm mb-10">
             Enter your credentials to log in
           </p>
           <div className="mb-4">
-            <Label htmlFor="email" className="block mb-1 text-gray-600 font-medium bungee-inline-regular">
+            <Label htmlFor="email" className="block mb-1 text-gray-700  bungee-inline-regular">
               Email
             </Label>
             <Input
@@ -63,7 +63,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             />
           </div>
           <div className="mb-6">
-            <Label htmlFor="password" className="block mb-1 text-gray-600 font-medium bungee-inline-regular">
+            <Label htmlFor="password" className="block mb-1 text-gray-700  bungee-inline-regular">
               Password
             </Label>
             <div className="relative">
