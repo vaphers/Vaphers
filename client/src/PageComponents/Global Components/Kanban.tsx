@@ -29,6 +29,7 @@ interface CommentItem { id: string; text: string; timestamp: string; }
 interface CardItem {
   id: string; title: string; description: string; notes: string;
   links: LinkItem[]; comments?: CommentItem[]; priority: Priority; deadline: string; tags?: string[];
+  completed?: boolean;
 }
 interface ColumnData { id: string; title: string; color: string; items: CardItem[]; }
 
@@ -77,11 +78,12 @@ const INITIAL_STATE: ColumnData[] = [
 
 // ─── Card Detail Panel ────────────────────────────────────────────────────────
 
-function CardDetailPanel({ card, isNew, columnId, columns, onSave, onDelete, onClose }: {
+function CardDetailPanel({ card, isNew, columnId, columns, onSave, onDelete, onClose, onMarkComplete }: {
   card: CardItem | null; isNew: boolean; columnId: string; columns: ColumnData[];
   onSave: (colId: string, card: CardItem) => void;
   onDelete: (colId: string, cardId: string) => void;
   onClose: () => void;
+  onMarkComplete: (colId: string, card: CardItem) => void;
 }) {
   const [title, setTitle]             = useState(card?.title ?? "");
   const [description, setDescription] = useState(card?.description ?? "");
@@ -98,6 +100,9 @@ function CardDetailPanel({ card, isNew, columnId, columns, onSave, onDelete, onC
   const [tags, setTags]               = useState<string[]>(card?.tags ?? []);
   const [tagInput, setTagInput]       = useState("");
   const [commentText, setCommentText] = useState("");
+  const [completeConfirm, setCompleteConfirm] = useState(false);
+
+  const isCompleted = card?.completed ?? false;
 
   const selectedDate = deadline && isValid(parseISO(deadline)) ? parseISO(deadline) : undefined;
 
@@ -105,8 +110,18 @@ function CardDetailPanel({ card, isNew, columnId, columns, onSave, onDelete, onC
     if (!title.trim()) return;
     onSave(selectedCol, { 
       id: card?.id ?? uid(), title: title.trim(), description, notes, 
-      priority, deadline, links, comments, tags 
+      priority, deadline, links, comments, tags, completed: isCompleted
     });
+  };
+
+  const handleComplete = () => {
+    if (!title.trim()) return;
+    const updatedCard: CardItem = {
+      id: card?.id ?? uid(), title: title.trim(), description, notes,
+      priority, deadline, links, comments, tags, completed: true
+    };
+    onMarkComplete(columnId, updatedCard);
+    onClose();
   };
 
   const addLink    = () => setLinks(p => [...p, { id: uid(), title: "", url: "" }]);
@@ -125,7 +140,7 @@ function CardDetailPanel({ card, isNew, columnId, columns, onSave, onDelete, onC
     <motion.div className="fixed inset-0 z-50 flex" initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }}>
       <div className="flex-1 bg-black/20" onClick={onClose} />
       <motion.div
-        className="w-full max-w-[400px] h-full bg-white flex flex-col border-l border-slate-200 shadow-2xl"
+        className="w-full sm:max-w-[400px] h-full bg-white flex flex-col border-l border-slate-200 shadow-2xl"
         initial={{ x:"100%" }} animate={{ x:0 }} exit={{ x:"100%" }}
         transition={{ type:"spring", stiffness:400, damping:36 }}
       >
@@ -182,11 +197,18 @@ function CardDetailPanel({ card, isNew, columnId, columns, onSave, onDelete, onC
                   #{card?.id?.slice(0,6).toUpperCase() ?? "NEW"}
                 </span>
                 <select value={selectedCol} onChange={e => setSelectedCol(e.target.value)}
-                  className="text-[11px] font-semibold bg-slate-100 border border-slate-200 rounded-sm px-2 py-1 text-slate-600 focus:outline-none focus:ring-1 focus:ring-
-                  [#2383e2] cursor-pointer">
+                  className="text-[11px] font-semibold bg-slate-100 border border-slate-200 rounded-sm px-2 py-1 text-slate-600 focus:outline-none focus:ring-1 focus:ring-[#2383e2] cursor-pointer">
                   {columns.map(c => <option key={c.id} value={c.id}>{c.title}</option>)}
                 </select>
               </div>
+
+              {/* Completed badge */}
+              {isCompleted && (
+                <div className="flex items-center gap-2 px-3 py-2 rounded-sm bg-emerald-50 border border-emerald-200">
+                  <CheckCircle2 size={13} className="text-emerald-500" />
+                  <span className="text-[11px] font-bold text-emerald-600 uppercase tracking-wide">Completed</span>
+                </div>
+              )}
 
               {/* Title */}
               <input autoFocus value={title} onChange={e => setTitle(e.target.value)}
@@ -280,7 +302,6 @@ function CardDetailPanel({ card, isNew, columnId, columns, onSave, onDelete, onC
                   <MessageSquare size={9} /> Comments
                 </p>
 
-                {/* Timeline display */}
                 {comments.length > 0 && (
                   <div className="space-y-3 mb-4">
                     {comments.map(comment => (
@@ -305,10 +326,9 @@ function CardDetailPanel({ card, isNew, columnId, columns, onSave, onDelete, onC
                   </div>
                 )}
 
-                {/* Comment Input */}
                 <div className="flex gap-2 items-start">
-                  <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center shrink-0 mt-0.5 border border-[#2383e2] border-0.2">
-                    <User size={11} className="text-[#2383e2]  " />
+                  <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center shrink-0 mt-0.5 border border-[#2383e2]">
+                    <User size={11} className="text-[#2383e2]" />
                   </div>
                   <div className="flex-1 flex flex-col gap-2">
                     <textarea value={commentText} onChange={e => setCommentText(e.target.value)}
@@ -360,12 +380,33 @@ function CardDetailPanel({ card, isNew, columnId, columns, onSave, onDelete, onC
         </div>
 
         {/* Footer */}
-        <div className="shrink-0 border-t border-slate-200 px-5 py-3 flex items-center justify-end gap-2 bg-slate-50">
-          <button onClick={onClose} className="px-3 py-1.5 rounded-sm text-[12px] font-semibold text-slate-500 hover:bg-slate-200 transition-colors">Cancel</button>
-          <button onClick={handleSave} disabled={!title.trim()}
-            className="px-4 py-1.5 rounded-xs text-[12px] font-bold bg-[#2383e2] text-white hover:bg-[#1a6bc2] disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer">
-            {isNew ? "Create Task" : "Save Changes"}
-          </button>
+        <div className="shrink-0 border-t border-slate-200 px-5 py-3 flex flex-wrap items-center justify-between gap-2 bg-slate-50">
+          {/* Mark as Complete button — only for existing, non-completed cards */}
+          {!isNew && !isCompleted && (
+            completeConfirm ? (
+              <div className="flex items-center gap-1.5">
+                <span className="text-[10px] text-emerald-600 font-semibold">Mark complete?</span>
+                <button onClick={handleComplete}
+                  className="px-2 py-1 rounded-sm bg-emerald-500 text-white text-[10px] font-bold hover:bg-emerald-600 transition-colors">Yes</button>
+                <button onClick={() => setCompleteConfirm(false)}
+                  className="px-2 py-1 rounded-sm bg-slate-200 text-slate-600 text-[10px] font-bold hover:bg-slate-300 transition-colors">No</button>
+              </div>
+            ) : (
+              <button onClick={() => setCompleteConfirm(true)}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-[11px] font-bold text-emerald-600 bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 transition-colors">
+                <CheckCircle2 size={12} /> Mark Complete
+              </button>
+            )
+          )}
+          {(isNew || isCompleted) && <div />}
+
+          <div className="flex items-center gap-2">
+            <button onClick={onClose} className="px-3 py-1.5 rounded-sm text-[12px] font-semibold text-slate-500 hover:bg-slate-200 transition-colors">Cancel</button>
+            <button onClick={handleSave} disabled={!title.trim()}
+              className="px-4 py-1.5 rounded-xs text-[12px] font-bold bg-[#2383e2] text-white hover:bg-[#1a6bc2] disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer">
+              {isNew ? "Create Task" : "Save Changes"}
+            </button>
+          </div>
         </div>
       </motion.div>
     </motion.div>
@@ -402,9 +443,35 @@ function KanbanCard({ card, index, colIndex, searchQuery, isSearchActive, onClic
             borderBottom: "1px solid #e2e8f0",
             transform: snapshot.isDragging ? `${provided.draggableProps.style?.transform} rotate(0.5deg)` : provided.draggableProps.style?.transform,
           }}
-          className={`bg-white cursor-pointer select-none transition-all duration-100
-            ${snapshot.isDragging ? "shadow-xl" : "hover:shadow-md hover:border-slate-300"}`}
+          className={`bg-white cursor-pointer select-none transition-all duration-100 relative overflow-hidden
+            ${snapshot.isDragging ? "shadow-xl" : "hover:shadow-md hover:border-slate-300"}
+            ${card.completed ? "opacity-80" : ""}`}
         >
+          {/* Diagonal COMPLETED watermark */}
+          {card.completed && (
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10 overflow-hidden">
+              <span
+                className="text-[11px] font-black text-emerald-500 uppercase tracking-[0.25em] select-none"
+                style={{
+                  transform: "rotate(-35deg)",
+                  opacity: 0.22,
+                  fontSize: "clamp(11px, 2.5vw, 18px)",
+                  letterSpacing: "0.3em",
+                  whiteSpace: "nowrap",
+                  position: "absolute",
+                  left: "-10%",
+                  right: "-10%",
+                  textAlign: "center",
+                  color: "#10b981",
+                  fontWeight: 900,
+                  pointerEvents: "none",
+                }}
+              >
+                ✓ COMPLETED ✓ COMPLETED ✓ COMPLETED
+              </span>
+            </div>
+          )}
+
           <div className="p-3">
             {(card.tags?.length ?? 0) > 0 && (
               <div className="flex flex-wrap gap-1 mb-2">
@@ -413,7 +480,12 @@ function KanbanCard({ card, index, colIndex, searchQuery, isSearchActive, onClic
                 ))}
               </div>
             )}
-            <p className="text-[13px] font-semibold text-slate-800 leading-snug mb-1.5">{card.title}</p>
+            <div className="flex items-start gap-1.5">
+              {card.completed && <CheckCircle2 size={12} className="text-emerald-500 shrink-0 mt-0.5" />}
+              <p className={`text-[13px] font-semibold leading-snug mb-1.5 ${card.completed ? "line-through text-slate-400" : "text-slate-800"}`}>
+                {card.title}
+              </p>
+            </div>
             {card.description && (
               <p className="text-[11px] text-slate-400 leading-relaxed line-clamp-2 mb-2">{card.description}</p>
             )}
@@ -550,14 +622,14 @@ function ListView({ columns, onEditCard, onAddCard }: {
   const [expanded, setExpanded] = useState<Record<string,boolean>>(Object.fromEntries(columns.map(c => [c.id, true])));
 
   return (
-    <div className="flex-1 overflow-y-auto px-5 py-4 space-y-1.5">
+    <div className="flex-1 overflow-y-auto px-2 sm:px-5 py-4 space-y-1.5">
       {columns.map((col, ci) => {
         const accent = getColAccent(ci);
         const isOpen = expanded[col.id] !== false;
         return (
           <div key={col.id} className="bg-white border border-slate-200 rounded-sm overflow-hidden">
             <button onClick={() => setExpanded(p => ({ ...p, [col.id]: !isOpen }))}
-              className="w-full flex items-center gap-2.5 px-4 py-2.5 hover:bg-slate-50 transition-colors border-l-2"
+              className="w-full flex items-center gap-2.5 px-3 sm:px-4 py-2.5 hover:bg-slate-50 transition-colors border-l-2"
               style={{ borderLeftColor: accent }}>
               <span className="text-[11px] font-bold text-slate-700 flex-1 text-left uppercase tracking-wide">{col.title}</span>
               <span className="text-[10px] font-bold text-white px-1.5 py-0.5 rounded-sm" style={{ backgroundColor: accent }}>
@@ -569,39 +641,84 @@ function ListView({ columns, onEditCard, onAddCard }: {
               {isOpen && (
                 <motion.div initial={{ height:0 }} animate={{ height:"auto" }} exit={{ height:0 }} className="overflow-hidden">
                   {col.items.length > 0 && (
-                    <div className="grid grid-cols-[1fr_100px_80px_90px] gap-3 px-4 py-1.5 border-t border-slate-100 bg-slate-50">
+                    /* Responsive header: hide Deadline+Priority+Status on mobile, show on sm+ */
+                    <div className="hidden sm:grid sm:grid-cols-[1fr_100px_80px_90px] gap-3 px-4 py-1.5 border-t border-slate-100 bg-slate-50">
                       {["Task","Deadline","Priority","Status"].map(h => (
                         <span key={h} className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{h}</span>
                       ))}
+                    </div>
+                  )}
+                  {/* Mobile-only header */}
+                  {col.items.length > 0 && (
+                    <div className="sm:hidden grid grid-cols-[1fr_auto] gap-2 px-3 py-1.5 border-t border-slate-100 bg-slate-50">
+                      <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Task</span>
+                      <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Due</span>
                     </div>
                   )}
                   {col.items.map(card => {
                     const ds = getDeadlineStatus(card.deadline);
                     return (
                       <div key={card.id} onClick={() => onEditCard(col.id, card)}
-                        className="grid grid-cols-[1fr_100px_80px_90px] gap-3 px-4 py-2.5 border-t border-slate-100 hover:bg-slate-50 cursor-pointer transition-colors group">
-                        <div className="flex items-center gap-2 min-w-0">
-                          <Circle size={11} className="text-slate-300 shrink-0 group-hover:text-violet-400 transition-colors" />
-                          <span className="text-[12px] font-semibold text-slate-700 truncate">{card.title}</span>
+                        className="relative overflow-hidden border-t border-slate-100 hover:bg-slate-50 cursor-pointer transition-colors group">
+                        {/* Watermark in list view */}
+                        {card.completed && (
+                          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10 overflow-hidden">
+                            <span className="text-[10px] font-black text-emerald-500 uppercase tracking-[0.25em] select-none"
+                              style={{ transform: "rotate(-8deg)", opacity: 0.15, whiteSpace: "nowrap", color: "#10b981", fontWeight: 900 }}>
+                              ✓ COMPLETED ✓ COMPLETED ✓
+                            </span>
+                          </div>
+                        )}
+                        {/* Desktop layout */}
+                        <div className="hidden sm:grid sm:grid-cols-[1fr_100px_80px_90px] gap-3 px-4 py-2.5">
+                          <div className="flex items-center gap-2 min-w-0">
+                            {card.completed
+                              ? <CheckCircle2 size={11} className="text-emerald-500 shrink-0" />
+                              : <Circle size={11} className="text-slate-300 shrink-0 group-hover:text-violet-400 transition-colors" />
+                            }
+                            <span className={`text-[12px] font-semibold truncate ${card.completed ? "line-through text-slate-400" : "text-slate-700"}`}>{card.title}</span>
+                          </div>
+                          <div className="flex items-center">
+                            {ds && card.deadline
+                              ? <span className={`flex items-center gap-1 text-[10px] font-semibold ${ds.color}`}>{ds.icon}{ds.date}</span>
+                              : <span className="text-[10px] text-slate-300">—</span>}
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <PriorityFlag priority={card.priority} size={10} />
+                            <span className="text-[10px] text-slate-500">{PRIORITY_CONFIG[card.priority].label}</span>
+                          </div>
+                          <div className="flex items-center">
+                            <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-sm text-white truncate uppercase tracking-wide"
+                              style={{ backgroundColor: accent }}>{col.title}</span>
+                          </div>
                         </div>
-                        <div className="flex items-center">
-                          {ds && card.deadline
-                            ? <span className={`flex items-center gap-1 text-[10px] font-semibold ${ds.color}`}>{ds.icon}{ds.date}</span>
-                            : <span className="text-[10px] text-slate-300">—</span>}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <PriorityFlag priority={card.priority} size={10} />
-                          <span className="text-[10px] text-slate-500">{PRIORITY_CONFIG[card.priority].label}</span>
-                        </div>
-                        <div className="flex items-center">
-                          <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-sm text-white truncate uppercase tracking-wide"
-                            style={{ backgroundColor: accent }}>{col.title}</span>
+                        {/* Mobile layout */}
+                        <div className="sm:hidden grid grid-cols-[1fr_auto] gap-2 px-3 py-2.5 items-center">
+                          <div className="flex items-center gap-2 min-w-0">
+                            {card.completed
+                              ? <CheckCircle2 size={11} className="text-emerald-500 shrink-0" />
+                              : <Circle size={11} className="text-slate-300 shrink-0 group-hover:text-violet-400 transition-colors" />
+                            }
+                            <div className="min-w-0">
+                              <span className={`block text-[12px] font-semibold truncate ${card.completed ? "line-through text-slate-400" : "text-slate-700"}`}>{card.title}</span>
+                              <div className="flex items-center gap-1.5 mt-0.5">
+                                <PriorityFlag priority={card.priority} size={9} />
+                                <span className="text-[9px] font-bold px-1 py-0.5 rounded-sm text-white uppercase"
+                                  style={{ backgroundColor: accent }}>{col.title}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex items-center shrink-0">
+                            {ds && card.deadline
+                              ? <span className={`flex items-center gap-1 text-[10px] font-semibold ${ds.color}`}>{ds.icon}{ds.date}</span>
+                              : <span className="text-[10px] text-slate-300">—</span>}
+                          </div>
                         </div>
                       </div>
                     );
                   })}
                   <button onClick={() => onAddCard(col.id)}
-                    className="w-full flex items-center gap-1.5 px-4 py-2 border-t border-slate-100 text-[11px] font-semibold text-slate-400 hover:text-violet-600 hover:bg-violet-50/30 transition-colors uppercase tracking-wide">
+                    className="w-full flex items-center gap-1.5 px-3 sm:px-4 py-2 border-t border-slate-100 text-[11px] font-semibold text-slate-400 hover:text-violet-600 hover:bg-violet-50/30 transition-colors uppercase tracking-wide">
                     <Plus size={11} /> Add task
                   </button>
                 </motion.div>
@@ -621,50 +738,84 @@ function GanttView({ columns, onEditCard }: { columns: ColumnData[]; onEditCard:
   const start = addDays(today, -5);
   const end   = addDays(today, 28);
   const days  = eachDayOfInterval({ start, end });
-  const DAY_W = 32;
+
+  // Responsive day width — narrower on mobile
+  const [dayWidth, setDayWidth] = useState(32);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const update = () => {
+      if (containerRef.current) {
+        const w = containerRef.current.clientWidth;
+        // On small screens shrink day columns
+        setDayWidth(w < 480 ? 22 : w < 768 ? 26 : 32);
+      }
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  const TASK_COL_W = dayWidth < 26 ? 110 : 176; // shrink task label col on mobile
 
   const allCards    = columns.flatMap((col, ci) => col.items.map(card => ({ card, col, ci })));
   const withDL      = allCards.filter(({ card }) => card.deadline && isValid(parseISO(card.deadline)));
 
   return (
-    <div className="flex-1 overflow-auto px-5 py-4">
-      <div className="bg-white border border-slate-200 rounded-sm overflow-hidden">
+    <div className="flex-1 overflow-auto px-2 sm:px-5 py-4" ref={containerRef}>
+      <div className="bg-white border border-slate-200 rounded-sm overflow-hidden" style={{ minWidth: TASK_COL_W + days.length * dayWidth }}>
+        {/* Header row */}
         <div className="flex border-b border-slate-200 sticky top-0 bg-white z-10">
-          <div className="w-44 shrink-0 px-3 py-2 text-[9px] font-bold text-slate-400 uppercase tracking-widest border-r border-slate-200">Task</div>
-          <div className="flex">
+          <div className="shrink-0 px-3 py-2 text-[9px] font-bold text-slate-400 uppercase tracking-widest border-r border-slate-200"
+            style={{ width: TASK_COL_W }}>Task</div>
+          <div className="flex overflow-hidden">
             {days.map(d => (
-              <div key={d.toISOString()} style={{ minWidth: DAY_W }}
+              <div key={d.toISOString()} style={{ minWidth: dayWidth, width: dayWidth }}
                 className={`text-center py-2 border-r border-slate-100 ${isSameDay(d, today) ? "bg-violet-50" : ""}`}>
-                <div className={`text-[10px] font-bold ${isSameDay(d, today) ? "text-violet-600" : "text-slate-400"}`}>{format(d,"d")}</div>
-                <div className="text-[8px] text-slate-300 uppercase">{format(d,"MMM")}</div>
+                <div className={`text-[10px] font-bold leading-none ${isSameDay(d, today) ? "text-violet-600" : "text-slate-400"}`}>{format(d,"d")}</div>
+                {/* Show month label only every 7 days or on wider screens */}
+                {(dayWidth >= 26 || d.getDate() % 7 === 1) && (
+                  <div className="text-[8px] text-slate-300 uppercase leading-none mt-0.5">{format(d,"MMM")}</div>
+                )}
               </div>
             ))}
           </div>
         </div>
+
         {withDL.length === 0 && (
           <div className="flex flex-col items-center py-14 text-slate-300">
             <GanttChartSquare size={24} className="mb-2" />
             <p className="text-[12px]">No tasks with deadlines</p>
           </div>
         )}
+
         {withDL.map(({ card, col, ci }) => {
           const dl     = parseISO(card.deadline);
           const offset = Math.max(0, differenceInDays(dl, start));
-          const barW   = 68;
+          const barW   = dayWidth < 26 ? 44 : 68;
           const accent = getColAccent(ci);
           return (
             <div key={card.id} onClick={() => onEditCard(col.id, card)}
               className="flex border-b border-slate-100 last:border-0 hover:bg-slate-50 cursor-pointer transition-colors">
-              <div className="w-44 shrink-0 px-3 py-2.5 border-r border-slate-200 flex items-center gap-1.5 min-w-0">
-                <PriorityFlag priority={card.priority} size={10} />
-                <span className="text-[11px] font-semibold text-slate-700 truncate">{card.title}</span>
+              <div className="shrink-0 px-2 sm:px-3 py-2.5 border-r border-slate-200 flex items-center gap-1.5 min-w-0"
+                style={{ width: TASK_COL_W }}>
+                {card.completed
+                  ? <CheckCircle2 size={10} className="text-emerald-500 shrink-0" />
+                  : <PriorityFlag priority={card.priority} size={10} />}
+                <span className={`text-[11px] font-semibold truncate ${card.completed ? "line-through text-slate-400" : "text-slate-700"}`}>{card.title}</span>
               </div>
-              <div className="relative flex items-center" style={{ width: days.length * DAY_W }}>
+              <div className="relative flex items-center" style={{ width: days.length * dayWidth, minWidth: days.length * dayWidth }}>
+                {/* Today line */}
                 <div className="absolute top-0 bottom-0 w-px bg-violet-200"
-                  style={{ left: differenceInDays(today, start) * DAY_W + DAY_W/2 }} />
-                <div className="absolute h-5 rounded-sm flex items-center px-2 text-[9px] font-bold text-white truncate"
-                  style={{ left: Math.max(0, offset * DAY_W - barW + DAY_W/2), width: barW, backgroundColor: accent }}>
-                  {format(dl,"MMM d")}
+                  style={{ left: differenceInDays(today, start) * dayWidth + dayWidth/2 }} />
+                <div className={`absolute h-5 rounded-sm flex items-center px-1.5 text-[9px] font-bold text-white truncate
+                  ${card.completed ? "opacity-60" : ""}`}
+                  style={{
+                    left: Math.max(0, offset * dayWidth - barW + dayWidth/2),
+                    width: barW,
+                    backgroundColor: card.completed ? "#10b981" : accent,
+                  }}>
+                  {dayWidth >= 26 ? format(dl,"MMM d") : format(dl,"d")}
                 </div>
               </div>
             </div>
@@ -749,6 +900,30 @@ export default function KanbanBoard() {
     setModal(null);
   };
 
+  // Mark complete: set completed=true, move card to the "Done" column (by title match, fallback to last col)
+  const handleMarkComplete = (srcColId: string, card: CardItem) => {
+    const completedCard: CardItem = { ...card, completed: true };
+    setColumns(prev => {
+      const doneCol = prev.find(c => c.title.toLowerCase() === "done") ?? prev[prev.length - 1];
+      return prev.map(c => {
+        if (c.id === srcColId && c.id !== doneCol.id) {
+          // Remove from source
+          return { ...c, items: c.items.filter(i => i.id !== card.id) };
+        }
+        if (c.id === doneCol.id && c.id !== srcColId) {
+          // Add to done (avoid duplication)
+          const exists = c.items.some(i => i.id === card.id);
+          return { ...c, items: exists ? c.items.map(i => i.id === card.id ? completedCard : i) : [...c.items, completedCard] };
+        }
+        if (c.id === srcColId && c.id === doneCol.id) {
+          // Already in done — just update
+          return { ...c, items: c.items.map(i => i.id === card.id ? completedCard : i) };
+        }
+        return c;
+      });
+    });
+  };
+
   const handleDelete       = (colId: string, cardId: string) => {
     setColumns(prev => prev.map(c => c.id===colId ? {...c,items:c.items.filter(i=>i.id!==cardId)} : c));
     setModal(null);
@@ -761,7 +936,7 @@ export default function KanbanBoard() {
     return (
       <div className="h-full w-full bg-white flex items-center justify-center">
         <div className="flex flex-col items-center gap-2">
-          <div className="w-9 h-9 border-2 border-[#2383e2] border-t-transparent rounded-full animate-spin mt-120" />
+          <div className="w-9 h-9 border-2 border-[#2383e2] border-t-transparent rounded-full animate-spin" />
           <p className="text-lg text-slate-400">Loading Boards</p>
         </div>
       </div>
@@ -771,16 +946,16 @@ export default function KanbanBoard() {
   return (
     <div className="flex flex-col h-full w-full overflow-hidden bg-white font-sans">
       {/* ── Header ── */}
-      <header className="shrink-0 flex items-center gap-3 px-5 py-2.5 bg-white border-b border-slate-200 z-30">
+      <header className="shrink-0 flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-2.5 bg-white border-b border-slate-200 z-30 flex-wrap sm:flex-nowrap">
         {/* View toggles */}
-        <div className="flex items-center border border-slate-200 rounded-xs overflow-hidden">
+        <div className="flex items-center border border-slate-200 rounded-xs overflow-hidden shrink-0">
           {([
             { mode: "board", icon: <Trello size={12} />,         label: "Board" },
             { mode: "list",  icon: <LayoutList size={12} />,       label: "List"  },
             { mode: "gantt", icon: <GanttChartSquare size={12} />, label: "Gantt" },
           ] as { mode: ViewMode; icon: React.ReactNode; label: string }[]).map(v => (
             <button key={v.mode} onClick={() => setViewMode(v.mode)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide transition-all border-r last:border-r-0 border-slate-200 cursor-pointer
+              className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide transition-all border-r last:border-r-0 border-slate-200 cursor-pointer
                 ${viewMode===v.mode ? "bg-[#2383e2] text-white" : "bg-white text-slate-500 hover:bg-slate-50 hover:text-slate-800"}`}>
               {v.icon}
               <span className="hidden sm:inline">{v.label}</span>
@@ -789,7 +964,7 @@ export default function KanbanBoard() {
         </div>
 
         {/* Search */}
-        <div className="relative flex-1 max-w-xs">
+        <div className="relative flex-1 min-w-0">
           <Search size={11} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
           <input value={searchQuery} onChange={e => setSearch(e.target.value)}
             placeholder="Search tasks…"
@@ -801,7 +976,7 @@ export default function KanbanBoard() {
           )}
         </div>
 
-        <div className="flex items-center gap-2 ml-auto">
+        <div className="flex items-center gap-2 shrink-0">
           {isSearchActive && (
             <motion.span initial={{ opacity:0 }} animate={{ opacity:1 }}
               className="text-[9px] text-amber-600 font-bold bg-amber-50 px-2 py-1 rounded-sm border border-amber-200 uppercase tracking-wide hidden sm:block">
@@ -809,7 +984,7 @@ export default function KanbanBoard() {
             </motion.span>
           )}
           <button onClick={handleAddColumn}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[#2383e2] text-white text-[11px] font-bold hover:bg-[#1b6fc5] transition-colors shrink-0 uppercase tracking-wide cursor-pointer">
+            className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 rounded-sm bg-[#2383e2] text-white text-[11px] font-bold hover:bg-[#1b6fc5] transition-colors shrink-0 uppercase tracking-wide cursor-pointer">
             <Plus size={12} />
             <span className="hidden sm:inline">Add Status</span>
             <span className="sm:hidden">Add</span>
@@ -819,12 +994,12 @@ export default function KanbanBoard() {
 
       {/* ── Content ── */}
       {viewMode === "board" && (
-        <div className="flex-1 min-h-0 overflow-auto px-5 py-5">
+        <div className="flex-1 min-h-0 overflow-auto px-3 sm:px-5 py-4 sm:py-5">
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="board" direction="horizontal" type="board">
               {(provided) => (
                 <div ref={provided.innerRef} {...provided.droppableProps}
-                  className="flex items-start gap-4 w-max min-h-full">
+                  className="flex items-start gap-3 sm:gap-4 w-max min-h-full">
                   {columns.map((col, idx) => (
                     <KanbanColumn key={col.id} column={col} colIndex={idx} index={idx}
                       searchQuery={searchQuery} isSearchActive={isSearchActive}
@@ -848,6 +1023,7 @@ export default function KanbanBoard() {
             key={modal.card?.id ?? "new"}
             card={modal.card} isNew={modal.isNew} columnId={modal.columnId} columns={columns}
             onSave={handleSave} onDelete={handleDelete} onClose={() => setModal(null)}
+            onMarkComplete={handleMarkComplete}
           />
         )}
       </AnimatePresence>
