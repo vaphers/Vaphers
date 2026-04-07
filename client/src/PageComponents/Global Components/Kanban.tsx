@@ -934,12 +934,10 @@ export default function KanbanBoard() {
 
   if (!isMounted || !isInit) {
     return (
-      <div className="h-full w-full bg-white flex items-center justify-center">
-        <div className="flex flex-col items-center gap-2">
-          <div className="w-9 h-9 border-2 border-[#2383e2] border-t-transparent rounded-full animate-spin" />
-          <p className="text-lg text-slate-400">Loading Boards</p>
-        </div>
-      </div>
+    <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+      <div className="w-9 h-9 border-2 border-[#2383e2] border-t-transparent rounded-full animate-spin" />
+      <p className="text-lg text-slate-400">Loading Boards</p>
+    </div>
     );
   }
 
