@@ -1,97 +1,34 @@
-// "use client"
-
-// import { useState } from "react"
-// import { Home, Users, Settings, BarChart, FileText, LogOut, ChevronLeft, ChevronRight } from "lucide-react"
-// import Link from "next/link"
-
-// const menuItems = [
-//   { title: "Analytics", url: "/admin-dashboard", icon: Home },
-//   { title: "Posts", url: "/admin-dashboard/posts", icon: Users },
-//   { title: "New Post", url: "/admin-dashboard/posts/add-posts", icon: BarChart },
-//   { title: "Tasks", url: "/admin-dashboard/tasks", icon: BarChart },
-//   // { title: "Reports", url: "/admin-dashboard/reports", icon: FileText },
-//   // { title: "Settings", url: "/dashboard/settings", icon: Settings },
-//   // { title: "Users", url: "/dashboard/settings", icon: Settings },
-//   // { title: "Traffic ", url: "/dashboard/settings", icon: Settings },
-//   // { title: "Country", url: "/dashboard/settings", icon: Settings },
-//   // { title: "Pages", url: "/dashboard/settings", icon: Settings },
-//   // { title: "Traffic Source", url: "/dashboard/settings", icon: Settings },
-//   // { title: "Organic Traffic", url: "/dashboard/settings", icon: Settings },
-
-// ]
-
-
-// export function AppSidebar() {
-//   const [isCollapsed, setIsCollapsed] = useState(true)
-
-//   return (
-//     <div 
-//       className={`${isCollapsed ? 'w-16' : 'w-64'} h-screen bg-[#2383e2]  text-white transition-all duration-300 flex flex-col sticky top-0 `}
-//     >
-//       {/* Header */}
-//       <div className="border-b border-indigo`-800 p-4 flex items-center justify-between">
-//         {!isCollapsed && (
-//           <div className="flex items-center gap-2">
-//             <span className="text-gray-200 bungee-shade text-3xl tracking-wide">Vaphers</span>
-//           </div>
-//         )}
-//         <button 
-//           onClick={() => setIsCollapsed(!isCollapsed)}
-//           className="p-2 text-gray-200 hover:text-white rounded-lg transition-colors ml-auto cursor-pointer"
-//         >
-//           {isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
-//         </button>
-//       </div>
-
-//       {/* Menu Items */}
-//       <nav className="flex-1 pl-2 space-y-">
-//         {menuItems.map((item) => (
-//           <Link
-//             key={item.title}
-//             href={item.url}
-//             className={`flex items-center gap-3 p-3 rounded-lg text-white font-medium transition-colors ${isCollapsed ? 'justify-center' : ''}`}
-//           >
-//             <item.icon size={20} />
-//             {!isCollapsed && <span>{item.title}</span>}
-//           </Link>
-//         ))}
-//       </nav>
-
-//       {/* Footer */}
-//       <div className="border-t border-gray-200 p-4">
-//         <Link href="/asad-login" >
-//         <button className={`flex items-center gap-3 p-3 rounded-lg  text-center text-white transition-colors transition duration-200 cursor-pointer w-full ${isCollapsed ? 'justify-center' : ''}`}>
-//           <LogOut size={20} />
-//           {!isCollapsed && <span>Logout</span>}
-//         </button>
-//         </Link>
-//       </div>
-//     </div>
-//   )
-// }
-
-
-
-
-
-
-
 "use client"
 
 import { useState } from "react"
-import {  LogOut, ChevronLeft, ChevronRight, ChevronUp, X, PencilLine, ChartArea, ListChecks, StickyNote} from "lucide-react"
+import { LogOut, ChevronLeft, ChevronRight, ChevronUp, X, PencilLine, ChartArea, ListChecks, StickyNote, Loader2 } from "lucide-react"
 import Link from "next/link"
+
 const menuItems = [
   { title: "Analytics", url: "/admin-dashboard", icon: ChartArea },
   { title: "Posts", url: "/admin-dashboard/posts", icon: StickyNote },
   { title: "New Post", url: "/admin-dashboard/posts/add-posts", icon: PencilLine },
   { title: "Tasks", url: "/admin-dashboard/tasks", icon: ListChecks },
-  // Add other items here as needed
 ]
 
 export function AppSidebar() {
   const [isCollapsed, setIsCollapsed] = useState(true)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
+  const [isLoggingOut, setIsLoggingOut] = useState(false)
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true)
+    try {
+      // Hit the API to clear the httpOnly cookie
+      await fetch("/api/admin-logout", { method: "POST" });
+      
+      // Hard redirect to login so Next.js clears router cache
+      window.location.href = "/asad-login";
+    } catch (error) {
+      console.error("Failed to logout:", error);
+      setIsLoggingOut(false)
+    }
+  }
 
   return (
     <>
@@ -130,12 +67,14 @@ export function AppSidebar() {
 
         {/* Footer */}
         <div className="border-t border-indigo-800 p-4">
-          <Link href="/asad-login" >
-            <button className={`flex items-center gap-3 p-3 rounded-lg hover:bg-white/10 text-white transition-colors duration-200 w-full ${isCollapsed ? 'justify-center' : ''}`}>
-              <LogOut size={20} />
-              {!isCollapsed && <span>Logout</span>}
+            <button 
+              onClick={handleLogout}
+              disabled={isLoggingOut}
+              className={`flex items-center gap-3 p-3 rounded-lg hover:bg-white/10 text-white transition-colors duration-200 w-full cursor-pointer ${isCollapsed ? 'justify-center' : ''} ${isLoggingOut ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              {isLoggingOut ? <Loader2 size={20} className="animate-spin" /> : <LogOut size={20} />}
+              {!isCollapsed && <span>{isLoggingOut ? 'Logging out...' : 'Logout'}</span>}
             </button>
-          </Link>
         </div>
       </div>
 
@@ -176,7 +115,7 @@ export function AppSidebar() {
             <Link
               key={item.title}
               href={item.url}
-              onClick={() => setIsMobileOpen(false)} // Close drawer on navigation
+              onClick={() => setIsMobileOpen(false)}
               className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/10 transition-colors"
             >
               <item.icon size={24} />
@@ -185,12 +124,14 @@ export function AppSidebar() {
           ))}
           
           <div className="pt-4 mt-4 border-t border-indigo-800">
-            <Link href="/asad-login" onClick={() => setIsMobileOpen(false)}>
-              <button className="flex items-center gap-4 p-4 rounded-xl hover:bg-red-500/20 text-white w-full transition-colors">
-                <LogOut size={24} />
-                <span className="font-medium text-lg">Logout</span>
+              <button 
+                onClick={handleLogout}
+                disabled={isLoggingOut}
+                className={`flex items-center gap-4 p-4 rounded-xl hover:bg-red-500/20 text-white w-full transition-colors ${isLoggingOut ? 'opacity-50 cursor-not-allowed' : ''}`}
+              >
+                 {isLoggingOut ? <Loader2 size={24} className="animate-spin" /> : <LogOut size={24} />}
+                <span className="font-medium text-lg">{isLoggingOut ? 'Logging out...' : 'Logout'}</span>
               </button>
-            </Link>
           </div>
         </nav>
       </div>

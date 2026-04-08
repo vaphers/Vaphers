@@ -1,29 +1,36 @@
 import { NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
+import { SignJWT } from "jose";
 
-const JWT_SECRET = process.env.JWT_SECRET;
-if (!JWT_SECRET) throw new Error("Missing JWT_SECRET environment variable");
+const SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
 
 export async function POST(req: Request) {
-  const { email, password } = await req.json();
-  const adminEmail = process.env.ADMIN_EMAIL;
-  const adminPassword = process.env.ADMIN_PASSWORD;
+  try {
+    const { email, password } = await req.json();
+    const adminEmail = process.env.ADMIN_EMAIL;
+    const adminPassword = process.env.ADMIN_PASSWORD;
 
-  if (email === adminEmail && password === adminPassword) {
-    const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: "1d" });
+    if (email === adminEmail && password === adminPassword) {
+      const token = await new SignJWT({ email })
+        .setProtectedHeader({ alg: "HS256" })
+        .setIssuedAt()
+        .setExpirationTime("4h") 
+        .sign(SECRET);
 
-    const response = NextResponse.json({ success: true });
+      const response = NextResponse.json({ success: true });
 
-    response.cookies.set("admin-auth", token, {
-      httpOnly: true, // secure cookie, not accessible client or middleware
-      path: "/",
-      maxAge: 60 * 60 * 24, // 1 day
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-    });
+      response.cookies.set("admin-auth", token, {
+        httpOnly: true, 
+        path: "/",
+        maxAge: 4 * 60 * 60, 
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+      });
 
-    return response;
-  } else {
+      return response;
+    }
+
     return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
+  } catch (error) {
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

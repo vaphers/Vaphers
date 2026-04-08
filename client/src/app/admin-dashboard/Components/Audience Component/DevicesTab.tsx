@@ -46,7 +46,7 @@ export default function DevicesTab({ dateRange, compareRange }: DevicesTabProps)
           queryParams.append('compareEnd', compareRange.end);
         }
 
-        const res = await fetch(`/api/analytics?${queryParams.toString()}`);
+        const res = await fetch(`/api/admin/analytics?${queryParams.toString()}`);
         const json = await res.json();
         
         if (!json.success) throw new Error(json.error || `Server Error`);

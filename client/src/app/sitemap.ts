@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 async function getBlogs() {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/blog/blogs`,
       { cache: "no-store" }
     );
 

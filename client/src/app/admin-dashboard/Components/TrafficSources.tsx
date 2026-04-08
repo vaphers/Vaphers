@@ -42,7 +42,7 @@ export default function TrafficSources({ dateRange, compareDateRange }: TrafficS
         }
 
         const queryParams = new URLSearchParams(params);
-        const res = await fetch(`/api/analytics?${queryParams.toString()}`);
+        const res = await fetch(`/api/admin/analytics?${queryParams.toString()}`);
         const json = await res.json();
         
         if (!json.success) throw new Error(json.error || `Server Error`);
