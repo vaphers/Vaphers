@@ -3,31 +3,25 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-// Importing default icons just for the default props example
 import { ScanSearch, TestTube, Users } from "lucide-react";
 
 interface FeatureTab {
   id: string | number;
   label: string;
   contentTitle: string;
-  // NEW: A prop specifically for a Lucide icon component
   lucideIcon?: React.ReactNode; 
-  // NEW: A prop for a larger content image (optional)
   contentImage?: string; 
-  // The main text content, which can be JSX
   content: React.ReactNode; 
 }
 
 interface FeaturesSectionProps {
   topStats?: string[];
   heading?: string;
-  // description is a ReactNode to allow multiple P tags with spacing
   description?: React.ReactNode; 
   tabs?: FeatureTab[];
 }
 
-export default function FeaturesSection({
-  // Providing comprehensive default props based on your image example
+export default function WhatYouGetAtVaphers({
   topStats = [
     "750+ DIGITAL EXPERTS",
     "30-YEAR TRACK RECORD",
@@ -36,7 +30,7 @@ export default function FeaturesSection({
   ],
   heading = "Improve your website's UX to boost your revenue",
   description = (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <p>
         Your website's UX directly impacts your revenue and bottom-line growth. With a positive UX, you keep your audience engaged on your site, potentially increasing conversions and sales.
       </p>
@@ -50,9 +44,7 @@ export default function FeaturesSection({
       id: "tab-1",
       label: "Custom UX analysis strategy",
       contentTitle: "Custom UX analysis strategy",
-      // Passing the instantiated Lucide component
       lucideIcon: <ScanSearch className="w-8 h-8 text-blue-600" />,
-      // Using a larger placeholder image to show it to the left
       contentImage: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047475/girl-laptop_kwggux.png", 
       content: (
         <div className="space-y-4">
@@ -67,7 +59,6 @@ export default function FeaturesSection({
       label: "CRO testing",
       contentTitle: "Conversion Rate Optimization",
       lucideIcon: <TestTube className="w-8 h-8 text-blue-600" />,
-      // No contentImage here, the component handles it gracefully
       content: (
         <p>We implement rigorous A/B testing and multivariate testing to ensure every change made to your site is backed by hard data, driving maximum conversions.</p>
       )
@@ -84,111 +75,127 @@ export default function FeaturesSection({
     }
   ]
 }: FeaturesSectionProps) {
-  // State to track which tab is currently selected. Defaults to the first tab's ID.
   const [activeTabId, setActiveTabId] = useState(tabs[0]?.id);
 
-  // Find the data for the currently active tab
   const activeTabData = tabs.find((tab) => tab.id === activeTabId) || tabs[0];
-
-  // A boolean to check if the current tab should render an image to the left
   const hasContentImage = !!activeTabData.contentImage;
 
   return (
-    <section className="w-full bg-white py-16 px-4 md:px-8">
+    <section className="w-full bg-white py-20 px-4 md:px-8 overflow-hidden">
       <div className="max-w-7xl mx-auto space-y-16">
         
-        {/* 1. Top Stats Bar with Dividers */}
+        {/* 1. Top Stats Bar */}
         {topStats && topStats.length > 0 && (
-          <div className="flex flex-wrap justify-center items-center gap-y-4 text-center">
+          <div className="grid grid-cols-2 md:flex md:flex-wrap justify-center items-center gap-y-6 md:gap-y-0 md:divide-x md:divide-gray-200 text-center">
             {topStats.map((stat, index) => (
-              <div key={index} className="flex items-center">
-                <span className="text-xs md:text-sm font-extrabold uppercase tracking-wider text-gray-900 px-4 md:px-6">
+              <div key={index} className="flex flex-col items-center px-4 md:px-8">
+                <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-gray-800">
                   {stat}
                 </span>
-                {/* Divider (hidden on the very last item) */}
-                {index < topStats.length - 1 && (
-                  <span className="hidden md:block h-5 w-px bg-gray-300"></span>
-                )}
               </div>
             ))}
           </div>
         )}
 
         {/* 2. Header & Description */}
-        <div className="text-center max-w-4xl mx-auto space-y-6 pb-8">
-          <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">
+        <div className="text-center max-w-7xl mx-auto space-y-6">
+          <h2 className="text-3xl md:text-5xl  text-gray-800 bungee-shade tracking-tight leading-tight">
             {heading}
           </h2>
-          <div className="text-base md:text-lg text-gray-700 text-left md:text-center leading-relaxed">
+          <div className="text-base md:text-lg text-gray-600 leading-relaxed">
             {description}
           </div>
         </div>
 
         {/* 3. Interactive Sidebar & Content Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-20 items-start pt-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start pt-8">
           
-          {/* Left Sidebar (Tabs) - Takes 4 columns on desktop */}
-          <div className="md:col-span-4 flex flex-col pt-2">
+          {/* Left Sidebar (Tabs) */}
+          <div 
+            className="lg:col-span-4 flex flex-col gap-2 relative" 
+            role="tablist" 
+            aria-label="Features navigation"
+          >
             {tabs.map((tab) => {
               const isActive = activeTabId === tab.id;
               return (
                 <button
                   key={tab.id}
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-controls={`panel-${tab.id}`}
                   onClick={() => setActiveTabId(tab.id)}
-                  className={`py-5 text-left text-lg font-bold border-b transition-all duration-300 flex items-center justify-between ${
-                    isActive 
-                      ? "text-blue-600 border-blue-600" 
-                      : "text-gray-900 border-gray-200 hover:text-blue-500"
+                  className={`relative w-full text-left px-6 py-5 rounded-2xl transition-all duration-300 flex items-center justify-between group z-10 ${
+                    isActive ? "text-blue-700" : "text-gray-600 hover:text-gray-900"
                   }`}
                 >
-                  <span>{tab.label}</span>
-                  {isActive && <motion.span layoutId="activeTabUnderline" className="text-blue-600">→</motion.span>}
+                  {/* Sliding Background Highlight */}
+                  {isActive && (
+                    <motion.div 
+                      layoutId="activeTabBackground" 
+                      className="absolute inset-0 bg-blue-50/80 rounded-2xl -z-10"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    />
+                  )}
+                  
+                  <span className={`text-lg font-semibold transition-colors duration-300 ${isActive ? 'text-blue-700' : 'text-gray-700'}`}>
+                    {tab.label}
+                  </span>
+                  
+                  {/* Animated Arrow */}
+                  <motion.span 
+                    animate={{ x: isActive ? 0 : -4, opacity: isActive ? 1 : 0 }}
+                    className="text-blue-600"
+                  >
+                    →
+                  </motion.span>
                 </button>
               );
             })}
           </div>
 
-          {/* Right Content Area - Takes 8 columns on desktop */}
-          <div className="md:col-span-8 min-h-[400px]">
-            {/* AnimatePresence allows us to animate out the old content and animate in the new content */}
+          {/* Right Content Area */}
+          <div className="lg:col-span-8 min-h-[450px]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTabData.id}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.3 }}
-                className="space-y-10"
+                id={`panel-${activeTabData.id}`}
+                role="tabpanel"
+                initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="space-y-8 bg-white"
               >
                 {/* Content Header (Icon + Title) */}
-                <div className="flex items-center gap-5 pt-3">
+                <div className="flex items-center gap-4">
                   {activeTabData.lucideIcon && (
-                    <div className="flex-shrink-0">
+                    <div className="flex-shrink-0 p-3 bg-blue-50 rounded-xl">
                       {activeTabData.lucideIcon}
                     </div>
                   )}
-                  <h3 className="text-2xl md:text-4xl font-extrabold text-blue-600 leading-tight">
+                  <h3 className="text-2xl md:text-3xl bungee-shade text-gray-900 leading-tight">
                     {activeTabData.contentTitle}
                   </h3>
                 </div>
 
-                {/* Sub-Layout: Content Body with Image to the Left (optional) */}
-                <div className={`grid grid-cols-1 ${hasContentImage ? "lg:grid-cols-[2fr_3fr] gap-12 items-start" : "md:max-w-3xl"}`}>
+                {/* Sub-Layout: Content Body */}
+                <div className={`grid grid-cols-1 ${hasContentImage ? "md:grid-cols-[1fr_1.2fr] gap-8 items-center" : "max-w-4xl"}`}>
                   
-                  {/* Left: The Content Image (optional) */}
+                  {/* Left: Optional Image */}
                   {activeTabData.contentImage && (
-                    <div className="relative w-full h-[300px] sm:h-[400px] lg:h-full lg:aspect-square flex-shrink-0 rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+                    <div className="relative w-full h-[300px] md:h-[350px] flex-shrink-0 rounded-2xl overflow-hidden shadow-lg border border-gray-100 group">
                       <Image 
                         src={activeTabData.contentImage} 
                         alt={activeTabData.contentTitle}
                         fill
-                        className="object-cover"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                     </div>
                   )}
 
-                  {/* Right: The Text Content (User defined JSX) */}
-                  <div className="text-gray-700 text-lg leading-relaxed flex-1">
+                  {/* Right: Text Content */}
+                  <div className="text-gray-600 text-base md:text-lg leading-relaxed flex-1">
                     {activeTabData.content}
                   </div>
                 </div>
@@ -206,27 +213,36 @@ export default function FeaturesSection({
 
 
 
-// How to use ts:
 
 
-// export default function Page() {
-//   // 2. Define your sidebar tabs and their custom content
+
+
+
+// How to use: 
+
+
+// import React from "react";
+// // Adjust this import path based on where you saved the component
+// import FeaturesSection from "@/components/FeaturesSection"; 
+// import { Cog, Zap, CodeXml } from "lucide-react";
+
+// export default function ServicesPage() {
+//   // Define your custom tabs data
 //   const customTabs = [
 //     {
 //       id: "tab-1",
 //       label: "Modular ERP Core",
 //       contentTitle: "Our Flexible ERP Core",
-//       // Pass the fully instantiated icon component here
-//       lucideIcon: <Cog className="w-10 h-10 text-blue-600" />,
-//       // Pass a larger image URL for the left side of the content
-//       contentImage: "/images/erp-modular.jpg", 
+//       lucideIcon: <Cog className="w-8 h-8 text-blue-600" />,
+//       // Using a placeholder image for demonstration
+//       contentImage: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047475/girl-laptop_kwggux.png", 
 //       content: (
 //         <div className="space-y-4">
 //           <p>
 //             We build our ERP systems with a modular core architecture. This isn't just a marketing slogan; it's a technical implementation that uses a message bus to allow different components to scale independently.
 //           </p>
 //           <p>
-//             Our microservices-based approach ensures that updating the inventory module won't crash the entire system. <strong>This keeps your uptime at 99.9%.</strong>
+//             Our microservices-based approach ensures that updating the inventory module won't crash the entire system. <strong className="text-gray-900">This keeps your uptime at 99.9%.</strong>
 //           </p>
 //         </div>
 //       )
@@ -235,8 +251,8 @@ export default function FeaturesSection({
 //       id: "tab-2",
 //       label: "Instant API Integration",
 //       contentTitle: "Connects with Real-Time Speed",
-//       lucideIcon: <Zap className="w-10 h-10 text-blue-600" />,
-//       // Notice: No image passed here, the component shifts the text to fill the gap.
+//       lucideIcon: <Zap className="w-8 h-8 text-blue-600" />,
+//       // Notice: No contentImage here. The component will automatically expand the text to fill the space.
 //       content: (
 //         <p>
 //           Leveraging our optimized event bus, we enable near-instant integration with popular third-party tools like Shopify, Salesforce, and Stripe. Your order data propagates through your entire supply chain in milliseconds.
@@ -247,12 +263,13 @@ export default function FeaturesSection({
 //       id: "tab-3",
 //       label: "Customizable UI Engine",
 //       contentTitle: "Tailored to your teams",
-//       lucideIcon: <CodeXml className="w-10 h-10 text-blue-600" />,
-//       contentImage: "/images/custom-dashboards.jpg",
+//       lucideIcon: <CodeXml className="w-8 h-8 text-blue-600" />,
+//       contentImage: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773732050/We-would-love-to-hear-from-you_nhu2qt.jpg",
 //       content: (
-//         <div className="space-y-4">
+//         <div className="space-y-6">
 //           <p>We provide a proprietary visual UI builder on top of the ERP's data layer.</p>
-//           <button className="bg-blue-600 text-white px-5 py-2 rounded-md font-semibold text-sm">
+//           {/* You can pass interactive elements like buttons directly into the content */}
+//           <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors duration-200 shadow-sm">
 //             Watch UI Builder Demo
 //           </button>
 //         </div>
@@ -260,12 +277,21 @@ export default function FeaturesSection({
 //     }
 //   ];
 
+//   // Define custom top stats (optional)
+//   const stats = [
+//     "99.9% UPTIME",
+//     "FASTER INTEGRATION",
+//     "ENTERPRISE GRADE",
+//     "CUSTOM UI"
+//   ];
+
 //   return (
-//     <main>
+//     <main className="min-h-screen bg-gray-50 pt-10">
 //       <FeaturesSection 
 //         heading="Enterprise Performance, Built with Vaphers Logic"
 //         description="Stop fighting off-the-shelf software. We construct digital dashboards that map exactly to your business operations."
 //         tabs={customTabs}
+//         topStats={stats}
 //       />
 //     </main>
 //   );

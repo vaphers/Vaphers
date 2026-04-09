@@ -4,8 +4,38 @@ import React, { useEffect, useRef, useMemo } from 'react'
 import Lenis from '@studio-freight/lenis'
 import PropsHero from '@/PageComponents/Props Based Components/Hero'
 import NavBar from '@/PageComponents/Global Components/Header'
-import ExplainSection from '@/PageComponents/Props Based Components/Explain'
 import WhatYouGetAtVaphers from '@/PageComponents/Props Based Components/WhatYouGetAtVaphers'
+import Explain from '@/PageComponents/Props Based Components/Explain'
+
+
+
+
+
+// ----------- EXPLAIN SECTION COMPONENT ----------- //
+
+
+const sampleHeading = 'Working with global businesses that shape the market.';
+const sampleParagraphs = [
+  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  'Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.',
+  'Ullamcorper eget nulla facilisi etiam dignissim diam quis. Aliquet lectus proin nibh nisl condimentum. Eu scelerisque felis imperdiet proin fermentum leo vel orci. Sagittis id consectetur purus ut faucibus pulvinar.',
+];
+const sampleImages = [
+  {
+    src: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773732050/We-would-love-to-hear-from-you_nhu2qt.jpg', // Stock living room
+    alt: 'Modern living room with brick wall and city view',
+    className: 'lg:h-full', // Stretch the first image on desktop
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600&auto=format&fit=crop', // Stock business collaboration
+    alt: 'Team collaborating with laptops around a table',
+  },
+  {
+    src: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773732050/We-would-love-to-hear-from-you_nhu2qt.jpg', // Stock home office
+    alt: 'Tidy wooden desk with an all-in-one computer and plants',
+  },
+];
+
 
 
 const myCards = [
@@ -44,7 +74,7 @@ const customLogos = [
       id: "tab-1",
       label: "Multi-Tenant Architecture",
       contentTitle: "Built for Scale",
-      contentImage: "/icons/scale.png", // Optional image!
+      contentImage: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773732050/We-would-love-to-hear-from-you_nhu2qt.jpg", // Optional image!
       content: (
         <div className="space-y-4">
           <p>We design ERP systems that can handle multiple tenants securely from day one.</p>
@@ -65,9 +95,32 @@ const customLogos = [
       id: "tab-3",
       label: "Real-Time Reporting",
       contentTitle: "Data at your fingertips",
-      contentImage: "/icons/chart.png",
+      contentImage: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773732050/We-would-love-to-hear-from-you_nhu2qt.jpg",
       content: (
         <p>Get insights immediately with our optimized database structures and fast front-end rendering using Next.js.</p>
+      )
+    },
+    {
+      id: "tab-4",
+      label: "Real-Time Reporting",
+      contentTitle: "Data at your fingertips",
+      contentImage: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773732050/We-would-love-to-hear-from-you_nhu2qt.jpg",
+      content: (
+        <p>Get insights immediately with our optimized database structures and fast front-end rendering using Next.js.</p>
+      )
+    },
+    {
+      id: "tab-5",
+      label: "Real-Time Reporting",
+      contentTitle: "Data at your fingertips",
+      contentImage: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773732050/We-would-love-to-hear-from-you_nhu2qt.jpg",
+      content: (
+        <div className="space-y-4">
+          <p>We design ERP systems that can handle multiple tenants securely from day one.</p>
+          <p>Our modular approach means you only load the services you need, keeping your infrastructure costs low and performance high.</p>
+                    <p>Our modular approach means you only load the services you need, keeping your infrastructure costs low and performance high.</p>
+
+        </div>
       )
     }
   ];
@@ -141,34 +194,23 @@ export default function Page() {
           // 5. Section override (Optional)
           className="pb-10"
         />
-        <ExplainSection
-          cards={myCards}
-          hero={{
-            heading: "Boost Your Vaphers Site",
-            //                   description: "Vaphers is the leading SaaS web design agency focused on building websites that convert traffic into real business outcomes. Every layout is crafted for performance, ensuring your site supports growth from day one. As a trusted Next.js website development agency, we build fast, scalable, and SEO-friendly platforms. We also specialize in JavaScript SEO, ensuring that complex, framework-driven websites are fully discoverable and rank highly on search engines. With our expertise in Next.js development, we create custom solutions that align with your unique business goals. Whether you need a complete redesign or ongoing SEO support, our team is here to help you succeed in the competitive online landscape.",
-            description: (
-              <div className="space-y-6">
-                <p>
-                  Vaphers is the leading SaaS web design agency focused on building websites that convert traffic into real business outcomes. Every layout is crafted for performance, ensuring your site supports growth from day one. As a trusted Next.js website development agency, we build fast, scalable, and SEO-friendly platforms
-                </p>
-                <p>
-                  We also specialize in JavaScript SEO, ensuring that complex, framework-driven websites are fully discoverable and rank highly on search engines. With our expertise in Next.js development, we create custom solutions that align with your unique business goals. Whether you need a complete redesign or ongoing SEO support, our team is here to help you succeed in the competitive online landscape
-                </p>
-                <button className="bg-blue-600 text-white px-4 py-2 rounded">
-                  Learn More
-                </button>
-              </div>
-            ),
-            heroImage: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047483/MoreLeads_dpwsz2.png"
-          }}
-        />
         <WhatYouGetAtVaphers 
         topStats={myStats}
         heading="Enterprise-Grade ERP Solutions"
         description="Stop fighting with off-the-shelf software. We build custom dashboards that map exactly to your business operations."
         tabs={myTabs}
         />
+//       <Explain
+        heading={sampleHeading}
+        paragraphs={sampleParagraphs}
+        ctaLabel="More about us"
+        ctaHref="#"
+        images={sampleImages}
+      />
       </main>
     </>
   );
 }
+
+
+
