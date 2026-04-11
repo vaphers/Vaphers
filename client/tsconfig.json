@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/admin-dashboard/posts/add-posts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/admin-dashboard/posts/add-posts", "src/types/builder-types.ts"],
   "exclude": ["node_modules"]
 }

@@ -6,6 +6,9 @@ import PropsHero from '@/PageComponents/Props Based Components/Hero'
 import NavBar from '@/PageComponents/Global Components/Header'
 import WhatYouGetAtVaphers from '@/PageComponents/Props Based Components/WhatYouGetAtVaphers'
 import Explain from '@/PageComponents/Props Based Components/Explain'
+import Features1 from '@/PageComponents/Props Based Components/Features1'
+import Feature2 from '@/PageComponents/Props Based Components/Features2'
+import Charts from '@/PageComponents/Props Based Components/Chart'
 
 
 
@@ -35,6 +38,50 @@ const sampleImages = [
     alt: 'Tidy wooden desk with an all-in-one computer and plants',
   },
 ];
+
+
+
+// charts section data
+
+const heroData = {
+    mainTitle: "Unlocking business growth with expert consulting solutions",
+    mainDescription: "We partner with businesses to design smart strategies, optimize operations, and unlock growth opportunities that create measurable impact and long-term sustainable competitive advantage.",
+    topStatLabel: "Total revenue generated",
+    topStatValue: "50M+",
+    stats: [
+      {
+        id: "1",
+        category: "Projects completed",
+        value: "200k",
+        subtext: "Trusted teams deliver proven results driving growth across global markets.",
+        cardHeight: "220px", // Shortest
+      },
+      {
+        id: "2",
+        category: "Awards winning",
+        value: "125+",
+        subtext: "Honored firm achieves industry awards showcasing impact and excellence.",
+        cardHeight: "300px", 
+      },
+      {
+        id: "3",
+        category: "Clients satisfaction",
+        value: "99%",
+        subtext: "Expert advice ensures lasting success with trusted client solutions.",
+        cardHeight: "420px", // Tallest
+        isStriped: true,     // Triggers the CSS repeating background
+      },
+      {
+        id: "4",
+        category: "Years of experience",
+        value: "25+",
+        subtext: "Decades proven guiding businesses toward growth and sustainable success.",
+        cardHeight: "260px", 
+      }
+    ]
+  };
+
+
 
 
 
@@ -69,69 +116,69 @@ const customLogos = [
 
 
 
-  const myTabs = [
-    {
-      id: "tab-1",
-      label: "Multi-Tenant Architecture",
-      contentTitle: "Built for Scale",
-      contentImage: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773732050/We-would-love-to-hear-from-you_nhu2qt.jpg", // Optional image!
-      content: (
-        <div className="space-y-4">
-          <p>We design ERP systems that can handle multiple tenants securely from day one.</p>
-          <p>Our modular approach means you only load the services you need, keeping your infrastructure costs low and performance high.</p>
-        </div>
-      )
-    },
-    {
-      id: "tab-2",
-      label: "Seamless Integration",
-      contentTitle: "Connects with Everything",
-      // Notice: No image passed here, the component handles it gracefully!
-      content: (
-        <p>Our event bus architecture ensures that your new ERP talks flawlessly to your existing payment gateways, CRMs, and email providers.</p>
-      )
-    },
-    {
-      id: "tab-3",
-      label: "Real-Time Reporting",
-      contentTitle: "Data at your fingertips",
-      contentImage: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773732050/We-would-love-to-hear-from-you_nhu2qt.jpg",
-      content: (
-        <p>Get insights immediately with our optimized database structures and fast front-end rendering using Next.js.</p>
-      )
-    },
-    {
-      id: "tab-4",
-      label: "Real-Time Reporting",
-      contentTitle: "Data at your fingertips",
-      contentImage: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773732050/We-would-love-to-hear-from-you_nhu2qt.jpg",
-      content: (
-        <p>Get insights immediately with our optimized database structures and fast front-end rendering using Next.js.</p>
-      )
-    },
-    {
-      id: "tab-5",
-      label: "Real-Time Reporting",
-      contentTitle: "Data at your fingertips",
-      contentImage: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773732050/We-would-love-to-hear-from-you_nhu2qt.jpg",
-      content: (
-        <div className="space-y-4">
-          <p>We design ERP systems that can handle multiple tenants securely from day one.</p>
-          <p>Our modular approach means you only load the services you need, keeping your infrastructure costs low and performance high.</p>
-                    <p>Our modular approach means you only load the services you need, keeping your infrastructure costs low and performance high.</p>
+const myTabs = [
+  {
+    id: "tab-1",
+    label: "Multi-Tenant Architecture",
+    contentTitle: "Built for Scale",
+    contentImage: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773732050/We-would-love-to-hear-from-you_nhu2qt.jpg", // Optional image!
+    content: (
+      <div className="space-y-4">
+        <p>We design ERP systems that can handle multiple tenants securely from day one.</p>
+        <p>Our modular approach means you only load the services you need, keeping your infrastructure costs low and performance high.</p>
+      </div>
+    )
+  },
+  {
+    id: "tab-2",
+    label: "Seamless Integration",
+    contentTitle: "Connects with Everything",
+    // Notice: No image passed here, the component handles it gracefully!
+    content: (
+      <p>Our event bus architecture ensures that your new ERP talks flawlessly to your existing payment gateways, CRMs, and email providers.</p>
+    )
+  },
+  {
+    id: "tab-3",
+    label: "Real-Time Reporting",
+    contentTitle: "Data at your fingertips",
+    contentImage: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773732050/We-would-love-to-hear-from-you_nhu2qt.jpg",
+    content: (
+      <p>Get insights immediately with our optimized database structures and fast front-end rendering using Next.js.</p>
+    )
+  },
+  {
+    id: "tab-4",
+    label: "Real-Time Reporting",
+    contentTitle: "Data at your fingertips",
+    contentImage: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773732050/We-would-love-to-hear-from-you_nhu2qt.jpg",
+    content: (
+      <p>Get insights immediately with our optimized database structures and fast front-end rendering using Next.js.</p>
+    )
+  },
+  {
+    id: "tab-5",
+    label: "Real-Time Reporting",
+    contentTitle: "Data at your fingertips",
+    contentImage: "https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773732050/We-would-love-to-hear-from-you_nhu2qt.jpg",
+    content: (
+      <div className="space-y-4">
+        <p>We design ERP systems that can handle multiple tenants securely from day one.</p>
+        <p>Our modular approach means you only load the services you need, keeping your infrastructure costs low and performance high.</p>
+        <p>Our modular approach means you only load the services you need, keeping your infrastructure costs low and performance high.</p>
 
-        </div>
-      )
-    }
-  ];
+      </div>
+    )
+  }
+];
 
 
-    const myStats = [
-    "50+ ERP SYSTEMS BUILT",
-    "99% UPTIME",
-    "MODULAR ARCHITECTURE",
-    "KOLKATA BASED"
-  ];
+const myStats = [
+  "50+ ERP SYSTEMS BUILT",
+  "99% UPTIME",
+  "MODULAR ARCHITECTURE",
+  "KOLKATA BASED"
+];
 
 export default function Page() {
   const lenisRef = useRef<Lenis | null>(null)
@@ -194,19 +241,51 @@ export default function Page() {
           // 5. Section override (Optional)
           className="pb-10"
         />
-        <WhatYouGetAtVaphers 
-        topStats={myStats}
-        heading="Enterprise-Grade ERP Solutions"
-        description="Stop fighting with off-the-shelf software. We build custom dashboards that map exactly to your business operations."
-        tabs={myTabs}
+        <WhatYouGetAtVaphers
+          topStats={myStats}
+          heading="Enterprise-Grade ERP Solutions"
+          description="Stop fighting with off-the-shelf software. We build custom dashboards that map exactly to your business operations."
+          tabs={myTabs}
         />
 //       <Explain
-        heading={sampleHeading}
-        paragraphs={sampleParagraphs}
-        ctaLabel="More about us"
-        ctaHref="#"
-        images={sampleImages}
-      />
+          heading={sampleHeading}
+          paragraphs={sampleParagraphs}
+          ctaLabel="More about us"
+          ctaHref="#"
+          images={sampleImages}
+        />
+
+        <Features1
+          heading="Clients growth with my services"
+          ctaLabel="Sign Up"
+          ctaHref="/signup"
+
+          // --- NEW: Visual Config Props ---
+          businessHealthPercentage={92}
+          companyGrowthTitle="Revenue Scaling"
+          modernIndustriesTitle="Supported Sectors"
+          industriesList={["E-Commerce", "SaaS", "FinTech", "Logistics", "EdTech"]}
+          // -------------------------------
+
+          cards={[
+            {
+              title: "Strategy",
+              description: "Fusce neque. Quisque malesuada placerat nisl. Praesent porttitor, nulla vitae posuere."
+            },
+            {
+              title: "Analytics",
+              description: "We dive deep into your company growth. Praesent porttitor, nulla vitae posuere iaculis."
+            },
+            {
+              title: "Industries",
+              description: "Adapting to modern markets. Quisque malesuada placerat nisl. Praesent porttitor."
+            }
+          ]}
+        />
+        <Feature2/>
+<Charts {...heroData} />
+      
+
       </main>
     </>
   );
