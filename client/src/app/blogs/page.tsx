@@ -4,6 +4,8 @@ import ContactForm from '@/PageComponents/Global Components/Contact';
 import NavBar from '@/PageComponents/Global Components/Header';
 import Footer from '@/PageComponents/Global Components/Footer';
 import Script from 'next/script'; 
+import ContactSection from '@/PageComponents/Landing Home/ContactSection';
+import MarketingPriceCalculator from '@/PageComponents/Global Components/PriceCalc';
 
 export const metadata = {
   title: 'Vaphers | Read Our Blogs', 
@@ -50,7 +52,8 @@ export default async function BlogPage() {
       <NavBar/>
       <BlogList initialBlogs={blogs}/>
       {/* <Testimonial/> */}
-      <ContactForm/>
+      <MarketingPriceCalculator/>
+      <ContactSection/>
       <Footer/>
     </main>
   );

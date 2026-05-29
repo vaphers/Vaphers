@@ -2,12 +2,17 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { WatermarkEngine } from "../../lib/watermarkEngine";
-import { X, Upload, Download, Image as ImageIcon, Loader2 } from "lucide-react";
+import { 
+  X, Upload, Download, Loader2, Shield, Zap, Sparkles, 
+  Layers, Unlock, Infinity, UploadCloud, ScanSearch, Wand2 
+} from "lucide-react";
 import { UploadDropbox } from "./Components/UploadDropbox";
 import { ImageOutput } from "./Components/ImageOutput";
 import { BeforeAfterComparison } from "./Components/Slider";
 import { HowItWorksSection } from "./Components/Filler";
 import GeminiSeoFaq from "./Components/Faq";
+import FeaturesSection from "./Components/FullPack";
+import GeminiComparisonSection from "./Components/ImageComparison";
 
 interface ImageItem {
   id: number;
@@ -22,6 +27,104 @@ interface ImageItem {
     position: { x: number; y: number; width: number; height: number };
   };
 }
+
+// --- ENHANCED DATA & COMPONENTS ---
+
+const steps = [
+  { 
+    title: "Upload", 
+    description: "Drag & drop or select your Gemini generated images.", 
+    number: "1",
+    icon: <UploadCloud className="w-8 h-8" />
+  },
+  { 
+    title: "Detect", 
+    description: "Our AI engine automatically identifies the hidden watermark.", 
+    number: "2",
+    icon: <ScanSearch className="w-8 h-8" />
+  },
+  { 
+    title: "Process", 
+    description: "The watermark is cleanly removed directly in your browser.", 
+    number: "3",
+    icon: <Wand2 className="w-8 h-8" />
+  },
+  { 
+    title: "Download", 
+    description: "Save your pristine, unwatermarked image instantly.", 
+    number: "4",
+    icon: <Download className="w-8 h-8" />
+  },
+];
+
+const features = [
+  { 
+    title: "100% Client-Side", 
+    description: "Your images never leave your device. Complete privacy and maximum security.", 
+    icon: <Shield className="w-6 h-6 text-blue-600" /> 
+  },
+  { 
+    title: "Maintains Quality", 
+    description: "Removes watermarks cleanly without compressing or ruining original image quality.", 
+    icon: <Sparkles className="w-6 h-6 text-blue-600" /> 
+  },
+  { 
+    title: "Lightning Fast", 
+    description: "Powered by WebGL to process complex algorithms in milliseconds.", 
+    icon: <Zap className="w-6 h-6 text-blue-600" /> 
+  },
+  { 
+    title: "Batch Processing", 
+    description: "Upload and clean dozens of images simultaneously without slowing down.", 
+    icon: <Layers className="w-6 h-6 text-blue-600" /> 
+  },
+  { 
+    title: "No Registration", 
+    description: "Start removing watermarks immediately. No account creation or login required.", 
+    icon: <Unlock className="w-6 h-6 text-blue-600" /> 
+  },
+  { 
+    title: "Free & Unlimited", 
+    description: "No hidden paywalls, subscriptions, or credit systems. Totally free to use.", 
+    icon: <Infinity className="w-6 h-6 text-blue-600" /> 
+  },
+];
+
+const RevealSection = ({ children, className }: { children: React.ReactNode, className?: string }) => (
+  <div className={`animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-forwards ${className}`}>
+    {children}
+  </div>
+);
+
+const StepCard = ({ title, description, icon, number, delay }: { title: string, description: string, icon: React.ReactNode, number: string, delay?: number }) => (
+  <div className="relative flex flex-col items-center text-center z-10 group" style={{ animationDelay: `${delay}s` }}>
+    <div className="relative mb-6">
+      <div className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-blue-600 text-white text-sm font-bold flex items-center justify-center border-2 border-white shadow-md z-20 transition-transform group-hover:scale-110">
+        {number}
+      </div>
+      
+      <div className="w-20 h-20 rounded-2xl bg-white border border-blue-100 flex items-center justify-center text-blue-600 shadow-xl shadow-blue-900/5 group-hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <div className="relative z-10">{icon}</div>
+      </div>
+    </div>
+    
+    <h3 className="font-bold text-slate-800 mb-2 text-xl">{title}</h3>
+    <p className="text-sm text-slate-500 leading-relaxed max-w-[220px]">{description}</p>
+  </div>
+);
+
+const FeatureCard = ({ title, description, icon, delay }: { title: string, description: string, icon: React.ReactNode, delay?: number }) => (
+  <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-blue-100 transition-all duration-300 group" style={{ animationDelay: `${delay}s` }}>
+    <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:bg-blue-100 transition-transform duration-300">
+      {icon}
+    </div>
+    <h3 className="font-bold text-slate-800 mb-2 text-lg">{title}</h3>
+    <p className="text-sm text-slate-500 leading-relaxed">{description}</p>
+  </div>
+);
+
+// --- MAIN COMPONENT ---
 
 export default function GeminiWatermarkRemover() {
   const [engine, setEngine] = useState<WatermarkEngine | null>(null);
@@ -74,7 +177,6 @@ export default function GeminiWatermarkRemover() {
 
     if (validFiles.length === 0) return;
 
-    // Add new files to existing queue instead of replacing
     const newImages: ImageItem[] = validFiles.map((file, index) => ({
       id: Date.now() + index,
       file,
@@ -114,7 +216,6 @@ export default function GeminiWatermarkRemover() {
     );
 
     const concurrency = 3;
-    let completed = 0;
 
     for (let i = 0; i < loadedQueue.length; i += concurrency) {
       const batch = loadedQueue.slice(i, i + concurrency);
@@ -143,7 +244,6 @@ export default function GeminiWatermarkRemover() {
               )
             );
 
-            completed++;
             setProcessedCount((prev) => prev + 1);
           } catch (error) {
             console.error("Processing failed:", error);
@@ -158,16 +258,22 @@ export default function GeminiWatermarkRemover() {
     }
   };
 
+  // REMOVED "unwatermarked_" prefixing logic here
   const downloadImage = (item: ImageItem) => {
     if (!item.processedUrl) return;
     const a = document.createElement("a");
     a.href = item.processedUrl;
-    a.download = `unwatermarked_${item.name.replace(/\.[^.]+$/, "")}.png`;
+    
+    // Uses the edited name directly and appends .png cleanly
+    const cleanName = item.name.replace(/\.[^.]+$/, "");
+    a.download = `${cleanName}.png`;
     a.click();
   };
 
-  const downloadAll = async () => {
-    const completed = imageQueue.filter((item) => item.status === "completed");
+  // UPDATED to accept edited names list from the child component
+  const downloadAll = async (updatedImages?: ImageItem[]) => {
+    const listToDownload = updatedImages || imageQueue;
+    const completed = listToDownload.filter((item) => item.status === "completed");
     if (completed.length === 0) return;
 
     const JSZip = (await import("jszip")).default;
@@ -177,7 +283,10 @@ export default function GeminiWatermarkRemover() {
       if (item.processedUrl) {
         const response = await fetch(item.processedUrl);
         const blob = await response.blob();
-        const filename = `unwatermarked_${item.name.replace(/\.[^.]+$/, "")}.png`;
+        
+        // Uses the custom edited name from the list
+        const cleanName = item.name.replace(/\.[^.]+$/, "");
+        const filename = `${cleanName}.png`;
         zip.file(filename, blob);
       }
     }
@@ -185,7 +294,7 @@ export default function GeminiWatermarkRemover() {
     const zipBlob = await zip.generateAsync({ type: "blob" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(zipBlob);
-    a.download = `unwatermarked_${Date.now()}.zip`;
+    a.download = `cleaned_images_${Date.now()}.zip`;
     a.click();
   };
 
@@ -225,7 +334,6 @@ export default function GeminiWatermarkRemover() {
 
   return (
     <>
-      {/* Hidden file input */}
       <input
         ref={fileInputRef}
         type="file"
@@ -237,9 +345,8 @@ export default function GeminiWatermarkRemover() {
 
       <div className="min-h-screen bg-white py-8">
         <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-4xl lg:text-6xl font-bold text-blue-600 mb-2 bungee-inline-regular">
+          <div className="text-center mb-8 lg:mb-18">
+            <h1 className="text-4xl lg:text-6xl text-blue-600 mb-2 bungee-shade">
               Gemini Watermark Remover
             </h1>
             <p className="text-gray-600 max-w-2xl mx-auto">
@@ -247,7 +354,6 @@ export default function GeminiWatermarkRemover() {
             </p>
           </div>
 
-          {/* Upload Dropbox - Always visible */}
           <div className="mb-6">
             <UploadDropbox
               onFilesSelected={handleFiles}
@@ -255,7 +361,6 @@ export default function GeminiWatermarkRemover() {
             />
           </div>
 
-          {/* Image Output - Show when images uploaded */}
           {imageQueue.length > 0 && (
             <ImageOutput
               images={imageQueue}
@@ -266,39 +371,47 @@ export default function GeminiWatermarkRemover() {
             />
           )}
 
-          {/* Vertical Image Comparison - Demo Section */}
-          <div className="mt-16 mb-8">
-            <div className="text-center mb-8">
-              <h2 className="text-4xl font-bold text-gray-700 mb-2 bungee-inline-regular">
-                See It In Action
-              </h2>
-              <p className="text-gray-600">
-                We remove gemini watermarks while preserving image quality
-              </p>
-            </div>
+          {/* How It Works Section */}
+          <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-50 to-white border-y border-slate-100 mt-12 rounded-3xl overflow-hidden relative">
+            <div className="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-blue-50 rounded-full blur-3xl opacity-50 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-blue-50 rounded-full blur-3xl opacity-50 pointer-events-none" />
+            
+            <div className="max-w-7xl mx-auto relative z-10">
+              <RevealSection className="text-center mb-16">
+                <h2 className="text-3xl lg:text-5xl text-slate-800 mb-4 bungee-shade">
+                  How The <span className="text-blue-600">Watermark Remover</span> Works?
+                </h2>
+                <p className="text-slate-500 text-base md:text-lg max-w-xl mx-auto">
+                  Removing Gemini watermarks is seamless. Just four simple steps with zero technical knowledge needed.
+                </p>
+              </RevealSection>
 
-            <div className="w-full mx-auto">
-              <BeforeAfterComparison
-                beforeImage="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1769765120/Gemini_Generated_Image_jfxraijfxraijfxr_hq4gw1.png"
-                afterImage="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1769765118/unwatermarked_Gemini_Generated_Image_jfxraijfxraijfxr_l86eai.png"
-              />
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6 relative">
+                <div className="hidden md:block absolute top-10 left-[15%] right-[15%] h-0.5 rounded-sm border-t-2 border-dashed border-blue-200 z-0" />
+                
+                {steps.map((s, i) => (
+                  <StepCard key={s.title} {...s} delay={i * 0.1} />
+                ))}
+              </div>
             </div>
-          </div>
+          </section>
+          
+          <FeaturesSection/>
+          <GeminiComparisonSection/>
+
         </div>
 
         <HowItWorksSection />
         <GeminiSeoFaq />
       </div>
 
-      {/* Preview Dialog - replaced with portal-like overlay */}
       {previewItem && (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4 animate-in fade-in zoom-in duration-200">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-5xl max-h-[90vh] w-full max-w-7xl overflow-auto">
-            {/* Header */}
-            <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in zoom-in duration-200">
+          <div className="bg-white rounded-3xl shadow-2xl max-h-[90vh] w-full max-w-5xl overflow-auto flex flex-col border border-slate-200">
+            <div className="sticky top-0 bg-white border-b border-gray-100 px-6 py-4 z-10">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900">
+                  <h2 className="text-xl font-bold text-gray-900">
                     {previewItem.name}
                   </h2>
                   <p className="text-sm text-gray-500">
@@ -309,75 +422,73 @@ export default function GeminiWatermarkRemover() {
                 <button
                   type="button"
                   onClick={() => setPreviewItem(null)}
-                  className="text-gray-400 hover:text-gray-600 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                  className="text-gray-400 hover:text-red-500 bg-gray-50 p-2 rounded-full hover:bg-red-50 transition-colors"
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5" />
                 </button>
               </div>
             </div>
 
-            {/* Content */}
-            <div className="p-6 space-y-4">
+            <div className="p-6 flex-1 space-y-4 bg-slate-50/50">
               <div className="flex justify-center mb-4">
                 <button
                   type="button"
                   onClick={() => setShowBeforeAfter(!showBeforeAfter)}
-                  className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+                  className="inline-flex items-center px-5 py-2.5 border border-blue-200 rounded-xl text-sm font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 transition-colors shadow-sm"
                 >
-                  {showBeforeAfter ? "Hide Comparison" : "Show Before/After"}
+                  {showBeforeAfter ? "Hide Comparison" : "Show Side-by-Side Comparison"}
                 </button>
               </div>
 
               {showBeforeAfter ? (
                 <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600 mb-3 text-center">
-                      Before
-                    </p>
+                  <div className="bg-white p-2 rounded-2xl shadow-sm border border-slate-100">
+                    <div className="bg-slate-100 text-slate-600 text-xs font-bold uppercase tracking-wider py-1.5 px-3 rounded-t-xl text-center mb-2">
+                      Original
+                    </div>
                     <img
                       src={previewItem.originalUrl || ""}
                       alt="Before"
-                      className="w-full rounded-xl border border-gray-200 shadow-sm"
+                      className="w-full rounded-b-xl rounded-t-sm"
                     />
                   </div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-600 mb-3 text-center">
-                      After
-                    </p>
+                  <div className="bg-white p-2 rounded-2xl shadow-sm border border-slate-100">
+                    <div className="bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider py-1.5 px-3 rounded-t-xl text-center mb-2">
+                      Cleaned
+                    </div>
                     <img
                       src={previewItem.processedUrl || ""}
                       alt="After"
-                      className="w-full rounded-xl border border-gray-200 shadow-sm"
+                      className="w-full rounded-b-xl rounded-t-sm"
                     />
                   </div>
                 </div>
               ) : (
-                <div className="flex justify-center">
+                <div className="flex justify-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
                   <img
                     src={previewItem.processedUrl || ""}
                     alt="Processed"
-                    className="max-w-full max-h-[60vh] rounded-xl border border-gray-200 shadow-sm object-contain"
+                    className="max-w-full max-h-[50vh] rounded-xl object-contain"
                   />
                 </div>
               )}
             </div>
 
-            {/* Footer */}
-            <div className="sticky bottom-0 bg-white border-t border-gray-200 px-6 py-4 flex justify-end gap-3">
+            <div className="sticky bottom-0 bg-white border-t border-gray-100 px-6 py-4 flex justify-end gap-3 z-10">
               <button
                 type="button"
                 onClick={() => setPreviewItem(null)}
-                className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+                className="px-5 py-2.5 rounded-xl text-sm font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors"
               >
                 Close
               </button>
               <button
                 type="button"
                 onClick={() => previewItem && downloadImage(previewItem)}
-                className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors shadow-sm"
+                className="inline-flex items-center px-6 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 hover:shadow-lg hover:-translate-y-0.5 transition-all"
               >
                 <Download className="w-4 h-4 mr-2" />
-                Download
+                Download Image
               </button>
             </div>
           </div>

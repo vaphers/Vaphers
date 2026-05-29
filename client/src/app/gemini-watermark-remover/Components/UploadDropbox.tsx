@@ -62,7 +62,6 @@ export function UploadDropbox({ onFilesSelected, onUploadClick }: UploadDropboxP
         setDragCounter(0);
         
         if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-
             // GA4 event → user uploaded image via drag/drop
             trackEvent("image_upload", {
                 upload_method: "drag_drop",
@@ -74,7 +73,6 @@ export function UploadDropbox({ onFilesSelected, onUploadClick }: UploadDropboxP
     };
 
     const handleUploadClick = () => {
-
         // GA4 event → user clicked upload box
         trackEvent("upload_click", {
             upload_method: "click"
@@ -84,7 +82,67 @@ export function UploadDropbox({ onFilesSelected, onUploadClick }: UploadDropboxP
     };
 
     return (
-        <div className="w-full max-w-5xl mx-auto">
+        /* 'isolate' establishes a controlled stacking context.
+           'px-8 md:px-20' provides padding to accommodate the wider background fan stack. */
+        <div className="relative w-full max-w-6xl mx-auto px-8 md:px-20 py-16 isolate">
+            
+            {/* === BACKGROUND CARD STACK === */}
+
+            {/* 1. Far Left Card (Deepest in stack, highly rotated) */}
+            <div className="hidden lg:block absolute top-55 -left-12 w-56 h-56 lg:w-72 lg:h-72 -rotate-[22deg] rounded-[2.5rem] overflow-hidden border-8 border-white shadow-lg z-0 pointer-events-none opacity-80">
+                <img 
+                    src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80" 
+                    alt="Pastel abstract fluid" 
+                    className="w-full h-full object-cover"
+                />
+            </div>
+
+            {/* 2. Mid Left Card (Slightly larger, overlaps Far Left) */}
+            <div className="hidden md:block absolute top-90 -left-2 lg:-left-17 w-60 h-60 lg:w-76 lg:h-76 -rotate-[10deg] rounded-[2.5rem] overflow-hidden border-8 border-white shadow-2xl z-10 pointer-events-none">
+                <img 
+                    src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=500&q=80" 
+                    alt="Pink and blue fluid art" 
+                    className="w-full h-full object-cover"
+                />
+            </div>
+
+            {/* 3. Center-Top Peeking Card (Subtly peeking from the top center/right) */}
+            <div className="hidden xl:block absolute top-110 left-1/6 w-56 h-56 rotate-6 rounded-[2rem] overflow-hidden border-8 border-white shadow-lg z-10 pointer-events-none opacity-90">
+                <img 
+                    src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=500&q=80" 
+                    alt="Colorful marbled texture" 
+                    className="w-full h-full object-cover"
+                />
+            </div>
+
+            {/* 3. Center-Top Peeking Card (Subtly peeking from the top center/right) */}
+            <div className="hidden xl:block absolute -top-5 right-1/6 w-66 h-66 rotate-8 rounded-[2rem] overflow-hidden border-8 border-white shadow-lg z-0 pointer-events-none opacity-90">
+                <img 
+                    src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=500&q=80" 
+                    alt="Colorful marbled texture" 
+                    className="w-full h-full object-cover"
+                />
+            </div>
+
+            {/* 4. Mid Right Card (Slightly larger, overlaps Far Right) */}
+            <div className="hidden md:block absolute top-30 -right-2 lg:-right-6 w-60 h-60 lg:w-76 lg:h-76 rotate-[10deg] rounded-[2.5rem] overflow-hidden border-8 border-white shadow-2xl z-10 pointer-events-none">
+                <img 
+                    src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=500&q=80" 
+                    alt="Dark smoke fluid art" 
+                    className="w-full h-full object-cover"
+                />
+            </div>
+
+            {/* 5. Far Right Card (Deepest in stack on right, highly rotated) */}
+            <div className="hidden lg:block absolute -top-6 -right-12 w-56 h-56 lg:w-72 lg:h-72 rotate-[22deg] rounded-[2.5rem] overflow-hidden border-8 border-white shadow-lg z-0 pointer-events-none opacity-80">
+                <img 
+                    src="https://images.unsplash.com/photo-1500485035595-cbe6f645feb1?auto=format&fit=crop&w=500&q=80" 
+                    alt="Red/purple gradient fluid" 
+                    className="w-full h-full object-cover"
+                />
+            </div>
+
+            {/* === MAIN INTERACTIVE DROPBOX === */}
             <div
                 onClick={handleUploadClick}
                 onDragEnter={handleDragEnter}
@@ -92,11 +150,11 @@ export function UploadDropbox({ onFilesSelected, onUploadClick }: UploadDropboxP
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
                 className={`
-                    relative border-2 border-dashed rounded-3xl p-4 text-center cursor-pointer 
-                    transition-all duration-500 ease-in-out overflow-hidden
+                    relative z-20 border-2 border-dashed rounded-3xl p-4 text-center cursor-pointer 
+                    transition-all duration-500 ease-in-out overflow-hidden backdrop-blur-sm
                     ${dragOver 
                         ? 'border-blue-500 bg-blue-50/50 scale-[1.01] shadow-2xl' 
-                        : 'border-slate-200 bg-gradient-to-b from-white to-slate-50/50 hover:border-blue-300 hover:shadow-xl'
+                        : 'border-slate-200 bg-gradient-to-b from-white/95 to-slate-50/90 hover:border-blue-300 hover:shadow-xl'
                     }
                 `}
             >

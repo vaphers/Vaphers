@@ -119,7 +119,7 @@ const GeminiWatermarkFaq = ({ data }: GeminiWatermarkFaqProps) => {
       <div className="flex items-center justify-center px-6 py-12 lg:py-14 relative z-10">
         <div className="w-full max-w-7xl">
           <div className="text-center mb-12">
-            <h4 className="text-4xl sm:text-3xl md:text-4xl lg:text-6xl font-montserrat text-gray-700 mb-3 sm:mb-4 lg:mb-5 bungee-inline-regular">
+            <h4 className="text-4xl sm:text-3xl md:text-4xl lg:text-6xl font-montserrat text-gray-800 mb-3 sm:mb-4 lg:mb-5 bungee-shade">
               FAQs About{" "}
               <span className="bg-blue-600 bg-clip-text text-transparent">
                 Gemini Watermark Removal
