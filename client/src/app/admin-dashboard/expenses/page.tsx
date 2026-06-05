@@ -2,10 +2,10 @@
 
 import { useState, useEffect, useMemo } from "react"
 import {
-  Plus, X, Wallet, CreditCard, Banknote, ArrowUpCircle, ArrowDownCircle,
-  ArrowLeftRight, Search, Filter, Trash2, Tag, ChevronDown, TrendingUp,
-  TrendingDown, BarChart3, PiggyBank, AlertCircle, Check, Edit3, DollarSign,
-  Calendar, SlidersHorizontal, RefreshCw, Loader2
+  Plus, X, Wallet, CreditCard, Banknote, ArrowLeftRight, Search, SlidersHorizontal,
+  Trash2, Tag, AlertCircle, Check, Loader2, Send, ChevronRight, RefreshCw, 
+  Utensils, Bus, ShoppingBag, HeartPulse, FileText, Clapperboard, 
+  GraduationCap, Plane, TrendingUp, Coins, Package, BarChart3, Settings
 } from "lucide-react"
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -39,30 +39,30 @@ interface Transaction {
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
-const CATEGORIES: Record<string, { subs: string[]; emoji: string; color: string }> = {
-  Food: { emoji: '🍜', color: '#f97316', subs: ['Groceries', 'Restaurant', 'Café', 'Delivery', 'Snacks'] },
-  Transport: { emoji: '🚌', color: '#3b82f6', subs: ['Fuel', 'Uber/Ola', 'Metro', 'Bus', 'Auto', 'Train', 'Flight'] },
-  Shopping: { emoji: '🛍️', color: '#a855f7', subs: ['Clothes', 'Electronics', 'Books', 'Home', 'Beauty'] },
-  Health: { emoji: '💊', color: '#22c55e', subs: ['Medicine', 'Doctor', 'Gym', 'Lab Tests', 'Insurance'] },
-  Bills: { emoji: '📄', color: '#ef4444', subs: ['Electricity', 'Internet', 'Mobile', 'Water', 'Gas', 'Rent', 'EMI'] },
-  Entertainment: { emoji: '🎬', color: '#ec4899', subs: ['Streaming', 'Movies', 'Games', 'Events', 'Sports'] },
-  Education: { emoji: '📚', color: '#06b6d4', subs: ['Course', 'Books', 'Stationery', 'Tuition'] },
-  Travel: { emoji: '✈️', color: '#f59e0b', subs: ['Hotel', 'Flight', 'Activities', 'Food', 'Transport'] },
-  Investment: { emoji: '📈', color: '#10b981', subs: ['Stocks', 'Mutual Funds', 'FD', 'Crypto', 'Gold'] },
-  Income: { emoji: '💰', color: '#84cc16', subs: ['Salary', 'Freelance', 'Gift', 'Refund', 'Dividend', 'Rental', 'Other'] },
-  Transfer: { emoji: '🔄', color: '#6366f1', subs: ['Between Accounts'] },
-  Other: { emoji: '📦', color: '#64748b', subs: ['Miscellaneous'] },
+const CATEGORIES: Record<string, { icon: any; color: string; subs: string[] }> = {
+  Food: { icon: Utensils, color: '#f97316', subs: ['Lunch', 'Restaurant', 'Café', 'Delivery', 'Snacks'] },
+  Transport: { icon: Bus, color: '#2383e2', subs: ['Rapido', 'Metro', 'Bus', 'Auto', 'Train'] },
+  Shopping: { icon: ShoppingBag, color: '#a855f7', subs: ['Clothes', 'Electronics', 'Books', 'Home', 'Beauty'] },
+  Health: { icon: HeartPulse, color: '#22c55e', subs: ['Medicine', 'Doctor', 'Gym', 'Lab Tests', 'Insurance'] },
+  Bills: { icon: FileText, color: '#ef4444', subs: ['Electricity', 'Internet', 'Mobile', 'Water', 'Gas', 'Rent', 'EMI'] },
+  Entertainment: { icon: Clapperboard, color: '#ec4899', subs: ['Streaming', 'Movies', 'Games', 'Events', 'Sports'] },
+  Education: { icon: GraduationCap, color: '#06b6d4', subs: ['Course', 'Books', 'Stationery', 'Tuition'] },
+  // Travel: { icon: Plane, color: '#f59e0b', subs: ['Hotel', 'Flight', 'Activities', 'Food', 'Transport'] },
+  Investment: { icon: TrendingUp, color: '#10b981', subs: ['Stocks', 'Mutual Funds', 'FD', 'Crypto', 'Gold'] },
+  Income: { icon: Coins, color: '#84cc16', subs: ['Salary', 'Freelance', 'Gift', 'Refund', 'Dividend', 'Rental', 'Other'] },
+  Transfer: { icon: ArrowLeftRight, color: '#2383e2', subs: ['Between Accounts'] },
+  Other: { icon: Package, color: '#64748b', subs: ['Miscellaneous'] },
 }
 
 const ACCOUNT_TYPE_META: Record<AccountType, { icon: any; label: string }> = {
   bank: { icon: Banknote, label: 'Bank Account' },
-  card: { icon: CreditCard, label: 'Credit/Debit Card' },
-  cash: { icon: DollarSign, label: 'Cash' },
+  card: { icon: CreditCard, label: 'Credit Card' },
+  cash: { icon: Coins, label: 'Cash' },
   wallet: { icon: Wallet, label: 'Digital Wallet' },
 }
 
 const ACCOUNT_COLORS = [
-  '#6366f1','#3b82f6','#22c55e','#f97316','#ef4444','#a855f7','#ec4899','#f59e0b','#10b981','#06b6d4'
+  '#2383e2', '#0284c7', '#16a34a', '#ea580c', '#e11d48', '#9333ea', '#db2777', '#d97706', '#059669', '#0891b2'
 ]
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -70,8 +70,8 @@ const ACCOUNT_COLORS = [
 const fmt = (n: number) =>
   new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(n)
 
-const fmtDate = (s: string) =>
-  new Date(s).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })
+const fmtDecimal = (n: number) =>
+  new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 2 }).format(n)
 
 const groupByDate = (txs: Transaction[]) => {
   const map = new Map<string, Transaction[]>()
@@ -85,100 +85,65 @@ const groupByDate = (txs: Transaction[]) => {
 
 // ─── Sub-components ──────────────────────────────────────────────────────────
 
-function AccountCard({ account, onSelect, selected }: { account: Account; onSelect: () => void; selected: boolean }) {
-  const meta = ACCOUNT_TYPE_META[account.type]
-  const Icon = meta.icon
-  return (
-    <button
-      onClick={onSelect}
-      className={`relative flex-shrink-0 w-48 rounded-sm p-4 text-left transition-all duration-200 border-2 ${
-        selected ? 'border-gray-900 shadow-md scale-105' : 'border-transparent hover:border-gray-300'
-      }`}
-      style={{ background: `linear-gradient(135deg, ${account.color}, ${account.color}dd)` }}
-    >
-      <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-semibold uppercase tracking-widest text-white/90">{meta.label}</span>
-        <Icon size={16} className="text-white/90" />
-      </div>
-      <p className="text-lg font-bold text-white truncate">{account.name}</p>
-      <p className={`text-2xl font-black mt-1 ${account.balance < 0 ? 'text-red-100' : 'text-white'}`}>
-        {fmt(account.balance)}
-      </p>
-      {selected && (
-        <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-white flex items-center justify-center">
-          <Check size={12} className="text-gray-900" />
-        </div>
-      )}
-    </button>
-  )
-}
-
 function TxRow({ tx, accounts, onDelete }: { tx: Transaction; accounts: Account[]; onDelete: () => void }) {
   const cat = CATEGORIES[tx.mainCategory] || CATEGORIES.Other
+  const CatIcon = cat.icon
   const srcAcc = accounts.find(a => a.id === tx.accountId)
   const dstAcc = accounts.find(a => a.id === tx.toAccountId)
 
   return (
-    <div className="group flex items-center gap-3 px-4 py-3 hover:bg-gray-50 border-b border-gray-100 last:border-0 transition-colors">
-      {/* Category icon */}
+    <div className="group flex items-center gap-3 md:gap-4 px-4 py-3 hover:bg-slate-50 border-b border-slate-100 last:border-0 transition-colors">
       <div
-        className="w-10 h-10 rounded-sm flex items-center justify-center text-lg flex-shrink-0"
-        style={{ background: cat.color + '22', border: `1px solid ${cat.color}44` }}
+        className="w-9 h-9 rounded-sm flex items-center justify-center flex-shrink-0"
+        style={{ background: cat.color + '15', color: cat.color }}
       >
-        {cat.emoji}
+        <CatIcon size={16} />
       </div>
 
-      {/* Main info */}
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <p className="font-semibold text-gray-900 text-sm truncate">
+          <p className="font-semibold text-slate-900 text-xs md:text-sm truncate">
             {tx.payee || tx.subCategory || tx.mainCategory}
           </p>
           {tx.subCategory && tx.payee && (
-            <span className="text-xs text-gray-500 truncate">· {tx.subCategory}</span>
+            <span className="hidden sm:inline text-xs text-slate-400 truncate">· {tx.subCategory}</span>
           )}
         </div>
-        <div className="flex items-center gap-2 mt-0.5">
+        <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
           {srcAcc && (
-            <span
-              className="text-[10px] font-medium px-2 py-0.5 rounded-sm"
-              style={{ background: srcAcc.color + '22', color: srcAcc.color }}
-            >
+            <span className="text-[9px] font-medium px-1.5 py-0.5 rounded-sm bg-slate-100 text-slate-600">
               {srcAcc.name}
             </span>
           )}
           {tx.type === 'transfer' && dstAcc && (
             <>
-              <ArrowLeftRight size={10} className="text-gray-400" />
-              <span
-                className="text-[10px] font-medium px-2 py-0.5 rounded-sm"
-                style={{ background: dstAcc.color + '22', color: dstAcc.color }}
-              >
+              <ArrowLeftRight size={8} className="text-slate-400" />
+              <span className="text-[9px] font-medium px-1.5 py-0.5 rounded-sm bg-slate-100 text-slate-600">
                 {dstAcc.name}
               </span>
             </>
           )}
-          {tx.note && <span className="text-[10px] text-gray-500 truncate">{tx.note}</span>}
+          {tx.note && <span className="text-[9px] text-slate-400 truncate max-w-[150px] sm:max-w-xs">{tx.note}</span>}
         </div>
       </div>
 
-      {/* Amount + date */}
       <div className="text-right flex-shrink-0">
-        <p className={`font-bold text-sm ${
+        <p className={`font-bold text-xs md:text-sm ${
           tx.type === 'income' ? 'text-emerald-600' :
           tx.type === 'transfer' ? 'text-blue-600' : 'text-rose-600'
         }`}>
           {tx.type === 'income' ? '+' : tx.type === 'transfer' ? '⇄' : '-'}{fmt(tx.amount)}
         </p>
-        <p className="text-[10px] text-gray-500 mt-0.5">{fmtDate(tx.date)}</p>
+        <p className="text-[9px] text-slate-400 mt-0.5">
+          {new Date(tx.date).toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })}
+        </p>
       </div>
 
-      {/* Delete */}
       <button
         onClick={onDelete}
-        className="opacity-0 group-hover:opacity-100 p-1.5 rounded-sm hover:bg-red-50 text-gray-400 hover:text-red-500 transition-all"
+        className="opacity-0 group-hover:opacity-100 p-1 rounded-sm hover:bg-red-50 text-slate-400 hover:text-red-500 transition-all ml-1"
       >
-        <Trash2 size={14} />
+        <Trash2 size={13} />
       </button>
     </div>
   )
@@ -189,19 +154,25 @@ function TxRow({ tx, accounts, onDelete }: { tx: Transaction; accounts: Account[
 export default function ExpensePage() {
   const [accounts, setAccounts] = useState<Account[]>([])
   const [transactions, setTransactions] = useState<Transaction[]>([])
+  const [budgets, setBudgets] = useState<Record<string, number>>({})
   const [loading, setLoading] = useState(true)
   const [activeAccount, setActiveAccount] = useState<string | null>(null)
+  
+  // Chart tooltip tracking
+  const [hoveredChartDay, setHoveredChartDay] = useState<number | null>(null)
 
   // Modals
   const [showTxModal, setShowTxModal] = useState(false)
   const [showAccModal, setShowAccModal] = useState(false)
+  const [showBudgetModal, setShowBudgetModal] = useState(false)
 
   // Filters
   const [search, setSearch] = useState('')
   const [filterType, setFilterType] = useState<TxType | 'all'>('all')
   const [filterCat, setFilterCat] = useState<string>('all')
   const [filterMonth, setFilterMonth] = useState<string>(() => {
-    const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`
+    const d = new Date()
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
   })
   const [showFilters, setShowFilters] = useState(false)
 
@@ -211,7 +182,7 @@ export default function ExpensePage() {
     amount: '',
     mainCategory: 'Food',
     subCategory: '',
-    date: new Date().toISOString().slice(0,10),
+    date: new Date().toISOString().slice(0, 10),
     note: '',
     tags: [] as string[],
     accountId: '',
@@ -228,24 +199,47 @@ export default function ExpensePage() {
   const [accForm, setAccForm] = useState(emptyAcc)
   const [accSaving, setAccSaving] = useState(false)
 
-  // Analytics tab
-  const [analyticsTab, setAnalyticsTab] = useState<'category'|'account'|'trend'>('category')
+  // Budget management state
+  const [budgetEditorValues, setBudgetEditorValues] = useState<Record<string, string>>({})
+  const [budgetSaving, setBudgetSaving] = useState(false)
 
   // ── Load data ──────────────────────────────────────────────────────────────
   const loadAll = async () => {
     setLoading(true)
     try {
-      const [txRes, accRes] = await Promise.all([
+      const [txRes, accRes, budgetRes] = await Promise.all([
         fetch('/api/transactions').then(r => r.json()),
         fetch('/api/transactions?resource=accounts').then(r => r.json()),
+        fetch('/api/transactions?resource=budgets').then(r => r.json()),
       ])
+      
       setTransactions(Array.isArray(txRes) ? txRes : [])
       setAccounts(Array.isArray(accRes) ? accRes : [])
+
+      const bMap: Record<string, number> = {}
+      if (Array.isArray(budgetRes)) {
+        budgetRes.forEach((b: any) => {
+          bMap[b.category] = b.limit
+        })
+      }
+      setBudgets(bMap)
+      
+      // Sync budget state
+      const initialBudgetForm: Record<string, string> = {}
+      Object.keys(CATEGORIES).forEach(cat => {
+        if (cat !== 'Income' && cat !== 'Transfer') {
+          initialBudgetForm[cat] = String(bMap[cat] || '')
+        }
+      })
+      setBudgetEditorValues(initialBudgetForm)
+
     } catch { /* silent */ }
     setLoading(false)
   }
 
-  useEffect(() => { loadAll() }, [])
+  useEffect(() => {
+    loadAll()
+  }, [])
 
   // ── Derived data ────────────────────────────────────────────────────────────
   const filteredTxs = useMemo(() => {
@@ -270,28 +264,72 @@ export default function ExpensePage() {
 
   const totalIncome = useMemo(() =>
     filteredTxs.filter(t => t.type === 'income').reduce((s, t) => s + t.amount, 0), [filteredTxs])
+  
   const totalExpense = useMemo(() =>
     filteredTxs.filter(t => t.type === 'expense').reduce((s, t) => s + t.amount, 0), [filteredTxs])
-  const netBalance = totalIncome - totalExpense
 
-  const totalAssets = accounts.reduce((s, a) => s + (a.balance > 0 ? a.balance : 0), 0)
-  const totalDebt = accounts.reduce((s, a) => s + (a.balance < 0 ? a.balance : 0), 0)
+  const totalAssets = useMemo(() => 
+    accounts.reduce((s, a) => s + (a.balance > 0 ? a.balance : 0), 0), [accounts])
 
-  const spendByCategory = useMemo(() => {
+  const totalBudgetLimit = useMemo(() => {
+    return Object.values(budgets).reduce((sum, lim) => sum + lim, 0)
+  }, [budgets])
+
+  const categorySpending = useMemo(() => {
     const map: Record<string, number> = {}
     filteredTxs.filter(t => t.type === 'expense').forEach(t => {
       map[t.mainCategory] = (map[t.mainCategory] || 0) + t.amount
     })
-    return Object.entries(map).sort((a,b) => b[1]-a[1])
+    return map
   }, [filteredTxs])
 
-  const spendByAccount = useMemo(() => {
-    const map: Record<string, number> = {}
-    filteredTxs.filter(t => t.type === 'expense').forEach(t => {
-      if (t.accountId) map[t.accountId] = (map[t.accountId] || 0) + t.amount
-    })
-    return Object.entries(map).sort((a,b) => b[1]-a[1])
-  }, [filteredTxs])
+  // Dual Curve Line Chart Data Calculation
+  const chartData = useMemo(() => {
+    const getPrevMonth = (currMonthStr: string) => {
+      const [y, m] = currMonthStr.split('-').map(Number)
+      const prevDate = new Date(y, m - 2, 1)
+      return `${prevDate.getFullYear()}-${String(prevDate.getMonth() + 1).padStart(2, '0')}`
+    }
+
+    const prevMonthStr = getPrevMonth(filterMonth)
+    const thisMonthDays = new Array(31).fill(0)
+    const lastMonthDays = new Array(31).fill(0)
+
+    let sumThis = 0
+    let sumLast = 0
+
+    for (let day = 1; day <= 31; day++) {
+      const dayStr = String(day).padStart(2, '0')
+      const thisDayPrefix = `${filterMonth}-${dayStr}`
+      const lastDayPrefix = `${prevMonthStr}-${dayStr}`
+
+      const daySpendThis = transactions
+        .filter(t => t.type === 'expense' && t.date.startsWith(thisDayPrefix))
+        .reduce((sum, t) => sum + t.amount, 0)
+
+      const daySpendLast = transactions
+        .filter(t => t.type === 'expense' && t.date.startsWith(lastDayPrefix))
+        .reduce((sum, t) => sum + t.amount, 0)
+
+      sumThis += daySpendThis
+      sumLast += daySpendLast
+
+      thisMonthDays[day - 1] = sumThis
+      lastMonthDays[day - 1] = sumLast
+    }
+
+    return { thisMonthDays, lastMonthDays }
+  }, [transactions, filterMonth])
+
+  const netWorth = accounts.reduce((s, a) => s + a.balance, 0)
+
+  const accountsDistribution = useMemo(() => {
+    const activeTotal = accounts.filter(a => a.balance > 0).reduce((sum, a) => sum + a.balance, 0) || 1
+    return accounts.map(acc => ({
+      ...acc,
+      percent: acc.balance > 0 ? Math.round((acc.balance / activeTotal) * 100) : 0
+    })).sort((a, b) => b.balance - a.balance)
+  }, [accounts])
 
   const grouped = useMemo(() => groupByDate(filteredTxs), [filteredTxs])
 
@@ -301,14 +339,13 @@ export default function ExpensePage() {
     if (txForm.type === 'transfer' && !txForm.toAccountId) { setTxError('Select destination account'); return }
     setTxSaving(true); setTxError('')
     try {
-      // Endpoint changed from /api/expense to /api/transactions
       const res = await fetch('/api/transactions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...txForm,
           amount: Number(txForm.amount),
-          mainCategory: txForm.type === 'transfer' ? 'Transfer' : txForm.type === 'income' ? (txForm.mainCategory === 'Food' ? 'Income' : txForm.mainCategory) : txForm.mainCategory,
+          mainCategory: txForm.type === 'transfer' ? 'Transfer' : txForm.type === 'income' ? 'Income' : txForm.mainCategory,
         }),
       })
       if (!res.ok) throw new Error((await res.json()).error)
@@ -323,7 +360,6 @@ export default function ExpensePage() {
     if (!accForm.name) return
     setAccSaving(true)
     try {
-      // Endpoint changed from /api/expense?resource=accounts to /api/transactions?resource=accounts
       await fetch('/api/transactions?resource=accounts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -336,10 +372,26 @@ export default function ExpensePage() {
     setAccSaving(false)
   }
 
+  const saveBudgets = async () => {
+    setBudgetSaving(true)
+    try {
+      const promises = Object.entries(budgetEditorValues).map(([category, value]) => {
+        return fetch('/api/transactions?resource=budgets', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ category, limit: Number(value) || 0 }),
+        })
+      })
+      await Promise.all(promises)
+      setShowBudgetModal(false)
+      await loadAll()
+    } catch {}
+    setBudgetSaving(false)
+  }
+
   const deleteTx = async (id: string) => {
-    // Endpoint changed from /api/expense?id= to /api/transactions?id=
     await fetch(`/api/transactions?id=${id}`, { method: 'DELETE' })
-    setTransactions(prev => prev.filter(t => t.id !== id))
+    await loadAll()
   }
 
   const addTag = () => {
@@ -351,306 +403,480 @@ export default function ExpensePage() {
 
   const txCats = txForm.type === 'income' ? ['Income'] : txForm.type === 'transfer' ? ['Transfer'] : Object.keys(CATEGORIES).filter(c => c !== 'Income' && c !== 'Transfer')
 
-  // ─── UI ───────────────────────────────────────────────────────────────────
+  const totalBudgetSpent = Object.keys(budgets).reduce((sum, cat) => sum + (categorySpending[cat] || 0), 0)
+  const overallBudgetPercent = totalBudgetLimit > 0 ? Math.min((totalBudgetSpent / totalBudgetLimit) * 100, 100) : 0
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans antialiased pb-12">
 
       {/* ── Header ── */}
-      <div className="sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-gray-200 px-4 md:px-8 py-4 flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-black tracking-tight text-gray-900">Finance Hub</h1>
-          <p className="text-xs text-gray-500 mt-0.5">{filterMonth}</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <button onClick={loadAll} className="p-2 rounded-sm hover:bg-gray-100 text-gray-500 transition-colors">
-            <RefreshCw size={16} />
-          </button>
-          <button
-            onClick={() => { setShowAccModal(true) }}
-            className="hidden md:flex items-center gap-2 px-3 py-2 rounded-sm bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium transition-colors"
-          >
-            <Plus size={14} /> Account
-          </button>
-          <button
-            onClick={() => setShowTxModal(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-sm bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold transition-colors shadow-sm"
-          >
-            <Plus size={14} /> Add
-          </button>
-        </div>
-      </div>
+      <header className="sticky top-0 z-30 bg-white border-b border-slate-200 px-3 md:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-2 hidden md:block">
 
-      <div className="px-4 md:px-8 py-6 space-y-6 max-w-6xl mx-auto">
-
-        {/* ── Summary Cards ── */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {[
-            { label: 'Total Assets', value: totalAssets, icon: PiggyBank, color: 'text-emerald-600', bg: 'bg-emerald-100' },
-            { label: 'Month Income', value: totalIncome, icon: TrendingUp, color: 'text-sky-600', bg: 'bg-sky-100' },
-            { label: 'Month Spend', value: totalExpense, icon: TrendingDown, color: 'text-rose-600', bg: 'bg-rose-100' },
-            { label: 'Net Savings', value: netBalance, icon: BarChart3, color: netBalance >= 0 ? 'text-emerald-600' : 'text-rose-600', bg: netBalance >= 0 ? 'bg-emerald-100' : 'bg-rose-100' },
-          ].map(({ label, value, icon: Icon, color, bg }) => (
-            <div key={label} className="rounded-sm border border-gray-200 bg-white shadow-sm p-4">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs text-gray-500 font-medium">{label}</span>
-                <div className={`w-7 h-7 rounded-sm ${bg} flex items-center justify-center`}>
-                  <Icon size={14} className={color} />
-                </div>
-              </div>
-              <p className={`text-xl font-black ${color}`}>{fmt(value)}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* ── Accounts Row ── */}
-        <div>
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-bold text-gray-500 uppercase tracking-widest">Accounts</h2>
-            <button onClick={() => { setShowAccModal(true) }} className="md:hidden text-xs font-semibold text-indigo-600 hover:text-indigo-500">+ New</button>
+          <div>
+            <h1 className="text-3xl tracking-tight text-slate-900 leading-none bungee-shade">V<span className="text-[#1125fd] text-2xl">aphers</span> </h1>
           </div>
-          {loading ? (
-            <div className="flex gap-3 overflow-x-auto pb-2">
-              {[1,2,3].map(i => (
-                <div key={i} className="flex-shrink-0 w-48 h-28 rounded-sm bg-gray-200 animate-pulse" />
-              ))}
-            </div>
-          ) : accounts.length === 0 ? (
-            <div className="rounded-sm border border-dashed border-gray-300 p-6 text-center text-gray-500 text-sm">
-              No accounts yet.{' '}
-              <button onClick={() => setShowAccModal(true)} className="text-indigo-600 font-semibold hover:underline">Add one</button>
-            </div>
-          ) : (
-            <div className="flex gap-3 overflow-x-auto pb-2">
-              <button
-                onClick={() => setActiveAccount(null)}
-                className={`flex-shrink-0 w-32 rounded-sm border-2 p-4 transition-all duration-200 ${
-                  activeAccount === null ? 'border-indigo-600 bg-indigo-50 shadow-sm' : 'border-transparent bg-white hover:border-gray-300 shadow-sm'
-                }`}
-              >
-                <p className={`text-xs font-semibold mb-2 ${activeAccount === null ? 'text-indigo-600' : 'text-gray-500'}`}>All</p>
-                <p className="text-lg font-black text-gray-900">{fmt(accounts.reduce((s,a) => s+a.balance, 0))}</p>
-              </button>
-              {accounts.map(acc => (
-                <AccountCard
-                  key={acc.id}
-                  account={acc}
-                  selected={activeAccount === acc.id}
-                  onSelect={() => setActiveAccount(activeAccount === acc.id ? null : acc.id)}
-                />
-              ))}
-            </div>
-          )}
         </div>
-
-        {/* ── Analytics ── */}
-        <div className="rounded-sm border border-gray-200 bg-white shadow-sm p-5">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex gap-1 bg-gray-100 rounded-sm p-1">
-              {(['category','account','trend'] as const).map(t => (
-                <button
-                  key={t}
-                  onClick={() => setAnalyticsTab(t)}
-                  className={`px-3 py-1.5 rounded-sm text-xs font-semibold capitalize transition-all ${
-                    analyticsTab === t ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-800'
-                  }`}
-                >
-                  {t}
-                </button>
-              ))}
-            </div>
+        
+        {/* Navigation Action Buttons */}
+        <div className="flex items-center gap-1.5 ml-auto">
+          <div className="relative">
             <input
               type="month"
               value={filterMonth}
               onChange={e => setFilterMonth(e.target.value)}
-              className="text-xs bg-gray-50 border border-gray-200 rounded-sm px-2 py-1 text-gray-900 focus:outline-none focus:border-indigo-500"
+              className="text-[11px] font-bold bg-slate-100 border-0 rounded-sm px-2 py-1.5 text-slate-700 focus:outline-none focus:ring-1 focus:ring-[#2383e2]"
             />
           </div>
 
-          {analyticsTab === 'category' && (
-            <div className="space-y-3">
-              {spendByCategory.length === 0 ? (
-                <p className="text-gray-500 text-sm text-center py-4">No expenses this period</p>
-              ) : spendByCategory.map(([cat, amt]) => {
-                const meta = CATEGORIES[cat] || CATEGORIES.Other
-                const pct = totalExpense > 0 ? (amt / totalExpense) * 100 : 0
-                return (
-                  <div key={cat} className="flex items-center gap-3">
-                    <span className="text-base w-7 text-center">{meta.emoji}</span>
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between text-xs mb-1">
-                        <span className="text-gray-800 font-semibold">{cat}</span>
-                        <span className="text-gray-600 font-medium">{fmt(amt)} <span className="text-gray-400 font-normal">({pct.toFixed(0)}%)</span></span>
-                      </div>
-                      <div className="h-2 bg-gray-100 rounded-sm overflow-hidden">
-                        <div
-                          className="h-full rounded-sm transition-all duration-500"
-                          style={{ width: `${pct}%`, background: meta.color }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          )}
+          <button onClick={loadAll} className="p-1.5 rounded-sm bg-slate-100 hover:bg-slate-200 text-slate-500 transition-colors">
+            <RefreshCw size={13} />
+          </button>
+          
+          <button
+            onClick={() => setShowBudgetModal(true)}
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-sm bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-bold transition-colors"
+          >
+            <Settings size={12} /> <span className="hidden sm:inline">Budgets</span>
+          </button>
 
-          {analyticsTab === 'account' && (
-            <div className="space-y-3">
-              {spendByAccount.length === 0 ? (
-                <p className="text-gray-500 text-sm text-center py-4">No account-tagged expenses</p>
-              ) : spendByAccount.map(([accId, amt]) => {
-                const acc = accounts.find(a => a.id === accId)
-                if (!acc) return null
-                const pct = totalExpense > 0 ? (amt / totalExpense) * 100 : 0
-                return (
-                  <div key={accId} className="flex items-center gap-3">
-                    <div className="w-7 h-7 rounded-sm flex items-center justify-center" style={{ background: acc.color }}>
-                      <span className="text-xs text-white font-bold">{acc.name[0]}</span>
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between text-xs mb-1">
-                        <span className="text-gray-800 font-semibold">{acc.name}</span>
-                        <span className="text-gray-600 font-medium">{fmt(amt)} · {pct.toFixed(0)}%</span>
+          <button
+            onClick={() => { setShowAccModal(true) }}
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-sm bg-[#2383e2]/10 hover:bg-[#2383e2]/20 text-[#2383e2] text-[11px] font-bold transition-colors"
+          >
+            <Plus size={12} /> <span className="hidden sm:inline">Account</span>
+          </button>
+
+          <button
+            onClick={() => {
+              setTxForm({ ...emptyTx, type: 'expense' })
+              setShowTxModal(true)
+            }}
+            className="flex items-center gap-1 px-3 py-1.5 rounded-sm bg-[#2383e2] hover:bg-[#1c6ebf] text-white text-[11px] font-bold transition-colors shadow-sm"
+          >
+            <Plus size={12} /> Record
+          </button>
+        </div>
+      </header>
+
+      <div className="px-3 md:px-8 py-4 md:py-6 space-y-4 md:space-y-6 max-w-7xl mx-auto">
+
+        {/* ── Portfolio Balance & Budget Tracking Columns ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+
+          {/* Column A: Balance Ledger overview */}
+          <div className="bg-white rounded-sm border border-slate-200 p-4 md:p-6 flex flex-col justify-between shadow-sm">
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Balance</span>
+                <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-sm">
+                  + {fmtDecimal(totalIncome)} incoming
+                </span>
+              </div>
+              <h2 className="text-2xl md:text-3xl font-black tracking-tight text-slate-950">
+                {fmtDecimal(netWorth)}
+              </h2>
+              <p className="text-[10px] text-slate-400 font-medium mt-1">
+                {fmt(totalAssets)} Total Assets · {fmt(totalAssets - netWorth)} Current Liability
+              </p>
+
+              {/* Accounts breakdown layout */}
+              <div className="mt-4 md:mt-6 space-y-3">
+                {accountsDistribution.slice(0, 4).map(acc => (
+                  <div key={acc.id} className="space-y-1">
+                    <div className="flex justify-between items-center text-[11px]">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="w-2 h-2 rounded-sm flex-shrink-0" style={{ backgroundColor: acc.color }} />
+                        <span className="font-semibold text-slate-700 truncate">{acc.name}</span>
+                        <span className="text-slate-400">{acc.percent}%</span>
                       </div>
-                      <div className="h-2 bg-gray-100 rounded-sm overflow-hidden">
-                        <div
-                          className="h-full rounded-sm transition-all duration-500"
-                          style={{ width: `${pct}%`, background: acc.color }}
-                        />
-                      </div>
+                      <span className="font-bold text-slate-900 flex-shrink-0">{fmt(acc.balance)}</span>
                     </div>
-                  </div>
-                )
-              })}
-              <div className="pt-4 mt-4 border-t border-gray-100 grid grid-cols-2 gap-2">
-                {accounts.map(acc => (
-                  <div key={acc.id} className="flex items-center justify-between rounded-sm bg-gray-50 border border-gray-100 px-3 py-2">
-                    <span className="text-xs text-gray-600 font-medium truncate">{acc.name}</span>
-                    <span className={`text-xs font-bold ml-2 ${acc.balance < 0 ? 'text-rose-600' : 'text-emerald-600'}`}>
-                      {fmt(acc.balance)}
-                    </span>
+                    <div className="h-1 w-full bg-slate-100 rounded-sm overflow-hidden">
+                      <div
+                        className="h-full rounded-sm transition-all duration-500"
+                        style={{ width: `${acc.percent}%`, backgroundColor: acc.color }}
+                      />
+                    </div>
                   </div>
                 ))}
-              </div>
-            </div>
-          )}
-
-          {analyticsTab === 'trend' && (
-            <div className="space-y-2">
-              {(() => {
-                const days: Record<string, { income: number; expense: number }> = {}
-                filteredTxs.forEach(tx => {
-                  const d = tx.date.slice(0,10)
-                  if (!days[d]) days[d] = { income: 0, expense: 0 }
-                  if (tx.type === 'income') days[d].income += tx.amount
-                  if (tx.type === 'expense') days[d].expense += tx.amount
-                })
-                const entries = Object.entries(days).sort((a,b) => a[0].localeCompare(b[0]))
-                const maxVal = Math.max(...entries.map(([,v]) => Math.max(v.income, v.expense)), 1)
-                if (entries.length === 0) return <p className="text-gray-500 text-sm text-center py-4">No data</p>
-                return (
-                  <div className="flex items-end gap-1 h-24">
-                    {entries.map(([date, vals]) => (
-                      <div key={date} className="flex-1 flex flex-col items-center gap-0.5 group relative">
-                        <div
-                          className="w-full rounded-t-sm bg-emerald-400 hover:bg-emerald-500 transition-colors"
-                          style={{ height: `${(vals.income / maxVal) * 80}px` }}
-                          title={`Income: ${fmt(vals.income)}`}
-                        />
-                        <div
-                          className="w-full rounded-t-sm bg-rose-400 hover:bg-rose-500 transition-colors"
-                          style={{ height: `${(vals.expense / maxVal) * 80}px` }}
-                          title={`Expense: ${fmt(vals.expense)}`}
-                        />
-                        <span className="hidden group-hover:block absolute bottom-full mb-1 text-[9px] bg-gray-800 text-white px-1.5 py-0.5 rounded-sm whitespace-nowrap z-10 shadow-sm">
-                          {date.slice(5)}
-                        </span>
-                      </div>
-                    ))}
+                {accounts.length === 0 && (
+                  <div className="text-center py-4 text-xs text-slate-400">
+                    No active accounts found. Setup cash reserves to get started.
                   </div>
-                )
-              })()}
-              <div className="flex gap-4 text-xs text-gray-500 pt-2">
-                <span className="flex items-center gap-1 font-medium"><span className="w-2 h-2 rounded-sm bg-emerald-400 inline-block" />Income</span>
-                <span className="flex items-center gap-1 font-medium"><span className="w-2 h-2 rounded-sm bg-rose-400 inline-block" />Expense</span>
+                )}
               </div>
             </div>
-          )}
-        </div>
 
-        {/* ── Transactions ── */}
-        <div>
-          {/* Search + Filter bar */}
-          <div className="flex gap-2 mb-4">
-            <div className="flex-1 relative">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-              <input
-                value={search}
-                onChange={e => setSearch(e.target.value)}
-                placeholder="Search transactions…"
-                className="w-full bg-white border border-gray-200 rounded-sm pl-8 pr-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors shadow-sm"
-              />
+            {/* Actions Panel */}
+            <div className="grid grid-cols-2 gap-2 mt-6">
+              <button
+                onClick={() => {
+                  setTxForm({ ...emptyTx, type: 'transfer' })
+                  setShowTxModal(true)
+                }}
+                className="flex items-center justify-center gap-1.5 py-2 rounded-sm border border-slate-200 hover:bg-slate-50 font-bold text-[11px] text-slate-700 transition-colors cursor-pointer"
+              >
+                <Send size={12} className="text-slate-400" /> Send Transfer
+              </button>
+              <button
+                onClick={() => {
+                  setTxForm({ ...emptyTx, type: 'expense' })
+                  setShowTxModal(true)
+                }}
+                className="flex items-center justify-center gap-1.5 py-2 rounded-sm bg-[#2282e3] hover:bg-[#1a6bc2] font-bold text-[11px] text-white transition-all shadow-sm cursor-pointer"
+              >
+                <Plus size={12} /> Record Spend
+              </button>
             </div>
-            <button
-              onClick={() => setShowFilters(!showFilters)}
-              className={`p-2.5 rounded-sm border transition-colors shadow-sm ${showFilters ? 'bg-indigo-50 border-indigo-500 text-indigo-700' : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'}`}
-            >
-              <SlidersHorizontal size={16} />
-            </button>
           </div>
 
-          {showFilters && (
-            <div className="flex flex-wrap gap-2 mb-4 p-3 rounded-sm bg-gray-50 border border-gray-200">
-              {/* Type filter */}
-              {(['all','income','expense','transfer'] as const).map(t => (
+          {/* Column B: Live Budget Tracker */}
+          <div className="bg-white rounded-sm border border-slate-200 p-4 md:p-6 flex flex-col justify-between shadow-sm">
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <div>
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Budget Tracker</span>
+                  <p className="text-[9px] text-slate-400 mt-0.5">Live budget across targets</p>
+                </div>
+                <div className="text-right">
+                  <span className="text-xs font-bold text-slate-900">{fmt(totalBudgetSpent)}</span>
+                  <span className="text-[11px] text-slate-400 font-normal"> / {fmt(totalBudgetLimit)} spent</span>
+                </div>
+              </div>
+
+              {/* Step Graded Segment Progress Bar Indicator */}
+              <div className="flex gap-0.5 h-4 rounded-sm overflow-hidden bg-slate-100 my-3">
+                {Array.from({ length: 45 }).map((_, idx) => {
+                  const barValue = (idx / 45) * 100
+                  const isActive = barValue <= overallBudgetPercent
+                  
+                  let bgStyle = 'bg-slate-200'
+                  if (isActive) {
+                    if (barValue < 33) bgStyle = 'bg-gradient-to-r from-orange-500 to-amber-500'
+                    else if (barValue < 66) bgStyle = 'bg-gradient-to-r from-pink-500 to-rose-500'
+                    else bgStyle = 'bg-gradient-to-r from-[#2383e2] to-indigo-500'
+                  }
+
+                  return (
+                    <div
+                      key={idx}
+                      className={`flex-1 h-full rounded-sm transition-all duration-300 ${bgStyle}`}
+                    />
+                  )
+                })}
+              </div>
+
+              {/* Budget Limit Items List */}
+              <div className="space-y-3 mt-4 max-h-[140px] overflow-y-auto pr-1">
+                {Object.keys(budgets).map(catName => {
+                  const spent = categorySpending[catName] || 0
+                  const limit = budgets[catName] || 0
+                  const ratio = limit > 0 ? Math.min((spent / limit) * 100, 100) : 0
+                  const catMeta = CATEGORIES[catName] || CATEGORIES.Other
+                  const CatIcon = catMeta.icon
+
+                  return (
+                    <div key={catName} className="flex items-center justify-between gap-3 text-[11px]">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <div
+                          className="w-6 h-6 rounded-sm flex items-center justify-center flex-shrink-0"
+                          style={{ background: catMeta.color + '15', color: catMeta.color }}
+                        >
+                          <CatIcon size={12} />
+                        </div>
+                        <span className="font-bold text-slate-700 truncate">{catName}</span>
+                      </div>
+                      
+                      <div className="flex items-center gap-2 flex-shrink-0">
+                        <span className="text-slate-400">
+                          {fmt(spent)} <span className="text-[10px]">/ {fmt(limit)}</span>
+                        </span>
+                        <span className={`font-bold px-1 py-0.5 rounded-sm text-[10px] ${
+                          ratio >= 90 ? 'text-rose-600 bg-rose-50' : 'text-slate-600 bg-slate-100'
+                        }`}>
+                          {ratio.toFixed(0)}%
+                        </span>
+                      </div>
+                    </div>
+                  )
+                })}
+                {Object.keys(budgets).length === 0 && (
+                  <div className="text-center py-4">
+                    <p className="text-[11px] text-slate-400 mb-2">No categories configured yet.</p>
+                    <button
+                      onClick={() => setShowBudgetModal(true)}
+                      className="text-xs text-[#2383e2] font-semibold hover:underline"
+                    >
+                      Configure Target Limits
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+            
+            <div className="border-t border-slate-100 pt-3 mt-4 flex justify-between items-center text-[10px]">
+              <span className="text-slate-400 truncate max-w-[200px] sm:max-w-none">Configure target limits to regulate spending.</span>
+              <button
+                onClick={() => setShowBudgetModal(true)}
+                className="font-bold text-[#2383e2] hover:text-[#1c6ebf] flex items-center gap-0.5 flex-shrink-0"
+              >
+                Edit Targets <ChevronRight size={12} />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Dynamic Visual Spending Trend Chart Card ── */}
+        <div className="bg-white rounded-sm border border-slate-200 p-4 md:p-6 shadow-sm">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4">
+            <div>
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Cumulative Spending</span>
+              <p className="text-[10px] text-slate-400 mt-0.5 font-medium">Dual-curve timeline trend comparison</p>
+            </div>
+            <div className="flex gap-4 text-[11px]">
+              <span className="flex items-center gap-1 font-bold text-[#2383e2]">
+                <span className="w-2 h-2 rounded-sm bg-[#2383e2] inline-block" /> This Month
+              </span>
+              <span className="flex items-center gap-1 font-bold text-slate-400">
+                <span className="w-2 h-2 rounded-sm bg-slate-300 inline-block" /> Last Month
+              </span>
+            </div>
+          </div>
+
+          {/* Custom SVG Trend Chart with Viewbox Aspect scaling */}
+          <div className="relative mt-2 h-36 sm:h-44 w-full">
+            {(() => {
+              const { thisMonthDays, lastMonthDays } = chartData
+              const maxVal = Math.max(...thisMonthDays, ...lastMonthDays, 1000)
+              const width = 1000
+              const height = 180
+
+              const getCoords = (data: number[]) => {
+                return data.map((val, idx) => {
+                  const x = (idx / 30) * width
+                  const y = height - (val / maxVal) * (height - 15)
+                  return { x, y, val }
+                })
+              }
+
+              const coordsThis = getCoords(thisMonthDays)
+              const coordsLast = getCoords(lastMonthDays)
+
+              const pathThis = coordsThis.map((c, i) => `${i === 0 ? 'M' : 'L'} ${c.x} ${c.y}`).join(' ')
+              const pathLast = coordsLast.map((c, i) => `${i === 0 ? 'M' : 'L'} ${c.x} ${c.y}`).join(' ')
+
+              const areaThis = `${pathThis} L ${width} ${height} L 0 ${height} Z`
+
+              return (
+                <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full overflow-visible" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="gradientThis" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#2383e2" stopOpacity="0.12" />
+                      <stop offset="100%" stopColor="#2383e2" stopOpacity="0.0" />
+                    </linearGradient>
+                  </defs>
+
+                  {/* Horizontal Guide Lines */}
+                  {Array.from({ length: 4 }).map((_, idx) => {
+                    const y = (idx / 3) * (height - 15) + 10
+                    return (
+                      <line
+                        key={idx}
+                        x1="0"
+                        y1={y}
+                        x2={width}
+                        y2={y}
+                        stroke="#f1f5f9"
+                        strokeWidth="1"
+                        strokeDasharray="4"
+                      />
+                    )
+                  })}
+
+                  {/* Last Month Dashed Line */}
+                  <path
+                    d={pathLast}
+                    fill="none"
+                    stroke="#cbd5e1"
+                    strokeWidth="2"
+                    strokeDasharray="4"
+                    strokeLinecap="square"
+                    className="transition-all duration-500"
+                  />
+
+                  {/* This Month Shaded Gradient Fill */}
+                  <path
+                    d={areaThis}
+                    fill="url(#gradientThis)"
+                    className="transition-all duration-500"
+                  />
+
+                  {/* This Month Primary line */}
+                  <path
+                    d={pathThis}
+                    fill="none"
+                    stroke="#2383e2"
+                    strokeWidth="2.5"
+                    strokeLinecap="square"
+                    className="transition-all duration-500"
+                  />
+
+                  {/* Selected Day Interaction Marker line */}
+                  {hoveredChartDay !== null && (
+                    <>
+                      <line
+                        x1={(hoveredChartDay / 30) * width}
+                        y1="0"
+                        x2={(hoveredChartDay / 30) * width}
+                        y2={height}
+                        stroke="#2383e2"
+                        strokeWidth="1.5"
+                        strokeDasharray="2"
+                      />
+                      <rect
+                        x={(hoveredChartDay / 30) * width - 4}
+                        y={coordsThis[hoveredChartDay].y - 4}
+                        width="8"
+                        height="8"
+                        fill="#2383e2"
+                        stroke="#fff"
+                        strokeWidth="2"
+                        className="shadow-sm"
+                      />
+                    </>
+                  )}
+
+                  {/* Transparent Interactive Slices */}
+                  {coordsThis.map((c, i) => (
+                    <rect
+                      key={i}
+                      x={((i - 0.5) / 30) * width}
+                      y="0"
+                      width={width / 30}
+                      height={height}
+                      fill="transparent"
+                      className="cursor-pointer"
+                      onMouseEnter={() => setHoveredChartDay(i)}
+                      onMouseLeave={() => setHoveredChartDay(null)}
+                    />
+                  ))}
+                </svg>
+              )
+            })()}
+          </div>
+
+          {/* Interactive Inspection panel */}
+          <div className="flex justify-between items-center text-[10px] md:text-xs mt-3 bg-slate-50 border border-slate-100 px-3 py-2 rounded-sm">
+            <span className="text-slate-500 font-medium">
+              {hoveredChartDay !== null 
+                ? `Day ${hoveredChartDay + 1} Selected` 
+                : 'Hover timeline coordinates to inspect specific totals'
+              }
+            </span>
+            {hoveredChartDay !== null && (
+              <div className="flex gap-3">
+                <span className="text-[#2383e2] font-bold">
+                  This Month: {fmt(chartData.thisMonthDays[hoveredChartDay])}
+                </span>
+                <span className="text-slate-400 font-bold">
+                  Last: {fmt(chartData.lastMonthDays[hoveredChartDay])}
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* ── Transaction Ledger Section ── */}
+        <div className="bg-white rounded-sm border border-slate-200 shadow-sm overflow-hidden">
+          
+          {/* Filter Bar controls */}
+          <div className="p-4 border-b border-slate-100 bg-white space-y-3">
+            <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
+              <div>
+                <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">Ledger History</h3>
+                <p className="text-[10px] text-slate-400 mt-0.5">Filter and query logs</p>
+              </div>
+              
+              <div className="flex gap-2">
+                <div className="relative flex-1 md:w-64">
+                  <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <input
+                    value={search}
+                    onChange={e => setSearch(e.target.value)}
+                    placeholder="Search logs..."
+                    className="w-full bg-slate-50 border-0 rounded-sm pl-8 pr-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-[#2383e2]"
+                  />
+                </div>
                 <button
-                  key={t}
-                  onClick={() => setFilterType(t)}
-                  className={`px-3 py-1.5 rounded-sm text-xs font-semibold capitalize transition-colors border ${
-                    filterType === t ? 'bg-indigo-600 border-indigo-600 text-white shadow-sm' : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-100'
+                  onClick={() => setShowFilters(!showFilters)}
+                  className={`p-2 rounded-sm border transition-colors ${
+                    showFilters 
+                      ? 'bg-blue-50 border-[#2383e2]/30 text-[#2383e2]' 
+                      : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
                   }`}
                 >
-                  {t}
+                  <SlidersHorizontal size={13} />
                 </button>
-              ))}
-              <div className="w-px bg-gray-300 mx-1" />
-              {/* Category filter */}
-              <select
-                value={filterCat}
-                onChange={e => setFilterCat(e.target.value)}
-                className="bg-white border border-gray-200 rounded-sm text-xs text-gray-700 px-2 py-1 focus:outline-none focus:border-indigo-500"
-              >
-                <option value="all">All categories</option>
-                {Object.keys(CATEGORIES).map(c => <option key={c} value={c}>{CATEGORIES[c].emoji} {c}</option>)}
-              </select>
+              </div>
             </div>
-          )}
 
-          {/* Transaction list */}
+            {/* Filter Drawer */}
+            {showFilters && (
+              <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-100">
+                {(['all', 'income', 'expense', 'transfer'] as const).map(t => (
+                  <button
+                    key={t}
+                    onClick={() => setFilterType(t)}
+                    className={`px-2.5 py-1 rounded-sm text-[10px] font-bold capitalize transition-colors ${
+                      filterType === t 
+                        ? 'bg-[#2383e2] text-white' 
+                        : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
+                    }`}
+                  >
+                    {t}
+                  </button>
+                ))}
+                <div className="w-px bg-slate-200 my-0.5 mx-1" />
+                <select
+                  value={filterCat}
+                  onChange={e => setFilterCat(e.target.value)}
+                  className="bg-slate-50 text-slate-600 border-0 rounded-sm text-[10px] px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#2383e2]"
+                >
+                  <option value="all">All Categories</option>
+                  {Object.keys(CATEGORIES).map(c => <option key={c} value={c}>{c}</option>)}
+                </select>
+              </div>
+            )}
+          </div>
+
+          {/* Record Ledger display list */}
           {loading ? (
-            <div className="space-y-2">
-              {[1,2,3,4].map(i => (
-                <div key={i} className="h-16 rounded-sm bg-white border border-gray-100 animate-pulse" />
+            <div className="p-6 space-y-2">
+              {[1, 2, 3].map(i => (
+                <div key={i} className="h-10 bg-slate-100 rounded-sm animate-pulse" />
               ))}
             </div>
           ) : filteredTxs.length === 0 ? (
-            <div className="text-center py-12 text-gray-500 bg-white rounded-sm border border-gray-200">
-              <BarChart3 size={32} className="mx-auto mb-3 opacity-30" />
-              <p className="text-sm">No transactions found</p>
+            <div className="text-center py-12 text-slate-400 bg-white">
+              <BarChart3 size={28} className="mx-auto mb-2 opacity-20 text-slate-900" />
+              <p className="text-[11px]">No transactions match active filter configurations.</p>
             </div>
           ) : (
-            <div className="rounded-sm border border-gray-200 bg-white shadow-sm overflow-hidden">
+            <div className="divide-y divide-slate-100">
               {Array.from(grouped.entries()).map(([date, txs]) => (
                 <div key={date}>
-                  <div className="flex items-center justify-between px-4 py-2 bg-gray-50 border-b border-gray-200">
-                    <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">
+                  {/* Ledger Sub-Group Date Header */}
+                  <div className="flex items-center justify-between px-4 py-2 bg-slate-50 border-y border-slate-100">
+                    <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">
                       {new Date(date + 'T12:00:00').toLocaleDateString('en-IN', { weekday: 'short', day: '2-digit', month: 'short' })}
                     </span>
-                    <span className="text-xs font-medium text-gray-600">
-                      {fmt(txs.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0))} spent
+                    <span className="text-[9px] font-bold text-slate-500">
+                      Spent: {fmt(txs.filter(t => t.type === 'expense').reduce((s, t) => s + t.amount, 0))}
                     </span>
                   </div>
+                  
+                  {/* Rows */}
                   {txs.map(tx => (
                     <TxRow key={tx.id} tx={tx} accounts={accounts} onDelete={() => deleteTx(tx.id)} />
                   ))}
@@ -663,97 +889,94 @@ export default function ExpensePage() {
 
       {/* ════════════ ADD TRANSACTION MODAL ════════════ */}
       {showTxModal && (
-        <div className="fixed inset-0 z-50 bg-gray-900/50 backdrop-blur-sm flex items-end md:items-center justify-center p-4">
-          <div className="w-full max-w-lg bg-white border border-gray-200 rounded-sm shadow-2xl overflow-hidden">
-            {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-gray-50">
-              <h2 className="text-lg font-bold text-gray-900">New Transaction</h2>
-              <button onClick={() => { setShowTxModal(false); setTxError('') }} className="p-2 hover:bg-gray-200 rounded-sm text-gray-500 transition-colors">
-                <X size={18} />
+        <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-end md:items-center justify-center p-4">
+          <div className="w-full max-w-lg bg-white rounded-sm border border-slate-200 shadow-2xl overflow-hidden">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 bg-slate-50">
+              <h2 className="text-xs font-bold text-slate-800 uppercase tracking-wider">New Transaction</h2>
+              <button onClick={() => { setShowTxModal(false); setTxError('') }} className="p-1 hover:bg-slate-200 rounded-sm text-slate-400 transition-colors">
+                <X size={14} />
               </button>
             </div>
 
-            <div className="px-6 py-5 space-y-4 max-h-[75vh] overflow-y-auto">
-              {/* Type tabs */}
-              <div className="flex bg-gray-100 rounded-sm p-1 gap-1">
-                {(['expense','income','transfer'] as TxType[]).map(t => (
+            <div className="px-4 py-4 space-y-4 max-h-[75vh] overflow-y-auto">
+              {/* Type Switcher */}
+              <div className="flex bg-slate-100 rounded-sm p-0.5 gap-0.5">
+                {(['expense', 'income', 'transfer'] as TxType[]).map(t => (
                   <button
                     key={t}
                     onClick={() => setTxForm(f => ({ ...f, type: t, mainCategory: t === 'income' ? 'Income' : t === 'transfer' ? 'Transfer' : 'Food' }))}
-                    className={`flex-1 py-2 rounded-sm text-sm font-bold capitalize transition-all ${
+                    className={`flex-1 py-1 rounded-sm text-[10px] font-bold capitalize transition-all ${
                       txForm.type === t
-                        ? t === 'expense' ? 'bg-rose-600 text-white shadow-sm'
-                          : t === 'income' ? 'bg-emerald-600 text-white shadow-sm'
-                          : 'bg-blue-600 text-white shadow-sm'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
+                        ? 'bg-[#2383e2] text-white shadow-sm'
+                        : 'text-slate-500 hover:text-slate-800'
                     }`}
                   >
-                    {t === 'expense' ? '↓ Expense' : t === 'income' ? '↑ Income' : '⇄ Transfer'}
+                    {t}
                   </button>
                 ))}
               </div>
 
-              {/* Amount */}
+              {/* Dynamic Amount Input */}
               <div>
-                <label className="block text-xs text-gray-500 mb-1.5 font-bold uppercase tracking-wider">Amount</label>
+                <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Amount</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">₹</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-semibold text-base">₹</span>
                   <input
                     type="number"
                     placeholder="0"
                     value={txForm.amount}
                     onChange={e => setTxForm(f => ({ ...f, amount: e.target.value }))}
-                    className="w-full bg-white border border-gray-300 rounded-sm pl-8 pr-4 py-3 text-2xl font-black text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors shadow-sm"
+                    className="w-full bg-slate-50 border-0 rounded-sm pl-8 pr-3 py-2 text-base font-bold text-slate-900 focus:outline-none focus:ring-1 focus:ring-[#2383e2] placeholder-slate-300"
                   />
                 </div>
               </div>
 
-              {/* Date + Payee */}
-              <div className="grid grid-cols-2 gap-3">
+              {/* Date & Payee Forms */}
+              <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-xs text-gray-500 mb-1.5 font-bold uppercase tracking-wider">Date</label>
+                  <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Date</label>
                   <input
                     type="date"
                     value={txForm.date}
                     onChange={e => setTxForm(f => ({ ...f, date: e.target.value }))}
-                    className="w-full bg-white border border-gray-300 rounded-sm px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors shadow-sm"
+                    className="w-full bg-slate-50 border-0 rounded-sm px-2.5 py-1.5 text-xs text-slate-900 focus:outline-none focus:ring-1 focus:ring-[#2383e2]"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-gray-500 mb-1.5 font-bold uppercase tracking-wider">
-                    {txForm.type === 'income' ? 'Received From' : 'Paid To / Payee'}
+                  <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">
+                    {txForm.type === 'income' ? 'Received From' : 'Paid To'}
                   </label>
                   <input
                     type="text"
-                    placeholder="e.g. Swiggy, Salary"
+                    placeholder="Entity"
                     value={txForm.payee}
                     onChange={e => setTxForm(f => ({ ...f, payee: e.target.value }))}
-                    className="w-full bg-white border border-gray-300 rounded-sm px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors shadow-sm"
+                    className="w-full bg-slate-50 border-0 rounded-sm px-2.5 py-1.5 text-xs text-slate-900 focus:outline-none focus:ring-1 focus:ring-[#2383e2] placeholder-slate-300"
                   />
                 </div>
               </div>
 
-              {/* Category */}
+              {/* Category Dropdowns */}
               {txForm.type !== 'transfer' && (
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label className="block text-xs text-gray-500 mb-1.5 font-bold uppercase tracking-wider">Category</label>
+                    <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Category</label>
                     <select
                       value={txForm.mainCategory}
                       onChange={e => setTxForm(f => ({ ...f, mainCategory: e.target.value, subCategory: '' }))}
-                      className="w-full bg-white border border-gray-300 rounded-sm px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors shadow-sm"
+                      className="w-full bg-slate-50 border-0 rounded-sm px-2 py-1.5 text-xs text-slate-900 focus:outline-none focus:ring-1 focus:ring-[#2383e2]"
                     >
                       {txCats.map(c => (
-                        <option key={c} value={c}>{CATEGORIES[c]?.emoji} {c}</option>
+                        <option key={c} value={c}>{c}</option>
                       ))}
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs text-gray-500 mb-1.5 font-bold uppercase tracking-wider">Sub-category</label>
+                    <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Sub-category</label>
                     <select
                       value={txForm.subCategory}
                       onChange={e => setTxForm(f => ({ ...f, subCategory: e.target.value }))}
-                      className="w-full bg-white border border-gray-300 rounded-sm px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors shadow-sm"
+                      className="w-full bg-slate-50 border-0 rounded-sm px-2 py-1.5 text-xs text-slate-900 focus:outline-none focus:ring-1 focus:ring-[#2383e2]"
                     >
                       <option value="">None</option>
                       {(CATEGORIES[txForm.mainCategory]?.subs || []).map(s => (
@@ -764,31 +987,31 @@ export default function ExpensePage() {
                 </div>
               )}
 
-              {/* Account */}
+              {/* Source & Transfer accounts logic */}
               {accounts.length > 0 && (
-                <div className={`grid gap-3 ${txForm.type === 'transfer' ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                <div className={`grid gap-2 ${txForm.type === 'transfer' ? 'grid-cols-2' : 'grid-cols-1'}`}>
                   <div>
-                    <label className="block text-xs text-gray-500 mb-1.5 font-bold uppercase tracking-wider">
-                      {txForm.type === 'transfer' ? 'From Account' : 'Account'}
+                    <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">
+                      {txForm.type === 'transfer' ? 'From Account' : 'Debit Account'}
                     </label>
                     <select
                       value={txForm.accountId}
                       onChange={e => setTxForm(f => ({ ...f, accountId: e.target.value }))}
-                      className="w-full bg-white border border-gray-300 rounded-sm px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors shadow-sm"
+                      className="w-full bg-slate-50 border-0 rounded-sm px-2 py-1.5 text-xs text-slate-900 focus:outline-none focus:ring-1 focus:ring-[#2383e2]"
                     >
-                      <option value="">No account</option>
+                      <option value="">Select account...</option>
                       {accounts.map(a => <option key={a.id} value={a.id}>{a.name} ({fmt(a.balance)})</option>)}
                     </select>
                   </div>
                   {txForm.type === 'transfer' && (
                     <div>
-                      <label className="block text-xs text-gray-500 mb-1.5 font-bold uppercase tracking-wider">To Account</label>
+                      <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">To Account</label>
                       <select
                         value={txForm.toAccountId}
                         onChange={e => setTxForm(f => ({ ...f, toAccountId: e.target.value }))}
-                        className="w-full bg-white border border-gray-300 rounded-sm px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors shadow-sm"
+                        className="w-full bg-slate-50 border-0 rounded-sm px-2 py-1.5 text-xs text-slate-900 focus:outline-none focus:ring-1 focus:ring-[#2383e2]"
                       >
-                        <option value="">Select…</option>
+                        <option value="">Select destination...</option>
                         {accounts.filter(a => a.id !== txForm.accountId).map(a => (
                           <option key={a.id} value={a.id}>{a.name} ({fmt(a.balance)})</option>
                         ))}
@@ -798,41 +1021,41 @@ export default function ExpensePage() {
                 </div>
               )}
 
-              {/* Note */}
+              {/* Description logs */}
               <div>
-                <label className="block text-xs text-gray-500 mb-1.5 font-bold uppercase tracking-wider">Note</label>
+                <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Note</label>
                 <input
                   type="text"
-                  placeholder="Optional note…"
+                  placeholder="Memo description details"
                   value={txForm.note}
                   onChange={e => setTxForm(f => ({ ...f, note: e.target.value }))}
-                  className="w-full bg-white border border-gray-300 rounded-sm px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors shadow-sm"
+                  className="w-full bg-slate-50 border-0 rounded-sm px-2.5 py-1.5 text-xs text-slate-900 focus:outline-none focus:ring-1 focus:ring-[#2383e2] placeholder-slate-300"
                 />
               </div>
 
-              {/* Tags */}
+              {/* Tag system logs */}
               <div>
-                <label className="block text-xs text-gray-500 mb-1.5 font-bold uppercase tracking-wider flex items-center gap-1">
+                <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1 mb-1">
                   <Tag size={10} /> Tags
                 </label>
                 <div className="flex gap-2">
                   <input
                     type="text"
-                    placeholder="Add tag…"
+                    placeholder="New tag..."
                     value={tagInput}
                     onChange={e => setTagInput(e.target.value)}
                     onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), addTag())}
-                    className="flex-1 bg-white border border-gray-300 rounded-sm px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors shadow-sm"
+                    className="flex-1 bg-slate-50 border-0 rounded-sm px-2.5 py-1.5 text-xs text-slate-900 focus:outline-none focus:ring-1 focus:ring-[#2383e2] placeholder-slate-300"
                   />
-                  <button onClick={addTag} className="px-3 py-2 bg-gray-100 border border-gray-200 hover:bg-gray-200 rounded-sm text-sm text-gray-700 font-medium transition-colors shadow-sm">+</button>
+                  <button onClick={addTag} className="px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-sm text-xs font-bold text-slate-700 transition-colors">+</button>
                 </div>
                 {txForm.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5 mt-2">
+                  <div className="flex flex-wrap gap-1 mt-1.5">
                     {txForm.tags.map(tag => (
-                      <span key={tag} className="flex items-center gap-1 px-2.5 py-1 bg-indigo-50 text-indigo-700 border border-indigo-200 text-xs rounded-sm font-medium">
+                      <span key={tag} className="flex items-center gap-1 px-2 py-0.5 bg-blue-50 border border-blue-100 text-[9px] rounded-sm font-bold text-[#2383e2]">
                         {tag}
-                        <button onClick={() => setTxForm(f => ({ ...f, tags: f.tags.filter(t => t !== tag) }))} className="hover:text-indigo-900">
-                          <X size={10} />
+                        <button onClick={() => setTxForm(f => ({ ...f, tags: f.tags.filter(t => t !== tag) }))} className="hover:text-blue-900">
+                          <X size={8} />
                         </button>
                       </span>
                     ))}
@@ -841,30 +1064,26 @@ export default function ExpensePage() {
               </div>
 
               {txError && (
-                <div className="flex items-center gap-2 p-3 rounded-sm bg-red-50 border border-red-200 text-red-600 text-sm">
-                  <AlertCircle size={14} /> {txError}
+                <div className="flex items-center gap-1.5 p-2 rounded-sm bg-rose-50 border border-rose-100 text-rose-600 text-[10px] font-medium">
+                  <AlertCircle size={12} /> {txError}
                 </div>
               )}
             </div>
 
-            <div className="px-6 py-4 border-t border-gray-200 bg-gray-50 flex gap-3">
+            <div className="px-4 py-3 border-t border-slate-100 bg-slate-50 flex gap-2">
               <button
                 onClick={() => { setShowTxModal(false); setTxForm(emptyTx); setTxError('') }}
-                className="flex-1 py-2.5 rounded-sm bg-white border border-gray-300 hover:bg-gray-50 text-sm font-bold text-gray-700 transition-colors shadow-sm"
+                className="flex-1 py-1.5 rounded-sm bg-white border border-slate-200 hover:bg-slate-50 text-[11px] font-bold text-slate-700 transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={saveTx}
                 disabled={txSaving}
-                className={`flex-1 py-2.5 rounded-sm text-sm font-bold transition-colors flex items-center justify-center gap-2 shadow-sm ${
-                  txForm.type === 'expense' ? 'bg-rose-600 hover:bg-rose-700' :
-                  txForm.type === 'income' ? 'bg-emerald-600 hover:bg-emerald-700' :
-                  'bg-blue-600 hover:bg-blue-700'
-                } text-white disabled:opacity-50`}
+                className="flex-1 py-1.5 rounded-sm bg-[#2383e2] hover:bg-[#1c6ebf] text-[11px] font-bold text-white transition-colors disabled:opacity-50 flex items-center justify-center gap-1"
               >
-                {txSaving ? <Loader2 size={16} className="animate-spin" /> : <Check size={16} />}
-                {txSaving ? 'Saving…' : 'Save Transaction'}
+                {txSaving ? <Loader2 size={12} className="animate-spin" /> : <Check size={12} />}
+                {txSaving ? 'Saving...' : 'Save Record'}
               </button>
             </div>
           </div>
@@ -873,96 +1092,163 @@ export default function ExpensePage() {
 
       {/* ════════════ ADD ACCOUNT MODAL ════════════ */}
       {showAccModal && (
-        <div className="fixed inset-0 z-50 bg-gray-900/50 backdrop-blur-sm flex items-end md:items-center justify-center p-4">
-          <div className="w-full max-w-md bg-white border border-gray-200 rounded-sm shadow-2xl overflow-hidden">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-gray-50">
-              <h2 className="text-lg font-bold text-gray-900">New Account</h2>
-              <button onClick={() => setShowAccModal(false)} className="p-2 hover:bg-gray-200 rounded-sm text-gray-500 transition-colors">
-                <X size={18} />
+        <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-end md:items-center justify-center p-4">
+          <div className="w-full max-w-md bg-white rounded-sm border border-slate-200 shadow-2xl overflow-hidden">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 bg-slate-50">
+              <h2 className="text-xs font-bold text-slate-800 uppercase tracking-wider">New Portfolio Account</h2>
+              <button onClick={() => setShowAccModal(false)} className="p-1 hover:bg-slate-200 rounded-sm text-slate-400 transition-colors">
+                <X size={14} />
               </button>
             </div>
 
-            <div className="px-6 py-5 space-y-4">
-              {/* Name */}
+            <div className="px-4 py-4 space-y-4">
+              {/* Name logs */}
               <div>
-                <label className="block text-xs text-gray-500 mb-1.5 font-bold uppercase tracking-wider">Account Name</label>
+                <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Account Name</label>
                 <input
                   type="text"
-                  placeholder="e.g. HDFC Savings, SBI Card"
+                  placeholder="Savings, Card Name"
                   value={accForm.name}
                   onChange={e => setAccForm(f => ({ ...f, name: e.target.value }))}
-                  className="w-full bg-white border border-gray-300 rounded-sm px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-sm"
+                  className="w-full bg-slate-50 border-0 rounded-sm px-3 py-1.5 text-xs text-slate-900 focus:outline-none focus:ring-1 focus:ring-[#2383e2] placeholder-slate-300"
                 />
               </div>
 
-              {/* Type */}
+              {/* Type toggle selection */}
               <div>
-                <label className="block text-xs text-gray-500 mb-1.5 font-bold uppercase tracking-wider">Type</label>
-                <div className="grid grid-cols-4 gap-2">
-                  {(['bank','card','cash','wallet'] as AccountType[]).map(t => {
+                <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Type</label>
+                <div className="grid grid-cols-4 gap-1.5">
+                  {(['bank', 'card', 'cash', 'wallet'] as AccountType[]).map(t => {
                     const Icon = ACCOUNT_TYPE_META[t].icon
                     return (
                       <button
                         key={t}
                         onClick={() => setAccForm(f => ({ ...f, type: t }))}
-                        className={`flex flex-col items-center gap-1.5 py-3 rounded-sm text-xs font-semibold capitalize transition-colors border shadow-sm ${
-                          accForm.type === t ? 'bg-indigo-50 border-indigo-600 text-indigo-700' : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
+                        className={`flex flex-col items-center gap-1 py-2 rounded-sm text-[9px] font-bold capitalize transition-colors border ${
+                          accForm.type === t 
+                            ? 'bg-blue-50 border-[#2383e2]/30 text-[#2383e2]' 
+                            : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-50'
                         }`}
                       >
-                        <Icon size={16} />
-                        {ACCOUNT_TYPE_META[t].label.split('/')[0].split(' ')[0]}
+                        <Icon size={12} />
+                        {ACCOUNT_TYPE_META[t].label.split(' ')[0]}
                       </button>
                     )
                   })}
                 </div>
               </div>
 
-              {/* Opening Balance */}
+              {/* Initial asset value */}
               <div>
-                <label className="block text-xs text-gray-500 mb-1.5 font-bold uppercase tracking-wider">Opening Balance</label>
+                <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Opening Balance</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">₹</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-semibold text-xs">₹</span>
                   <input
                     type="number"
                     placeholder="0"
                     value={accForm.balance}
                     onChange={e => setAccForm(f => ({ ...f, balance: e.target.value }))}
-                    className="w-full bg-white border border-gray-300 rounded-sm pl-8 pr-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-sm"
+                    className="w-full bg-slate-50 border-0 rounded-sm pl-8 pr-3 py-1.5 text-xs text-slate-900 focus:outline-none focus:ring-1 focus:ring-[#2383e2] placeholder-slate-300"
                   />
                 </div>
-                <p className="text-[11px] text-gray-500 mt-1 font-medium">Use negative for credit card outstanding</p>
+                <p className="text-[9px] text-slate-400 mt-1 font-medium">Use negative counts for Credit outstanding</p>
               </div>
 
-              {/* Color */}
+              {/* Color logs */}
               <div>
-                <label className="block text-xs text-gray-500 mb-1.5 font-bold uppercase tracking-wider">Color</label>
-                <div className="flex gap-2 flex-wrap">
+                <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Color Code Assignment</label>
+                <div className="flex gap-1.5 flex-wrap">
                   {ACCOUNT_COLORS.map(c => (
                     <button
                       key={c}
                       onClick={() => setAccForm(f => ({ ...f, color: c }))}
-                      className={`w-8 h-8 rounded-full transition-all ${accForm.color === c ? 'scale-125 ring-2 ring-indigo-500 ring-offset-2' : 'hover:scale-110'}`}
-                      style={{ background: c }}
+                      className={`w-6 h-6 rounded-full transition-all ${accForm.color === c ? 'scale-110 ring-1 ring-[#2383e2] ring-offset-1' : 'hover:scale-105'}`}
+                      style={{ backgroundColor: c }}
                     />
                   ))}
                 </div>
               </div>
             </div>
 
-            <div className="px-6 py-4 border-t border-gray-200 bg-gray-50 flex gap-3">
+            <div className="px-4 py-3 border-t border-slate-100 bg-slate-50 flex gap-2">
               <button
                 onClick={() => setShowAccModal(false)}
-                className="flex-1 py-2.5 rounded-sm bg-white border border-gray-300 hover:bg-gray-50 text-sm font-bold text-gray-700 transition-colors shadow-sm"
+                className="flex-1 py-1.5 rounded-sm bg-white border border-slate-200 hover:bg-slate-50 text-[11px] font-bold text-slate-700 transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={saveAcc}
                 disabled={accSaving || !accForm.name}
-                className="flex-1 py-2.5 rounded-sm bg-indigo-600 hover:bg-indigo-700 text-sm font-bold text-white transition-colors disabled:opacity-50 flex items-center justify-center gap-2 shadow-sm"
+                className="flex-1 py-1.5 rounded-sm bg-[#2383e2] hover:bg-[#1c6ebf] text-[11px] font-bold text-white transition-colors disabled:opacity-50 flex items-center justify-center gap-1"
               >
-                {accSaving ? <Loader2 size={16} className="animate-spin" /> : <Plus size={16} />}
+                {accSaving ? <Loader2 size={12} className="animate-spin" /> : <Plus size={12} />}
                 Add Account
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ════════════ CONFIGURE BUDGET TARGETS MODAL ════════════ */}
+      {showBudgetModal && (
+        <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-end md:items-center justify-center p-4">
+          <div className="w-full max-w-md bg-white rounded-sm border border-slate-200 shadow-2xl overflow-hidden">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 bg-slate-50">
+              <h2 className="text-xs font-bold text-slate-800 uppercase tracking-wider">Configure Monthly Budgets</h2>
+              <button onClick={() => setShowBudgetModal(false)} className="p-1 hover:bg-slate-200 rounded-sm text-slate-400 transition-colors">
+                <X size={14} />
+              </button>
+            </div>
+
+            <div className="px-4 py-4 space-y-3 max-h-[60vh] overflow-y-auto">
+              <p className="text-[10px] text-slate-400">Configure parameters to control visual target thresholds.</p>
+              
+              <div className="space-y-2 pt-2">
+                {Object.keys(CATEGORIES).filter(cat => cat !== 'Income' && cat !== 'Transfer').map(cat => {
+                  const catMeta = CATEGORIES[cat]
+                  const CatIcon = catMeta.icon
+                  return (
+                    <div key={cat} className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2">
+                        <div
+                          className="w-6 h-6 rounded-sm flex items-center justify-center text-white"
+                          style={{ backgroundColor: catMeta.color }}
+                        >
+                          <CatIcon size={12} />
+                        </div>
+                        <span className="text-xs font-bold text-slate-700">{cat}</span>
+                      </div>
+                      <div className="relative w-28 sm:w-32">
+                        <span className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-400 font-semibold text-xs">₹</span>
+                        <input
+                          type="number"
+                          placeholder="No Limit"
+                          value={budgetEditorValues[cat] || ''}
+                          onChange={e => setBudgetEditorValues(prev => ({ ...prev, [cat]: e.target.value }))}
+                          className="w-full bg-slate-50 border-0 rounded-sm pl-6 pr-2 py-1 text-xs text-slate-900 font-bold text-right focus:outline-none focus:ring-1 focus:ring-[#2383e2] placeholder-slate-300"
+                        />
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+
+            <div className="px-4 py-3 border-t border-slate-100 bg-slate-50 flex gap-2">
+              <button
+                onClick={() => setShowBudgetModal(false)}
+                className="flex-1 py-1.5 rounded-sm bg-white border border-slate-200 hover:bg-slate-50 text-[11px] font-bold text-slate-700 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={saveBudgets}
+                disabled={budgetSaving}
+                className="flex-1 py-1.5 rounded-sm bg-[#2383e2] hover:bg-[#1c6ebf] text-[11px] font-bold text-white transition-colors disabled:opacity-50 flex items-center justify-center gap-1"
+              >
+                {budgetSaving ? <Loader2 size={12} className="animate-spin" /> : <Check size={12} />}
+                {budgetSaving ? 'Saving...' : 'Apply Targets'}
               </button>
             </div>
           </div>

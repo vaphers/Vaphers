@@ -7,9 +7,10 @@ import Link from "next/link"
 const menuItems = [
   { title: "Analytics", url: "/admin-dashboard", icon: ChartArea },
   { title: "Posts", url: "/admin-dashboard/posts", icon: StickyNote },
-  { title: "New Post", url: "/admin-dashboard/posts/add-posts", icon: PencilLine },
-  { title: "Tasks", url: "/admin-dashboard/tasks", icon: ListChecks },
   { title: "Expense", url: "/admin-dashboard/expenses", icon: Wallet },
+  { title: "Tasks", url: "/admin-dashboard/tasks", icon: ListChecks },
+  { title: "New Post", url: "/admin-dashboard/posts/add-posts", icon: PencilLine },
+
 
 ]
 

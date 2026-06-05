@@ -33,7 +33,7 @@ function getDb() {
 // ─── GET HANDLER ─────────────────────────────────────────────────────────────
 export async function GET(request: NextRequest) {
   try {
-    const db = getDb(); // Safely fetch the database instance
+    const db = getDb();
     const { searchParams } = new URL(request.url);
     const resource = searchParams.get('resource') || 'transactions';
 
@@ -41,6 +41,12 @@ export async function GET(request: NextRequest) {
       const snapshot = await db.collection('accounts').orderBy('createdAt', 'asc').get();
       const accounts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       return NextResponse.json(accounts);
+    }
+
+    if (resource === 'budgets') {
+      const snapshot = await db.collection('budgets').get();
+      const budgets = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      return NextResponse.json(budgets);
     }
 
     // Default: transactions
@@ -76,6 +82,20 @@ export async function POST(request: NextRequest) {
         createdAt: new Date().toISOString(),
       });
       return NextResponse.json({ id: docRef.id, ...data }, { status: 201 });
+    }
+
+    // Create / update budget limits
+    if (resource === 'budgets') {
+      if (!data.category || data.limit === undefined) {
+        return NextResponse.json({ error: 'Missing category or limit' }, { status: 400 });
+      }
+      const budgetRef = db.collection('budgets').doc(data.category);
+      await budgetRef.set({
+        category: data.category,
+        limit: Number(data.limit),
+        updatedAt: new Date().toISOString(),
+      }, { merge: true });
+      return NextResponse.json({ id: data.category, ...data });
     }
 
     // Create transaction
@@ -133,6 +153,35 @@ export async function DELETE(request: NextRequest) {
     const id = searchParams.get('id');
     const resource = searchParams.get('resource') || 'transactions';
     if (!id) return NextResponse.json({ error: 'Missing id' }, { status: 400 });
+
+    // When deleting a transaction, gracefully revert the account balance changes!
+    if (resource === 'transactions') {
+      const txRef = db.collection('transactions').doc(id);
+      const txSnap = await txRef.get();
+      
+      if (txSnap.exists) {
+        const txData = txSnap.data();
+        const batch = db.batch();
+
+        if (txData?.accountId) {
+          const accRef = db.collection('accounts').doc(txData.accountId);
+          const reverseDelta =
+            txData.type === 'income' ? -Number(txData.amount) :
+            txData.type === 'expense' ? Number(txData.amount) :
+            txData.type === 'transfer' ? Number(txData.amount) : 0;
+          batch.update(accRef, { balance: admin.firestore.FieldValue.increment(reverseDelta) });
+        }
+
+        if (txData?.type === 'transfer' && txData.toAccountId) {
+          const toRef = db.collection('accounts').doc(txData.toAccountId);
+          batch.update(toRef, { balance: admin.firestore.FieldValue.increment(-Number(txData.amount)) });
+        }
+
+        batch.delete(txRef);
+        await batch.commit();
+        return NextResponse.json({ success: true });
+      }
+    }
 
     await db.collection(resource).doc(id).delete();
     return NextResponse.json({ success: true });
