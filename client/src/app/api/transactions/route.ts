@@ -1,20 +1,39 @@
 import { NextRequest, NextResponse } from 'next/server';
 import admin from 'firebase-admin';
 
-const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT || '{}');
+// Safe helper to lazily initialize Firebase Admin on demand
+function getDb() {
+  if (admin.apps.length === 0) {
+    const serviceAccountStr = process.env.GOOGLE_SERVICE_ACCOUNT;
+    
+    if (!serviceAccountStr) {
+      throw new Error(
+        'GOOGLE_SERVICE_ACCOUNT environment variable is not defined. Please check your .env or .env.local file.'
+      );
+    }
 
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
-  });
+    try {
+      const serviceAccount = JSON.parse(serviceAccountStr);
+
+      // Replace escaped literal '\n' characters with real newlines for the PEM key
+      if (serviceAccount.private_key) {
+        serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
+      }
+
+      admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
+      });
+    } catch (parseError: any) {
+      throw new Error(`Failed to parse or initialize Firebase Admin: ${parseError.message}`);
+    }
+  }
+  return admin.firestore();
 }
 
-const db = admin.firestore();
-
-// ─── TRANSACTIONS ────────────────────────────────────────────────────────────
-
+// ─── GET HANDLER ─────────────────────────────────────────────────────────────
 export async function GET(request: NextRequest) {
   try {
+    const db = getDb(); // Safely fetch the database instance
     const { searchParams } = new URL(request.url);
     const resource = searchParams.get('resource') || 'transactions';
 
@@ -35,20 +54,22 @@ export async function GET(request: NextRequest) {
   }
 }
 
+// ─── POST HANDLER ────────────────────────────────────────────────────────────
 export async function POST(request: NextRequest) {
   try {
+    const db = getDb();
     const { searchParams } = new URL(request.url);
     const resource = searchParams.get('resource') || 'transactions';
     const data = await request.json();
 
-    // ── Create / update account ──────────────────────────────────────────────
+    // Create / update account
     if (resource === 'accounts') {
       if (!data.name || data.balance === undefined) {
         return NextResponse.json({ error: 'Missing name or balance' }, { status: 400 });
       }
       const docRef = await db.collection('accounts').add({
         name: data.name,
-        type: data.type || 'bank',          // bank | card | cash | wallet
+        type: data.type || 'bank',
         color: data.color || '#6366f1',
         balance: Number(data.balance),
         currency: data.currency || 'INR',
@@ -57,7 +78,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ id: docRef.id, ...data }, { status: 201 });
     }
 
-    // ── Create transaction ───────────────────────────────────────────────────
+    // Create transaction
     if (!data.amount || !data.mainCategory || !data.date) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
@@ -67,16 +88,16 @@ export async function POST(request: NextRequest) {
     // Save transaction
     const txRef = db.collection('transactions').doc();
     const txPayload = {
-      type: data.type,                        // expense | income | transfer
+      type: data.type,
       amount: Number(data.amount),
       mainCategory: data.mainCategory,
       subCategory: data.subCategory || '',
       date: data.date,
       note: data.note || '',
       tags: data.tags || [],
-      accountId: data.accountId || null,      // source account
-      toAccountId: data.toAccountId || null,  // destination (transfers)
-      payee: data.payee || '',                // who you paid / received from
+      accountId: data.accountId || null,
+      toAccountId: data.toAccountId || null,
+      payee: data.payee || '',
       createdAt: new Date().toISOString(),
     };
     batch.set(txRef, txPayload);
@@ -104,8 +125,10 @@ export async function POST(request: NextRequest) {
   }
 }
 
+// ─── DELETE HANDLER ──────────────────────────────────────────────────────────
 export async function DELETE(request: NextRequest) {
   try {
+    const db = getDb();
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     const resource = searchParams.get('resource') || 'transactions';
@@ -119,8 +142,10 @@ export async function DELETE(request: NextRequest) {
   }
 }
 
+// ─── PATCH HANDLER ───────────────────────────────────────────────────────────
 export async function PATCH(request: NextRequest) {
   try {
+    const db = getDb();
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     const resource = searchParams.get('resource') || 'transactions';

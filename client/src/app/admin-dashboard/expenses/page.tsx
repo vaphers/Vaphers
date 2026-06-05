@@ -236,8 +236,8 @@ export default function ExpensePage() {
     setLoading(true)
     try {
       const [txRes, accRes] = await Promise.all([
-        fetch('/api/expense').then(r => r.json()),
-        fetch('/api/expense?resource=accounts').then(r => r.json()),
+        fetch('/api/transactions').then(r => r.json()),
+        fetch('/api/transactions?resource=accounts').then(r => r.json()),
       ])
       setTransactions(Array.isArray(txRes) ? txRes : [])
       setAccounts(Array.isArray(accRes) ? accRes : [])
@@ -301,7 +301,8 @@ export default function ExpensePage() {
     if (txForm.type === 'transfer' && !txForm.toAccountId) { setTxError('Select destination account'); return }
     setTxSaving(true); setTxError('')
     try {
-      const res = await fetch('/api/expense', {
+      // Endpoint changed from /api/expense to /api/transactions
+      const res = await fetch('/api/transactions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -322,7 +323,8 @@ export default function ExpensePage() {
     if (!accForm.name) return
     setAccSaving(true)
     try {
-      await fetch('/api/expense?resource=accounts', {
+      // Endpoint changed from /api/expense?resource=accounts to /api/transactions?resource=accounts
+      await fetch('/api/transactions?resource=accounts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...accForm, balance: Number(accForm.balance) || 0 }),
@@ -335,7 +337,8 @@ export default function ExpensePage() {
   }
 
   const deleteTx = async (id: string) => {
-    await fetch(`/api/expense?id=${id}`, { method: 'DELETE' })
+    // Endpoint changed from /api/expense?id= to /api/transactions?id=
+    await fetch(`/api/transactions?id=${id}`, { method: 'DELETE' })
     setTransactions(prev => prev.filter(t => t.id !== id))
   }
 

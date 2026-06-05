@@ -9,7 +9,7 @@ const menuItems = [
   { title: "Posts", url: "/admin-dashboard/posts", icon: StickyNote },
   { title: "New Post", url: "/admin-dashboard/posts/add-posts", icon: PencilLine },
   { title: "Tasks", url: "/admin-dashboard/tasks", icon: ListChecks },
-  { title: "Expense", url: "/admin-dashboard/expense", icon: Wallet },
+  { title: "Expense", url: "/admin-dashboard/expenses", icon: Wallet },
 
 ]
 
