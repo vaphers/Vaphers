@@ -1,8 +1,8 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import Image from "next/image";
-import { useState, useMemo, useEffect, useTransition } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -63,10 +63,7 @@ function BlogCardSkeleton() {
   );
 }
 
-const BlogList = ({ initialBlogs }: BlogListProps) => {
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
-  const [loadingId, setLoadingId] = useState<string | null>(null);
+export default function BlogList({ initialBlogs }: BlogListProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
   const [categoryFilter, setCategoryFilter] = useState("all");
@@ -75,11 +72,16 @@ const BlogList = ({ initialBlogs }: BlogListProps) => {
 
   const filteredBlogs = useMemo(() => {
     return initialBlogs.filter((blog) => {
-      const matchesSearch = !debouncedSearch.trim() ||
-        blog.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
-        blog.metaDescription.toLowerCase().includes(debouncedSearch.toLowerCase());
-      const matchesCategory = categoryFilter === "all" || 
+      const searchLower = debouncedSearch.toLowerCase().trim();
+      const matchesSearch = 
+        !searchLower ||
+        blog.title.toLowerCase().includes(searchLower) ||
+        blog.metaDescription.toLowerCase().includes(searchLower);
+        
+      const matchesCategory = 
+        categoryFilter === "all" || 
         blog.categories.includes(categoryFilter);
+        
       return matchesSearch && matchesCategory;
     });
   }, [initialBlogs, debouncedSearch, categoryFilter]);
@@ -92,14 +94,11 @@ const BlogList = ({ initialBlogs }: BlogListProps) => {
     page * BLOGS_PER_PAGE
   );
 
-  const handleBlogClick = (slug: string, id: string) => {
-    if (isPending) return;
-    setLoadingId(id);
-    startTransition(() => router.push(`/blogs/${slug}`));
-  };
-
   const goToPage = (newPage: number) => {
-    if (newPage >= 1 && newPage <= totalPages) setPage(newPage);
+    if (newPage >= 1 && newPage <= totalPages) {
+        setPage(newPage);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (
@@ -153,75 +152,61 @@ const BlogList = ({ initialBlogs }: BlogListProps) => {
           )
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {paginatedBlogs.map((blog, index) => {
-              const isLoading = isPending && loadingId === blog.id;
-              if (isLoading) return <BlogCardSkeleton key={blog.id} />;
-
-              return (
-                <div key={blog.id} className="relative group/blog-container">
-                  {/* Hidden anchor for right-click "Copy link" functionality */}
-                  <a
-                    href={`/blogs/${blog.slug}`}
-                    className="absolute inset-0 w-full h-full z-20 block"
-                    aria-hidden="true"
-                  />
-                  
-                  {/* Clickable card wrapper */}
-                  <div
-                    onClick={() => handleBlogClick(blog.slug, blog.id)}
-                    className={`block cursor-pointer transition-opacity h-full pointer-events-none group-hover/blog-container:shadow-lg ${
-                      isPending ? "opacity-50" : "opacity-100"
-                    }`}
-                  >
-                    <Card className="shadow-none overflow-hidden rounded-lg border hover:shadow-lg transition-all duration-200 pt-0 h-full flex flex-col group-hover/blog-container:border-blue-300">
-                      <CardHeader className="p-0">
-                        {blog.featuredImage ? (
-                          <Image
-                            src={blog.featuredImage}
-                            alt={blog.title}
-                            width={800}
-                            height={450}
-                            quality={60}
-                            priority={index < 3}
-                            className="aspect-video w-full object-cover group-hover/blog-container:scale-[1.02] transition-transform duration-200"
-                          />
-                        ) : (
-                          <div className="aspect-video bg-gradient-to-br from-blue-100 to-indigo-100 w-full border-b group-hover/blog-container:from-blue-200 group-hover/blog-container:to-indigo-200 transition-colors duration-200" />
-                        )}
-                      </CardHeader>
-                      <CardContent className="p-6 flex-1 flex flex-col">
-                        <div className="flex items-center gap-3 mb-4 flex-wrap">
-                          {blog.categories.slice(0, 3).map((cat) => (
-                            <Badge key={cat} className="bg-blue-100 text-blue-700 hover:bg-blue-200 transition-colors">
-                              {cat}
-                            </Badge>
-                          ))}
-                        </div>
-                        <h3 className="mt-4 text-xl font-semibold tracking-tight leading-tight group-hover/blog-container:text-blue-600 transition-colors duration-200 line-clamp-2">
-                          {blog.title}
-                        </h3>
-                        <p className="mt-3 text-muted-foreground text-sm leading-relaxed line-clamp-2 mb-6 flex-1">
-                          {blog.metaDescription}
-                        </p>
-                        <div className="mt-auto">
-                          <Button 
-                            size="sm" 
-                            className="shadow-none bg-blue-600 hover:bg-blue-700 text-white w-full sm:w-auto transition-all duration-200 group-hover/blog-container:scale-[1.02] group-hover/blog-container:shadow-md"
-                          >
-                            Read more <ChevronRight className="w-4 h-4 ml-1 group-hover/blog-container:translate-x-1 transition-transform duration-200" />
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
-              );
-            })}
+            {paginatedBlogs.map((blog, index) => (
+              <Link 
+                href={`/blogs/${blog.slug}`} 
+                key={blog.id} 
+                className="group/blog-container block h-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg"
+              >
+                <Card className="shadow-none overflow-hidden rounded-lg border hover:shadow-lg transition-all duration-200 pt-0 h-full flex flex-col group-hover/blog-container:border-blue-300">
+                  <CardHeader className="p-0">
+                    {blog.featuredImage ? (
+                      <Image
+                        src={blog.featuredImage}
+                        alt={blog.title}
+                        width={800}
+                        height={450}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        quality={60}
+                        priority={index < 3}
+                        className="aspect-video w-full object-cover group-hover/blog-container:scale-[1.02] transition-transform duration-200"
+                      />
+                    ) : (
+                      <div className="aspect-video bg-gradient-to-br from-blue-100 to-indigo-100 w-full border-b group-hover/blog-container:from-blue-200 group-hover/blog-container:to-indigo-200 transition-colors duration-200" />
+                    )}
+                  </CardHeader>
+                  <CardContent className="p-6 flex-1 flex flex-col">
+                    <div className="flex items-center gap-3 mb-4 flex-wrap">
+                      {blog.categories.slice(0, 3).map((cat) => (
+                        <Badge key={cat} className="bg-blue-100 text-blue-700 hover:bg-blue-200 transition-colors">
+                          {cat}
+                        </Badge>
+                      ))}
+                    </div>
+                    <h3 className="mt-4 text-xl font-semibold tracking-tight leading-tight group-hover/blog-container:text-blue-600 transition-colors duration-200 line-clamp-2">
+                      {blog.title}
+                    </h3>
+                    <p className="mt-3 text-muted-foreground text-sm leading-relaxed line-clamp-2 mb-6 flex-1">
+                      {blog.metaDescription}
+                    </p>
+                    <div className="mt-auto">
+                      <Button 
+                        size="sm" 
+                        tabIndex={-1}
+                        className="shadow-none bg-blue-600 hover:bg-blue-700 text-white w-full sm:w-auto transition-all duration-200 group-hover/blog-container:scale-[1.02] group-hover/blog-container:shadow-md"
+                      >
+                        Read more <ChevronRight className="w-4 h-4 ml-1 group-hover/blog-container:translate-x-1 transition-transform duration-200" />
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
           </div>
         )}
 
         {/* PAGINATION */}
-        {filteredBlogs.length > 0 && (
+        {filteredBlogs.length > 0 && totalPages > 1 && (
           <div className="flex items-center justify-center pt-12 gap-2 flex-wrap">
             <Button
               variant="outline"
@@ -233,40 +218,9 @@ const BlogList = ({ initialBlogs }: BlogListProps) => {
               Previous
             </Button>
 
-            <div className="flex items-center gap-1">
-              {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                const pageNum = i + 1;
-                return (
-                  <Button
-                    key={pageNum}
-                    size="sm"
-                    onClick={() => goToPage(pageNum)}
-                    className={`h-10 w-10 transition-all duration-200 ${
-                      page === pageNum
-                        ? "bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/25 border-blue-600"
-                        : "bg-background hover:bg-muted text-foreground border-border hover:shadow-sm"
-                    }`}
-                  >
-                    {pageNum}
-                  </Button>
-                );
-              })}
-              {totalPages > 5 && (
-                <>
-                  <span className="px-2 text-sm text-muted-foreground">...</span>
-                  <Button
-                    size="sm"
-                    onClick={() => goToPage(totalPages)}
-                    className={`h-10 w-10 transition-all duration-200 ${
-                      page === totalPages
-                        ? "bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/25 border-blue-600"
-                        : "bg-background hover:bg-muted text-foreground border-border hover:shadow-sm"
-                    }`}
-                  >
-                    {totalPages}
-                  </Button>
-                </>
-              )}
+            {/* Simplified safe pagination for performance */}
+            <div className="text-sm font-medium px-4">
+               Page {page} of {totalPages}
             </div>
 
             <Button
@@ -278,15 +232,19 @@ const BlogList = ({ initialBlogs }: BlogListProps) => {
             >
               Next
             </Button>
-
-            <div className="text-sm text-muted-foreground ml-4">
-              ({filteredBlogs.length} total)
-            </div>
           </div>
         )}
       </div>
     </div>
   );
-};
+}
 
-export default BlogList;
+
+
+
+
+
+
+
+
+

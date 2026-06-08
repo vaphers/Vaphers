@@ -1,6 +1,6 @@
 import './globals.css'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import { Bungee_Inline, Bungee_Shade } from 'next/font/google'
+import { Bungee_Inline, Bungee_Shade, Montserrat } from 'next/font/google'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { Toaster } from '@/components/ui/sonner'
 
@@ -18,6 +18,14 @@ const bungeeShade = Bungee_Shade({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-bungee-shade',
+})
+
+// Initialize Montserrat
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-montserrat',
 })
 
 export const metadata = {
@@ -105,7 +113,7 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`${bungeeInline.variable} ${bungeeShade.variable}`}
+      className={`${bungeeInline.variable} ${bungeeShade.variable} ${montserrat.variable}`}
     >
       <head>
         <script src="https://analytics.ahrefs.com/analytics.js" data-key="R7lOm40+Rsly7oGYYcI9cQ" async></script>
