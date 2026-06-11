@@ -128,10 +128,10 @@
 //   }
 //   const formattedDate = createdAtDate
 //     ? createdAtDate.toLocaleDateString(undefined, {
-//         year: "numeric",
-//         month: "long",
-//         day: "numeric",
-//       })
+//       year: "numeric",
+//       month: "long",
+//       day: "numeric",
+//     })
 //     : null;
 
 //   // --- AI Summary URLs ---
@@ -141,200 +141,154 @@
 
 //   const chatGptUrl = `https://chatgpt.com/?q=${encodedPrompt}`;
 //   const claudeUrl = `https://claude.ai/new?q=${encodedPrompt}`;
-//   const geminiUrl = `https://gemini.google.com/app`; // Gemini doesn't currently support auto-filling via URL param, so we just link to the app.
+//   const geminiUrl = `https://gemini.google.com/app`;
 
 //   return (
-//     <div className="min-h-screen bg-white font-sans text-gray-900 scroll-smooth">
+//     <div className="min-h-screen bg-white font-sans text-gray-900 scroll-smooth lg:-mt-36">
 //       <NavBar />
 
-//       <main className="w-full px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
-//         <div className="mx-auto max-w-[1200px]">
+//       {/* TOP HEADER & GRADIENT SECTION */}
+//       <div className="relative w-full pt-12 pb-6 bg-gradient-to-b from-blue-600 via-blue-400 via-blue-200  via-blue-50 to-white lg:pt-46">
+//         {/* Gradient Background: Starts blue and transitions to white explicitly till the heading */}
 
-//           <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
+//         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center relative z-10 ">
 
-//             {/* LEFT SIDEBAR */}
-//             <aside className="w-full lg:w-[300px] shrink-0 order-2 lg:order-1 space-y-10">
-//               <div className="lg:sticky lg:top-28 space-y-10">
+//           {/* Breadcrumbs (Inside the blue gradient area) */}
+//           <nav className="flex flex-wrap items-center justify-center text-xs text-white font-semibold tracking-wider uppercase mb-10 drop-shadow-sm">
+//             <a href="/" className="hover:text-blue-100 transition">Home</a>
+//             <ChevronRight className="w-3 h-3 mx-2 text-white/70" />
+//             <a href="/blogs" className="hover:text-blue-100 transition">Blog</a>
+//             <ChevronRight className="w-3 h-3 mx-2 text-white/70" />
+//             <span className="truncate max-w-[200px] sm:max-w-none text-white montserrat-medium">{blog.title}</span>
+//           </nav>
 
-//                 {/* Dynamic Table of Contents */}
-//                 {toc.length > 0 && (
-//                   <div className="hidden lg:block border border-gray-200 rounded-md p-5 bg-gray-50/50">
-//                     <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-4">
-//                       Table of Contents
-//                     </h4>
-//                     <ul className="space-y-3 text-sm text-gray-600 font-medium max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
-//                       {toc.map((item) => (
-//                         <li
-//                           key={item.id}
-//                           className={`hover:text-blue-600 transition ${
-//                             item.level === 3 ? "ml-4 text-gray-500 text-[13px]" : "text-gray-700"
-//                           }`}
-//                         >
-//                           <a href={`#${item.id}`} className="block line-clamp-2 leading-relaxed">
-//                             {item.text}
-//                           </a>
-//                         </li>
-//                       ))}
-//                     </ul>
-//                   </div>
-//                 )}
+//           {/* Heading (Dropping into the white transition area) */}
+//           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-[1.2] mb-8 text-white montserrat-medium">
+//             {blog.title}
+//           </h1>
 
-//                 {/* Share Section */}
-//                 <div>
+//           {/* Meta Info Row */}
+//           <div className="flex flex-col md:flex-row md:items-center justify-center gap-6 text-gray-600 text-sm mb-8 pb-8 border-b border-gray-200/60 max-w-4xl mx-auto">
+//             <div className="flex flex-wrap justify-center items-center gap-6">
+//               {/* Author */}
+//               <span className="flex items-center gap-2">
+//                 <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden border border-gray-100">
+//                   <User className="w-4 h-4 text-gray-500" />
+//                 </div>
+//                 <strong className="text-gray-900 font-medium">{blog.authorName}</strong>
+//               </span>
+
+//               {/* Date */}
+//               {formattedDate && (
+//                 <span className="flex items-center gap-1.5">
+//                   <Calendar className="w-4 h-4" />
+//                   {formattedDate}
+//                 </span>
+//               )}
+
+//               {/* Read Time */}
+//               <span className="flex items-center gap-1.5 hidden sm:flex">
+//                 <Clock className="w-4 h-4" />
+//                 10 min read
+//               </span>
+//             </div>
+
+//             {/* AI Summarization Buttons */}
+//             <div className="flex flex-wrap items-center justify-center gap-2 md:ml-auto">
+//               <span className="text-[11px] font-bold text-gray-600 uppercase tracking-wider hidden lg:block mr-1">
+//                 Summarize:
+//               </span>
+//               <a href={chatGptUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-gray-50 border border-gray-200 text-gray-700 rounded-md text-xs font-medium hover:bg-gray-100 transition">
+//                 <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047474/chat-gpt-logo_qf83fb.png" alt="ChatGPT" className="w-3.5 h-3.5" />
+//                 ChatGPT
+//               </a>
+//               <a href={claudeUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-gray-50 border border-gray-200 text-gray-700 rounded-md text-xs font-medium hover:bg-gray-100 transition">
+//                 <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1780919822/claude-logo_bpx1m6.png" alt="Claude" className="w-3.5 h-3.5" />
+//                 Claude
+//               </a>
+//               <a href={geminiUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-gray-50 border border-gray-200 text-gray-700 rounded-md text-xs font-medium hover:bg-gray-100 transition">
+//                 <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047475/gemini-logo_yes1g8.png" alt="Gemini" className="w-3.5 h-3.5" />
+//                 Gemini
+//               </a>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* MAIN 3-COLUMN CENTERED CONTENT WRAPPER */}
+//       <main className="w-full px-4 sm:px-6 lg:px-8 pb-16">
+//         <div className="mx-auto max-w-[1400px]">
+
+//           <div className="flex flex-col lg:flex-row justify-center items-start gap-8 xl:gap-16">
+
+//             {/* LEFT SIDEBAR: TOC & Share */}
+//             <aside className="w-full lg:w-[280px] shrink-0 lg:sticky lg:top-28 space-y-10 order-3 lg:order-1 mt-10 lg:mt-0">
+//               {/* Dynamic Table of Contents */}
+//               {toc.length > 0 && (
+//                 <div className="hidden lg:block border border-gray-200 rounded-md p-5 bg-gray-50/50">
 //                   <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-4">
-//                     Share this article
+//                     Table of Contents
 //                   </h4>
-//                   <div className="flex items-center gap-4">
-//                     <a href={`https://www.facebook.com/sharer/sharer.php?u=${blogUrl}`} target="_blank" rel="noopener noreferrer" className="opacity-80 hover:opacity-100 transition">
-//                       <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772000879/Platform_Facebook_Color_Original_kwwle4.svg" alt="Share on Facebook" className="w-6 h-6" />
-//                     </a>
-//                     <a href={`https://twitter.com/intent/tweet?url=${blogUrl}&text=${blog.title}`} target="_blank" rel="noopener noreferrer" className="opacity-80 hover:opacity-100 transition">
-//                       <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772000877/Platform_X_Twitter_Color_Original_qdvllx.png" alt="Share on X" className="w-6 h-6" />
-//                     </a>
-//                     <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${blogUrl}`} target="_blank" rel="noopener noreferrer" className="opacity-80 hover:opacity-100 transition">
-//                       <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772000875/Platform_LinkedIn_Color_Original_gbuviy.svg" alt="Share on LinkedIn" className="w-6 h-6" />
-//                     </a>
-//                     <a href={`https://www.reddit.com/submit?url=${blogUrl}&title=${blog.title}`} target="_blank" rel="noopener noreferrer" className="opacity-80 hover:opacity-100 transition">
-//                       <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772000873/Platform_Reddit_Color_Original_m07wa6.png" alt="Share on Reddit" className="w-6 h-6 object-contain" />
-//                     </a>
-//                   </div>
+//                   <ul className="space-y-3 text-sm text-gray-600 font-medium max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
+//                     {toc.map((item) => (
+//                       <li
+//                         key={item.id}
+//                         className={`hover:text-blue-600 transition ${item.level === 3 ? "ml-4 text-gray-500 text-[13px]" : "text-gray-700"
+//                           }`}
+//                       >
+//                         <a href={`#${item.id}`} className="block line-clamp-2 leading-relaxed">
+//                           {item.text}
+//                         </a>
+//                       </li>
+//                     ))}
+//                   </ul>
 //                 </div>
+//               )}
 
-//                 {/* Lead Card Sidebar */}
-//                 <div className="border border-gray-200 bg-white rounded-md p-5 shadow-sm">
-//                   <img
-//                     src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772000439/ChatGPT_Image_Feb_25_2026_11_50_44_AM_tgsao7.png"
-//                     alt="Local SEO growth"
-//                     className="w-full rounded-md mb-4 border border-gray-100"
-//                   />
-//                   <h3 className="text-lg font-semibold text-gray-900 mb-2 leading-snug">
-//                     Outrank Your Competitors This Season
-//                   </h3>
-//                   <p className="text-gray-600 text-sm mb-5 leading-relaxed">
-//                     See how you can dominate Google search results and book more jobs.
-//                   </p>
-//                   <BlogLeadForm />
+//               {/* Share Section */}
+//               <div>
+//                 <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-4">
+//                   Share this article
+//                 </h4>
+//                 <div className="flex items-center gap-4">
+//                   <a href={`https://www.facebook.com/sharer/sharer.php?u=${blogUrl}`} target="_blank" rel="noopener noreferrer" className="opacity-80 hover:opacity-100 transition">
+//                     <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772000879/Platform_Facebook_Color_Original_kwwle4.svg" alt="Share on Facebook" className="w-6 h-6" />
+//                   </a>
+//                   <a href={`https://twitter.com/intent/tweet?url=${blogUrl}&text=${blog.title}`} target="_blank" rel="noopener noreferrer" className="opacity-80 hover:opacity-100 transition">
+//                     <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772000877/Platform_X_Twitter_Color_Original_qdvllx.png" alt="Share on X" className="w-6 h-6" />
+//                   </a>
+//                   <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${blogUrl}`} target="_blank" rel="noopener noreferrer" className="opacity-80 hover:opacity-100 transition">
+//                     <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772000875/Platform_LinkedIn_Color_Original_gbuviy.svg" alt="Share on LinkedIn" className="w-6 h-6" />
+//                   </a>
+//                   <a href={`https://www.reddit.com/submit?url=${blogUrl}&title=${blog.title}`} target="_blank" rel="noopener noreferrer" className="opacity-80 hover:opacity-100 transition">
+//                     <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772000873/Platform_Reddit_Color_Original_m07wa6.png" alt="Share on Reddit" className="w-6 h-6 object-contain" />
+//                   </a>
 //                 </div>
-
 //               </div>
 //             </aside>
 
-//             {/* MAIN ARTICLE CONTENT */}
-//             <article className="w-full flex-1 min-w-0 max-w-4xl order-1 lg:order-2">
-
-//               {/* Breadcrumbs */}
-//               <nav className="flex items-center text-xs text-blue-600 font-semibold tracking-wider uppercase mb-5">
-//                 <a href="/" className="hover:underline">Home</a>
-//                 <ChevronRight className="w-3 h-3 mx-2 text-gray-400" />
-//                 <a href="/blogs" className="hover:underline">Blog</a>
-//                 <ChevronRight className="w-3 h-3 mx-2 text-gray-400" />
-//                 <span className="text-gray-500 truncate max-w-[200px] sm:max-w-none">{blog.title}</span>
-//               </nav>
-
-//               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold leading-[1.15] mb-6 text-gray-900">
-//                 {blog.title}
-//               </h1>
-
-//               {/* Meta Info Row */}
-//               <div className="flex flex-col sm:flex-row sm:items-center gap-4 text-gray-500 text-sm mb-8 pb-6 border-b border-gray-100">
-
-//                 <div className="flex items-center gap-6">
-//                   {/* Author */}
-//                   <span className="flex items-center gap-2">
-//                     <div className="w-7 h-7 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden border border-gray-300">
-//                       <User className="w-4 h-4 text-gray-500" />
-//                     </div>
-//                     <strong className="text-gray-900 font-medium">{blog.authorName}</strong>
-//                   </span>
-
-//                   {/* Date */}
-//                   {formattedDate && (
-//                     <span className="flex items-center gap-1.5">
-//                       <Calendar className="w-4 h-4" />
-//                       {formattedDate}
-//                     </span>
-//                   )}
-
-//                   {/* Generic Read Time Placeholder */}
-//                   <span className="flex items-center gap-1.5 hidden sm:flex">
-//                     <Clock className="w-4 h-4" />
-//                     10 min read
-//                   </span>
-//                 </div>
-
-//                 {/* AI Summarization Buttons */}
-//                 <div className="sm:ml-auto flex flex-wrap items-center gap-2">
-//                   <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider hidden lg:block mr-1">
-//                     Summarize:
-//                   </span>
-
-//                   {/* ChatGPT */}
-//                   <a
-//                     href={chatGptUrl}
-//                     target="_blank"
-//                     rel="noopener noreferrer"
-//                     className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-gray-50 border border-gray-200 text-gray-700 rounded-md text-xs font-medium hover:bg-gray-100 transition"
-//                   >
-//                     <img
-//                       src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047474/chat-gpt-logo_qf83fb.png"
-//                       alt="ChatGPT"
-//                       className="w-3.5 h-3.5"
-//                     />
-//                     ChatGPT
-//                   </a>
-
-//                   {/* Claude */}
-//                   <a
-//                     href={claudeUrl}
-//                     target="_blank"
-//                     rel="noopener noreferrer"
-//                     className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-gray-50 border border-gray-200 text-gray-700 rounded-md text-xs font-medium hover:bg-gray-100 transition"
-//                   >
-//                     <img
-//                       src="https://upload.wikimedia.org/wikipedia/commons/4/47/Claude_Ai.svg"
-//                       alt="Claude"
-//                       className="w-3.5 h-3.5"
-//                     />
-//                     Claude
-//                   </a>
-
-//                   {/* Gemini */}
-//                   <a
-//                     href={geminiUrl}
-//                     target="_blank"
-//                     rel="noopener noreferrer"
-//                     className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-gray-50 border border-gray-200 text-gray-700 rounded-md text-xs font-medium hover:bg-gray-100 transition"
-//                   >
-//                     <img
-//                       src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg"
-//                       alt="Gemini"
-//                       className="w-3.5 h-3.5"
-//                     />
-//                     Gemini
-//                   </a>
-//                 </div>
-//               </div>
+//             {/* CENTER: MAIN ARTICLE CONTENT */}
+//             <article className="w-full max-w-[800px] flex-1 shrink-1 order-1 lg:order-2">
 
 //               {/* Featured Image */}
 //               {blog.featuredImage && (
 //                 <img
 //                   src={blog.featuredImage}
 //                   alt={blog.title}
-//                   className="w-full aspect-[16/9] object-cover rounded-lg mb-10 border border-gray-100"
+//                   className="w-full aspect-[16/9] object-cover rounded-lg mb-10 border border-gray-100 shadow-sm"
 //                   loading="eager"
 //                 />
 //               )}
 
 //               {/* Injected HTML Content with Dynamic Anchors for TOC */}
 //               <div
-//                 className="prose prose-lg max-w-none"
+//                 className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-a:text-blue-600 hover:prose-a:text-blue-700"
 //                 dangerouslySetInnerHTML={{ __html: processedHtml }}
 //               />
 
 //               {/* Author / Company Bio Section Bottom */}
-//               <div className="mt-12 border-t border-gray-200 pt-8">
+//               <div className="mt-16 border-t border-gray-200 pt-8">
 //                 <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 sm:p-8 flex flex-col sm:flex-row gap-6 items-start">
-
 //                   {/* Profile Image */}
 //                   <img
 //                     src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772005005/Logo_edsgzp.jpg"
@@ -348,10 +302,10 @@
 //                       About Vaphers
 //                     </h3>
 //                     <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-//                       The Vaphers team consists of SEO strategists, PPC specialists, web designers, 
-//                       and analytics experts dedicated to driving measurable digital growth. 
-//                       Using data-driven strategies, advanced search marketing techniques, and 
-//                       conversion-focused design, Vaphers helps businesses increase visibility, 
+//                       The Vaphers team consists of SEO strategists, PPC specialists, web designers,
+//                       and analytics experts dedicated to driving measurable digital growth.
+//                       Using data-driven strategies, advanced search marketing techniques, and
+//                       conversion-focused design, Vaphers helps businesses increase visibility,
 //                       generate qualified leads, and scale revenue sustainably.
 //                     </p>
 //                     <a
@@ -367,21 +321,40 @@
 //               </div>
 
 //             </article>
+
+//             {/* RIGHT SIDEBAR: Lead Card */}
+//             <aside className="w-full lg:w-[280px] shrink-0 lg:sticky lg:top-28 space-y-10 order-2 lg:order-3 mt-10 lg:mt-0">
+//               <div className="border border-gray-200 bg-white rounded-md p-5 shadow-sm">
+//                 <img
+//                   src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772000439/ChatGPT_Image_Feb_25_2026_11_50_44_AM_tgsao7.png"
+//                   alt="Local SEO growth"
+//                   className="w-full rounded-md mb-4 border border-gray-100"
+//                 />
+//                 <h3 className="text-lg font-semibold text-gray-900 mb-2 text-center leading-snug">
+//                   Outrank Your Competitors This Season
+//                 </h3>
+//                 <p className="text-gray-600 text-sm mb-5 leading-relaxed">
+//                   See how you can dominate Google search results and book more jobs.
+//                 </p>
+//                 <BlogLeadForm />
+//               </div>
+//             </aside>
+
 //           </div>
 //         </div>
 //       </main>
 
 //       {/* Recent Posts Grid */}
-//       <section className="w-full py-16 bg-gray-50 border-t border-gray-200">
+//       <section className="w-full py-16 bg-white border-t border-gray-200">
 //         <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
 
-//           <div className="flex items-center gap-3 mb-10">
-//              <div className="w-3 h-3 rounded-full bg-blue-600"></div>
-//              <h3 className="text-2xl font-semibold text-gray-900">What to read next</h3>
+//           <div className="flex items-center justify-center lg:justify-start gap-3 mb-10">
+//             <div className="w-4 h-4 rounded-full bg-blue-600"></div>
+//             <h3 className="text-2xl lg:text-4xl font-bold text-gray-900 montserrat-medium">What to read next ? </h3>
 //           </div>
 
 //           {latestBlogs.length === 0 ? (
-//             <p className="text-gray-500">No other posts yet.</p>
+//             <p className="text-gray-500 text-center lg:text-left">No other posts yet.</p>
 //           ) : (
 //             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
 //               {latestBlogs.slice(0, 6).map((item: any) => {
@@ -392,10 +365,10 @@
 
 //                 const sidebarDate = d
 //                   ? d.toLocaleDateString(undefined, {
-//                       year: "numeric",
-//                       month: "short",
-//                       day: "numeric",
-//                     })
+//                     year: "numeric",
+//                     month: "short",
+//                     day: "numeric",
+//                   })
 //                   : "";
 
 //                 return (
@@ -438,6 +411,18 @@
 //     </div>
 //   );
 // }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -606,11 +591,10 @@ export default async function BlogPage({ params }: Props) {
 
       {/* TOP HEADER & GRADIENT SECTION */}
       <div className="relative w-full pt-12 pb-6 bg-gradient-to-b from-blue-600 via-blue-400 via-blue-200  via-blue-50 to-white lg:pt-46">
-        {/* Gradient Background: Starts blue and transitions to white explicitly till the heading */}
 
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center relative z-10 ">
 
-          {/* Breadcrumbs (Inside the blue gradient area) */}
+          {/* Breadcrumbs */}
           <nav className="flex flex-wrap items-center justify-center text-xs text-white font-semibold tracking-wider uppercase mb-10 drop-shadow-sm">
             <a href="/" className="hover:text-blue-100 transition">Home</a>
             <ChevronRight className="w-3 h-3 mx-2 text-white/70" />
@@ -619,7 +603,7 @@ export default async function BlogPage({ params }: Props) {
             <span className="truncate max-w-[200px] sm:max-w-none text-white montserrat-medium">{blog.title}</span>
           </nav>
 
-          {/* Heading (Dropping into the white transition area) */}
+          {/* Heading */}
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-[1.2] mb-8 text-white montserrat-medium">
             {blog.title}
           </h1>
@@ -627,7 +611,6 @@ export default async function BlogPage({ params }: Props) {
           {/* Meta Info Row */}
           <div className="flex flex-col md:flex-row md:items-center justify-center gap-6 text-gray-600 text-sm mb-8 pb-8 border-b border-gray-200/60 max-w-4xl mx-auto">
             <div className="flex flex-wrap justify-center items-center gap-6">
-              {/* Author */}
               <span className="flex items-center gap-2">
                 <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden border border-gray-100">
                   <User className="w-4 h-4 text-gray-500" />
@@ -635,7 +618,6 @@ export default async function BlogPage({ params }: Props) {
                 <strong className="text-gray-900 font-medium">{blog.authorName}</strong>
               </span>
 
-              {/* Date */}
               {formattedDate && (
                 <span className="flex items-center gap-1.5">
                   <Calendar className="w-4 h-4" />
@@ -643,14 +625,12 @@ export default async function BlogPage({ params }: Props) {
                 </span>
               )}
 
-              {/* Read Time */}
               <span className="flex items-center gap-1.5 hidden sm:flex">
                 <Clock className="w-4 h-4" />
                 10 min read
               </span>
             </div>
 
-            {/* AI Summarization Buttons */}
             <div className="flex flex-wrap items-center justify-center gap-2 md:ml-auto">
               <span className="text-[11px] font-bold text-gray-600 uppercase tracking-wider hidden lg:block mr-1">
                 Summarize:
@@ -672,7 +652,6 @@ export default async function BlogPage({ params }: Props) {
         </div>
       </div>
 
-      {/* MAIN 3-COLUMN CENTERED CONTENT WRAPPER */}
       <main className="w-full px-4 sm:px-6 lg:px-8 pb-16">
         <div className="mx-auto max-w-[1400px]">
 
@@ -680,7 +659,6 @@ export default async function BlogPage({ params }: Props) {
 
             {/* LEFT SIDEBAR: TOC & Share */}
             <aside className="w-full lg:w-[280px] shrink-0 lg:sticky lg:top-28 space-y-10 order-3 lg:order-1 mt-10 lg:mt-0">
-              {/* Dynamic Table of Contents */}
               {toc.length > 0 && (
                 <div className="hidden lg:block border border-gray-200 rounded-md p-5 bg-gray-50/50">
                   <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-4">
@@ -702,7 +680,6 @@ export default async function BlogPage({ params }: Props) {
                 </div>
               )}
 
-              {/* Share Section */}
               <div>
                 <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-4">
                   Share this article
@@ -727,7 +704,6 @@ export default async function BlogPage({ params }: Props) {
             {/* CENTER: MAIN ARTICLE CONTENT */}
             <article className="w-full max-w-[800px] flex-1 shrink-1 order-1 lg:order-2">
 
-              {/* Featured Image */}
               {blog.featuredImage && (
                 <img
                   src={blog.featuredImage}
@@ -737,23 +713,23 @@ export default async function BlogPage({ params }: Props) {
                 />
               )}
 
-              {/* Injected HTML Content with Dynamic Anchors for TOC */}
+              {/* 
+                  IMPORTANT: Added prose-figure & prose-figcaption Tailwind Modifiers below
+                  These force the image & caption into a centered, beautiful layout! 
+              */}
               <div
-                className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-a:text-blue-600 hover:prose-a:text-blue-700"
+                className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-a:text-blue-600 hover:prose-a:text-blue-700 prose-figure:my-8 prose-figure:flex prose-figure:flex-col prose-figure:items-center prose-figcaption:text-[15px] prose-figcaption:text-gray-500 prose-figcaption:mt-3 prose-figcaption:text-center prose-img:rounded-lg prose-img:shadow-sm"
                 dangerouslySetInnerHTML={{ __html: processedHtml }}
               />
 
-              {/* Author / Company Bio Section Bottom */}
               <div className="mt-16 border-t border-gray-200 pt-8">
                 <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 sm:p-8 flex flex-col sm:flex-row gap-6 items-start">
-                  {/* Profile Image */}
                   <img
                     src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772005005/Logo_edsgzp.jpg"
                     alt="Vaphers Logo"
                     className="w-16 h-16 rounded-md object-cover border border-gray-200 shrink-0"
                   />
 
-                  {/* Content */}
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
                       About Vaphers
