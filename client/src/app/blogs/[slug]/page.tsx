@@ -149,11 +149,10 @@
 
 //       {/* TOP HEADER & GRADIENT SECTION */}
 //       <div className="relative w-full pt-12 pb-6 bg-gradient-to-b from-blue-600 via-blue-400 via-blue-200  via-blue-50 to-white lg:pt-46">
-//         {/* Gradient Background: Starts blue and transitions to white explicitly till the heading */}
 
 //         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center relative z-10 ">
 
-//           {/* Breadcrumbs (Inside the blue gradient area) */}
+//           {/* Breadcrumbs */}
 //           <nav className="flex flex-wrap items-center justify-center text-xs text-white font-semibold tracking-wider uppercase mb-10 drop-shadow-sm">
 //             <a href="/" className="hover:text-blue-100 transition">Home</a>
 //             <ChevronRight className="w-3 h-3 mx-2 text-white/70" />
@@ -162,7 +161,7 @@
 //             <span className="truncate max-w-[200px] sm:max-w-none text-white montserrat-medium">{blog.title}</span>
 //           </nav>
 
-//           {/* Heading (Dropping into the white transition area) */}
+//           {/* Heading */}
 //           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-[1.2] mb-8 text-white montserrat-medium">
 //             {blog.title}
 //           </h1>
@@ -170,7 +169,6 @@
 //           {/* Meta Info Row */}
 //           <div className="flex flex-col md:flex-row md:items-center justify-center gap-6 text-gray-600 text-sm mb-8 pb-8 border-b border-gray-200/60 max-w-4xl mx-auto">
 //             <div className="flex flex-wrap justify-center items-center gap-6">
-//               {/* Author */}
 //               <span className="flex items-center gap-2">
 //                 <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden border border-gray-100">
 //                   <User className="w-4 h-4 text-gray-500" />
@@ -178,7 +176,6 @@
 //                 <strong className="text-gray-900 font-medium">{blog.authorName}</strong>
 //               </span>
 
-//               {/* Date */}
 //               {formattedDate && (
 //                 <span className="flex items-center gap-1.5">
 //                   <Calendar className="w-4 h-4" />
@@ -186,14 +183,12 @@
 //                 </span>
 //               )}
 
-//               {/* Read Time */}
 //               <span className="flex items-center gap-1.5 hidden sm:flex">
 //                 <Clock className="w-4 h-4" />
 //                 10 min read
 //               </span>
 //             </div>
 
-//             {/* AI Summarization Buttons */}
 //             <div className="flex flex-wrap items-center justify-center gap-2 md:ml-auto">
 //               <span className="text-[11px] font-bold text-gray-600 uppercase tracking-wider hidden lg:block mr-1">
 //                 Summarize:
@@ -215,7 +210,6 @@
 //         </div>
 //       </div>
 
-//       {/* MAIN 3-COLUMN CENTERED CONTENT WRAPPER */}
 //       <main className="w-full px-4 sm:px-6 lg:px-8 pb-16">
 //         <div className="mx-auto max-w-[1400px]">
 
@@ -223,7 +217,6 @@
 
 //             {/* LEFT SIDEBAR: TOC & Share */}
 //             <aside className="w-full lg:w-[280px] shrink-0 lg:sticky lg:top-28 space-y-10 order-3 lg:order-1 mt-10 lg:mt-0">
-//               {/* Dynamic Table of Contents */}
 //               {toc.length > 0 && (
 //                 <div className="hidden lg:block border border-gray-200 rounded-md p-5 bg-gray-50/50">
 //                   <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-4">
@@ -245,7 +238,6 @@
 //                 </div>
 //               )}
 
-//               {/* Share Section */}
 //               <div>
 //                 <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-4">
 //                   Share this article
@@ -270,7 +262,6 @@
 //             {/* CENTER: MAIN ARTICLE CONTENT */}
 //             <article className="w-full max-w-[800px] flex-1 shrink-1 order-1 lg:order-2">
 
-//               {/* Featured Image */}
 //               {blog.featuredImage && (
 //                 <img
 //                   src={blog.featuredImage}
@@ -280,23 +271,23 @@
 //                 />
 //               )}
 
-//               {/* Injected HTML Content with Dynamic Anchors for TOC */}
+//               {/* 
+//                   IMPORTANT: Added prose-figure & prose-figcaption Tailwind Modifiers below
+//                   These force the image & caption into a centered, beautiful layout! 
+//               */}
 //               <div
-//                 className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-a:text-blue-600 hover:prose-a:text-blue-700"
+//                 className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-a:text-blue-600 hover:prose-a:text-blue-700 prose-figure:my-8 prose-figure:flex prose-figure:flex-col prose-figure:items-center prose-figcaption:text-[15px] prose-figcaption:text-gray-500 prose-figcaption:mt-3 prose-figcaption:text-center prose-img:rounded-lg prose-img:shadow-sm"
 //                 dangerouslySetInnerHTML={{ __html: processedHtml }}
 //               />
 
-//               {/* Author / Company Bio Section Bottom */}
 //               <div className="mt-16 border-t border-gray-200 pt-8">
 //                 <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 sm:p-8 flex flex-col sm:flex-row gap-6 items-start">
-//                   {/* Profile Image */}
 //                   <img
 //                     src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772005005/Logo_edsgzp.jpg"
 //                     alt="Vaphers Logo"
 //                     className="w-16 h-16 rounded-md object-cover border border-gray-200 shrink-0"
 //                   />
 
-//                   {/* Content */}
 //                   <div>
 //                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
 //                       About Vaphers
@@ -428,18 +419,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 import { Badge } from "@/components/ui/badge";
 import NavBar from "@/PageComponents/Global Components/Header";
 import Footer from "@/PageComponents/Global Components/Footer";
@@ -447,6 +426,7 @@ import type { Metadata } from "next";
 import ContactSection from "@/PageComponents/Landing Home/ContactSection";
 import MarketingPriceCalculator from "@/PageComponents/Global Components/PriceCalc";
 import BlogLeadForm from "@/PageComponents/Blogs Components/BlogLeadForm";
+import SummarizeButtons from "@/PageComponents/Blogs Components/SummarizeButtons"; // <-- Import the new component
 import { Calendar, User, Clock, ChevronRight } from "lucide-react";
 
 type Props = {
@@ -516,6 +496,18 @@ function processHtmlForToc(html: string) {
   return { toc, processedHtml };
 }
 
+// --- READ TIME CALCULATOR ---
+function calculateReadTime(html: string) {
+  if (!html) return "1 min read";
+  // Strip all HTML tags to get pure text
+  const text = html.replace(/<[^>]+>/g, ' ');
+  // Count words by splitting by spaces
+  const wordCount = text.split(/\s+/).filter(word => word.length > 0).length;
+  // Average reading speed is 225 words per minute
+  const minutes = Math.ceil(wordCount / 225);
+  return `${minutes || 1} min read`;
+}
+
 // --- METADATA ---
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -576,14 +568,8 @@ export default async function BlogPage({ params }: Props) {
     })
     : null;
 
-  // --- AI Summary URLs ---
   const blogUrl = `https://www.vaphers.com/blogs/${slug}`;
-  const summaryPrompt = `Summarize this helpful article from SEO and PPC leader Vaphers:\n\nTitle: "${blog.title}"\nURL: ${blogUrl}\n\nPlease provide:\n• A concise summary\n• Key takeaways\n• Who this article is for`;
-  const encodedPrompt = encodeURIComponent(summaryPrompt);
-
-  const chatGptUrl = `https://chatgpt.com/?q=${encodedPrompt}`;
-  const claudeUrl = `https://claude.ai/new?q=${encodedPrompt}`;
-  const geminiUrl = `https://gemini.google.com/app`;
+  const dynamicReadTime = calculateReadTime(blog.contentHtml ?? "");
 
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900 scroll-smooth lg:-mt-36">
@@ -591,7 +577,6 @@ export default async function BlogPage({ params }: Props) {
 
       {/* TOP HEADER & GRADIENT SECTION */}
       <div className="relative w-full pt-12 pb-6 bg-gradient-to-b from-blue-600 via-blue-400 via-blue-200  via-blue-50 to-white lg:pt-46">
-
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center relative z-10 ">
 
           {/* Breadcrumbs */}
@@ -625,29 +610,16 @@ export default async function BlogPage({ params }: Props) {
                 </span>
               )}
 
+              {/* Dynamic Read Time */}
               <span className="flex items-center gap-1.5 hidden sm:flex">
                 <Clock className="w-4 h-4" />
-                10 min read
+                {dynamicReadTime}
               </span>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-2 md:ml-auto">
-              <span className="text-[11px] font-bold text-gray-600 uppercase tracking-wider hidden lg:block mr-1">
-                Summarize:
-              </span>
-              <a href={chatGptUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-gray-50 border border-gray-200 text-gray-700 rounded-md text-xs font-medium hover:bg-gray-100 transition">
-                <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047474/chat-gpt-logo_qf83fb.png" alt="ChatGPT" className="w-3.5 h-3.5" />
-                ChatGPT
-              </a>
-              <a href={claudeUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-gray-50 border border-gray-200 text-gray-700 rounded-md text-xs font-medium hover:bg-gray-100 transition">
-                <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1780919822/claude-logo_bpx1m6.png" alt="Claude" className="w-3.5 h-3.5" />
-                Claude
-              </a>
-              <a href={geminiUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-gray-50 border border-gray-200 text-gray-700 rounded-md text-xs font-medium hover:bg-gray-100 transition">
-                <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761047475/gemini-logo_yes1g8.png" alt="Gemini" className="w-3.5 h-3.5" />
-                Gemini
-              </a>
-            </div>
+            {/* Injected Client Component Buttons */}
+            <SummarizeButtons title={blog.title} blogUrl={blogUrl} />
+            
           </div>
         </div>
       </div>
@@ -713,10 +685,6 @@ export default async function BlogPage({ params }: Props) {
                 />
               )}
 
-              {/* 
-                  IMPORTANT: Added prose-figure & prose-figcaption Tailwind Modifiers below
-                  These force the image & caption into a centered, beautiful layout! 
-              */}
               <div
                 className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-a:text-blue-600 hover:prose-a:text-blue-700 prose-figure:my-8 prose-figure:flex prose-figure:flex-col prose-figure:items-center prose-figcaption:text-[15px] prose-figcaption:text-gray-500 prose-figcaption:mt-3 prose-figcaption:text-center prose-img:rounded-lg prose-img:shadow-sm"
                 dangerouslySetInnerHTML={{ __html: processedHtml }}
@@ -804,6 +772,9 @@ export default async function BlogPage({ params }: Props) {
                   })
                   : "";
 
+                // Calculate read time for the sidebar items dynamically as well
+                const sidebarReadTime = calculateReadTime(item.contentHtml ?? "");
+
                 return (
                   <a
                     key={item.id}
@@ -827,7 +798,7 @@ export default async function BlogPage({ params }: Props) {
 
                       <div className="mt-auto text-sm font-medium text-gray-500">
                         {sidebarDate && <span>{sidebarDate} &bull; </span>}
-                        <span>5 min read</span>
+                        <span>{sidebarReadTime}</span>
                       </div>
                     </div>
                   </a>
