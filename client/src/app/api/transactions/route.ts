@@ -78,6 +78,7 @@ export async function POST(request: NextRequest) {
         type: data.type || 'bank',
         color: data.color || '#6366f1',
         balance: Number(data.balance),
+        savingsBalance: Number(data.savingsBalance || 0),
         currency: data.currency || 'INR',
         createdAt: new Date().toISOString(),
       });
@@ -113,7 +114,6 @@ export async function POST(request: NextRequest) {
       mainCategory: data.mainCategory,
       subCategory: data.subCategory || '',
       date: data.date,
-      note: data.note || '',
       tags: data.tags || [],
       accountId: data.accountId || null,
       toAccountId: data.toAccountId || null,
@@ -125,12 +125,25 @@ export async function POST(request: NextRequest) {
     // Update account balance(s)
     if (data.accountId) {
       const accRef = db.collection('accounts').doc(data.accountId);
-      const delta =
-        data.type === 'income' ? Number(data.amount) :
-        data.type === 'expense' ? -Number(data.amount) :
-        data.type === 'transfer' ? -Number(data.amount) : 0;
-      batch.update(accRef, { balance: admin.firestore.FieldValue.increment(delta) });
+      
+      if (data.type === 'save') {
+        // Allocate to savings (total balance unmodified, savings goes up)
+        batch.update(accRef, { savingsBalance: admin.firestore.FieldValue.increment(Number(data.amount)) });
+      } 
+      else if (data.type === 'withdraw') {
+        // Withdraw from savings (total balance unmodified, savings goes down)
+        batch.update(accRef, { savingsBalance: admin.firestore.FieldValue.increment(-Number(data.amount)) });
+      }
+      else {
+        // Normal balance mutation
+        const delta =
+          data.type === 'income' ? Number(data.amount) :
+          data.type === 'expense' ? -Number(data.amount) :
+          data.type === 'transfer' ? -Number(data.amount) : 0;
+        batch.update(accRef, { balance: admin.firestore.FieldValue.increment(delta) });
+      }
     }
+
     if (data.type === 'transfer' && data.toAccountId) {
       const toRef = db.collection('accounts').doc(data.toAccountId);
       batch.update(toRef, { balance: admin.firestore.FieldValue.increment(Number(data.amount)) });
@@ -154,7 +167,7 @@ export async function DELETE(request: NextRequest) {
     const resource = searchParams.get('resource') || 'transactions';
     if (!id) return NextResponse.json({ error: 'Missing id' }, { status: 400 });
 
-    // When deleting a transaction, gracefully revert the account balance changes!
+    // When deleting a transaction, gracefully revert the account balance & savings changes!
     if (resource === 'transactions') {
       const txRef = db.collection('transactions').doc(id);
       const txSnap = await txRef.get();
@@ -165,11 +178,20 @@ export async function DELETE(request: NextRequest) {
 
         if (txData?.accountId) {
           const accRef = db.collection('accounts').doc(txData.accountId);
-          const reverseDelta =
-            txData.type === 'income' ? -Number(txData.amount) :
-            txData.type === 'expense' ? Number(txData.amount) :
-            txData.type === 'transfer' ? Number(txData.amount) : 0;
-          batch.update(accRef, { balance: admin.firestore.FieldValue.increment(reverseDelta) });
+          
+          if (txData.type === 'save') {
+            batch.update(accRef, { savingsBalance: admin.firestore.FieldValue.increment(-Number(txData.amount)) });
+          } 
+          else if (txData.type === 'withdraw') {
+            batch.update(accRef, { savingsBalance: admin.firestore.FieldValue.increment(Number(txData.amount)) });
+          }
+          else {
+            const reverseDelta =
+              txData.type === 'income' ? -Number(txData.amount) :
+              txData.type === 'expense' ? Number(txData.amount) :
+              txData.type === 'transfer' ? Number(txData.amount) : 0;
+            batch.update(accRef, { balance: admin.firestore.FieldValue.increment(reverseDelta) });
+          }
         }
 
         if (txData?.type === 'transfer' && txData.toAccountId) {
