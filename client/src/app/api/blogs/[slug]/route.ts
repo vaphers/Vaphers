@@ -93,3 +93,31 @@ export async function PUT(
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
+
+export async function DELETE(
+  req: NextRequest,
+  context: { params: Promise<{ slug: string }> }
+) {
+  try {
+    const { slug } = await context.params;
+    
+    if (!slug) {
+      return NextResponse.json({ error: "Missing slug" }, { status: 400 });
+    }
+
+    const query = db.collection("blogs").where("slug", "==", slug).limit(1);
+    const snapshot = await query.get();
+
+    if (snapshot.empty) {
+      return NextResponse.json({ error: "Blog not found" }, { status: 404 });
+    }
+
+    const docRef = snapshot.docs[0].ref;
+    await docRef.delete();
+
+    return NextResponse.json({ success: true, message: "Blog deleted successfully" });
+  } catch (err) {
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
+  }
+}

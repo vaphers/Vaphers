@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { LogOut, ChevronLeft, ChevronRight, ChevronUp, X, PencilLine, ChartArea, ListChecks, StickyNote, Loader2, Wallet } from "lucide-react"
+import { LogOut, ChevronLeft, ChevronRight, ChevronUp, X, PencilLine, ChartArea, ListChecks, StickyNote, Loader2, Wallet, Upload } from "lucide-react"
 import Link from "next/link"
 
 const menuItems = [
@@ -10,6 +10,7 @@ const menuItems = [
   { title: "Expense", url: "/admin-dashboard/expenses", icon: Wallet },
   { title: "Tasks", url: "/admin-dashboard/tasks", icon: ListChecks },
   { title: "New Post", url: "/admin-dashboard/posts/add-posts", icon: PencilLine },
+  { title: "Bulk Upload", url: "/admin-dashboard/bulk-upload", icon: Upload },
 
 
 ]
