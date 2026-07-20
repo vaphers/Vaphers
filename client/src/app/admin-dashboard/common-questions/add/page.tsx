@@ -93,10 +93,10 @@ export default function AddCommonQuestionPage() {
   return (
     <div className="flex flex-col lg:flex-row mx-auto pt-0 w-full min-h-screen">
       <div className="flex-1 w-full min-w-0 p-4 lg:p-6">
-        <div className="mb-4 pb-2 border-b border-gray-200">
+        {/* <div className="mb-4 pb-2 border-b border-gray-200">
           <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Common Questions</span>
           <h2 className="text-2xl font-bold text-gray-900">Add New Common Question</h2>
-        </div>
+        </div> */}
         <Tiptap
           title={title}
           onTitleChange={setTitle}
