@@ -261,9 +261,8 @@ export default function MobileMenu({ open, setOpen }: MobileMenuProps) {
 
   // Stagger delay for direct links
   const directLinks = [
-    { href: "/blogs", label: "Blogs" },
     { href: "/pricing", label: "Pricing" },
-    { href: "/about-us", label: "About Us" },
+    { href: "/contact", label: "Contact Us" },
   ]
 
   return (
@@ -340,6 +339,14 @@ export default function MobileMenu({ open, setOpen }: MobileMenuProps) {
                   { label: "Search Engine Optimization", items: digitalMarketing },
                   { label: "Website Development", items: webDev },
                   { label: "PPC Marketing", items: creativeServices },
+                  { 
+                    label: "Learn", 
+                    items: [
+                      { name: "Blogs", href: "/blogs" },
+                      { name: "Common Questions", href: "/common-questions" },
+                      { name: "About Us", href: "/about-us" },
+                    ] 
+                  },
                 ].map(({ label, items }) => (
                   <motion.div
                     key={label}

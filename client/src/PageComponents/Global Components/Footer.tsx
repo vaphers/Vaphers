@@ -275,6 +275,7 @@ const Footer: React.FC = () => {
             <h4 className="text-lg text-white font-semibold mb-6">Explore</h4>
             <ul className="text-sm space-y-4">
               <li><Link href="/blogs" className="text-blue-100 hover:text-white transition-colors font-medium">Blogs</Link></li>
+              <li><Link href="/common-questions" className="text-blue-100 hover:text-white transition-colors font-medium">Common Questions</Link></li>
               <li><Link href="/about-us" className="text-blue-100 hover:text-white transition-colors font-medium">About Us</Link></li>
               <li><Link href="/pricing" className="text-blue-100 hover:text-white transition-colors font-medium">Pricing</Link></li>
               <li><Link href="/contact" className="text-blue-100 hover:text-white transition-colors font-medium">Contact Us</Link></li>

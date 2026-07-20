@@ -7,6 +7,7 @@ import dynamic from "next/dynamic"
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
 import { Bars3Icon, ChevronDownIcon } from "@heroicons/react/24/outline"
 import { digitalMarketing, webDev, creativeServices, featured, cta } from "@/lib/menu-data"
+import { BookOpen, HelpCircle, Info } from "lucide-react"
 
 const MobileMenu = dynamic(() => import("./MobileMenu"), { ssr: false })
 
@@ -52,7 +53,7 @@ export default function NavBar() {
                 <ChevronDownIcon aria-hidden="true" className="size-5 flex-none text-gray-500" />
               </button>
             </PopoverTrigger>
-            <PopoverContent className="absolute left-6 transform -translate-x-1/3 border border-blue-500 mt-10 z-[60] p-0 shadow-2xl bg-white w-screen max-w-6xl rounded-3xl">
+            <PopoverContent className="absolute left-44 transform -translate-x-1/2 border border-blue-500 mt-10 z-[60] p-0 shadow-2xl bg-white w-screen max-w-6xl rounded-3xl">
               <div className="p-8">
                 <div className="grid grid-cols-4 gap-8 mb-8">
                   {/* SEO Column */}
@@ -164,8 +165,48 @@ export default function NavBar() {
           </Popover>
 
           <Link href="/pricing" className="text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">Pricing</Link>
-          <Link href="/blogs" className="text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">Blogs</Link>
-          <Link href="/about-us" className="text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">About Us</Link>
+
+          {/* Learn Dropdown */}
+          <Popover>
+            <PopoverTrigger asChild>
+              <button className="flex items-center gap-x-1 text-base font-semibold text-gray-800 hover:text-[#4f39f6] transition-colors duration-200 outline-none cursor-pointer">
+                Learn
+                <ChevronDownIcon aria-hidden="true" className="size-5 flex-none text-gray-500" />
+              </button>
+            </PopoverTrigger>
+            <PopoverContent className="border border-blue-500 mt-4 z-[60] p-3 shadow-xl bg-white w-72 rounded-2xl">
+              <div className="space-y-1">
+                <Link href="/blogs" className="flex items-start gap-3 p-3 rounded-xl hover:bg-blue-50/70 transition-colors group">
+                  <div className="p-2 rounded-lg bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0">
+                    <BookOpen className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">Blogs</p>
+                    <p className="text-xs text-gray-500">Latest articles & insights</p>
+                  </div>
+                </Link>
+                <Link href="/common-questions" className="flex items-start gap-3 p-3 rounded-xl hover:bg-blue-50/70 transition-colors group">
+                  <div className="p-2 rounded-lg bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0">
+                    <HelpCircle className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">Common Questions</p>
+                    <p className="text-xs text-gray-500">Explore answered FAQs</p>
+                  </div>
+                </Link>
+                <Link href="/about-us" className="flex items-start gap-3 p-3 rounded-xl hover:bg-blue-50/70 transition-colors group">
+                  <div className="p-2 rounded-lg bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0">
+                    <Info className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">About Us</p>
+                    <p className="text-xs text-gray-500">Our team & mission</p>
+                  </div>
+                </Link>
+              </div>
+            </PopoverContent>
+          </Popover>
+
           <Link href="/contact" className="text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">Contact Us</Link>
         </div>
 

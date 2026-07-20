@@ -224,16 +224,31 @@ async function getBlogs() {
   }
 }
 
+async function getCommonQuestions() {
+  try {
+    const snapshot = await db.collection("common_questions").get();
+    if (snapshot.empty) return [];
+    return snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+  } catch (error) {
+    console.error("Error fetching common questions for sitemap:", error);
+    return [];
+  }
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://www.vaphers.com";
 
-  // 3. Static routes (Added the main /blogs page here!)
+  // 3. Static routes
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${baseUrl}`, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
     { url: `${baseUrl}/pricing`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/about-us`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
-    { url: `${baseUrl}/blogs`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 }, // <-- Added
+    { url: `${baseUrl}/blogs`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+    { url: `${baseUrl}/common-questions`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
 
     // SEO
     { url: `${baseUrl}/seo-services`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
@@ -264,7 +279,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogRoutes: MetadataRoute.Sitemap = blogs.map((blog: any) => {
     let lastModified = new Date();
 
-    // Handle Firestore Timestamps (createdAt or updatedAt)
     if (blog.updatedAt?.seconds) {
       lastModified = new Date(blog.updatedAt.seconds * 1000);
     } else if (blog.createdAt?.seconds) {
@@ -279,5 +293,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     };
   });
 
-  return [...staticRoutes, ...blogRoutes];
+  // 5. Fetch common questions dynamically from Firestore
+  const questions = await getCommonQuestions();
+
+  const questionRoutes: MetadataRoute.Sitemap = questions.map((q: any) => {
+    let lastModified = new Date();
+
+    if (q.updatedAt?.seconds) {
+      lastModified = new Date(q.updatedAt.seconds * 1000);
+    } else if (q.createdAt?.seconds) {
+      lastModified = new Date(q.createdAt.seconds * 1000);
+    }
+
+    return {
+      url: `${baseUrl}/common-questions/${q.slug}`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    };
+  });
+
+  return [...staticRoutes, ...blogRoutes, ...questionRoutes];
 }

@@ -1,17 +1,17 @@
 "use client"
 
 import { useState } from "react"
-import { LogOut, ChevronLeft, ChevronRight, ChevronUp, X, PencilLine, ChartArea, ListChecks, StickyNote, Loader2, Wallet } from "lucide-react"
+import { LogOut, ChevronLeft, ChevronRight, ChevronUp, X, PencilLine, ChartArea, ListChecks, StickyNote, Loader2, Wallet, HelpCircle } from "lucide-react"
 import Link from "next/link"
 
 const menuItems = [
   { title: "Analytics", url: "/admin-dashboard", icon: ChartArea },
   { title: "Posts", url: "/admin-dashboard/posts", icon: StickyNote },
+  { title: "Common Questions", url: "/admin-dashboard/common-questions", icon: HelpCircle },
   { title: "Expense", url: "/admin-dashboard/expenses", icon: Wallet },
   { title: "Tasks", url: "/admin-dashboard/tasks", icon: ListChecks },
   { title: "New Post", url: "/admin-dashboard/posts/add-posts", icon: PencilLine },
-
-
+  { title: "New Question", url: "/admin-dashboard/common-questions/add", icon: PencilLine },
 ]
 
 export function AppSidebar() {
