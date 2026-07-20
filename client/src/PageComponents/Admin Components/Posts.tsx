@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Search, Plus, Image as ImageIcon, ChevronLeft, ChevronRight, FileText, User, Edit } from "lucide-react";
+import { Search, Plus, Image as ImageIcon, ChevronLeft, ChevronRight, FileText, User, Edit, Trash2, Zap, X, Loader2 } from "lucide-react";
+import { Fragment } from "react";
 
 type Post = {
   id: string;
@@ -26,6 +27,14 @@ export default function AdminPostsPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
+
+  // New states for Delete and Quick Edit
+  const [postToDelete, setPostToDelete] = useState<Post | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+  
+  const [postToEdit, setPostToEdit] = useState<Post | null>(null);
+  const [isSavingEdit, setIsSavingEdit] = useState(false);
+  const [editForm, setEditForm] = useState({ title: '', slug: '', category: '', authorId: '' });
 
   useEffect(() => {
     setLoading(true);
@@ -52,9 +61,68 @@ export default function AdminPostsPage() {
     return author || { name: "Unknown", avatar: null };
   };
 
+  const handleDelete = async () => {
+    if (!postToDelete) return;
+    setIsDeleting(true);
+    try {
+      const res = await fetch(`/api/blogs/${postToDelete.slug || postToDelete.id}`, { method: 'DELETE' });
+      if (res.ok) {
+        setPosts(posts.filter(p => p.id !== postToDelete.id));
+      } else {
+        alert("Failed to delete post");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Error deleting post");
+    } finally {
+      setIsDeleting(false);
+      setPostToDelete(null);
+    }
+  };
+
+  const handleQuickEditSave = async () => {
+    if (!postToEdit) return;
+    setIsSavingEdit(true);
+    try {
+      const res = await fetch(`/api/blogs/${postToEdit.slug || postToEdit.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: editForm.title,
+          slug: editForm.slug,
+          authorId: editForm.authorId,
+          categories: editForm.category ? [editForm.category] : [],
+        })
+      });
+      if (res.ok) {
+        setPosts(posts.map(p => {
+          if (p.id === postToEdit.id) {
+            return {
+              ...p,
+              title: editForm.title,
+              slug: editForm.slug,
+              authorId: editForm.authorId,
+              categories: editForm.category ? [editForm.category] : [],
+            };
+          }
+          return p;
+        }));
+        setPostToEdit(null);
+      } else {
+        const data = await res.json();
+        alert(data.error || "Failed to update post");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Error updating post");
+    } finally {
+      setIsSavingEdit(false);
+    }
+  };
+
   const filteredPosts = posts
     .filter((post) => post.title.toLowerCase().includes(search.toLowerCase().trim()))
-    .filter((post) => selectedCategory === "all" ? true : post.categories.includes(selectedCategory));
+    .filter((post) => selectedCategory === "all" ? true : post.categories?.includes(selectedCategory));
 
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE) || 1;
   const paginatedPosts = filteredPosts.slice((page - 1) * POSTS_PER_PAGE, page * POSTS_PER_PAGE);
@@ -123,7 +191,7 @@ export default function AdminPostsPage() {
                   <th className="px-6 py-4 font-semibold text-gray-500 uppercase tracking-wider text-xs">Title & Details</th>
                   <th className="px-6 py-4 font-semibold text-gray-500 uppercase tracking-wider text-xs w-56">Author</th>
                   <th className="px-6 py-4 font-semibold text-gray-500 uppercase tracking-wider text-xs w-64">Categories</th>
-                  <th className="px-6 py-4 font-semibold text-gray-500 uppercase tracking-wider text-xs w-24 text-right">Actions</th>
+                  <th className="px-6 py-4 font-semibold text-gray-500 uppercase tracking-wider text-xs w-32 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100 bg-white">
@@ -131,43 +199,145 @@ export default function AdminPostsPage() {
                   paginatedPosts.map((post) => {
                     const author = getAuthor(post.authorId);
                     return (
-                      <tr key={post.id} className="hover:bg-blue-50/30 transition-colors group">
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="h-12 w-16 flex items-center justify-center overflow-hidden rounded-md bg-gray-100 border border-gray-200/60 shrink-0">
-                            {post.featuredImage ? <img src={post.featuredImage} alt={post.title} className="w-full h-full object-cover" /> : <ImageIcon className="text-gray-400 w-5 h-5" />}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className="flex flex-col justify-center">
-                            <Link href={`/blogs/${post.slug || post.id}`} className="text-gray-900 font-semibold text-base hover:text-blue-600 hover:underline line-clamp-1 transition-colors">
-                              {post.title}
-                            </Link>
-                            <span className="text-gray-400 text-xs mt-0.5 font-mono">/{post.slug || post.id}</span>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="flex items-center gap-3">
-                            {author.avatar ? <img src={author.avatar} alt={author.name} className="w-8 h-8 rounded-full object-cover border border-gray-200" /> : <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center border border-blue-200"><User size={14} className="text-blue-600" /></div>}
-                            <span className="text-gray-700 font-medium text-sm">{author.name}</span>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className="flex flex-wrap gap-1.5">
-                            {post.categories.length > 0 ? post.categories.map((cat) => (
-                                <span key={cat} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200 group-hover:bg-white transition-colors">{cat}</span>
-                              )) : <span className="text-gray-400 text-xs italic">Uncategorized</span>}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-right">
-                          <Link 
-                            href={`/admin-dashboard/edit-post/${post.slug || post.id}`} 
-                            className="p-2 text-gray-400 hover:text-blue-900 hover:bg-blue-100 transition-colors inline-flex rounded-sm shadow-sm border border-transparent hover:border-blue-100"
-                            title="Edit Post"
-                          >
-                            <Edit size={18} />
-                          </Link>
-                        </td>
-                      </tr>
+                      <Fragment key={post.id}>
+                        <tr className="hover:bg-blue-50/30 transition-colors group">
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="h-12 w-16 flex items-center justify-center overflow-hidden rounded-md bg-gray-100 border border-gray-200/60 shrink-0">
+                              {post.featuredImage ? <img src={post.featuredImage} alt={post.title} className="w-full h-full object-cover" /> : <ImageIcon className="text-gray-400 w-5 h-5" />}
+                            </div>
+                          </td>
+                          <td className="px-6 py-4">
+                            <div className="flex flex-col justify-center">
+                              <Link href={`/blogs/${post.slug || post.id}`} className="text-gray-900 font-semibold text-base hover:text-blue-600 hover:underline line-clamp-1 transition-colors">
+                                {post.title}
+                              </Link>
+                              <span className="text-gray-400 text-xs mt-0.5 font-mono">/{post.slug || post.id}</span>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="flex items-center gap-3">
+                              {author.avatar ? <img src={author.avatar} alt={author.name} className="w-8 h-8 rounded-full object-cover border border-gray-200" /> : <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center border border-blue-200"><User size={14} className="text-blue-600" /></div>}
+                              <span className="text-gray-700 font-medium text-sm">{author.name}</span>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4">
+                            <div className="flex flex-wrap gap-1.5">
+                              {post.categories && post.categories.length > 0 ? post.categories.map((cat) => (
+                                  <span key={cat} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200 group-hover:bg-white transition-colors">{cat}</span>
+                                )) : <span className="text-gray-400 text-xs italic">Uncategorized</span>}
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-right">
+                            <div className="flex items-center justify-end gap-1">
+                              <button 
+                                onClick={() => {
+                                  if (postToEdit?.id === post.id) {
+                                    setPostToEdit(null);
+                                  } else {
+                                    setPostToEdit(post);
+                                    setEditForm({
+                                      title: post.title || '',
+                                      slug: post.slug || '',
+                                      category: post.categories?.[0] || '',
+                                      authorId: post.authorId || ''
+                                    });
+                                  }
+                                }}
+                                className={`p-2 transition-colors inline-flex rounded-sm shadow-sm border ${postToEdit?.id === post.id ? 'text-amber-700 bg-amber-100 border-amber-200' : 'text-gray-400 hover:text-amber-600 hover:bg-amber-50 border-transparent hover:border-amber-100'}`}
+                                title="Quick Edit"
+                              >
+                                <Zap size={18} />
+                              </button>
+                              <Link 
+                                href={`/admin-dashboard/edit-post/${post.slug || post.id}`} 
+                                className="p-2 text-gray-400 hover:text-blue-900 hover:bg-blue-100 transition-colors inline-flex rounded-sm shadow-sm border border-transparent hover:border-blue-100"
+                                title="Full Edit"
+                              >
+                                <Edit size={18} />
+                              </Link>
+                              <button 
+                                onClick={() => setPostToDelete(post)}
+                                className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors inline-flex rounded-sm shadow-sm border border-transparent hover:border-red-100"
+                                title="Delete Post"
+                              >
+                                <Trash2 size={18} />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                        {postToEdit?.id === post.id && (
+                          <tr className="bg-amber-50/30 border-y border-amber-100 shadow-inner">
+                            <td colSpan={5} className="px-6 py-4">
+                              <div className="bg-white p-4 rounded-md border border-amber-200 shadow-sm flex flex-col sm:flex-row gap-4 items-end">
+                                <div className="flex-1 w-full space-y-3">
+                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                      <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wider">Title</label>
+                                      <input 
+                                        type="text" 
+                                        value={editForm.title} 
+                                        onChange={e => setEditForm({...editForm, title: e.target.value})}
+                                        className="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-shadow"
+                                      />
+                                    </div>
+                                    <div>
+                                      <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wider">Slug</label>
+                                      <input 
+                                        type="text" 
+                                        value={editForm.slug} 
+                                        onChange={e => setEditForm({...editForm, slug: e.target.value})}
+                                        className="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-shadow font-mono"
+                                      />
+                                    </div>
+                                    <div>
+                                      <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wider">Category</label>
+                                      <select 
+                                        value={editForm.category} 
+                                        onChange={e => setEditForm({...editForm, category: e.target.value})}
+                                        className="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-shadow bg-white"
+                                      >
+                                        <option value="">Uncategorized</option>
+                                        {categories.map((cat) => (
+                                          <option key={cat.id} value={cat.name}>{cat.name}</option>
+                                        ))}
+                                      </select>
+                                    </div>
+                                    <div>
+                                      <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wider">Author</label>
+                                      <select 
+                                        value={editForm.authorId} 
+                                        onChange={e => setEditForm({...editForm, authorId: e.target.value})}
+                                        className="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-shadow bg-white"
+                                      >
+                                        <option value="">Unknown Author</option>
+                                        {authors.map((author) => (
+                                          <option key={author.id} value={author.id}>{author.name}</option>
+                                        ))}
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="flex gap-2 w-full sm:w-auto mt-4 sm:mt-0">
+                                  <button 
+                                    onClick={() => setPostToEdit(null)}
+                                    className="px-4 py-2 border border-gray-300 rounded text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors w-full sm:w-auto"
+                                    disabled={isSavingEdit}
+                                  >
+                                    Cancel
+                                  </button>
+                                  <button 
+                                    onClick={handleQuickEditSave}
+                                    disabled={isSavingEdit}
+                                    className="px-4 py-2 bg-amber-600 text-white rounded text-sm font-medium hover:bg-amber-700 transition-colors flex items-center justify-center min-w-[80px] shadow-sm w-full sm:w-auto"
+                                  >
+                                    {isSavingEdit ? <Loader2 size={16} className="animate-spin" /> : 'Update'}
+                                  </button>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        )}
+                      </Fragment>
                     );
                   })
                 ) : (
@@ -198,6 +368,42 @@ export default function AdminPostsPage() {
           )}
         </div>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {postToDelete && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4 backdrop-blur-sm">
+          <div className="bg-white rounded-xl shadow-xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="p-6">
+              <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mb-4">
+                <Trash2 className="text-red-600" size={24} />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">Delete Post</h3>
+              <p className="text-gray-500 text-sm">
+                Are you sure you want to delete <span className="font-semibold text-gray-900">"{postToDelete.title}"</span>? This action cannot be undone.
+              </p>
+            </div>
+            <div className="px-6 py-4 bg-gray-50 border-t border-gray-100 flex justify-end gap-3">
+              <button 
+                onClick={() => setPostToDelete(null)}
+                className="px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50"
+                disabled={isDeleting}
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleDelete}
+                disabled={isDeleting}
+                className="px-4 py-2 bg-red-600 text-white rounded-md text-sm font-medium hover:bg-red-700 transition-colors flex items-center justify-center min-w-[80px]"
+              >
+                {isDeleting ? <Loader2 size={16} className="animate-spin" /> : 'Delete'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+
+
     </div>
   );
 }
