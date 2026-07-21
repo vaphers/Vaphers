@@ -149,29 +149,8 @@ export default async function CommonQuestionSinglePage({ params }: Props) {
   const pageUrl = `https://www.vaphers.com/common-questions/${slug}`;
   const dynamicReadTime = calculateReadTime(item.contentHtml ?? "");
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "QAPage",
-    "mainEntity": {
-      "@type": "Question",
-      "name": item.title,
-      "text": item.title,
-      "answerCount": 1,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": item.metaDescription || item.title,
-        "url": pageUrl
-      }
-    }
-  };
-
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900 scroll-smooth lg:-mt-36">
-      <Script
-        id="faq-schema-single-cq"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
       <NavBar />
 
       {/* TOP HEADER & GRADIENT SECTION */}
@@ -358,24 +337,41 @@ export default async function CommonQuestionSinglePage({ params }: Props) {
                   <a
                     key={q.id}
                     href={`/common-questions/${q.slug}`}
-                    className="group flex flex-col border border-gray-200 rounded-lg overflow-hidden bg-white hover:shadow-md transition-shadow duration-200"
+                    className="group block h-full focus:outline-none"
                   >
-                    <QuestionThumbnail
-                      title={q.title}
-                      slug={q.slug}
-                      featuredImage={q.featuredImage}
-                      category={q.categories?.[0]}
-                      aspectRatio="aspect-[16/10]"
-                    />
+                    <div className="bg-[#F9FAFB] border border-gray-200/90 rounded-sm overflow-hidden h-full flex flex-col hover:border-gray-300 transition-all duration-200 group-hover:shadow-md">
+                      <div className="border-b border-gray-200/80">
+                        <QuestionThumbnail
+                          title={q.title}
+                          slug={q.slug}
+                          featuredImage={q.featuredImage}
+                          category={q.categories?.[0]}
+                          aspectRatio="aspect-[16/9]"
+                        />
+                      </div>
 
-                    <div className="p-5 flex-1 flex flex-col">
-                      <h4 className="text-[17px] font-semibold text-gray-900 group-hover:text-blue-600 transition-colors leading-snug mb-3">
-                        {q.title}
-                      </h4>
+                      <div className="p-5 flex-1 flex flex-col bg-white">
+                        <div className="mb-3">
+                          <span className="inline-block px-2.5 py-0.5 bg-gray-100 border border-gray-200/80 text-gray-700 text-[10px] font-bold tracking-widest uppercase rounded-xs">
+                            {q.categories?.[0] || "GENERAL"}
+                          </span>
+                        </div>
 
-                      <div className="mt-auto text-sm font-medium text-gray-500">
-                        {sidebarDate && <span>{sidebarDate} &bull; </span>}
-                        <span>{sidebarReadTime}</span>
+                        <h4 className="text-base font-medium text-gray-900 leading-snug group-hover:text-blue-600 transition-colors line-clamp-2 mb-2">
+                          {q.title}
+                        </h4>
+
+                        <p className="text-xs text-gray-600 leading-relaxed line-clamp-2 mb-4 flex-1">
+                          {q.metaDescription}
+                        </p>
+                      </div>
+
+                      <div className="bg-[#F8F9FA] border-t border-gray-200/80 px-4 py-3 flex items-center justify-between text-[11px] text-gray-500 font-medium">
+                        <span>{sidebarDate || "Recent"}</span>
+                        <span>By Vaphers</span>
+                        <div className="w-6 h-6 border border-gray-200 bg-white rounded-xs flex items-center justify-center text-gray-500 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-colors">
+                          <ChevronRight className="w-3.5 h-3.5" />
+                        </div>
                       </div>
                     </div>
                   </a>
