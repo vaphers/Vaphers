@@ -10,6 +10,7 @@ import { toast } from 'sonner'
 const ContactSection: React.FC = () => {
   const [service, setService] = useState<string | undefined>(undefined)
   const [loading, setLoading] = useState(false)
+  const [renderTime] = useState<number>(() => Date.now())
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -17,13 +18,13 @@ const ContactSection: React.FC = () => {
 
     const form = e.currentTarget
     const fd = new FormData(form)
-    fd.set('access_key', process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || '')
-    fd.set('from_name', 'Website Partner Form')
-    fd.set('subject', 'New partner application via website')
+    fd.set('formType', 'Partner Consultation Form')
+    fd.set('pageUrl', typeof window !== 'undefined' ? window.location.href : '')
+    fd.set('_ts', String(renderTime))
     if (service) fd.set('service', service)
 
     try {
-      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd })
+      const res = await fetch('/api/contact', { method: 'POST', body: fd })
       const data: { success: boolean; message?: string } = await res.json()
       if (data.success) {
         toast.success('Application sent', { description: 'Thanks! Your application reached the inbox.' })

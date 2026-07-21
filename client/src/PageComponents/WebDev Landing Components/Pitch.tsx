@@ -104,9 +104,9 @@ export default function WebDesignPitch() {
 
             <div className="flex flex-wrap gap-4 pt-2">
               <Button size="lg" className="h-12 px-6 text-base md:text-lg bg-blue-600 hover:bg-blue-800" asChild>
-                <a href="#contact" className="inline-flex items-center">
+                <Link href="?proposal=true" scroll={false} className="inline-flex items-center">
                   Get a proposal <ArrowRight className="ml-2 h-5 w-5" />
-                </a>
+                </Link>
               </Button>
               <Button size="lg" variant="outline" className="h-12 px-6 text-base md:text-lg" asChild>
                 <a href="#work">Explore More</a>

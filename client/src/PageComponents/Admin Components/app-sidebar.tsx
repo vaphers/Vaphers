@@ -15,7 +15,8 @@ import {
   Wallet,
   Upload,
   HelpCircle,
-  PlusCircle
+  PlusCircle,
+  Inbox
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -51,6 +52,7 @@ const menuGroups: MenuGroup[] = [
   {
     groupTitle: "Operations",
     items: [
+      { title: "Leads", url: "/admin-dashboard/leads", icon: Inbox },
       { title: "Expense", url: "/admin-dashboard/expenses", icon: Wallet },
       { title: "Tasks", url: "/admin-dashboard/tasks", icon: ListChecks },
     ]

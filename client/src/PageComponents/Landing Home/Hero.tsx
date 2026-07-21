@@ -52,7 +52,7 @@ function Hero() {
               Not Sure Where to Start?
             </button>
           </Link>
-          <Link href="/contact" className="w-60">
+          <Link href="?proposal=true" scroll={false} className="w-60">
             <button className="w-full rounded-lg border border-blue-600 bg-white px-6 py-2.5 font-medium text-blue-600 transition-colors hover:bg-gray-50 cursor-pointer">
               Get a Proposal
             </button>

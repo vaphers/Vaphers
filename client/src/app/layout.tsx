@@ -3,6 +3,8 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Bungee_Inline, Bungee_Shade, Montserrat } from 'next/font/google'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { Toaster } from '@/components/ui/sonner'
+import { Suspense } from 'react'
+import ProposalModal from '@/PageComponents/Global Components/ProposalModal'
 
 // Initialize Bungee Inline
 const bungeeInline = Bungee_Inline({
@@ -127,6 +129,10 @@ export default function RootLayout({
 
       <body>
         {children}
+        
+        <Suspense fallback={null}>
+          <ProposalModal />
+        </Suspense>
 
         <Toaster richColors position="top-right" closeButton duration={5000} />
 
