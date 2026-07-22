@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -149,7 +149,7 @@ export default function ProposalModal() {
     }
   };
 
-  const slideVariants = {
+  const slideVariants: Variants = {
     hidden: { opacity: 0, x: 25 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.3, ease: "easeOut" } },
     exit: { opacity: 0, x: -25, transition: { duration: 0.2, ease: "easeIn" } }
