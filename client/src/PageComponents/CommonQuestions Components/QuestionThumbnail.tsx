@@ -6,6 +6,7 @@ type QuestionThumbnailProps = {
   title: string;
   slug?: string;
   featuredImage?: string | null;
+  category?: any;
   aspectRatio?: string;
   className?: string;
 };
