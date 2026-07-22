@@ -5,7 +5,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { 
   ArrowRight, 
@@ -22,32 +21,70 @@ import {
   Share2,
   Zap,
   Smartphone,
-  Sparkles
+  Sparkles,
+  ShieldCheck,
+  Building2,
+  CheckCircle2,
+  Cpu
 } from "lucide-react";
 import { toast } from "sonner";
 
-// Services List with clean vector icons
-const services = [
-  { id: "seo", label: "Search Engine Optimization", icon: Search },
-  { id: "webdev", label: "Website Development", icon: Code2 },
-  { id: "ppc", label: "Pay Per Click (Ads)", icon: TrendingUp },
-  { id: "smo", label: "Social Media Optimization", icon: Share2 },
-  { id: "audit", label: "Website Audit (Free)", icon: Zap },
-  { id: "appdev", label: "App Development", icon: Smartphone },
-  { id: "other", label: "Other / Custom", icon: Sparkles },
+const countryCodes = [
+  { code: "+1", flag: "🇺🇸", name: "US/CA" },
+  { code: "+91", flag: "🇮🇳", name: "India" },
+  { code: "+44", flag: "🇬🇧", name: "UK" },
+  { code: "+61", flag: "🇦🇺", name: "Australia" },
+  { code: "+971", flag: "🇦🇪", name: "UAE" },
+  { code: "+49", flag: "🇩🇪", name: "Germany" },
 ];
+
+const services = [
+  { id: "seo", label: "Search Engine Optimization", desc: "Rank #1 for high-intent keywords", icon: Search, badge: "Organic Growth" },
+  { id: "webdev", label: "Website Design & Dev", desc: "Fast, high-converting Next.js sites", icon: Code2, badge: "High Speed" },
+  { id: "ppc", label: "Pay Per Click (PPC Ads)", desc: "High ROI Google & Meta ad campaigns", icon: TrendingUp, badge: "Paid Ads" },
+  { id: "smo", label: "Social Media Optimization", desc: "Scale brand reach & engagement", icon: Share2, badge: "Brand Reach" },
+  { id: "appdev", label: "App Development", desc: "Native iOS & Android mobile apps", icon: Smartphone, badge: "Mobile Apps" },
+  { id: "audit", label: "Free Website Audit", desc: "Technical & SEO health diagnosis", icon: Zap, badge: "Free Audit" },
+  { id: "other", label: "Other / Custom Service", desc: "Bespoke digital strategy & execution", icon: Sparkles, badge: "Custom Scope" },
+];
+
+// Smooth slide variants
+const pageVariants: Variants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 30 : -30,
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.25,
+      ease: "easeOut",
+    },
+  },
+  exit: (direction: number) => ({
+    x: direction < 0 ? 30 : -30,
+    opacity: 0,
+    transition: {
+      duration: 0.2,
+      ease: "easeIn",
+    },
+  }),
+};
 
 export default function ProposalModal() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const isOpen = searchParams.get("proposal") === "true";
-
+  
+  const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState(1);
+  const [direction, setDirection] = useState(1);
   const [loading, setLoading] = useState(false);
   
   // Form State
   const [selectedService, setSelectedService] = useState<string>("");
   const [customService, setCustomService] = useState("");
+  const [contactMethod, setContactMethod] = useState<"both" | "email" | "phone">("both");
   const [email, setEmail] = useState("");
   const [phoneCode, setPhoneCode] = useState("+1");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -57,10 +94,32 @@ export default function ProposalModal() {
   const [skipWebsite, setSkipWebsite] = useState(false);
   const [websiteSkipReason, setWebsiteSkipReason] = useState("");
 
+  // Sync open state instantly via URL & custom window event for 0ms latency
+  useEffect(() => {
+    const checkOpen = () => {
+      const isUrlOpen = new URLSearchParams(window.location.search).get("proposal") === "true";
+      setIsOpen(isUrlOpen);
+    };
+
+    checkOpen();
+
+    const handleOpenEvent = () => setIsOpen(true);
+    const handlePopState = () => checkOpen();
+
+    window.addEventListener("open-proposal", handleOpenEvent);
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("open-proposal", handleOpenEvent);
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [searchParams]);
+
   useEffect(() => {
     if (!isOpen) {
       setTimeout(() => {
         setStep(1);
+        setDirection(1);
         setSelectedService("");
         setCustomService("");
         setEmail("");
@@ -75,39 +134,54 @@ export default function ProposalModal() {
   }, [isOpen]);
 
   const closeModal = () => {
-    const params = new URLSearchParams(searchParams.toString());
+    setIsOpen(false);
+    const params = new URLSearchParams(window.location.search);
     params.delete("proposal");
     const newUrl = params.toString() ? `?${params.toString()}` : window.location.pathname;
-    router.push(newUrl, { scroll: false });
+    window.history.pushState({}, "", newUrl);
   };
 
   const handleNext = () => {
-    if (step === 1 && !selectedService) {
-      toast.error("Please select a service");
-      return;
+    if (step === 1) {
+      if (!selectedService) {
+        toast.error("Please select a service option");
+        return;
+      }
+      if (selectedService === "other" && !customService.trim()) {
+        toast.error("Please specify your custom requirement");
+        return;
+      }
     }
-    if (step === 1 && selectedService === "other" && !customService.trim()) {
-      toast.error("Please describe what you are looking for");
-      return;
+    if (step === 2) {
+      if (contactMethod === "email" && !email) {
+        toast.error("Please enter your email address");
+        return;
+      }
+      if (contactMethod === "phone" && !phoneNumber) {
+        toast.error("Please enter your phone number");
+        return;
+      }
+      if (contactMethod === "both" && (!email || !phoneNumber)) {
+        toast.error("Please provide both email and phone number");
+        return;
+      }
     }
-    if (step === 2 && !email && !phoneNumber) {
-      toast.error("Please provide an email or phone number");
-      return;
-    }
+    setDirection(1);
     setStep(step + 1);
   };
 
   const handleBack = () => {
+    setDirection(-1);
     setStep(step - 1);
   };
 
   const handleSubmit = async () => {
-    if (!firstName) {
+    if (!firstName.trim()) {
       toast.error("Please enter your first name");
       return;
     }
-    if (!skipWebsite && !website) {
-      toast.error("Please provide your website or choose to skip");
+    if (!skipWebsite && !website.trim()) {
+      toast.error("Please enter your website URL or select skip");
       return;
     }
 
@@ -126,10 +200,10 @@ export default function ProposalModal() {
           last_name: lastName,
           email,
           phoneNumber: fullPhone,
-          website: skipWebsite ? "" : website,
+          website: skipWebsite ? "No website yet" : website,
           websiteSkipReason: skipWebsite ? websiteSkipReason : "",
           service: finalService,
-          contactMethod: email && phoneNumber ? "Email & Phone" : (email ? "Email" : "Phone"),
+          contactMethod,
           _ts: Date.now().toString(),
           pageUrl: window.location.href,
         }),
@@ -137,22 +211,16 @@ export default function ProposalModal() {
 
       const data = await res.json();
       if (res.ok && data.success) {
-        toast.success("Proposal Request Sent!", { description: "Our team will be in touch shortly." });
+        toast.success("Proposal Request Submitted!", { description: "Our team will reach out with a custom proposal." });
         closeModal();
       } else {
         toast.error("Failed to send request", { description: data.message || "Please try again." });
       }
-    } catch (err) {
-      toast.error("Network Error", { description: "Could not send your request. Please try again." });
+    } catch {
+      toast.error("Network Error", { description: "Could not send your request." });
     } finally {
       setLoading(false);
     }
-  };
-
-  const slideVariants: Variants = {
-    hidden: { opacity: 0, x: 25 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.3, ease: "easeOut" } },
-    exit: { opacity: 0, x: -25, transition: { duration: 0.2, ease: "easeIn" } }
   };
 
   return (
@@ -161,27 +229,25 @@ export default function ProposalModal() {
         data-lenis-prevent="true"
         data-lenis-prevent-touch="true"
         data-lenis-prevent-wheel="true"
-        className="w-[95vw] sm:max-w-xl md:max-w-2xl max-h-[90vh] flex flex-col p-0 overflow-hidden bg-white rounded-3xl border border-blue-500/20 shadow-2xl [&>button]:hidden"
+        className="w-[95vw] sm:max-w-2xl md:max-w-3xl max-h-[90vh] flex flex-col p-0 overflow-hidden bg-white rounded-3xl border border-blue-500/20 shadow-2xl [&>button]:hidden"
       >
-        {/* Fixed Non-scrolling Vaphers Brand Header */}
-        <div className="shrink-0 bg-gradient-to-r from-blue-950 via-blue-900 to-blue-600 text-white p-6 sm:p-7 relative overflow-hidden">
-          
-          {/* Subtle Background Glow Accent */}
+        {/* Header Banner */}
+        <div className="shrink-0 bg-gradient-to-r from-blue-950 via-blue-900 to-[#1125fd] text-white p-5 sm:p-6 relative overflow-hidden select-none">
           <div className="pointer-events-none absolute -right-10 -top-10 w-40 h-40 bg-blue-500/20 rounded-full blur-2xl" />
 
-          <div className="flex items-center justify-between mb-4 relative z-10">
-            <div className="flex items-center gap-2.5">
-              <span className="border border-blue-400/40 bg-blue-500/20 text-blue-200 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+          <div className="flex items-center justify-between mb-3 relative z-10">
+            <div className="flex items-center gap-2">
+              <span className="border border-blue-400/40 bg-blue-500/20 text-blue-200 text-[11px] font-semibold px-3 py-0.5 rounded-full uppercase tracking-wider">
                 Step {step} of 3
               </span>
-              <span className="text-xs text-blue-200/80 font-medium hidden sm:inline">
-                {step === 1 ? "Select Service" : step === 2 ? "Contact Preference" : "Your Details"}
+              <span className="text-xs text-blue-200/90 font-medium hidden sm:inline">
+                {step === 1 ? "Select Service" : step === 2 ? "Contact Channel" : "Brand Details"}
               </span>
             </div>
 
             <button 
               onClick={closeModal} 
-              className="text-blue-200 hover:text-white bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors cursor-pointer"
+              className="text-blue-200 hover:text-white bg-white/10 hover:bg-white/20 p-1.5 rounded-full transition-colors cursor-pointer"
               aria-label="Close modal"
             >
               <X className="w-4 h-4" />
@@ -191,270 +257,337 @@ export default function ProposalModal() {
           <DialogTitle className="text-2xl sm:text-3xl text-white bungee-inline-regular tracking-wide leading-tight relative z-10">
             Get A Custom Proposal
           </DialogTitle>
-          <p className="text-sm text-blue-100/90 mt-1 font-normal relative z-10">
-            Tailored digital strategies to scale your revenue.
+          <p className="text-xs sm:text-sm text-blue-100/90 mt-0.5 font-normal relative z-10">
+            Data-driven growth strategies engineered to scale your revenue.
           </p>
 
           {/* Progress Bar */}
-          <div className="w-full bg-blue-950/60 h-1.5 rounded-full mt-5 overflow-hidden border border-blue-400/20">
+          <div className="w-full bg-blue-950/60 h-1.5 rounded-full mt-4 overflow-hidden border border-blue-400/20">
             <div 
-              className="bg-blue-400 h-full transition-all duration-500 ease-out rounded-full shadow-[0_0_12px_#60a5fa]" 
+              className="bg-gradient-to-r from-blue-400 to-blue-300 h-full transition-all duration-300 ease-out rounded-full shadow-[0_0_12px_#60a5fa]" 
               style={{ width: `${(step / 3) * 100}%` }}
             />
           </div>
         </div>
 
-        {/* Dedicated Scrollable Content Body with Lenis Prevent Attributes & Touch/Wheel Handler */}
+        {/* 3-Step Pill Tracker */}
+        <div className="bg-slate-100/80 px-6 py-2.5 border-b border-slate-200/80 flex items-center justify-between text-xs font-semibold text-slate-500 shrink-0">
+          <div className={`flex items-center gap-1.5 ${step >= 1 ? "text-[#1125fd]" : ""}`}>
+            <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] ${step >= 1 ? "bg-[#1125fd] text-white" : "bg-slate-300 text-slate-600"}`}>1</span>
+            <span className="hidden sm:inline">Service Scope</span>
+          </div>
+          <div className="w-8 h-px bg-slate-300 hidden sm:block" />
+          <div className={`flex items-center gap-1.5 ${step >= 2 ? "text-[#1125fd]" : ""}`}>
+            <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] ${step >= 2 ? "bg-[#1125fd] text-white" : "bg-slate-300 text-slate-600"}`}>2</span>
+            <span className="hidden sm:inline">Contact Preference</span>
+          </div>
+          <div className="w-8 h-px bg-slate-300 hidden sm:block" />
+          <div className={`flex items-center gap-1.5 ${step >= 3 ? "text-[#1125fd]" : ""}`}>
+            <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] ${step >= 3 ? "bg-[#1125fd] text-white" : "bg-slate-300 text-slate-600"}`}>3</span>
+            <span className="hidden sm:inline">Brand Details</span>
+          </div>
+        </div>
+
+        {/* Scrollable Body */}
         <div 
           data-lenis-prevent="true"
           data-lenis-prevent-touch="true"
           data-lenis-prevent-wheel="true"
           onWheel={(e) => e.stopPropagation()}
-          className="flex-1 overflow-y-auto p-6 sm:p-8 bg-slate-50/50 flex flex-col overscroll-contain"
+          className="flex-1 overflow-y-auto p-6 sm:p-7 bg-slate-50/50 flex flex-col overscroll-contain"
         >
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" custom={direction}>
             
-            {/* STEP 1: Services Selection */}
+            {/* STEP 1: SERVICE SELECTION */}
             {step === 1 && (
-              <motion.div key="step1" variants={slideVariants} initial="hidden" animate="visible" exit="exit" className="flex-col flex flex-grow min-h-0">
-                <div className="mb-6">
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1">
-                    What service are you looking for?
-                  </h3>
-                  <p className="text-sm text-slate-500">
-                    Choose an option below to tailor your proposal.
-                  </p>
-                </div>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5 mb-6">
-                  {services.map((s) => {
-                    const IconComponent = s.icon;
-                    const isSelected = selectedService === s.id;
-                    return (
-                      <button
-                        key={s.id}
-                        type="button"
-                        onClick={() => setSelectedService(s.id)}
-                        className={`group relative flex flex-col items-start p-4 rounded-2xl border text-left transition-all cursor-pointer ${
-                          isSelected 
-                            ? "border-blue-600 bg-blue-600 text-white shadow-lg shadow-blue-600/30 scale-[1.02]" 
-                            : "border-slate-200 bg-white text-slate-800 hover:border-blue-300 hover:bg-blue-50/40"
-                        }`}
-                      >
-                        <div className="flex items-center justify-between w-full mb-3">
-                          <div className={`p-2.5 rounded-xl transition-colors ${
-                            isSelected ? "bg-white text-blue-600" : "bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white"
-                          }`}>
-                            <IconComponent className="w-5 h-5" />
+              <motion.div
+                key="step1"
+                custom={direction}
+                variants={pageVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                className="flex-col flex flex-grow justify-between min-h-0"
+              >
+                <div>
+                  <div className="mb-4">
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900">What service are you looking for?</h3>
+                    <p className="text-xs sm:text-sm text-slate-500 mt-0.5">Select an option below to tailor your proposal.</p>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
+                    {services.map((s) => {
+                      const isSelected = selectedService === s.id;
+                      const IconComp = s.icon;
+                      return (
+                        <div
+                          key={s.id}
+                          onClick={() => setSelectedService(s.id)}
+                          className={`p-3.5 rounded-2xl border-2 transition-all cursor-pointer flex flex-col justify-between relative ${
+                            isSelected 
+                              ? "bg-blue-50/90 border-[#1125fd] shadow-md ring-4 ring-blue-500/10 scale-[1.01]" 
+                              : "bg-white border-slate-200 hover:border-blue-300 hover:bg-slate-50"
+                          }`}
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <div className={`p-2 rounded-xl shrink-0 ${isSelected ? "bg-[#1125fd] text-white" : "bg-blue-50 text-blue-600"}`}>
+                              <IconComp className="w-4 h-4" />
+                            </div>
+                            {isSelected && (
+                              <div className="w-5 h-5 rounded-full bg-[#1125fd] text-white flex items-center justify-center shrink-0">
+                                <Check className="w-3 h-3 stroke-[3]" />
+                              </div>
+                            )}
                           </div>
-                          {isSelected && (
-                            <span className="w-5 h-5 rounded-full bg-white/20 text-white flex items-center justify-center">
-                              <Check className="w-3.5 h-3.5" />
+
+                          <div>
+                            <span className="text-[9px] font-bold uppercase tracking-wider text-blue-600 bg-blue-100/70 px-1.5 py-0.5 rounded-md inline-block mb-1">
+                              {s.badge}
                             </span>
-                          )}
+                            <p className={`text-xs font-bold block leading-snug ${isSelected ? "text-[#1125fd]" : "text-slate-900"}`}>
+                              {s.label}
+                            </p>
+                            <p className="text-[11px] text-slate-500 line-clamp-2 mt-0.5 leading-relaxed">{s.desc}</p>
+                          </div>
                         </div>
-                        
-                        <span className={`text-sm font-semibold leading-tight ${isSelected ? "text-white" : "text-slate-900"}`}>
-                          {s.label}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
+                      );
+                    })}
+                  </div>
 
-                <AnimatePresence>
                   {selectedService === "other" && (
-                    <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="mb-4">
-                      <label className="text-xs font-semibold text-slate-700 mb-1.5 block">Custom Requirements</label>
-                      <Textarea 
-                        value={customService} 
-                        onChange={(e) => setCustomService(e.target.value)} 
-                        placeholder="Tell us what you're looking for..."
-                        className="bg-white border-blue-200 h-20 text-sm focus-visible:ring-2 focus-visible:ring-blue-600 resize-none font-normal"
+                    <div className="mb-4">
+                      <label className="text-xs font-bold text-slate-700 block mb-1">
+                        Describe your custom requirements *
+                      </label>
+                      <Textarea
+                        value={customService}
+                        onChange={(e) => setCustomService(e.target.value)}
+                        placeholder="e.g. Next.js website dev, Technical SEO audit, Paid Meta ads..."
+                        rows={2}
+                        className="bg-white border-blue-200 text-xs rounded-xl focus:ring-[#1125fd] resize-none"
                       />
-                    </motion.div>
+                    </div>
                   )}
-                </AnimatePresence>
+                </div>
 
-                <div className="mt-auto pt-5 flex justify-end border-t border-slate-200/60">
-                  <Button 
-                    onClick={handleNext} 
-                    className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8 py-3.5 text-base font-semibold shadow-lg shadow-blue-600/30 transition-all cursor-pointer"
+                <div className="pt-4 border-t border-slate-200/80 flex justify-end">
+                  <button
+                    onClick={handleNext}
+                    className="w-full sm:w-auto px-7 py-3 bg-[#1125fd] hover:bg-[#0c1cdb] text-white text-xs font-bold rounded-2xl transition-all shadow-md hover:shadow-blue-500/25 flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    Next Step <ArrowRight className="ml-2 w-4 h-4" />
-                  </Button>
+                    Next: Contact Channel <ArrowRight className="w-4 h-4" />
+                  </button>
                 </div>
               </motion.div>
             )}
 
-            {/* STEP 2: Contact Info */}
+            {/* STEP 2: CONTACT PREFERENCE */}
             {step === 2 && (
-              <motion.div key="step2" variants={slideVariants} initial="hidden" animate="visible" exit="exit" className="flex-col flex flex-grow min-h-0">
-                <div className="mb-6">
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1">
-                    Where should we send your proposal?
-                  </h3>
-                  <p className="text-sm text-slate-500">
-                    Provide your contact details so our strategists can follow up.
-                  </p>
-                </div>
-                
-                <div className="space-y-4 flex-grow mb-6">
-                  {/* Email */}
-                  <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                    <label className="flex items-center gap-2 text-xs font-semibold text-slate-700 mb-2.5">
-                      <Mail className="w-4 h-4 text-blue-600" /> Work Email Address *
-                    </label>
-                    <Input 
-                      type="email" 
-                      placeholder="john@company.com" 
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="bg-slate-50/70 h-12 border-slate-200 text-sm font-normal focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:bg-white transition-all"
-                    />
+              <motion.div
+                key="step2"
+                custom={direction}
+                variants={pageVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                className="flex-col flex flex-grow justify-between min-h-0"
+              >
+                <div>
+                  <div className="mb-4">
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900">Where should we send your proposal?</h3>
+                    <p className="text-xs text-slate-500 mt-0.5">Select how you'd prefer our growth team to reach out.</p>
                   </div>
 
-                  {/* Phone */}
-                  <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                    <label className="flex items-center gap-2 text-xs font-semibold text-slate-700 mb-2.5">
-                      <Phone className="w-4 h-4 text-blue-600" /> Phone Number (Optional)
-                    </label>
-                    <div className="flex gap-2">
-                      <Input 
-                        type="text" 
-                        value={phoneCode}
-                        onChange={(e) => setPhoneCode(e.target.value)}
-                        className="bg-slate-50/70 h-12 w-20 text-center font-semibold text-sm border-slate-200"
-                        placeholder="+1"
-                      />
-                      <Input 
-                        type="tel" 
-                        value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
-                        placeholder="(555) 000-0000"
-                        className="bg-slate-50/70 h-12 flex-1 border-slate-200 text-sm font-normal focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:bg-white transition-all"
-                      />
-                    </div>
+                  <div className="flex bg-slate-200/70 p-1 rounded-2xl mb-5">
+                    <button
+                      onClick={() => setContactMethod("both")}
+                      className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${contactMethod === "both" ? "bg-white text-[#1125fd] shadow-sm" : "text-slate-600 hover:text-slate-900"}`}
+                    >
+                      Email & Phone
+                    </button>
+                    <button
+                      onClick={() => setContactMethod("email")}
+                      className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${contactMethod === "email" ? "bg-white text-[#1125fd] shadow-sm" : "text-slate-600 hover:text-slate-900"}`}
+                    >
+                      Email Only
+                    </button>
+                    <button
+                      onClick={() => setContactMethod("phone")}
+                      className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${contactMethod === "phone" ? "bg-white text-[#1125fd] shadow-sm" : "text-slate-600 hover:text-slate-900"}`}
+                    >
+                      Phone Only
+                    </button>
+                  </div>
+
+                  <div className="space-y-4 mb-6">
+                    {(contactMethod === "email" || contactMethod === "both") && (
+                      <div>
+                        <label className="text-xs font-bold text-slate-700 block mb-1.5 flex items-center gap-1.5">
+                          <Mail className="w-3.5 h-3.5 text-[#1125fd]" /> Business Email Address *
+                        </label>
+                        <Input
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="john@brand.com"
+                          className="bg-white border-slate-200 text-xs h-11 rounded-2xl focus:ring-[#1125fd]"
+                        />
+                      </div>
+                    )}
+
+                    {(contactMethod === "phone" || contactMethod === "both") && (
+                      <div>
+                        <label className="text-xs font-bold text-slate-700 block mb-1.5 flex items-center gap-1.5">
+                          <Phone className="w-3.5 h-3.5 text-[#1125fd]" /> Direct Phone Number *
+                        </label>
+                        <div className="flex gap-2">
+                          <select
+                            value={phoneCode}
+                            onChange={(e) => setPhoneCode(e.target.value)}
+                            className="bg-white border border-slate-200 text-xs font-semibold text-slate-800 rounded-2xl px-3 h-11 focus:outline-none focus:border-[#1125fd]"
+                          >
+                            {countryCodes.map(c => (
+                              <option key={c.code} value={c.code}>{c.flag} {c.code}</option>
+                            ))}
+                          </select>
+                          <Input
+                            type="tel"
+                            value={phoneNumber}
+                            onChange={(e) => setPhoneNumber(e.target.value)}
+                            placeholder="(555) 000-0000"
+                            className="bg-white border-slate-200 text-xs h-11 rounded-2xl focus:ring-[#1125fd] flex-1"
+                          />
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
-                <div className="mt-auto pt-5 flex items-center justify-between border-t border-slate-200/60">
-                  <button 
-                    onClick={handleBack} 
-                    className="text-sm font-semibold text-slate-500 hover:text-slate-800 flex items-center transition-colors px-3 py-2 cursor-pointer"
+                <div className="pt-4 border-t border-slate-200/80 flex items-center justify-between gap-3">
+                  <button
+                    onClick={handleBack}
+                    className="px-5 py-3 border border-slate-300 hover:bg-slate-100 text-slate-700 text-xs font-bold rounded-2xl transition-all flex items-center gap-1.5 cursor-pointer"
                   >
-                    <ArrowLeft className="w-4 h-4 mr-1.5" /> Back
+                    <ArrowLeft className="w-4 h-4" /> Back
                   </button>
-                  <Button 
-                    onClick={handleNext} 
-                    className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8 py-3.5 text-base font-semibold shadow-lg shadow-blue-600/30 transition-all cursor-pointer"
+
+                  <button
+                    onClick={handleNext}
+                    className="px-7 py-3 bg-[#1125fd] hover:bg-[#0c1cdb] text-white text-xs font-bold rounded-2xl transition-all shadow-md hover:shadow-blue-500/25 flex items-center gap-2 cursor-pointer"
                   >
-                    Next Step <ArrowRight className="ml-2 w-4 h-4" />
-                  </Button>
+                    Next: Final Details <ArrowRight className="w-4 h-4" />
+                  </button>
                 </div>
               </motion.div>
             )}
 
-            {/* STEP 3: Personal & Website Details */}
+            {/* STEP 3: BRAND & WEBSITE DETAILS */}
             {step === 3 && (
-              <motion.div key="step3" variants={slideVariants} initial="hidden" animate="visible" exit="exit" className="flex-col flex flex-grow min-h-0">
-                <div className="mb-6">
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1">
-                    Final Details
-                  </h3>
-                  <p className="text-sm text-slate-500">
-                    Tell us your name and business website for your audit.
-                  </p>
-                </div>
-                
-                <div className="space-y-4 flex-grow mb-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-xs font-semibold text-slate-700 mb-1.5 block">First Name *</label>
-                      <Input 
-                        value={firstName} 
-                        onChange={(e) => setFirstName(e.target.value)}
-                        className="bg-white h-12 border-slate-200 text-sm font-normal focus-visible:ring-2 focus-visible:ring-blue-600" 
-                        placeholder="John"
-                      />
+              <motion.div
+                key="step3"
+                custom={direction}
+                variants={pageVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                className="flex-col flex flex-grow justify-between min-h-0"
+              >
+                <div>
+                  <div className="mb-4">
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900">Tell us about your brand</h3>
+                    <p className="text-xs text-slate-500 mt-0.5">This allows our team to run an instant digital audit.</p>
+                  </div>
+
+                  <div className="space-y-4 mb-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className="text-xs font-bold text-slate-700 block mb-1">First Name *</label>
+                        <Input
+                          value={firstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                          placeholder="John"
+                          className="bg-white border-slate-200 text-xs h-11 rounded-2xl focus:ring-[#1125fd]"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-xs font-bold text-slate-700 block mb-1">Last Name</label>
+                        <Input
+                          value={lastName}
+                          onChange={(e) => setLastName(e.target.value)}
+                          placeholder="Doe"
+                          className="bg-white border-slate-200 text-xs h-11 rounded-2xl focus:ring-[#1125fd]"
+                        />
+                      </div>
                     </div>
+
                     <div>
-                      <label className="text-xs font-semibold text-slate-700 mb-1.5 block">Last Name</label>
-                      <Input 
-                        value={lastName} 
-                        onChange={(e) => setLastName(e.target.value)}
-                        className="bg-white h-12 border-slate-200 text-sm font-normal focus-visible:ring-2 focus-visible:ring-blue-600" 
-                        placeholder="Doe"
-                      />
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                          <Globe className="w-3.5 h-3.5 text-[#1125fd]" /> Website URL {!skipWebsite && "*"}
+                        </label>
+                        <label className="text-[11px] text-slate-500 flex items-center gap-1.5 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={skipWebsite}
+                            onChange={(e) => setSkipWebsite(e.target.checked)}
+                            className="rounded text-[#1125fd] focus:ring-[#1125fd]"
+                          />
+                          <span>No website yet</span>
+                        </label>
+                      </div>
+
+                      {!skipWebsite ? (
+                        <Input
+                          type="url"
+                          value={website}
+                          onChange={(e) => setWebsite(e.target.value)}
+                          placeholder="https://yourbrand.com"
+                          className="bg-white border-slate-200 text-xs h-11 rounded-2xl focus:ring-[#1125fd]"
+                        />
+                      ) : (
+                        <Input
+                          value={websiteSkipReason}
+                          onChange={(e) => setWebsiteSkipReason(e.target.value)}
+                          placeholder="Reason / Notes (e.g. launching new brand...)"
+                          className="bg-white border-slate-200 text-xs h-11 rounded-2xl"
+                        />
+                      )}
                     </div>
                   </div>
 
-                  {!skipWebsite ? (
-                    <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                      <div className="flex justify-between items-center mb-2.5">
-                        <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-700">
-                          <Globe className="w-4 h-4 text-blue-600" /> Website URL *
-                        </label>
-                        <button 
-                          type="button"
-                          onClick={() => setSkipWebsite(true)} 
-                          className="text-xs font-medium text-slate-500 hover:text-blue-600 underline transition-colors cursor-pointer"
-                        >
-                          I don't have a website
-                        </button>
-                      </div>
-                      <Input 
-                        value={website} 
-                        onChange={(e) => setWebsite(e.target.value)}
-                        placeholder="yourcompany.com"
-                        className="bg-slate-50/70 h-12 border-slate-200 text-sm font-normal focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:bg-white transition-all"
-                      />
-                    </div>
-                  ) : (
-                    <div className="bg-blue-50/50 p-5 rounded-2xl border border-blue-200">
-                      <div className="flex justify-between items-center mb-2.5">
-                        <label className="text-xs font-semibold text-slate-800">Reason / Details</label>
-                        <button 
-                          type="button"
-                          onClick={() => { setSkipWebsite(false); setWebsiteSkipReason(""); }} 
-                          className="text-xs text-blue-600 hover:underline font-semibold cursor-pointer"
-                        >
-                          Add Website URL Instead
-                        </button>
-                      </div>
-                      <Input 
-                        value={websiteSkipReason} 
-                        onChange={(e) => setWebsiteSkipReason(e.target.value)}
-                        placeholder="E.g., New business starting up, using social media..."
-                        className="bg-white h-12 border-blue-200 text-sm font-normal focus-visible:ring-2 focus-visible:ring-blue-600"
-                      />
-                    </div>
-                  )}
+                  <div className="p-3 bg-blue-50/80 rounded-2xl border border-blue-100 flex items-center gap-2 text-xs text-blue-950 mb-4">
+                    <ShieldCheck className="w-4 h-4 text-[#1125fd] shrink-0" />
+                    <span>Confidential submission. Your data goes directly to our admin team.</span>
+                  </div>
                 </div>
 
-                <div className="mt-auto pt-5 flex items-center justify-between border-t border-slate-200/60">
-                  <button 
-                    onClick={handleBack} 
-                    className="text-sm font-semibold text-slate-500 hover:text-slate-800 flex items-center transition-colors px-3 py-2 cursor-pointer"
+                <div className="pt-4 border-t border-slate-200/80 flex items-center justify-between gap-3">
+                  <button
+                    onClick={handleBack}
+                    className="px-5 py-3 border border-slate-300 hover:bg-slate-100 text-slate-700 text-xs font-bold rounded-2xl transition-all flex items-center gap-1.5 cursor-pointer"
                   >
-                    <ArrowLeft className="w-4 h-4 mr-1.5" /> Back
+                    <ArrowLeft className="w-4 h-4" /> Back
                   </button>
-                  <Button 
-                    onClick={handleSubmit} 
+
+                  <button
+                    onClick={handleSubmit}
                     disabled={loading}
-                    className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8 py-3.5 text-base font-semibold shadow-lg shadow-blue-600/30 transition-all cursor-pointer"
+                    className="px-7 py-3 bg-[#1125fd] hover:bg-[#0c1cdb] text-white text-xs font-bold rounded-2xl transition-all shadow-lg hover:shadow-blue-500/30 flex items-center justify-center gap-2 flex-1 sm:flex-initial cursor-pointer"
                   >
                     {loading ? (
-                      <Loader2 className="w-5 h-5 animate-spin mx-auto" />
+                      <Loader2 className="w-4 h-4 animate-spin" />
                     ) : (
-                      <>Get My Proposal <ArrowRight className="ml-2 w-4 h-4" /></>
+                      <>
+                        Submit Proposal Request <CheckCircle2 className="w-4 h-4" />
+                      </>
                     )}
-                  </Button>
+                  </button>
                 </div>
               </motion.div>
             )}
 
           </AnimatePresence>
+
         </div>
       </DialogContent>
     </Dialog>

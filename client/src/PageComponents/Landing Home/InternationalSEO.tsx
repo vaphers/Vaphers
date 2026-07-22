@@ -50,8 +50,7 @@ export default function InternaionalSEO() {
                 As a leading International SEO Agency, we help you dominate search results across borders. We blend technical excellence with cultural insights to ensure your business connects with audiences globally.
               </p>
               <Link 
-                href="?proposal=true"
-                scroll={false}
+                href="/contact"
                 className="block w-full sm:w-max text-center rounded-lg bg-blue-600 px-8 py-3.5 font-medium text-white transition-colors hover:bg-blue-800"
               >
                 Get A Proposal
