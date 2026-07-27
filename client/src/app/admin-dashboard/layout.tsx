@@ -21,8 +21,8 @@ export default function DashboardLayout({
     <div className="flex flex-col md:flex-row h-screen overflow-hidden bg-gray-50">
       <AppSidebar />
       
-      {/* Added pb-16 for mobile to account for the 4rem (16) bottom nav height */}
-      <main className="flex-1 min-w-0 overflow-y-auto pb-16 md:pb-0">
+      {/* Added pb-16 for mobile, flex flex-col for 100% vertical centering of loaders */}
+      <main className="flex-1 min-w-0 overflow-y-auto pb-16 md:pb-0 flex flex-col">
         {children}
       </main>
     </div>

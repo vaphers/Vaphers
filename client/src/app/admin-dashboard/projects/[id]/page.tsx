@@ -45,6 +45,7 @@ import {
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import AdminLoader from "../../Components/AdminLoader";
 
 // Types
 type Project = {
@@ -536,14 +537,7 @@ export default function SingleProjectWorkspace() {
   const completedTasksCount = tasks.filter(t => t.column === "Completed").length;
 
   if (loading) {
-    return (
-      <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-white">
-        <h1 className="text-4xl tracking-tight leading-none text-slate-900" style={{ fontFamily: '"Bungee Shade", cursive' }}>
-          V<span className="text-[#2383e2] text-4xl">aphers</span>
-        </h1>
-        <Loader2 className="animate-spin text-[#2383e2] mt-6" size={28} />
-      </div>
-    );
+    return <AdminLoader message="Loading project workspace..." />;
   }
 
   if (!project) {

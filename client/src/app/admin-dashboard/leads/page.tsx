@@ -1,8 +1,9 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from "react"
 import { toast } from "sonner"
 import { Loader2, Trash2, Mail, Globe, MessageSquare, CheckSquare, FileText } from "lucide-react"
+import AdminLoader from "../Components/AdminLoader"
 
 type Lead = {
   id: string
@@ -102,19 +103,32 @@ export default function LeadsDashboard() {
   const uniqueFormTypes = Array.from(new Set(leads.map(l => l.formType || "Website Contact Form")));
 
   if (loading) {
-    return (
-      <div className="flex h-full min-h-screen items-center justify-center bg-gray-50/50">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
-      </div>
-    )
+    return <AdminLoader message="Loading lead inquiries..." />
   }
 
   return (
-    <main className="min-h-screen bg-gray-50/50 p-4 md:p-8">
-      <div className="max-w-7xl mx-auto space-y-6">
-        
+    <div className="min-h-screen w-full bg-slate-50 text-slate-900 pb-12 montserrat-regular">
+      <style dangerouslySetInnerHTML={{ __html: `
+        @import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+        .montserrat-regular { font-family: 'Montserrat', sans-serif !important; font-weight: 400 !important; }
+        .montserrat-medium { font-family: 'Montserrat', sans-serif !important; font-weight: 500 !important; }
+      ` }} />
+
+      {/* ── Sticky Header ── */}
+      <header className="sticky top-0 z-30 bg-white border-b border-slate-200 px-4 md:px-8 py-3 flex flex-wrap items-center justify-between gap-3 shadow-sm mb-6">
+        <div className="flex items-center gap-6">
+          <h1 className="text-2xl tracking-tight text-slate-900 leading-none" style={{ fontFamily: '"Bungee Shade", cursive' }}>
+            V<span className="text-[#2383e2]">aphers</span>
+          </h1>
+          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:inline border-l border-slate-200 pl-4">
+            Leads & Inquiries
+          </span>
+        </div>
+      </header>
+
+      <div className="w-full px-4 md:px-8 space-y-6">
         {/* Header Options */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-gray-100 shadow-sm">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-white p-4 rounded-sm border border-slate-200 shadow-sm">
           
           <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
              <input
@@ -330,7 +344,7 @@ export default function LeadsDashboard() {
           </div>
         )}
       </div>
-    </main>
+    </div>
   )
 }
 

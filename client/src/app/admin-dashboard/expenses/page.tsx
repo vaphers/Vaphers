@@ -8,6 +8,8 @@ import {
   GraduationCap, TrendingUp, Coins, Package, BarChart3, Settings, LayoutDashboard, PieChart
 } from "lucide-react"
 
+import AdminLoader from "../Components/AdminLoader"
+
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 type AccountType = 'bank' | 'card' | 'cash' | 'wallet'
@@ -489,17 +491,9 @@ export default function ExpensePage() {
                  ['transfer', 'save', 'withdraw'].includes(txForm.type) ? [] : 
                  Object.keys(CATEGORIES).filter(c => c !== 'Income' && c !== 'Transfer' && c !== 'Savings')
 
-  // Initial Full Page Loader
+  // Initial Page Loader
   if (initialLoad) {
-    return (
-      <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-white">
-        <style dangerouslySetInnerHTML={{ __html: `@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap');` }} />
-        <h1 className="text-4xl tracking-tight leading-none text-slate-900" style={{ fontFamily: '"Bungee Shade", cursive' }}>
-          V<span className="text-[#1125fd] text-4xl">aphers</span>
-        </h1>
-        <Loader2 className="animate-spin text-[#1125fd] mt-6" size={28} />
-      </div>
-    )
+    return <AdminLoader message="Loading financial records..." />
   }
 
   return (

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { AlertCircle } from 'lucide-react';
+import AdminLoader from './AdminLoader';
 import OverviewTab from './Traffic Source Component/Overview'; 
 import OrganicTraffic from './Traffic Source Component/OrganicTraffic'; 
 import PaidTraffic from './Traffic Source Component/PaidTraffic';
@@ -84,12 +85,7 @@ export default function TrafficSources({ dateRange, compareDateRange }: TrafficS
   };
 
   if (loading) {
-    return (
-      <div className="py-20 flex flex-col items-center justify-center text-slate-500 gap-4 bg-white rounded-sm border border-slate-200">
-        <div className="w-8 h-8 border-4 border-[#2383e2] border-t-transparent rounded-full animate-spin"></div>
-        <p className="animate-pulse font-medium">Loading live data...</p>
-      </div>
-    );
+    return <AdminLoader message="Loading live traffic analytics..." className="min-h-[400px] rounded-sm border border-slate-200" />;
   }
 
   if (error || !rawData) {

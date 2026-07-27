@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Search, Plus, Image as ImageIcon, ChevronLeft, ChevronRight, HelpCircle, User, Edit, Trash2 } from "lucide-react";
+import AdminLoader from "../Components/AdminLoader";
 
 type CommonQuestion = {
   id: string;
@@ -79,23 +80,37 @@ export default function AdminCommonQuestionsPage() {
   const totalPages = Math.ceil(filteredQuestions.length / ITEMS_PER_PAGE) || 1;
   const paginatedQuestions = filteredQuestions.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
 
+  if (loading) {
+    return <AdminLoader message="Loading common questions..." />;
+  }
+
   return (
-    <div className="min-h-screen bg-[#F8FAFC] p-4 sm:p-8 py-10 font-sans">
-      <div className="max-w-full mx-auto space-y-8">
-        
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-base text-gray-900 tracking-tight flex items-center gap-3">
-              <HelpCircle className="w-8 h-8 text-blue-600" /> Common Questions
-            </h1>
-            <p className="text-sm text-gray-500 mt-1">Manage and organize questions answered under /common-questions.</p>
-          </div>
-          <Link href="/admin-dashboard/common-questions/add">
-            <button className="flex items-center gap-2 px-5 py-2.5 bg-[#2383e2] text-white rounded-xs font-medium hover:bg-[#1d6fc2] transition-all shadow-sm cursor-pointer">
-              <Plus size={18} /> Add Common Question
-            </button>
-          </Link>
+    <div className="min-h-screen w-full bg-slate-50 text-slate-900 pb-12 montserrat-regular">
+      <style dangerouslySetInnerHTML={{ __html: `
+        @import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+        .montserrat-regular { font-family: 'Montserrat', sans-serif !important; font-weight: 400 !important; }
+        .montserrat-medium { font-family: 'Montserrat', sans-serif !important; font-weight: 500 !important; }
+      ` }} />
+
+      {/* ── Sticky Header ── */}
+      <header className="sticky top-0 z-30 bg-white border-b border-slate-200 px-4 md:px-8 py-3 flex flex-wrap items-center justify-between gap-3 shadow-sm mb-6">
+        <div className="flex items-center gap-6">
+          <h1 className="text-2xl tracking-tight text-slate-900 leading-none" style={{ fontFamily: '"Bungee Shade", cursive' }}>
+            V<span className="text-[#2383e2]">aphers</span>
+          </h1>
+          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:inline border-l border-slate-200 pl-4">
+            Common Questions (FAQ)
+          </span>
         </div>
+
+        <Link href="/admin-dashboard/common-questions/add">
+          <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[#2383e2] hover:bg-[#1c6ebf] text-white text-xs montserrat-medium transition-colors shadow-sm cursor-pointer">
+            <Plus size={14} /> Add Common Question
+          </button>
+        </Link>
+      </header>
+
+      <div className="w-full px-4 md:px-8 space-y-6">
 
         <div className="flex flex-col sm:flex-row flex-wrap gap-4 bg-white p-4 rounded-sm border border-gray-200 shadow-xs">
           <div className="relative flex-1 min-w-[280px]">

@@ -133,14 +133,32 @@ export default function AnalyticsDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-800 font-sans p-4 md:p-6">
-      
+    <div className="min-h-screen w-full bg-slate-50 text-slate-900 pb-12 montserrat-regular">
+      <style dangerouslySetInnerHTML={{ __html: `
+        @import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+        .montserrat-regular { font-family: 'Montserrat', sans-serif !important; font-weight: 400 !important; }
+        .montserrat-medium { font-family: 'Montserrat', sans-serif !important; font-weight: 500 !important; }
+      ` }} />
+
+      {/* ── Sticky Header ── */}
+      <header className="sticky top-0 z-30 bg-white border-b border-slate-200 px-4 md:px-8 py-3 flex flex-wrap items-center justify-between gap-3 shadow-sm mb-6">
+        <div className="flex items-center gap-6">
+          <h1 className="text-2xl tracking-tight text-slate-900 leading-none" style={{ fontFamily: '"Bungee Shade", cursive' }}>
+            V<span className="text-[#2383e2]">aphers</span>
+          </h1>
+          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:inline border-l border-slate-200 pl-4">
+            Analytics Overview
+          </span>
+        </div>
+      </header>
+
+      <div className="w-full px-4 md:px-8">
       {/* --- TOP HEADER & GLOBAL CONTROLS --- */}
       <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center mb-6 gap-4 border-b border-slate-200 pb-4">
         
         <div className="flex flex-col w-full gap-2">
           {/* Dynamic Label Header */}
-          <div className="text-sm font-medium text-gray-700 mb-1">
+          <div className="text-xs montserrat-medium text-slate-500 uppercase tracking-wider mb-1">
              <span>Date range{isComparing ? ' & Comparison' : ''}:</span>
           </div>
 
@@ -325,15 +343,15 @@ export default function AnalyticsDashboard() {
       </div>
 
       {/* --- DYNAMIC MAIN TABS --- */}
-      <div className="flex gap-6 border-b border-slate-200 mb-6 text-sm font-medium overflow-x-auto pb-1 scrollbar-hide">
+      <div className="flex gap-6 border-b border-slate-200 mb-6 text-sm montserrat-medium overflow-x-auto pb-1 scrollbar-hide">
         {MAIN_TABS.map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveMainTab(tab)}
-            className={`pb-3 whitespace-nowrap transition-colors outline-none ${
+            className={`pb-3 whitespace-nowrap transition-colors outline-none cursor-pointer ${
               activeMainTab === tab
-                ? 'border-b-2 border-[#135290] text-[#135290]'
-                : 'text-[#2383e2] hover:text-[#1d7bc9] border-b-2 border-transparent cursor-pointer'
+                ? 'border-b-2 border-[#2383e2] text-[#2383e2]'
+                : 'text-slate-500 hover:text-slate-900 border-b-2 border-transparent'
             }`}
           >
             {tab}
@@ -358,18 +376,19 @@ export default function AnalyticsDashboard() {
         )}
         
         {activeMainTab === 'Pages' && (
-          <div className="py-20 text-center border-2 border-dashed border-slate-200 rounded-sm text-slate-500 bg-slate-50/50 text-xl md:text-4xl">
-            Pages Component Coming Soon
+          <div className="py-20 text-center border border-slate-200 bg-white rounded-sm text-slate-400 montserrat-medium text-sm shadow-sm">
+            Pages Analytics Component
           </div>
         )}
         
         {activeMainTab === 'Conversions' && (
-          <div className="py-20 text-center border-2 border-dashed border-slate-200 rounded-sm text-slate-500 bg-slate-50/50 text-xl md:text-4xl">
-            Conversions Component Coming Soon
+          <div className="py-20 text-center border border-slate-200 bg-white rounded-sm text-slate-400 montserrat-medium text-sm shadow-sm">
+            Conversions Analytics Component
           </div>
         )}
       </div>
 
+      </div>
     </div>
   );
 }

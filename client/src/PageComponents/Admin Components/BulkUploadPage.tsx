@@ -350,16 +350,30 @@ export default function BulkUploadPage() {
   const errorCount = blogs.filter(b => b._status === 'ERROR').length;
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6 pb-20">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Bulk Upload Blogs</h1>
-          <p className="text-gray-500 mt-1">Upload multiple blogs via JSON with automatic widget injection.</p>
+    <div className="min-h-screen w-full bg-slate-50 text-slate-900 pb-12 montserrat-regular">
+      <style dangerouslySetInnerHTML={{ __html: `
+        @import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+        .montserrat-regular { font-family: 'Montserrat', sans-serif !important; font-weight: 400 !important; }
+        .montserrat-medium { font-family: 'Montserrat', sans-serif !important; font-weight: 500 !important; }
+      ` }} />
+
+      {/* ── Sticky Header ── */}
+      <header className="sticky top-0 z-30 bg-white border-b border-slate-200 px-4 md:px-8 py-3 flex flex-wrap items-center justify-between gap-3 shadow-sm mb-6">
+        <div className="flex items-center gap-6">
+          <h1 className="text-2xl tracking-tight text-slate-900 leading-none" style={{ fontFamily: '"Bungee Shade", cursive' }}>
+            V<span className="text-[#2383e2]">aphers</span>
+          </h1>
+          <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:inline border-l border-slate-200 pl-4">
+            Bulk JSON Blog Importer
+          </span>
         </div>
-        <button onClick={downloadTemplate} className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors shadow-sm">
-          <Download size={16} /> Template JSON
+
+        <button onClick={downloadTemplate} className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200 rounded-sm text-xs montserrat-medium text-slate-700 hover:bg-slate-50 transition-colors shadow-xs cursor-pointer">
+          <Download size={14} /> Download Template JSON
         </button>
-      </div>
+      </header>
+
+      <div className="w-full px-4 md:px-8 space-y-6">
 
       {errorMsg && (
         <div className="p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg flex items-start gap-3">
@@ -571,6 +585,7 @@ export default function BulkUploadPage() {
         </div>
       )}
 
+      </div>
     </div>
   );
 }

@@ -42,6 +42,7 @@ import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import AdminLoader from "../Components/AdminLoader";
 
 type ProjectStatus = "Planning" | "In Progress" | "Review" | "Completed" | "On Hold" | "Stopped" | "Cancelled";
 type PaymentStatus = "Paid" | "Partial" | "Payment Due" | "Overdue" | "Cancelled";
@@ -311,6 +312,10 @@ export default function ProjectsPage() {
   const activeProjectsCount = projects.filter(p => p.status === "In Progress" || p.status === "Planning").length;
   const paymentDueCount = projects.filter(p => p.paymentStatus === "Payment Due" || p.paymentStatus === "Overdue" || p.status === "Stopped").length;
   const subscriptionCount = projects.filter(p => p.billingType?.includes("Subscription")).length;
+
+  if (loading) {
+    return <AdminLoader message="Loading project portfolio..." />;
+  }
 
   return (
     <div className="min-h-screen w-full bg-slate-50 text-slate-900 pb-12 montserrat-regular">
