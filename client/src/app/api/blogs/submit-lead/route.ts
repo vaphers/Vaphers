@@ -37,7 +37,11 @@ export async function POST(request: Request) {
     const website = escapeHtml(body.website || "");
     const blogTitle = escapeHtml(body.blogTitle || "Blog Article");
     const pageUrl = escapeHtml(body.pageUrl || request.headers.get("referer") || "https://www.vaphers.com/blogs");
-    const submissionTime = body.submissionTime || new Date().toISOString();
+    const submissionTime = body.submissionTime || new Date().toLocaleString("en-US", {
+      timeZone: "Asia/Kolkata",
+      dateStyle: "full",
+      timeStyle: "medium",
+    }) + " (IST)";
 
     // 2. Save to Firestore Database
     if (db) {
@@ -61,185 +65,75 @@ export async function POST(request: Request) {
     try {
       const gmailUser = process.env.GMAIL_USER || "vapherstech@gmail.com";
       const gmailPass = (process.env.GMAIL_APP_PASSWORD || "uvbk vgsd ltfk jaxa").replace(/\s+/g, "");
-      const recipientEmail = process.env.RECIPIENT_EMAIL || "vapherstech@gmail.com";
+      
+      // Multiple recipients: crew@vaphers.com + primary recipient
+      const primaryRecipient = process.env.RECIPIENT_EMAIL || "vapherstech@gmail.com";
+      const recipientEmails = Array.from(
+        new Set([primaryRecipient, "crew@vaphers.com", "vapherstech@gmail.com"])
+      ).filter(Boolean).join(", ");
 
       const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: { user: gmailUser, pass: gmailPass },
       });
 
+      // Clean, Minimal, Logo-Free HTML Email Template
       const htmlTemplate = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Blog Lead - Vaphers</title>
-  <!--[if mso]>
-  <style>table,td,div,p,span{font-family:Arial,Helvetica,sans-serif !important;}</style>
-  <![endif]-->
+  <title>Blog Sidebar Lead</title>
 </head>
-<body style="margin:0;padding:0;background-color:#eef2f7;font-family:'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;">
+<body style="margin:0;padding:0;background-color:#ffffff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1e293b;line-height:1.5;">
 
-  <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color:#eef2f7;">
-    <tr>
-      <td align="center" style="padding:40px 16px;">
+  <div style="max-width:520px;margin:0 auto;padding:24px 16px;">
+    
+    <!-- Minimal Blue Accent Line -->
+    <div style="height:2px;background-color:#2383e2;margin-bottom:20px;"></div>
 
-        <!-- Card -->
-        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width:560px;background-color:#ffffff;border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.07),0 1px 3px rgba(0,0,0,0.04);">
+    <!-- Header -->
+    <p style="margin:0 0 4px 0;font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;font-weight:400;">Blog Sidebar Lead</p>
+    <h2 style="margin:0 0 20px 0;font-size:17px;font-weight:500;color:#0f172a;">
+      New website lead submitted
+    </h2>
 
-          <!-- Top accent stripe -->
-          <tr>
-            <td style="height:5px;background:linear-gradient(90deg,#2563eb 0%,#38bdf8 50%,#818cf8 100%);font-size:0;line-height:0;">&nbsp;</td>
-          </tr>
+    <!-- Key-Value Table -->
+    <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;font-size:13px;font-weight:400;">
+      
+      <tr>
+        <td style="padding:9px 0;color:#64748b;width:130px;vertical-align:top;border-bottom:1px solid #f1f5f9;font-weight:400;">Submitted Website</td>
+        <td style="padding:9px 0;color:#2383e2;vertical-align:top;border-bottom:1px solid #f1f5f9;font-weight:400;word-break:break-all;">
+          <a href="${website.startsWith("http") ? website : "https://" + website}" target="_blank" style="color:#2383e2;text-decoration:none;">${website}</a>
+        </td>
+      </tr>
 
-          <!-- Header -->
-          <tr>
-            <td style="padding:36px 40px 28px 40px;">
-              <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                  <td>
-                    <table role="presentation" border="0" cellspacing="0" cellpadding="0">
-                      <tr>
-                        <td style="width:36px;height:36px;background:#2563eb;border-radius:10px;text-align:center;vertical-align:middle;color:#fff;font-weight:800;font-size:16px;letter-spacing:-0.5px;">V</td>
-                        <td style="padding-left:12px;font-size:18px;font-weight:700;color:#0f172a;letter-spacing:-0.3px;">Vaphers</td>
-                      </tr>
-                    </table>
-                  </td>
-                  <td align="right" valign="top">
-                    <span style="display:inline-block;background:#fef3c7;color:#b45309;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;padding:5px 12px;border-radius:20px;">Blog Lead</span>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
+      <tr>
+        <td style="padding:9px 0;color:#64748b;width:130px;vertical-align:top;border-bottom:1px solid #f1f5f9;font-weight:400;">Blog Article</td>
+        <td style="padding:9px 0;color:#0f172a;vertical-align:top;border-bottom:1px solid #f1f5f9;font-weight:400;">${blogTitle}</td>
+      </tr>
 
-          <!-- Divider -->
-          <tr><td style="padding:0 40px;"><div style="height:1px;background:#e2e8f0;"></div></td></tr>
+      <tr>
+        <td style="padding:9px 0;color:#64748b;width:130px;vertical-align:top;border-bottom:1px solid #f1f5f9;font-weight:400;">Source Page</td>
+        <td style="padding:9px 0;color:#64748b;vertical-align:top;border-bottom:1px solid #f1f5f9;font-weight:400;word-break:break-all;">
+          <a href="${pageUrl}" target="_blank" style="color:#64748b;text-decoration:underline;">${pageUrl}</a>
+        </td>
+      </tr>
 
-          <!-- Lead Headline -->
-          <tr>
-            <td style="padding:24px 40px 8px 40px;">
-              <p style="margin:0;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#94a3b8;">Blog Sidebar Lead</p>
-              <h1 style="margin:6px 0 0 0;font-size:22px;font-weight:700;color:#0f172a;letter-spacing:-0.3px;line-height:1.3;">
-                New website submitted
-              </h1>
-            </td>
-          </tr>
+    </table>
 
-          <!-- Data Fields -->
-          <tr>
-            <td style="padding:20px 40px 0 40px;">
-              <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:separate;border-spacing:0;">
+    <!-- Quick Action & Footer -->
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid #f1f5f9;font-size:12px;color:#64748b;">
+      <p style="margin:0 0 8px 0;font-weight:400;">
+        <a href="${website.startsWith("http") ? website : "https://" + website}" target="_blank" style="color:#2383e2;text-decoration:none;">Inspect submitted website &rarr;</a>
+      </p>
+      <p style="margin:0;font-size:11px;color:#94a3b8;font-weight:400;">
+        ${submissionTime} &middot; IP: ${ip}
+      </p>
+    </div>
 
-                <!-- Client Website -->
-                <tr>
-                  <td style="padding:14px 0;border-bottom:1px solid #f1f5f9;">
-                    <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
-                      <tr>
-                        <td style="width:32px;vertical-align:top;">
-                          <div style="width:32px;height:32px;background:#eff6ff;border-radius:8px;text-align:center;line-height:32px;font-size:15px;">🌐</div>
-                        </td>
-                        <td style="padding-left:14px;vertical-align:middle;">
-                          <p style="margin:0;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:#94a3b8;">Client Website</p>
-                          <p style="margin:2px 0 0 0;font-size:14px;font-weight:600;color:#2563eb;word-break:break-all;">
-                            <a href="${website.startsWith("http") ? website : "https://" + website}" target="_blank" style="color:#2563eb;text-decoration:none;">${website}</a>
-                          </p>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-
-                <!-- Blog Title -->
-                <tr>
-                  <td style="padding:14px 0;border-bottom:1px solid #f1f5f9;">
-                    <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
-                      <tr>
-                        <td style="width:32px;vertical-align:top;">
-                          <div style="width:32px;height:32px;background:#fce7f3;border-radius:8px;text-align:center;line-height:32px;font-size:15px;">📝</div>
-                        </td>
-                        <td style="padding-left:14px;vertical-align:middle;">
-                          <p style="margin:0;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:#94a3b8;">Blog Article</p>
-                          <p style="margin:2px 0 0 0;font-size:14px;font-weight:600;color:#0f172a;">${blogTitle}</p>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-
-                <!-- Page URL -->
-                <tr>
-                  <td style="padding:14px 0;">
-                    <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
-                      <tr>
-                        <td style="width:32px;vertical-align:top;">
-                          <div style="width:32px;height:32px;background:#f5f3ff;border-radius:8px;text-align:center;line-height:32px;font-size:15px;">📍</div>
-                        </td>
-                        <td style="padding-left:14px;vertical-align:middle;">
-                          <p style="margin:0;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:#94a3b8;">Submitted From</p>
-                          <p style="margin:2px 0 0 0;font-size:13px;font-weight:500;color:#64748b;word-break:break-all;">
-                            <a href="${pageUrl}" target="_blank" style="color:#64748b;text-decoration:underline;">${pageUrl}</a>
-                          </p>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-
-              </table>
-            </td>
-          </tr>
-
-          <!-- CTA Button -->
-          <tr>
-            <td style="padding:8px 40px 0 40px;" align="center">
-              <table role="presentation" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                  <td style="border-radius:12px;background:#2563eb;box-shadow:0 4px 14px rgba(37,99,235,0.3);">
-                    <a href="${website.startsWith("http") ? website : "https://" + website}" target="_blank" style="display:inline-block;padding:14px 36px;color:#ffffff;font-size:14px;font-weight:600;text-decoration:none;letter-spacing:0.2px;">
-                      Visit Website &rarr;
-                    </a>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <!-- Spacer -->
-          <tr><td style="height:32px;"></td></tr>
-
-          <!-- Footer -->
-          <tr>
-            <td style="padding:20px 40px;border-top:1px solid #f1f5f9;">
-              <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                  <td style="font-size:11px;color:#94a3b8;line-height:1.7;">
-                    ${submissionTime}<br>
-                    IP: ${ip}
-                  </td>
-                  <td align="right" style="font-size:11px;color:#cbd5e1;">
-                    Spam check passed ✓
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-        </table>
-
-        <!-- Sub-footer -->
-        <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width:560px;">
-          <tr>
-            <td align="center" style="padding:24px 0 0 0;font-size:11px;color:#b0bec5;">
-              Vaphers &middot; Lead Management &middot; &copy; ${new Date().getFullYear()}
-            </td>
-          </tr>
-        </table>
-
-      </td>
-    </tr>
-  </table>
+  </div>
 
 </body>
 </html>
@@ -247,8 +141,8 @@ export async function POST(request: Request) {
 
       await transporter.sendMail({
         from: `"Vaphers Blog Leads" <${gmailUser}>`,
-        to: recipientEmail,
-        subject: `[Vaphers Blog Lead] ${website}`,
+        to: recipientEmails,
+        subject: `[Blog Lead] ${website}`,
         html: htmlTemplate,
       });
     } catch (emailErr) {

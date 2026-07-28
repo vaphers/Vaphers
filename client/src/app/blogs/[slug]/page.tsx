@@ -427,6 +427,7 @@ import ContactSection from "@/PageComponents/Landing Home/ContactSection";
 import MarketingPriceCalculator from "@/PageComponents/Global Components/PriceCalc";
 import BlogLeadForm from "@/PageComponents/Blogs Components/BlogLeadForm";
 import SummarizeButtons from "@/PageComponents/Blogs Components/SummarizeButtons"; // <-- Import the new component
+import GooglePreferredSourceBadge from "@/PageComponents/Global Components/GooglePreferredSourceBadge";
 import { Calendar, User, Clock, ChevronRight } from "lucide-react";
 
 type Props = {
@@ -723,8 +724,10 @@ export default async function BlogPage({ params }: Props) {
 
             </article>
 
-            {/* RIGHT SIDEBAR: Lead Card */}
-            <aside className="w-full lg:w-[280px] shrink-0 lg:sticky lg:top-28 space-y-10 order-2 lg:order-3 mt-10 lg:mt-0">
+            {/* RIGHT SIDEBAR: Preferred Source & Lead Card */}
+            <aside className="w-full lg:w-[280px] shrink-0 lg:sticky lg:top-28 space-y-6 order-2 lg:order-3 mt-10 lg:mt-0">
+              <GooglePreferredSourceBadge />
+
               <div className="border border-gray-200 bg-white rounded-md p-5 shadow-sm">
                 <img
                   src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772000439/ChatGPT_Image_Feb_25_2026_11_50_44_AM_tgsao7.png"

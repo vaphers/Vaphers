@@ -97,9 +97,9 @@ export default function SocialProofSection() {
               Book a Call
             </button>
           </Link>
-          <Link href="mailto:vaphersonline@gmail.com" className="w-full sm:w-auto">
-            <button className="w-full sm:w-auto rounded-lg bg-blue-600 px-8 py-3 font-medium text-white transition-colors hover:bg-blue-800 cursor-pointer">
-              Prefer writing instead? Email us.
+          <Link href="mailto:crew@vaphers.com" className="w-full sm:w-auto">
+            <button className="w-full sm:w-auto rounded-lg bg-blue-50 px-8 py-3 font-medium text-blue-700 hover:bg-blue-100 transition-colors cursor-pointer border border-blue-200">
+              Email Us Directly
             </button>
           </Link>
         </div>
