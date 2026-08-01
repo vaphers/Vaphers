@@ -1,6 +1,6 @@
 import './globals.css'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import { Bungee_Inline, Bungee_Shade, Montserrat } from 'next/font/google'
+import { Bungee_Inline, Bungee_Shade, Montserrat, Libre_Franklin } from 'next/font/google'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { Toaster } from '@/components/ui/sonner'
 import { Suspense } from 'react'
@@ -27,6 +27,14 @@ const montserrat = Montserrat({
   weight: ['400', '500', '600', '700'],
   display: 'swap',
   variable: '--font-montserrat',
+})
+
+// Initialize Libre Franklin
+const libreFranklin = Libre_Franklin({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+  display: 'swap',
+  variable: '--font-libre-franklin',
 })
 
 export const metadata = {
@@ -112,10 +120,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html 
-      lang="en" 
-      className={`${bungeeInline.variable} ${bungeeShade.variable} ${montserrat.variable}`}
-    >
+<html
+  lang="en"
+  className={`${bungeeInline.variable} ${bungeeShade.variable} ${montserrat.variable} ${libreFranklin.variable}`}
+>
       <head>
         <script src="https://analytics.ahrefs.com/analytics.js" data-key="R7lOm40+Rsly7oGYYcI9cQ" async></script>
         <meta
