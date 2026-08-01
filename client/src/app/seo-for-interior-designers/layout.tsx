@@ -3,44 +3,44 @@ import NavBar from '@/PageComponents/Global Components/Header'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'ROI-Focused SEO Services Built to Scale Your Business | Vaphers',
+  title: 'SEO for Interior Designers | Get Found by Ready-to-Hire Clients | Vaphers',
   description:
-    'Stop guessing with SEO. We deliver data-driven SEO services that improve rankings, attract qualified traffic, and turn search visibility into revenue.',
+    'SEO for interior designers and design studios in the US and UK. We help you rank for the searches your ideal clients are already running — no lock-in contracts, no vanity metrics.',
   keywords:
-    'SEO services, search engine optimization, digital marketing, Google rankings, organic traffic',
+    'SEO for interior designers, SEO for interior design company, interior design SEO, interior designer marketing, SEO for design studios',
 
   alternates: {
-    canonical: 'https://www.vaphers.com/seo-services',
+    canonical: 'https://www.vaphers.com/seo-for-interior-designers',
   },
 
   openGraph: {
-    title: 'ROI-Focused SEO Services Built to Scale Your Business | Vaphers',
+    title: 'SEO for Interior Designers Who Would Rather Design Than Chase Leads',
     description:
-      'Drive more organic traffic with expert SEO services designed to increase rankings, leads, and measurable revenue growth.',
-    url: 'https://www.vaphers.com/seo-services',
+      'Data-driven SEO for interior design companies in the US and UK. Rank higher, attract qualified inquiries, and rely less on referrals alone.',
+    url: 'https://www.vaphers.com/seo-for-interior-designers',
     type: 'website',
     images: [
       {
         url: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761213572/hero_landing_rhywrd.jpg',
         width: 1200,
         height: 630,
-        alt: 'Vaphers SEO Services',
+        alt: 'Vaphers SEO for Interior Designers',
       },
     ],
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'ROI-Focused SEO Services Built to Scale Your Business',
+    title: 'SEO for Interior Designers | Vaphers',
     description:
-      'Increase rankings, traffic, and revenue with performance-driven SEO strategies.',
+      'SEO built for how interior design clients actually search and decide — for studios in the US and UK.',
     images: [
       'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1761213572/hero_landing_rhywrd.jpg',
     ],
   },
 }
 
-export default function SEOServicesLayout({
+export default function SEOForInteriorDesignersLayout({
   children,
 }: {
   children: React.ReactNode
