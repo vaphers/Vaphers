@@ -6,27 +6,13 @@ export default function OpeningSection() {
   return (
     <section className="bg-[#fafafa] py-16 sm:py-20 px-4 sm:px-6 md:px-12 lg:px-8 overflow-hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-        
-        {/* Left Section: Image Composition */}
         <div className="relative w-full max-w-[450px] lg:max-w-[500px] mx-auto lg:ml-0 lg:mr-auto pr-10 sm:pr-16 lg:pr-0">
-          
-          {/* Main Background Image */}
           <div className="rounded-3xl overflow-hidden aspect-[4/5] relative w-full shadow-lg">
-            <img 
-              src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773246494/unwatermarked_Gemini_Generated_Image_pxvm2dpxvm2dpxvm_aam8kz.png" 
-              alt="Interior design portfolio optimized for search visibility" 
-              className="w-full h-full object-cover" 
-            />
+            <img src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773246494/unwatermarked_Gemini_Generated_Image_pxvm2dpxvm2dpxvm_aam8kz.png" alt="Main Feature" className="w-full h-full object-cover" />
           </div>
-
-          {/* Floating Middle-Right Card */}
           <div className="absolute top-1/2 -right-2 sm:-right-4 lg:-right-24 transform -translate-y-1/2 bg-white p-2.5 sm:p-3.5 rounded-2xl shadow-xl w-[200px] sm:w-[240px] lg:w-[260px] z-10">
             <div className="relative rounded-xl overflow-hidden aspect-[4/3] mb-3 sm:mb-4">
-              <img 
-                src="https://www.oraanj-interiors.co.uk/wp-content/uploads/2025/01/rest_img15.jpg " 
-                alt="Design studio SEO audit and portfolio review" 
-                className="w-full h-full object-cover" 
-              />
+              <img src="https://www.oraanj-interiors.co.uk/wp-content/uploads/2025/01/rest_img15.jpg" alt="Secondary Feature" className="w-full h-full object-cover" />
               <a href="/contact">
               <div className="absolute top-2 right-2 bg-white/90 backdrop-blur rounded-full p-1 sm:p-1.5 shadow-sm cursor-pointer hover:bg-white transition-colors">
                 <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-700" />
@@ -34,79 +20,57 @@ export default function OpeningSection() {
               </a>
             </div>
             <h4 className="font-semibold text-gray-900 text-[13px] sm:text-[15px] mb-1 sm:mb-1.5 leading-tight">
-              Portfolio-First SEO Audits
+              Strategic Marketing Roadmaps
             </h4>
             <p className="text-[11px] sm:text-[13px] text-gray-500 leading-relaxed">
-              Every strategy begins with a deep audit of your project portfolio, image load speeds, and how prospective clients navigate your design galleries.
+              Every marketing campaign we craft is precision-engineered to reflect your studio's unique brand and growth ambitions.
             </p>
           </div>
         </div>
-
-        {/* Right Section: Content & Grid */}
         <div className="flex flex-col justify-center mt-6 lg:mt-0">
-          
-          {/* Top Half: Heading & Text */}
           <div className="mb-8 lg:mb-10 lg:pl-8">
             <h2 className="text-3xl sm:text-4xl md:text-4xl text-gray-800 mb-4 sm:mb-6 leading-[1.2] lg:leading-[1.15] bungee-shade">
-              Why Cookie-Cutter SEO Fails <span className='text-blue-700'>Interior Design Studios</span>
+              Why Most Marketing for <span className='text-blue-700'>Interior Design Firms</span> Falls Flat?
             </h2>
             <p className="text-gray-600 text-[15px] sm:text-[17px] leading-relaxed">
-              Your dream clients don't just type "interior designer near me" and hire the first result. They spend weeks comparing portfolios on Google Images, saving mood boards from Pinterest, and browsing Houzz profiles before they ever reach out. That long research journey means generic SEO misses the mark entirely. You need visibility at every stage, from the early "modern kitchen renovation ideas" search to the final "luxury interior designer in London" query. Ranking your project galleries in visual search, optimizing portfolio images for fast load times, and capturing Pinterest-driven design-intent traffic is what turns browsers into booked consultation calls.
+              Interior design marketing isn't the same as marketing a plumbing company or a law firm. Your work is visual, personal, and often high-ticket, which means the person searching for you isn't just looking for "a designer near me." They're comparing portfolios, reading testimonials, and deciding who they trust with their home or commercial space. Effective marketing for interior design firms puts you in front of that person at the exact moment they're making decisions, not months later when they've already hired someone else.
             </p>
           </div>
-
-          {/* Bottom Half: Proportional Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 sm:gap-6 items-end lg:pl-12">
-            
-            {/* Part 1: Stats */}
-            {/* Added standard bottom padding so it aligns with the image cards nicely on mobile stacking */}
             <div className="sm:col-span-3 flex flex-row sm:flex-col items-center sm:items-start justify-start sm:justify-end gap-4 sm:gap-0 pb-0 sm:pb-3">
-              <span className="text-5xl sm:text-6xl font-medium text-gray-900 sm:mb-2 tracking-tighter">4.8×</span>
+              <span className="text-5xl sm:text-6xl font-medium text-gray-900 sm:mb-2 tracking-tighter">97%</span>
               <span className="text-gray-500 text-[13px] sm:text-[14px] leading-snug">
-                More consultation <br className="hidden sm:block" /> requests from organic
+                More leads <br className="hidden sm:block" />that convert
               </span>
             </div>
-
-            {/* Part 2: Small Image Box */}
             <div className="sm:col-span-4 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col relative group">
               <div className="relative aspect-video sm:aspect-square md:aspect-video bg-gray-50 w-full overflow-hidden">
-                <img 
-                  src="https://www.oraanj-interiors.co.uk/wp-content/uploads/2025/11/Screenshot-2026-01-28-070718.png" 
-                  alt="Visual search optimization for interior design portfolios" 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                />
+                <img src="https://www.oraanj-interiors.co.uk/wp-content/uploads/2025/11/Screenshot-2026-01-28-070718.png" alt="AI Search Optimization" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <Link href="https://www.vaphers.com/seo-services/ai-seo-services" className="absolute inset-0 z-10">
-                  <span className="sr-only">Visual Search Optimization</span>
+                  <span className="sr-only">AI Search Optimization</span>
                 </Link>
                 <div className="absolute top-2 right-2 bg-white/90 backdrop-blur rounded-full p-1.5 shadow-sm z-20 transition-all duration-300 group-hover:bg-white group-hover:scale-110 border border-gray-200 pointer-events-none">
                   <ArrowUpRight className="w-4 h-4 text-gray-700" />
                 </div>
               </div>
               <div className="p-3">
-                <p className="text-[13px] font-medium text-gray-800">Visual Search Optimization</p>
+                <p className="text-[13px] font-medium text-gray-800">AI Search Optimization</p>
               </div>
             </div>
-
-            {/* Part 3: Slightly Bigger Image Box */}
             <div className="sm:col-span-5 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col relative group">
               <div className="relative aspect-video sm:aspect-[4/3] bg-gray-50 w-full overflow-hidden">
-                <img 
-                  src="https://www.oraanj-interiors.co.uk/wp-content/uploads/2025/11/London-Interior-Makeovers-Transforming-Classic-Spaces-with-Modern-Touches.jpg" 
-                  alt="Interior design project pages ranking in Google search" 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                />
+                <img src="https://www.oraanj-interiors.co.uk/wp-content/uploads/2025/11/London-Interior-Makeovers-Transforming-Classic-Spaces-with-Modern-Touches.jpg" alt="Contact Today" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <Link href="https://www.vaphers.com/contact" className="absolute inset-0 z-10">
-                  <span className="sr-only">Portfolio Page Rankings</span>
+                  <span className="sr-only">Digital Marketing</span>
                 </Link>
                 <div className="absolute top-3 right-3 bg-white/90 backdrop-blur rounded-full p-1.5 shadow-sm z-20 transition-all duration-300 group-hover:bg-white group-hover:scale-110 border border-gray-200 pointer-events-none">
                   <ArrowUpRight className="w-4 h-4 text-gray-700" />
                 </div>
               </div>
               <div className="p-3.5">
-                <p className="text-[14px] font-medium text-gray-800">Rank your portfolio pages for high-intent design searches</p>
+                <p className="text-[14px] font-medium text-gray-800">Boost your design studio with strategic digital marketing</p>
               </div>
             </div>
-
           </div>
         </div>
       </div>

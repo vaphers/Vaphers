@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/dist/client/link';
 
-// --- Dummy Data ---
-// You will replace these with your actual flat UI mockup images later.
 const showcaseImages = [
   'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80',
   'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80',
@@ -24,28 +22,14 @@ export default function PresentationCarousel() {
     setCurrentIndex((prev) => (prev - 1 + showcaseImages.length) % showcaseImages.length);
   };
 
-  // Framer Motion variants for the image sliding effect
   const slideVariants = {
-    enter: (dir: number) => ({
-      x: dir > 0 ? 50 : -50,
-      opacity: 0,
-    }),
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1,
-    },
-    exit: (dir: number) => ({
-      zIndex: 0,
-      x: dir < 0 ? 50 : -50,
-      opacity: 0,
-    }),
+    enter: (dir: number) => ({ x: dir > 0 ? 50 : -50, opacity: 0 }),
+    center: { zIndex: 1, x: 0, opacity: 1 },
+    exit: (dir: number) => ({ zIndex: 0, x: dir < 0 ? 50 : -50, opacity: 0 }),
   };
 
   return (
     <div className="min-h-screen bg-[#f3f2ee] flex flex-col items-center justify-center py-16 overflow-hidden font-sans">
-
-      {/* Center Image Showcase */}
       <div className="w-[95%] md:w-[90%] lg:w-[80%] aspect-[16/10] relative shadow-[0_20px_50px_rgba(0,0,0,0.1)] bg-white overflow-hidden rounded-sm">
         <AnimatePresence initial={false} custom={direction}>
           <motion.img
@@ -65,23 +49,13 @@ export default function PresentationCarousel() {
           />
         </AnimatePresence>
       </div>
-
-      {/* Bottom Navigation Controls */}
       <div className="w-[95%] md:w-[90%] lg:w-[80%] mt-12 flex items-center justify-between gap-6">
-
-        {/* Previous Button */}
-        <button
-          onClick={prevSlide}
-          className="text-blue-600 hover:text-blue-700 transition-colors p-2"
-          aria-label="Previous image"
-        >
+        <button onClick={prevSlide} className="text-blue-600 hover:text-blue-700 transition-colors p-2" aria-label="Previous image">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
         </button>
-
-        {/* Dynamic Progress Line */}
         <div className="flex-1 h-[1px] bg-[#e0dbd5] relative rounded-full overflow-hidden">
           <motion.div
             className="absolute top-0 h-full bg-blue-600"
@@ -93,44 +67,34 @@ export default function PresentationCarousel() {
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
           />
         </div>
-
-        {/* Next Button */}
-        <button
-          onClick={nextSlide}
-          className="text-blue-600 hover:text-blue-700 transition-colors p-2"
-          aria-label="Next image"
-        >
+        <button onClick={nextSlide} className="text-blue-600 hover:text-blue-700 transition-colors p-2" aria-label="Next image">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
         </button>
       </div>
-
-      {/* Text Content Section */}
       <div className="w-[95%] md:w-[90%] lg:w-[80%] mt-24 max-w-6xl self-center text-[#222]">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal mb-8 bungee-shade text-center">
           A Real Example: Oraanj Interiors
         </h2>
         <div className="space-y-6 text-[#444] text-lg md:text-xl font-light leading-relaxed max-w-5xl text-center mx-auto">
           <p>
-            When Rachana Gupta, founder of <a href='https://www.oraanj-interiors.co.uk' className='text-blue-600'>Oraanj Interiors</a>, reached out, her studio had a stunning project portfolio and glowing client testimonials, but nearly every lead came through personal referrals. Her portfolio images weren't being indexed by Google at all, Pinterest referral traffic sat at zero, and searches like "interior designer near me" or "luxury home interiors in London" returned only competitors. Her work never appeared in Google's image carousel, the exact place high-intent homeowners browse before reaching out.
+            When Rachana Gupta, owner of <a href='https://www.oraanj-interiors.co.uk' className='text-blue-600'>Oraanj Interiors</a>, came to us, her studio had a strong portfolio and a loyal client base, but almost all of it came from word-of-mouth. Her online presence wasn't generating the kind of inbound inquiries her studio deserved.
           </p>
           <p>
-            We rebuilt her SEO from the ground up with interior-design-specific fixes: wrote descriptive, keyword-rich alt tags for every project gallery image, implemented structured schema markup for each completed interior design project, and created location-specific landing pages targeting every service area she wanted to grow in. We also tackled her Core Web Vitals score, which was being dragged down by unoptimized high-resolution photography, compressing hero images, lazy-loading gallery grids, and cutting page load times in half without sacrificing visual quality.
+            We developed a comprehensive interior design marketing strategy from the ground up: refined her brand positioning online, optimized her project galleries for discovery, and built content around the specific services and locations she wanted to grow in. No gimmicks, just making sure the right audience found Oraanj Interiors when they searched.
           </p>
           <p>
-            The results spoke for themselves: consultation booking form submissions increased steadily month over month, Google Images impressions for her portfolio work climbed dramatically, and she broke into the local map pack for competitive design-related searches in her area. Pinterest referral traffic, previously nonexistent, became a consistent source of qualified visitors. It's a focused case study, but it shows exactly what happens when SEO for interior designers is built around how design clients actually discover, evaluate, and choose a studio, not recycled from a generic small-business playbook.
+            The result was a steady rise in qualified organic inquiries, the kind of leads that had already seen her work and were ready to talk, not tire-kickers. It's a small case study, but it's a great example of what happens when marketing for interior design firms is built around how design clients actually search and decide, instead of copied from a generic small-business playbook.
           </p>
         </div>
       </div>
-
-              <Link href={"https://calendar.app.google/EkZJNhjEhLxjfqPa6"} className="w-full sm:w-auto mt-10  ">
-          <button className="w-fit transform rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-800 dark:bg-blue-500 dark:text-black dark:hover:bg-gray-200">
-            I Want Results Like This for My Studio
-          </button>
-        </Link>
-
+      <Link href={"https://calendar.app.google/EkZJNhjEhLxjfqPa6"} className="w-full sm:w-auto mt-10">
+        <button className="w-fit transform rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-800 dark:bg-blue-500 dark:text-black dark:hover:bg-gray-200">
+          I Want Results Like This for My Studio
+        </button>
+      </Link>
     </div>
   );
 }

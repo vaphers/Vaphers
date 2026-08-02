@@ -31,9 +31,9 @@ function Hero() {
   return (
     <div className="relative mx-auto mb-10 flex max-w-full flex-col items-center justify-center bg-gradient-to-b from-blue-900 via-blue-800 to-blue-600 lg:-mt-28 lg:pt-40 lg:pb-20 lg:mx-3 lg:rounded-4xl">
       <div className="mt-5"></div>
-      <div className="border border-indigo-600 p-1 w-75 mx-auto rounded-full flex items-center justify-between mb-7">
+      <div className="border border-indigo-600 p-1 w-fit mx-auto rounded-full flex items-center justify-between mb-7">
         <span className="font-inter text-base font-medium text-gray-300 ml-3">
-          Explore how to use for brands.
+          Attract high-ticket design clients via search.
         </span>
         <a
           href="#"
@@ -87,18 +87,18 @@ function Hero() {
           // Static content on mobile
           <>
             <p className="relative z-10 mx-auto max-w-xl py-4 text-center text-lg font-normal text-neutral-400 dark:text-neutral-400">
-              You didn't start an interior design studio to spend your evenings figuring out Google. We handle SEO for interior designers so the right clients, the ones with real budgets and real taste, find you before they find your competitor.    
+              Your future clients are browsing Pinterest, scrolling Houzz, and searching Google Images for weeks before they ever reach out. They're comparing portfolios, reading reviews in the local map pack, and shortlisting designers long before that first consultation call. We make sure your studio is the one they keep coming back to throughout that entire research journey.
             </p>
             
             <div className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4">
               <Link href={"https://www.vaphers.com/pricing"}>
               <button className="w-60 transform rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-800 dark:bg-blue-500 dark:text-black dark:hover:bg-gray-200">
-                Explore Now
+                View Our Plans
               </button>
               </Link>
               <Link href={"https://www.vaphers.com/contact"}>
               <button className="w-60 transform rounded-lg border border-blue-600 bg-white px-6 py-2 font-medium text-blue-600 transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-100 dark:border-blue-600 dark:bg-black dark:text-white dark:hover:bg-gray-900">
-                Contact Support
+                Book a Strategy Call
               </button>
               </Link>
             </div>
@@ -127,7 +127,7 @@ function Hero() {
               transition={{ duration: 0.3, delay: 0.8 }}
               className="relative z-10 mx-auto max-w-3xl py-4 text-center text-lg font-normal text-neutral-400 dark:text-neutral-400"
             >
-              You didn't start an interior design studio to spend your evenings figuring out Google. We handle SEO for interior designers so the right clients, the ones with real budgets and real taste, find you before they find your competitor.
+              Your future clients are browsing Pinterest, scrolling Houzz, and searching Google Images for weeks before they ever reach out. They're comparing portfolios, reading reviews in the local map pack, and shortlisting designers long before that first consultation call. We make sure your studio is the one they keep coming back to throughout that entire research journey.
             </motion.p>
             
             <motion.div
@@ -137,10 +137,10 @@ function Hero() {
               className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4"
             >
               <button className="w-60 transform rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-800 dark:bg-blue-500 dark:text-black dark:hover:bg-gray-200">
-                Explore Now
+                View Our Plans
               </button>
               <button className="w-60 transform rounded-lg border border-blue-600 bg-white px-6 py-2 font-medium text-blue-600 transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-100 dark:border-blue-600 dark:bg-black dark:text-white dark:hover:bg-gray-900">
-                Contact Support
+                Book a Strategy Call
               </button>
             </motion.div>
           </>
