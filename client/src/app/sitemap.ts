@@ -257,6 +257,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/seo-services/ecommerce-seo-services`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
     { url: `${baseUrl}/seo-services/technical-seo-services`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
     { url: `${baseUrl}/seo-services/seo-audit-services`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+    { url: `${baseUrl}/seo-for-interior-designers`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
 
     // Website Development
     { url: `${baseUrl}/website-development-services`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
