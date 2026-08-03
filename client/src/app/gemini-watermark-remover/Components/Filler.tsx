@@ -3,31 +3,64 @@
 import React from 'react';
 import { Upload, Sparkles, Zap, Download } from 'lucide-react';
 import { cn } from "@/lib/utils";
+import { useLanguage } from './LanguageContext';
+
+function RichText({ text }: { text: string }) {
+  const parts = text.split(/(<blue>.*?<\/blue>)/g);
+  return (
+    <>
+      {parts.map((part, i) => {
+        const match = part.match(/^<blue>(.*)<\/blue>$/);
+        if (match) {
+          return <span key={i} className="text-blue-600 font-medium cursor-pointer hover:underline">{match[1]}</span>;
+        }
+        return <React.Fragment key={i}>{part}</React.Fragment>;
+      })}
+    </>
+  );
+}
+
+function RichHeading({ text }: { text: string }) {
+  const parts = text.split(/(<blue>.*?<\/blue>)/g);
+  return (
+    <>
+      {parts.map((part, i) => {
+        const match = part.match(/^<blue>(.*)<\/blue>$/);
+        if (match) {
+          return <span key={i} className="text-blue-600">{match[1]}</span>;
+        }
+        return <React.Fragment key={i}>{part}</React.Fragment>;
+      })}
+    </>
+  );
+}
 
 export function HowItWorksSection() {
+  const { t } = useLanguage();
+
   const steps = [
     {
       icon: Upload,
-      title: "1. Upload Gemini AI images with watermarks",
-      description: "Drag & drop your Gemini-generated image into the upload area or click to select files from your device. Our AI watermark remover supports JPG, PNG, and WebP formats.",
+      title: t("filler.step1.title"),
+      description: t("filler.step1.desc"),
       isActive: true
     },
     {
       icon: Sparkles,
-      title: "2. Automatic AI watermark detection & removal",
-      description: "Our advanced AI watermark remover instantly detects Gemini watermarks and removes them using intelligent algorithms. The watermark removal process takes just seconds with zero quality loss.",
+      title: t("filler.step2.title"),
+      description: t("filler.step2.desc"),
       isActive: true
     },
     {
       icon: Zap,
-      title: "3. Smart processing for perfect results",
-      description: "The Gemini watermark remover uses machine learning to ensure clean, artifact-free results. Our AI watermark removal technology preserves image quality while completely erasing watermarks.",
+      title: t("filler.step3.title"),
+      description: t("filler.step3.desc"),
       isActive: true
     },
     {
       icon: Download,
-      title: "4. Download your watermark-free image",
-      description: "Get your cleaned image in high-definition quality, completely free. Download individual images or batch process multiple Gemini AI images for watermark removal.",
+      title: t("filler.step4.title"),
+      description: t("filler.step4.desc"),
       isActive: true
     }
   ];
@@ -39,10 +72,10 @@ export function HowItWorksSection() {
         {/* Header Section */}
         <div className="text-center mb-16 max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-5xl text-gray-800 mb-6 bungee-shade">
-            How to remove <span className='text-blue-600'>AI watermarks</span> from Ai Generated images?
+            <RichHeading text={t("filler.heading")} />
           </h2>
           <p className="text-gray-600 text-lg">
-            Using our <span className="text-blue-600 font-medium cursor-pointer hover:underline">AI Watermark Remover</span>, you can remove watermarks from Gemini photos online in 2 easy steps:
+            <RichText text={t("filler.subheading")} />
           </p>
         </div>
 
@@ -92,7 +125,6 @@ export function HowItWorksSection() {
                 alt="Gemini Watermark Removal Demo - AI Watermark Remover" 
                 className="w-full h-auto object-cover"
               />
-
 
             </div>
           </div>

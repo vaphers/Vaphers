@@ -1,25 +1,8 @@
+"use client";
+
 import React from 'react';
 import { Shield, Zap, CheckCircle2 } from 'lucide-react';
-
-// --- Configuration Data ---
-// Easy to update text or swap icons without touching the layout code
-const featuresData = [
-  {
-    id: 'privacy',
-    icon: Shield,
-    lines: ['Runs in your', 'browser — no', 'upload'],
-  },
-  {
-    id: 'speed',
-    icon: Zap,
-    lines: ['~1s per 1MP', 'image on a laptop'],
-  },
-  {
-    id: 'quality',
-    icon: CheckCircle2,
-    lines: ['Pixel-exact on', 'supported', 'Gemini outputs'],
-  },
-];
+import { useLanguage } from './LanguageContext';
 
 // --- Decorative Laurel SVG ---
 const LaurelBranch = ({ flip = false }: { flip?: boolean }) => (
@@ -46,6 +29,26 @@ const LaurelBranch = ({ flip = false }: { flip?: boolean }) => (
 
 // --- Main Component ---
 export default function GeminiFeatures() {
+  const { t } = useLanguage();
+
+  const featuresData = [
+    {
+      id: 'privacy',
+      icon: Shield,
+      lines: t("geminiFeat.privacy"),
+    },
+    {
+      id: 'speed',
+      icon: Zap,
+      lines: t("geminiFeat.speed"),
+    },
+    {
+      id: 'quality',
+      icon: CheckCircle2,
+      lines: t("geminiFeat.quality"),
+    },
+  ];
+
   return (
     <section className="w-full bg-[#f8f9fb] py-20 px-4">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center gap-14 md:gap-20 lg:gap-32">
@@ -66,11 +69,7 @@ export default function GeminiFeatures() {
               </div>
               
               <p className="text-slate-800 text-[15px] sm:text-[17px] font-medium leading-snug text-center tracking-tight">
-                {feature.lines.map((line, index) => (
-                  <span key={index} className="block">
-                    {line}
-                  </span>
-                ))}
+                {feature.lines}
               </p>
               
             </div>

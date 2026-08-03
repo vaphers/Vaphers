@@ -1,6 +1,8 @@
 import { Metadata } from 'next';
 import Footer from '@/PageComponents/Global Components/Footer';
-import NavBar from '@/PageComponents/Global Components/Header';
+import WatermarkNavBar from '@/app/gemini-watermark-remover/Components/WatermarkNavBar';
+import { LanguageProvider } from '@/app/gemini-watermark-remover/Components/LanguageContext';
+import LanguagePromptBanner from '@/app/gemini-watermark-remover/Components/LanguagePromptBanner';
 import MarketingPriceCalculator from '@/PageComponents/Global Components/PriceCalc';
 import ContactForm from '@/PageComponents/Global Components/Contact';
 import ContactSection from '@/PageComponents/Landing Home/ContactSection';
@@ -74,14 +76,15 @@ export default function GeminiWatermarkRemoverLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <NavBar />
+    <LanguageProvider>
+      <LanguagePromptBanner />
+      <WatermarkNavBar />
       <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
         {children}
       </main>
       <MarketingPriceCalculator/>
       <ContactSection/>
       <Footer />
-    </>
+    </LanguageProvider>
   );
 }

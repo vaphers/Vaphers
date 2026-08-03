@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Upload } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { useLanguage } from './LanguageContext';
 
 declare global {
     interface Window {
@@ -18,6 +19,7 @@ interface UploadDropboxProps {
 export function UploadDropbox({ onFilesSelected, onUploadClick }: UploadDropboxProps) {
     const [dragOver, setDragOver] = useState(false);
     const [dragCounter, setDragCounter] = useState(0);
+    const { t } = useLanguage();
 
     // GA4 event helper
     const trackEvent = (eventName: string, data?: Record<string, any>) => {
@@ -184,17 +186,17 @@ export function UploadDropbox({ onFilesSelected, onUploadClick }: UploadDropboxP
                     <div className="space-y-1 pb-6 relative z-20">
                         <p className="text-2xl font-semibold tracking-tight text-slate-800">
                             {dragOver ? (
-                                <span className="text-blue-600">Drop to start upload</span>
+                                <span className="text-blue-600">{t("upload.dropToStart")}</span>
                             ) : (
-                                'Drag & Drop images'
+                                t("upload.dragAndDrop")
                             )}
                         </p>
                         <p className="text-sm text-slate-500 font-medium">
-                            {dragOver ? 'Release your files now' : 'or click to browse from your device'}
+                            {dragOver ? t("upload.releaseFiles") : t("upload.clickToBrowse")}
                         </p>
                         {!dragOver && (
                              <div className="pt-2 opacity-60 text-[10px] uppercase tracking-widest font-bold text-slate-400">
-                                JPG • PNG • WebP • Max 20MB
+                                {t("upload.formats")}
                             </div>
                         )}
                     </div>

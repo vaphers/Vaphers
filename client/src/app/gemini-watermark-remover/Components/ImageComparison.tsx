@@ -2,8 +2,10 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
+import { useLanguage } from './LanguageContext';
 
 export default function GeminiComparisonSection() {
+    const { t } = useLanguage();
     const [containerWidth, setContainerWidth] = useState(0);
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -39,10 +41,11 @@ export default function GeminiComparisonSection() {
                 {/* --- Header Section --- */}
                 <div className="text-center  mb-12">
                     <h3 className="bungee-shade text-3xl md:text-3xl lg:text-5xl  text-gray-900 leading-tight tracking-tight">
-                        See It In Action
+                        {t("comparison.heading")}
                     </h3>
                     <p className="mt-6 text-base md:text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
-                        Most tools simply blur or patch over watermarks. We restore the actual, clean pixels hidden underneath. Gemini Watermark Remover ensures your images look sharp, untouched, and professional.            </p>
+                        {t("comparison.subheading")}
+                    </p>
                 </div>
 
                 {/* --- Image Slider Section (Expanded Width) --- */}

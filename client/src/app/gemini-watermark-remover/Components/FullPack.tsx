@@ -1,3 +1,5 @@
+"use client";
+
 // import { ReactNode } from "react";
 
 // interface Feature {
@@ -298,33 +300,8 @@
 //   );
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
+import { useLanguage } from './LanguageContext';
 
 interface Feature {
   icon: ReactNode;
@@ -332,113 +309,20 @@ interface Feature {
   description: string;
 }
 
-const features: Feature[] = [
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="18" height="18" rx="2" />
-        <path d="M3 9h18M9 21V9" />
-      </svg>
-    ),
-    title: "Reverse alpha blending, not AI inpainting",
-    description:
-      "A calibrated alpha map reconstructs the pixels under the logo. On supported outputs, the covered area is restored pixel-for-pixel — no soft edges, no model repaint.",
-  },
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="4" />
-        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-      </svg>
-    ),
-    title: "Covers Gemini logo, star overlay, Nano Banana",
-    description:
-      "Detects the standard Gemini logo, the star overlay variant, and Nano Banana image outputs that share the same overlay pattern. Other watermark sources are out of scope.",
-  },
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="6" width="20" height="12" rx="2" />
-        <path d="M12 12h.01" />
-        <path d="M7 12h.01M17 12h.01" />
-      </svg>
-    ),
-    title: "Bulk parallel processing",
-    description:
-      "Drop multiple Gemini photos at once, process in parallel in-browser, then download individually or as a single ZIP.",
-  },
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-      </svg>
-    ),
-    title: "100% browser-local — zero uploads",
-    description:
-      "All computation stays in your browser. Images never leave your device, no server involved.",
-  },
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-        <polyline points="14 2 14 8 20 8" />
-        <line x1="16" y1="13" x2="8" y2="13" />
-        <line x1="16" y1="17" x2="8" y2="17" />
-        <polyline points="10 9 9 9 8 9" />
-      </svg>
-    ),
-    title: "JPG, PNG, WebP in supported Gemini output sizes",
-    description:
-      "Accepts JPG, PNG, and WebP from supported Gemini outputs. Exports lossless PNG.",
-  },
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-        <polyline points="17 8 12 3 7 8" />
-        <line x1="12" y1="3" x2="12" y2="15" />
-      </svg>
-    ),
-    title: "Drag-and-drop simplicity",
-    description:
-      "No complex configurations or setups. Drag your images directly into the dropzone to start processing instantly.",
-  },
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="12 2 2 7 12 12 22 7 12 2" />
-        <polyline points="2 17 12 22 22 17" />
-        <polyline points="2 12 12 17 22 12" />
-      </svg>
-    ),
-    title: "Preserves original quality",
-    description:
-      "Retains original image dimensions, structure, and color profiles. Outputs are processed without adding compression artifacts.",
-  },
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="3" width="20" height="14" rx="2" />
-        <line x1="8" y1="21" x2="16" y2="21" />
-        <line x1="12" y1="17" x2="12" y2="21" />
-      </svg>
-    ),
-    title: "Cross-platform",
-    description:
-      "Verified on Chrome, Firefox, Safari, and Edge, including mobile. Fully responsive across desktop, tablet, and mobile browsers.",
-  },
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-        <path d="M7 11V7a5 5 0 0 1 9.9-1" />
-      </svg>
-    ),
-    title: "Free and no sign-up needed",
-    description:
-      "Get complete access to all features immediately. No credit cards, subscriptions, or account creation required.",
-  },
-];
+function RichText({ text }: { text: string }) {
+  const parts = text.split(/(<blue>.*?<\/blue>)/g);
+  return (
+    <>
+      {parts.map((part, i) => {
+        const match = part.match(/^<blue>(.*)<\/blue>$/);
+        if (match) {
+          return <span key={i} className="text-blue-600">{match[1]}</span>;
+        }
+        return <React.Fragment key={i}>{part}</React.Fragment>;
+      })}
+    </>
+  );
+}
 
 function FeatureCard({ icon, title, description }: Feature) {
   return (
@@ -455,6 +339,107 @@ function FeatureCard({ icon, title, description }: Feature) {
 }
 
 export default function FeaturesSection() {
+  const { t } = useLanguage();
+
+  const features: Feature[] = [
+    {
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" />
+          <path d="M3 9h18M9 21V9" />
+        </svg>
+      ),
+      title: t("fullpack.f1.title"),
+      description: t("fullpack.f1.desc"),
+    },
+    {
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+        </svg>
+      ),
+      title: t("fullpack.f2.title"),
+      description: t("fullpack.f2.desc"),
+    },
+    {
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="6" width="20" height="12" rx="2" />
+          <path d="M12 12h.01" />
+          <path d="M7 12h.01M17 12h.01" />
+        </svg>
+      ),
+      title: t("fullpack.f3.title"),
+      description: t("fullpack.f3.desc"),
+    },
+    {
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+      ),
+      title: t("fullpack.f4.title"),
+      description: t("fullpack.f4.desc"),
+    },
+    {
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="16" y1="13" x2="8" y2="13" />
+          <line x1="16" y1="17" x2="8" y2="17" />
+          <polyline points="10 9 9 9 8 9" />
+        </svg>
+      ),
+      title: t("fullpack.f5.title"),
+      description: t("fullpack.f5.desc"),
+    },
+    {
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="17 8 12 3 7 8" />
+          <line x1="12" y1="3" x2="12" y2="15" />
+        </svg>
+      ),
+      title: t("fullpack.f6.title"),
+      description: t("fullpack.f6.desc"),
+    },
+    {
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <polygon points="12 2 2 7 12 12 22 7 12 2" />
+          <polyline points="2 17 12 22 22 17" />
+          <polyline points="2 12 12 17 22 12" />
+        </svg>
+      ),
+      title: t("fullpack.f7.title"),
+      description: t("fullpack.f7.desc"),
+    },
+    {
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2" />
+          <line x1="8" y1="21" x2="16" y2="21" />
+          <line x1="12" y1="17" x2="12" y2="21" />
+        </svg>
+      ),
+      title: t("fullpack.f8.title"),
+      description: t("fullpack.f8.desc"),
+    },
+    {
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+          <path d="M7 11V7a5 5 0 0 1 9.9-1" />
+        </svg>
+      ),
+      title: t("fullpack.f9.title"),
+      description: t("fullpack.f9.desc"),
+    },
+  ];
+
   return (
     <>
       <style>{`
@@ -600,11 +585,10 @@ export default function FeaturesSection() {
       <section className="features-section">
         <div className="features-hero">
           <h2 className="features-heading bungee-shade">
-            Complete <span className="text-blue-600">Google Gemini<br />watermark removal</span> toolkit
+            <RichText text={t("fullpack.heading")} />
           </h2>
           <p className="features-subheading">
-            Pixel-accurate restoration · bulk automation · 100% local processing
-            · clean outputs with no registration required.
+            {t("fullpack.subheading")}
           </p>
           <div className="features-divider">
             <div className="features-divider-line" />

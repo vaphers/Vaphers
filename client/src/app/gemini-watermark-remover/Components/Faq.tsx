@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -8,7 +9,22 @@ import {
 import { cn } from "@/lib/utils";
 import { Accordion as AccordionPrimitive } from "radix-ui";
 import { PlusIcon } from "lucide-react";
-import { useState } from "react";
+import { useLanguage } from "./LanguageContext";
+
+function RichText({ text }: { text: string }) {
+  const parts = text.split(/(<blue>.*?<\/blue>)/g);
+  return (
+    <>
+      {parts.map((part, i) => {
+        const match = part.match(/^<blue>(.*)<\/blue>$/);
+        if (match) {
+          return <span key={i} className="bg-blue-600 bg-clip-text text-transparent">{match[1]}</span>;
+        }
+        return <React.Fragment key={i}>{part}</React.Fragment>;
+      })}
+    </>
+  );
+}
 
 interface FaqItem {
   question: string;
@@ -63,9 +79,21 @@ const geminiWatermarkFaq: FaqItem[] = [
 ];
 
 const GeminiWatermarkFaq = ({ data }: GeminiWatermarkFaqProps) => {
+  const { t } = useLanguage();
   const [value, setValue] = useState<string>();
 
-  const faqContent = data && data.length ? data : geminiWatermarkFaq;
+  const translatedFaq: FaqItem[] = [
+    { question: t("faq.q1"), answer: t("faq.a1") },
+    { question: t("faq.q2"), answer: t("faq.a2") },
+    { question: t("faq.q3"), answer: t("faq.a3") },
+    { question: t("faq.q4"), answer: t("faq.a4") },
+    { question: t("faq.q5"), answer: t("faq.a5") },
+    { question: t("faq.q6"), answer: t("faq.a6") },
+    { question: t("faq.q7"), answer: t("faq.a7") },
+    { question: t("faq.q8"), answer: t("faq.a8") },
+  ];
+
+  const faqContent = data && data.length ? data : translatedFaq;
 
   return (
     <div className="w-full relative bg-white">
@@ -120,13 +148,10 @@ const GeminiWatermarkFaq = ({ data }: GeminiWatermarkFaqProps) => {
         <div className="w-full max-w-7xl">
           <div className="text-center mb-12">
             <h4 className="text-4xl sm:text-3xl md:text-4xl lg:text-6xl font-montserrat text-gray-800 mb-3 sm:mb-4 lg:mb-5 bungee-shade">
-              FAQs About{" "}
-              <span className="bg-blue-600 bg-clip-text text-transparent">
-                Gemini Watermark Removal
-              </span>
+              <RichText text={t("faq.heading")} />
             </h4>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Everything you need to know about removing watermarks from Gemini AI images, including privacy, quality, speed, and supported formats.
+              {t("faq.subheading")}
             </p>
           </div>
 

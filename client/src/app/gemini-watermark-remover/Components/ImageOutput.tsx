@@ -249,6 +249,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Download, RefreshCw, FileImage, Edit3 } from "lucide-react";
+import { useLanguage } from "./LanguageContext";
 
 declare global {
   interface Window {
@@ -286,6 +287,7 @@ export function ImageOutput({
   onDownloadAll,
   onReset,
 }: ImageOutputProps) {
+  const { t } = useLanguage();
   // Local state to keep track of edited filenames
   const [localNames, setLocalNames] = useState<Record<number, string>>({});
 
@@ -360,13 +362,13 @@ export function ImageOutput({
           <div>
             <div className="flex items-center gap-2 mb-1">
               <h2 className="text-lg sm:text-xl font-semibold text-slate-800">
-                Watermark removal completed
+                {t("output.completed")}
               </h2>
             </div>
             <p className="text-xs sm:text-sm text-slate-500 font-medium">
-              <span>{completedCount} images processed</span>
+              <span>{completedCount} {t("output.imagesProcessed")}</span>
               <span className="mx-2 text-slate-300">|</span>
-              <span>{formatFileSize(totalSize)} total payload</span>
+              <span>{formatFileSize(totalSize)} {t("output.totalPayload")}</span>
             </p>
           </div>
 
@@ -377,7 +379,7 @@ export function ImageOutput({
               className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 hover:text-slate-900 transition-colors flex-1 sm:flex-none"
             >
               <RefreshCw className="w-4 h-4 mr-2 text-slate-500" />
-              Reset
+              {t("output.reset")}
             </button>
 
             {completedCount > 0 && (
@@ -387,7 +389,7 @@ export function ImageOutput({
                 className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 transition-colors cursor-pointer flex-1 sm:flex-none"
               >
                 <Download className="w-4 h-4 mr-2" />
-                Download all images
+                {t("output.downloadAll")}
               </button>
             )}
           </div>
@@ -423,7 +425,7 @@ export function ImageOutput({
                       value={localNames[item.id] ?? ""}
                       onChange={(e) => handleNameChange(item.id, e.target.value)}
                       className="w-full text-sm font-medium text-slate-800 bg-slate-50/50 hover:bg-slate-100/50 focus:bg-white border border-slate-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-md px-2.5 py-1.5 outline-none transition-all"
-                      placeholder="Filename"
+                      placeholder={t("output.filename")}
                     />
                     <Edit3 className="absolute right-3 w-3.5 h-3.5 text-slate-400 pointer-events-none" />
                   </div>
@@ -445,12 +447,12 @@ export function ImageOutput({
               <div className="flex items-center gap-2">
                 {item.status === "completed" ? (
                   <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md">
-                    Processed
+                    {t("output.processed")}
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-md">
                     <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-                    Processing
+                    {t("output.processing")}
                   </span>
                 )}
               </div>
@@ -462,7 +464,7 @@ export function ImageOutput({
                   className="inline-flex items-center justify-center rounded-lg border border-blue-200 bg-blue-50 px-3 py-2 text-xs sm:text-sm font-semibold text-blue-600 hover:bg-blue-100 hover:border-blue-300 transition-colors"
                 >
                   <Download className="w-4 h-4 mr-1.5" />
-                  Download
+                  {t("output.download")}
                 </button>
               )}
             </div>

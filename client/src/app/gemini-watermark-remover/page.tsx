@@ -13,6 +13,7 @@ import { HowItWorksSection } from "./Components/Filler";
 import GeminiSeoFaq from "./Components/Faq";
 import FeaturesSection from "./Components/FullPack";
 import GeminiComparisonSection from "./Components/ImageComparison";
+import { useLanguage } from "./Components/LanguageContext";
 
 interface ImageItem {
   id: number;
@@ -29,66 +30,6 @@ interface ImageItem {
 }
 
 // --- ENHANCED DATA & COMPONENTS ---
-
-const steps = [
-  { 
-    title: "Upload", 
-    description: "Drag & drop or select your Gemini generated images.", 
-    number: "1",
-    icon: <UploadCloud className="w-8 h-8" />
-  },
-  { 
-    title: "Detect", 
-    description: "Our AI engine automatically identifies the hidden watermark.", 
-    number: "2",
-    icon: <ScanSearch className="w-8 h-8" />
-  },
-  { 
-    title: "Process", 
-    description: "The watermark is cleanly removed directly in your browser.", 
-    number: "3",
-    icon: <Wand2 className="w-8 h-8" />
-  },
-  { 
-    title: "Download", 
-    description: "Save your pristine, unwatermarked image instantly.", 
-    number: "4",
-    icon: <Download className="w-8 h-8" />
-  },
-];
-
-const features = [
-  { 
-    title: "100% Client-Side", 
-    description: "Your images never leave your device. Complete privacy and maximum security.", 
-    icon: <Shield className="w-6 h-6 text-blue-600" /> 
-  },
-  { 
-    title: "Maintains Quality", 
-    description: "Removes watermarks cleanly without compressing or ruining original image quality.", 
-    icon: <Sparkles className="w-6 h-6 text-blue-600" /> 
-  },
-  { 
-    title: "Lightning Fast", 
-    description: "Powered by WebGL to process complex algorithms in milliseconds.", 
-    icon: <Zap className="w-6 h-6 text-blue-600" /> 
-  },
-  { 
-    title: "Batch Processing", 
-    description: "Upload and clean dozens of images simultaneously without slowing down.", 
-    icon: <Layers className="w-6 h-6 text-blue-600" /> 
-  },
-  { 
-    title: "No Registration", 
-    description: "Start removing watermarks immediately. No account creation or login required.", 
-    icon: <Unlock className="w-6 h-6 text-blue-600" /> 
-  },
-  { 
-    title: "Free & Unlimited", 
-    description: "No hidden paywalls, subscriptions, or credit systems. Totally free to use.", 
-    icon: <Infinity className="w-6 h-6 text-blue-600" /> 
-  },
-];
 
 const RevealSection = ({ children, className }: { children: React.ReactNode, className?: string }) => (
   <div className={`animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-forwards ${className}`}>
@@ -124,9 +65,25 @@ const FeatureCard = ({ title, description, icon, delay }: { title: string, descr
   </div>
 );
 
-// --- MAIN COMPONENT ---
+// Helper to render strings with <blue>...</blue> markers
+function RichText({ text }: { text: string }) {
+  const parts = text.split(/(<blue>.*?<\/blue>)/g);
+  return (
+    <>
+      {parts.map((part, i) => {
+        const match = part.match(/^<blue>(.*)<\/blue>$/);
+        if (match) {
+          return <span key={i} className="text-blue-600">{match[1]}</span>;
+        }
+        return <React.Fragment key={i}>{part}</React.Fragment>;
+      })}
+    </>
+  );
+}
 
+// --- MAIN COMPONENT ---
 export default function GeminiWatermarkRemover() {
+  const { t } = useLanguage();
   const [engine, setEngine] = useState<WatermarkEngine | null>(null);
   const [imageQueue, setImageQueue] = useState<ImageItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -134,6 +91,24 @@ export default function GeminiWatermarkRemover() {
   const [previewItem, setPreviewItem] = useState<ImageItem | null>(null);
   const [showBeforeAfter, setShowBeforeAfter] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
+  const hasScrolledRef = useRef(false);
+
+  const steps = [
+    { title: t("step.1.title"), description: t("step.1.desc"), number: "1", icon: <UploadCloud className="w-8 h-8" /> },
+    { title: t("step.2.title"), description: t("step.2.desc"), number: "2", icon: <ScanSearch className="w-8 h-8" /> },
+    { title: t("step.3.title"), description: t("step.3.desc"), number: "3", icon: <Wand2 className="w-8 h-8" /> },
+    { title: t("step.4.title"), description: t("step.4.desc"), number: "4", icon: <Download className="w-8 h-8" /> },
+  ];
+
+  const features = [
+    { title: t("feature.clientSide.title"), description: t("feature.clientSide.desc"), icon: <Shield className="w-6 h-6 text-blue-600" /> },
+    { title: t("feature.quality.title"), description: t("feature.quality.desc"), icon: <Sparkles className="w-6 h-6 text-blue-600" /> },
+    { title: t("feature.fast.title"), description: t("feature.fast.desc"), icon: <Zap className="w-6 h-6 text-blue-600" /> },
+    { title: t("feature.batch.title"), description: t("feature.batch.desc"), icon: <Layers className="w-6 h-6 text-blue-600" /> },
+    { title: t("feature.noReg.title"), description: t("feature.noReg.desc"), icon: <Unlock className="w-6 h-6 text-blue-600" /> },
+    { title: t("feature.free.title"), description: t("feature.free.desc"), icon: <Infinity className="w-6 h-6 text-blue-600" /> },
+  ];
 
   // Initialize engine
   useEffect(() => {
@@ -189,6 +164,7 @@ export default function GeminiWatermarkRemover() {
 
     const updatedQueue = [...imageQueue, ...newImages];
     setImageQueue(updatedQueue);
+    hasScrolledRef.current = false;
 
     processQueue(newImages);
   };
@@ -245,6 +221,14 @@ export default function GeminiWatermarkRemover() {
             );
 
             setProcessedCount((prev) => prev + 1);
+
+            // Scroll to the results panel the first time a result is ready
+            if (!hasScrolledRef.current) {
+              hasScrolledRef.current = true;
+              setTimeout(() => {
+                resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }, 200);
+            }
           } catch (error) {
             console.error("Processing failed:", error);
             setImageQueue((prev) =>
@@ -324,8 +308,8 @@ export default function GeminiWatermarkRemover() {
         <div className="text-center space-y-4">
           <Loader2 className="w-12 h-12 text-blue-600 animate-spin mx-auto" />
           <div>
-            <p className="text-lg font-medium text-gray-900">Initializing Engine</p>
-            <p className="text-sm text-gray-500">Loading watermark removal algorithms</p>
+            <p className="text-lg font-medium text-gray-900">{t("loading.title")}</p>
+            <p className="text-sm text-gray-500">{t("loading.subtitle")}</p>
           </div>
         </div>
       </div>
@@ -347,10 +331,10 @@ export default function GeminiWatermarkRemover() {
         <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 lg:mb-18">
             <h1 className="text-4xl lg:text-6xl text-blue-600 mb-2 bungee-shade">
-              Gemini Watermark Remover
+              {t("hero.title")}
             </h1>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Remove watermarks from Google Gemini AI images instantly. 100% client-side processing.
+              {t("hero.subtitle")}
             </p>
           </div>
 
@@ -362,13 +346,15 @@ export default function GeminiWatermarkRemover() {
           </div>
 
           {imageQueue.length > 0 && (
-            <ImageOutput
-              images={imageQueue}
-              onPreview={setPreviewItem}
-              onDownload={downloadImage}
-              onDownloadAll={downloadAll}
-              onReset={resetQueue}
-            />
+            <div ref={resultsRef} id="watermark-results" className="scroll-mt-20">
+              <ImageOutput
+                images={imageQueue}
+                onPreview={setPreviewItem}
+                onDownload={downloadImage}
+                onDownloadAll={downloadAll}
+                onReset={resetQueue}
+              />
+            </div>
           )}
 
           {/* How It Works Section */}
@@ -379,10 +365,10 @@ export default function GeminiWatermarkRemover() {
             <div className="max-w-7xl mx-auto relative z-10">
               <RevealSection className="text-center mb-16">
                 <h2 className="text-3xl lg:text-5xl text-slate-800 mb-4 bungee-shade">
-                  How The <span className="text-blue-600">Watermark Remover</span> Works?
+                  <RichText text={t("steps.heading")} />
                 </h2>
                 <p className="text-slate-500 text-base md:text-lg max-w-xl mx-auto">
-                  Removing Gemini watermarks is seamless. Just four simple steps with zero technical knowledge needed.
+                  {t("steps.subheading")}
                 </p>
               </RevealSection>
 
@@ -436,7 +422,7 @@ export default function GeminiWatermarkRemover() {
                   onClick={() => setShowBeforeAfter(!showBeforeAfter)}
                   className="inline-flex items-center px-5 py-2.5 border border-blue-200 rounded-xl text-sm font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 transition-colors shadow-sm"
                 >
-                  {showBeforeAfter ? "Hide Comparison" : "Show Side-by-Side Comparison"}
+                  {showBeforeAfter ? t("preview.hideComparison") : t("preview.showComparison")}
                 </button>
               </div>
 
@@ -444,7 +430,7 @@ export default function GeminiWatermarkRemover() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="bg-white p-2 rounded-2xl shadow-sm border border-slate-100">
                     <div className="bg-slate-100 text-slate-600 text-xs font-bold uppercase tracking-wider py-1.5 px-3 rounded-t-xl text-center mb-2">
-                      Original
+                      {t("preview.original")}
                     </div>
                     <img
                       src={previewItem.originalUrl || ""}
@@ -454,7 +440,7 @@ export default function GeminiWatermarkRemover() {
                   </div>
                   <div className="bg-white p-2 rounded-2xl shadow-sm border border-slate-100">
                     <div className="bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider py-1.5 px-3 rounded-t-xl text-center mb-2">
-                      Cleaned
+                      {t("preview.cleaned")}
                     </div>
                     <img
                       src={previewItem.processedUrl || ""}
@@ -480,7 +466,7 @@ export default function GeminiWatermarkRemover() {
                 onClick={() => setPreviewItem(null)}
                 className="px-5 py-2.5 rounded-xl text-sm font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors"
               >
-                Close
+                {t("preview.close")}
               </button>
               <button
                 type="button"
@@ -488,7 +474,7 @@ export default function GeminiWatermarkRemover() {
                 className="inline-flex items-center px-6 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 hover:shadow-lg hover:-translate-y-0.5 transition-all"
               >
                 <Download className="w-4 h-4 mr-2" />
-                Download Image
+                {t("preview.download")}
               </button>
             </div>
           </div>
