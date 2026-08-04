@@ -7,7 +7,20 @@ import MetaSEOPreview from '@/PageComponents/Admin Components/MetaSEOPreview';
 import Sidebar from '@/PageComponents/Admin Components/BlogPageSidebar';
 import AdminLoader from '@/app/admin-dashboard/Components/AdminLoader';
 
-export default function EditPostPage() {
+const defaultInteriorCategories = [
+  'SEO for Interior Designers',
+  'Interior Design Marketing',
+  'Lead Generation',
+  'High-Ticket Clients',
+  'Instagram & Visuals',
+  'Google Ads for Designers',
+  'Portfolio & Website SEO',
+  'Branding Strategies',
+  'Local SEO',
+  'Client Acquisition',
+];
+
+export default function EditInteriorPostPage() {
   const params = useParams();
   const router = useRouter();
   const slugParam = params.slug as string;
@@ -25,19 +38,20 @@ export default function EditPostPage() {
   const [featuredImage, setFeaturedImage] = useState<string | null>(null);
   const [authors, setAuthors] = useState<{ id: string; name: string }[]>([]);
   const [currentAuthor, setCurrentAuthor] = useState('admin');
-  const [categories, setCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<string[]>(defaultInteriorCategories);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
+  // Fetch existing post from MongoDB API
   useEffect(() => {
     const loadAllData = async () => {
       try {
         const [postRes, authRes, catRes] = await Promise.all([
-          fetch(`/api/blogs/${slugParam}`),
+          fetch(`/api/interior-design-marketing/blogs/${slugParam}`),
           fetch('/api/authors').catch(() => null),
           fetch('/api/categories').catch(() => null),
         ]);
 
-        if (!postRes.ok) throw new Error('Post not found');
+        if (!postRes.ok) throw new Error('Interior marketing post not found');
 
         const postData = await postRes.json();
         const authorData = authRes ? await authRes.json() : [];
@@ -45,24 +59,25 @@ export default function EditPostPage() {
 
         // Populate Form Data
         setTitle(postData.title || '');
-        setContent(postData.contentHtml || postData.content || '<p></p>');
+        setContent(postData.contentHtml || '<p></p>');
         setSlug(postData.slug || slugParam);
         setMetaTitle(postData.metaTitle || '');
         setMetaDescription(postData.metaDescription || '');
         setFeaturedImage(postData.featuredImage || null);
-        setCurrentAuthor(postData.authorId || postData.author || 'admin');
-        setSelectedCategories(postData.categories || []);
+        setCurrentAuthor(postData.authorId || 'admin');
+        setSelectedCategories(postData.categories || ['Interior Design Marketing']);
 
         // Populate Sidebar Master Lists
         if (Array.isArray(authorData) && authorData.length > 0) {
           setAuthors(authorData);
         }
         if (Array.isArray(categoryData) && categoryData.length > 0) {
-          setCategories(categoryData.map((c: any) => c.name));
+          const apiCats = categoryData.map((c: any) => c.name);
+          setCategories(Array.from(new Set([...defaultInteriorCategories, ...apiCats])));
         }
       } catch (err) {
-        console.error('Error loading edit page:', err);
-        alert('Could not load blog post data.');
+        console.error('Error loading interior edit page:', err);
+        alert('Could not load interior design marketing post.');
       } finally {
         setLoading(false);
       }
@@ -100,7 +115,7 @@ export default function EditPostPage() {
         categories: selectedCategories,
       };
 
-      const res = await fetch(`/api/blogs/${slugParam}`, {
+      const res = await fetch(`/api/interior-design-marketing/blogs/${slugParam}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -108,16 +123,16 @@ export default function EditPostPage() {
 
       if (!res.ok) {
         const err = await res.json();
-        alert('Failed to update blog: ' + (err.error || res.statusText));
+        alert('Failed to update interior blog: ' + (err.error || res.statusText));
         return;
       }
 
-      alert('Blog updated successfully!');
+      alert('Interior blog updated successfully!');
 
       if (slug !== slugParam) {
-        router.push(`/admin-dashboard/edit-post/${slug}`);
+        router.push(`/admin-dashboard/interior-design-marketing/edit/${slug}`);
       } else {
-        router.push('/admin-dashboard/posts');
+        router.push('/admin-dashboard/interior-design-marketing/posts');
       }
     } catch (err) {
       console.error(err);
@@ -126,7 +141,7 @@ export default function EditPostPage() {
   };
 
   if (loading) {
-    return <AdminLoader message="Loading Blog Post Data..." />;
+    return <AdminLoader message="Loading Interior Design Marketing post..." />;
   }
 
   return (
@@ -147,7 +162,7 @@ export default function EditPostPage() {
           onSlugChange={setSlug}
           onMetaTitleChange={setMetaTitle}
           onMetaDescriptionChange={setMetaDescription}
-          baseUrl="https://www.vaphers.com/blogs"
+          baseUrl="https://www.vaphers.com/interior-design-marketing"
         />
       </div>
 

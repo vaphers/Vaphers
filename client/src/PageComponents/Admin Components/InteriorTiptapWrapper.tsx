@@ -1,56 +1,41 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Tiptap from '@/PageComponents/Admin Components/Editor';
-import MetaSEOPreview from '@/PageComponents/Admin Components/MetaSEOPreview';
-import Sidebar from '@/PageComponents/Admin Components/BlogPageSidebar';
+import Tiptap from './Editor';
+import MetaSEOPreview from './MetaSEOPreview';
+import Sidebar from './BlogPageSidebar';
 
-export default function AddCommonQuestionPage() {
+const defaultInteriorCategories = [
+  'SEO for Interior Designers',
+  'Interior Design Marketing',
+  'Lead Generation',
+  'High-Ticket Clients',
+  'Instagram & Visuals',
+  'Google Ads for Designers',
+  'Portfolio & Website SEO',
+  'Branding Strategies',
+  'Local SEO',
+  'Client Acquisition',
+];
+
+export default function InteriorTiptapWrapper() {
   const router = useRouter();
-  const [title, setTitle] = useState('Add a question title...');
-  const [content, setContent] = useState('<p>Write the detailed answer here...</p>');
+
+  const [title, setTitle] = useState('Add an interior marketing title...');
+  const [content, setContent] = useState('<p>Start typing your interior marketing blog...</p>');
   const [slug, setSlug] = useState('');
   const [metaTitle, setMetaTitle] = useState('');
   const [metaDescription, setMetaDescription] = useState('');
 
   // Sidebar state
   const [featuredImage, setFeaturedImage] = useState<string | null>(null);
-  const [authors, setAuthors] = useState<{ id: string; name: string }[]>([
+  const [authors, setAuthors] = useState([
     { id: 'muhammad-asad', name: 'Muhammad Asad' },
   ]);
   const [currentAuthor, setCurrentAuthor] = useState('muhammad-asad');
-  const [categories, setCategories] = useState([
-    'SEO',
-    'Paid Media',
-    'Programming',
-    'Web Development',
-    'General',
-  ]);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>(['SEO']);
-
-  useEffect(() => {
-    Promise.all([
-      fetch('/api/authors').then((r) => r.json()).catch(() => []),
-      fetch('/api/categories').then((r) => r.json()).catch(() => []),
-    ]).then(([authData, catData]) => {
-      if (Array.isArray(authData) && authData.length > 0) {
-        const asad = authData.find(
-          (a: any) =>
-            a.name?.toLowerCase().includes('asad') ||
-            a.id?.toLowerCase().includes('asad')
-        );
-        const merged = asad
-          ? authData
-          : [{ id: 'muhammad-asad', name: 'Muhammad Asad' }, ...authData];
-        setAuthors(merged);
-        setCurrentAuthor(asad ? asad.id : 'muhammad-asad');
-      }
-      if (Array.isArray(catData) && catData.length > 0) {
-        setCategories(catData.map((c: any) => c.name));
-      }
-    });
-  }, []);
+  const [categories, setCategories] = useState<string[]>(defaultInteriorCategories);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(['Interior Design Marketing']);
 
   const addAuthor = (name: string) => {
     const id = name.toLowerCase().replace(/\s+/g, '-');
@@ -64,28 +49,28 @@ export default function AddCommonQuestionPage() {
   };
 
   const handlePublish = async () => {
-    if (!title || title === 'Add a question title...' || title === 'Untitled') {
-      alert('Please enter a valid title for the question.');
+    if (!title || title === 'Add an interior marketing title...' || title === 'Untitled') {
+      alert('Please enter a valid title for the interior blog post.');
       return;
     }
     if (!slug) {
-      alert('Please enter a unique URL slug.');
+      alert('Please enter a URL slug.');
       return;
     }
 
     try {
       const payload = {
         title,
-        content,
+        contentHtml: content,
         slug,
         metaTitle: metaTitle || title,
         metaDescription,
         featuredImage,
-        author: currentAuthor,
+        authorId: currentAuthor,
         categories: selectedCategories,
       };
 
-      const res = await fetch('/api/common-questions', {
+      const res = await fetch('/api/interior-design-marketing/blogs', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -95,12 +80,13 @@ export default function AddCommonQuestionPage() {
 
       if (!res.ok) {
         const err = await res.json();
-        alert('Failed to publish common question: ' + (err.error || res.statusText));
+        console.error(err);
+        alert('Failed to publish interior blog: ' + (err.error || res.statusText));
         return;
       }
 
-      alert('Common Question published successfully!');
-      router.push('/admin-dashboard/common-questions');
+      alert('Interior blog published successfully!');
+      router.push('/admin-dashboard/interior-design-marketing/posts');
     } catch (err) {
       console.error(err);
       alert('Unexpected error while publishing');
@@ -124,7 +110,7 @@ export default function AddCommonQuestionPage() {
           onSlugChange={setSlug}
           onMetaTitleChange={setMetaTitle}
           onMetaDescriptionChange={setMetaDescription}
-          baseUrl="https://www.vaphers.com/common-questions"
+          baseUrl="https://www.vaphers.com/interior-design-marketing"
         />
       </div>
 
@@ -142,7 +128,7 @@ export default function AddCommonQuestionPage() {
         selectedCategories={selectedCategories}
         setSelectedCategories={setSelectedCategories}
         addCategory={addCategory}
-        publishButtonText="Publish Question"
+        publishButtonText="Publish Post"
       />
     </div>
   );

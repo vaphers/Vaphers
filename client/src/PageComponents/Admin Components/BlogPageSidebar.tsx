@@ -1,352 +1,3 @@
-// 'use client';
-
-// import React, { useState, useEffect } from 'react';
-// import { Input } from '@/components/ui/input';
-// import { Label } from '@/components/ui/label';
-// import { Button } from '@/components/ui/button';
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from '@/components/ui/select';
-// import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-// import {
-//   Dialog,
-//   DialogContent,
-//   DialogFooter,
-//   DialogHeader,
-//   DialogTitle,
-//   DialogTrigger,
-// } from '@/components/ui/dialog';
-// import { Separator } from '@/components/ui/separator';
-// import { ScrollArea } from '@/components/ui/scroll-area';
-// import { Send } from 'lucide-react';
-
-// type Author = { id: string; name: string; avatar?: string };
-
-// type SidebarProps = {
-//   title: string;
-//   onPublish: () => void;
-//   featuredImage: string | null;
-//   setFeaturedImage: (url: string) => void;
-//   authors: { id: string; name: string; avatar?: string }[];
-//   currentAuthor: string;
-//   setCurrentAuthor: (id: string) => void;
-//   addAuthor: (name: string) => void;
-//   categories: string[];
-//   selectedCategories: string[];
-//   setSelectedCategories: (cats: string[]) => void;
-//   addCategory: (name: string) => void;
-//   className?: string;
-// };
-
-// const Sidebar: React.FC<SidebarProps> = ({
-//   className = '',
-//   title,
-//   onPublish,
-//   featuredImage,
-//   setFeaturedImage,
-//   authors,
-//   currentAuthor,
-//   setCurrentAuthor,
-//   categories,
-//   selectedCategories,
-//   setSelectedCategories,
-// }) => {
-//   // Local dialog/input states
-//   const [newAuthorName, setNewAuthorName] = useState('');
-//   const [newCategory, setNewCategory] = useState('');
-//   const [isUploading, setIsUploading] = useState(false);
-
-//   // Local copies of authors and categories
-//   const [authorsData, setAuthorsData] = useState<Author[]>(authors);
-//   const [categoriesData, setCategoriesData] = useState<string[]>(categories);
-
-//   // Clean up title for display
-//   const displayTitle = !title || title === 'Add a spectacular title...' || title === 'Untitled' 
-//     ? 'Untitled Post' 
-//     : title;
-
-//   // Fetch authors and categories on mount
-//   useEffect(() => {
-//     fetch('/api/authors')
-//       .then((res) => res.json())
-//       .then((data) => {
-//         if (Array.isArray(data)) {
-//           setAuthorsData(data);
-//           if (!currentAuthor && data.length > 0) setCurrentAuthor(data[0].id);
-//         }
-//       })
-//       .catch(console.error);
-
-//     fetch('/api/categories')
-//       .then((res) => res.json())
-//       .then((data) => {
-//         if (Array.isArray(data)) {
-//           setCategoriesData(data.map((c: any) => c.name));
-//         }
-//       })
-//       .catch(console.error);
-//   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-//   const addAuthor = async (name: string) => {
-//     if (!name.trim()) return alert('Author name is required');
-//     try {
-//       const res = await fetch('/api/authors', {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({ name }),
-//       });
-//       if (!res.ok) throw new Error('Failed to add author');
-//       const data = await res.json();
-//       const newAuthor: Author = { id: data.id, name };
-//       setAuthorsData([...authorsData, newAuthor]);
-//       setCurrentAuthor(data.id);
-//       setNewAuthorName('');
-//     } catch (e) {
-//       alert('Error adding author');
-//       console.error(e);
-//     }
-//   };
-
-//   const addCategory = async (name: string) => {
-//     const trimmedName = name.trim();
-//     if (!trimmedName) return alert('Category name is required');
-//     if (categoriesData.includes(trimmedName)) return alert('Category already exists');
-//     try {
-//       const res = await fetch('/api/categories', {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({ name: trimmedName }),
-//       });
-//       if (!res.ok) throw new Error('Failed to add category');
-//       setCategoriesData([...categoriesData, trimmedName]);
-//       setSelectedCategories([...selectedCategories, trimmedName]);
-//       setNewCategory('');
-//     } catch (e) {
-//       alert('Error adding category');
-//       console.error(e);
-//     }
-//   };
-
-//   const handleFeaturedImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-//     const file = e.target.files?.[0];
-//     if (!file) return;
-
-//     setIsUploading(true);
-//     try {
-//       const data = new FormData();
-//       data.append('file', file);
-//       data.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!);
-
-//       const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME!;
-//       const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
-//         method: 'POST',
-//         body: data,
-//       });
-
-//       const json = await res.json();
-//       if (json.secure_url) {
-//         setFeaturedImage(json.secure_url);
-//       } else {
-//         console.error('Cloudinary upload error', json);
-//         alert('Image upload failed');
-//       }
-//     } catch (err) {
-//       console.error(err);
-//       alert('Image upload failed');
-//     } finally {
-//       setIsUploading(false);
-//       e.target.value = '';
-//     }
-//   };
-
-//   const toggleCategory = (category: string) => {
-//     if (selectedCategories.includes(category)) {
-//       setSelectedCategories(selectedCategories.filter((cat) => cat !== category));
-//     } else {
-//       setSelectedCategories([...selectedCategories, category]);
-//     }
-//   };
-
-//   return (
-//     <aside
-//       className={`w-[340px] shrink-0 border-l border-gray-200 bg-white sticky top-0 h-screen overflow-y-auto ${className}`}
-//     >
-//       <div className="p-6 space-y-8">
-        
-//         {/* Title & Publish Section */}
-//         <section className="space-y-4">
-//           <div className="space-y-1">
-//             <Label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Post Title</Label>
-//             <h3 className="text-[17px] font-bold text-[#37352f] leading-[1.3] line-clamp-3 break-words" title={displayTitle}>
-//               {displayTitle}
-//             </h3>
-//           </div>
-
-//         </section>
-
-//         <Separator />
-
-//         {/* Featured Image Section */}
-//         <section className="space-y-3">
-//           <Label className="text-sm font-semibold text-gray-900 tracking-tight">
-//             Featured Image
-//           </Label>
-//           <div className="relative group flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-[#2383e2] rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors overflow-hidden cursor-pointer">
-//             {featuredImage ? (
-//               <>
-//                 <img
-//                   src={featuredImage}
-//                   alt="Featured"
-//                   className="w-full h-full object-cover"
-//                 />
-//                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-//                   <span className="text-white text-sm font-medium">Change Image</span>
-//                 </div>
-//               </>
-//             ) : (
-//               <div className="flex flex-col items-center text-gray-500">
-//                 <svg className="w-9 h-9 -2 opacity-100 text-[#2383e2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-//                 </svg>
-//                 <span className="text-sm">{isUploading ? 'Uploading...' : 'Click to upload'}</span>
-//               </div>
-//             )}
-//             <input
-//               type="file"
-//               accept="image/*"
-//               onChange={handleFeaturedImageUpload}
-//               disabled={isUploading}
-//               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
-//             />
-//           </div>
-//         </section>
-
-//         <Separator />
-
-//         {/* Author Selection Section */}
-//         <section className="space-y-3">
-//           <div className="flex items-center justify-between">
-//             <Label className="text-sm font-semibold text-gray-900 tracking-tight">Author</Label>
-//           </div>
-//           <Select value={currentAuthor} onValueChange={setCurrentAuthor}>
-//             <SelectTrigger className="w-full">
-//               <SelectValue placeholder="Select author" />
-//             </SelectTrigger>
-//             <SelectContent>
-//               {authorsData.map((author) => (
-//                 <SelectItem key={author.id} value={author.id}>
-//                   <div className="flex items-center gap-2">
-//                     <Avatar className="w-5 h-5">
-//                       {author.avatar ? (
-//                         <AvatarImage src={author.avatar} alt={author.name} />
-//                       ) : (
-//                         <AvatarFallback className="text-[10px]">{author.name[0]}</AvatarFallback>
-//                       )}
-//                     </Avatar>
-//                     <span>{author.name}</span>
-//                   </div>
-//                 </SelectItem>
-//               ))}
-//             </SelectContent>
-//           </Select>
-
-//           <Dialog>
-//             <DialogTrigger asChild>
-//               <Button size="sm" variant="secondary" className="w-full text-sm font-medium bg-[#2383e2] hover:bg-[#1a66b2] text-white rounded-sm cursor-pointer">
-//                 + Add New Author
-//               </Button>
-//             </DialogTrigger>
-//             <DialogContent>
-//               <DialogHeader>
-//                 <DialogTitle>Add a new author</DialogTitle>
-//               </DialogHeader>
-//               <div className="py-4">
-//                 <Input
-//                   placeholder="e.g. Jane Doe"
-//                   value={newAuthorName}
-//                   onChange={(e) => setNewAuthorName(e.target.value)}
-//                   onKeyDown={(e) => e.key === 'Enter' && addAuthor(newAuthorName)}
-//                 />
-//               </div>
-//               <DialogFooter>
-//                 <Button className='bg-[#2383e2] rounded-sm hover:bg-[#1a66b2] cursor-pointer' onClick={() => addAuthor(newAuthorName)}>Create Author</Button>
-//               </DialogFooter>
-//             </DialogContent>
-//           </Dialog>
-//         </section>
-
-//         <Separator />
-
-//         {/* Categories Section */}
-//         <section className="space-y-3">
-//           <Label className="text-sm font-semibold text-gray-900 tracking-tight">Categories</Label>
-          
-//           <ScrollArea className="h-[280px] rounded-md border border-gray-200 bg-gray-50/50 p-3">
-//             <div className="space-y-3 p-2">
-//               {categoriesData.map((cat) => (
-//                 <div key={cat} className="flex items-center gap-3 ">
-//                   <input
-//                     type="checkbox"
-//                     checked={selectedCategories.includes(cat)}
-//                     onChange={() => toggleCategory(cat)}
-//                     id={`cat-${cat}`}
-//                     className="w-4 h-4 rounded border-gray-300 text-[#2383e2] focus:ring-[#2383e2] cursor-pointer"
-//                   />
-//                   <Label
-//                     htmlFor={`cat-${cat}`}
-//                     className="cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-//                   >
-//                     {cat}
-//                   </Label>
-//                 </div>
-//               ))}
-//               {categoriesData.length === 0 && (
-//                 <p className="text-sm text-gray-500 italic">No categories yet.</p>
-//               )}
-//             </div>
-//           </ScrollArea>
-
-//           <div className="flex gap-2 pt-1">
-//             <Input
-//               placeholder="New category..."
-//               value={newCategory}
-//               onChange={(e) => setNewCategory(e.target.value)}
-//               onKeyDown={(e) => e.key === 'Enter' && addCategory(newCategory)}
-//               className="h-9"
-//             />
-//             <Button size="sm" className="h-9 px-4 bg-[#2383e2] hover:bg-[#1a66b2] rounded-sm text-white cursor-pointer" onClick={() => addCategory(newCategory)}>
-//               Add
-//             </Button>
-//           </div>
-//         </section>
-
-//         <section className='space-y-3 '>
-//           <Button 
-//             onClick={onPublish} 
-//             className="w-full bg-[#2383e2] hover:bg-[#1a66b2] text-white font-semibold py-5 flex items-center gap-2 transition-colors rounded-sm cursor-pointer"
-//           >
-//             <Send size={16} />
-//             Publish Post
-//           </Button>
-//         </section>
-        
-//       </div>
-//     </aside>
-//   );
-// };
-
-// export default Sidebar;
-
-
-
-
-
-
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -370,8 +21,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Send } from 'lucide-react';
+import { Send, Upload, Image as ImageIcon } from 'lucide-react';
 
 type Author = { id: string; name: string; avatar?: string };
 
@@ -389,6 +39,7 @@ type SidebarProps = {
   setSelectedCategories: (cats: string[]) => void;
   addCategory: (name: string) => void;
   className?: string;
+  publishButtonText?: string;
 };
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -403,54 +54,81 @@ const Sidebar: React.FC<SidebarProps> = ({
   categories,
   selectedCategories,
   setSelectedCategories,
+  publishButtonText = 'Publish Post',
 }) => {
-  // Local dialog/input states
   const [newAuthorName, setNewAuthorName] = useState('');
   const [newCategory, setNewCategory] = useState('');
   const [isUploading, setIsUploading] = useState(false);
 
-  // Local copies of authors and categories
   const [authorsData, setAuthorsData] = useState<Author[]>(authors);
   const [categoriesData, setCategoriesData] = useState<string[]>(categories);
 
-  // Clean up title for display
-  const displayTitle = !title || title === 'Add a spectacular title...' || title === 'Untitled' 
-    ? 'Untitled Post' 
-    : title;
+  const displayTitle =
+    !title ||
+    title === 'Add a spectacular title...' ||
+    title === 'Add an interior marketing title...' ||
+    title === 'Add a question title...' ||
+    title === 'Untitled'
+      ? 'Untitled Post'
+      : title;
 
-  // Fetch authors and categories on mount
   useEffect(() => {
     fetch('/api/authors')
       .then((res) => res.json())
       .then((data) => {
-        if (Array.isArray(data)) {
-          setAuthorsData(data);
-          if (!currentAuthor && data.length > 0) setCurrentAuthor(data[0].id);
+        if (Array.isArray(data) && data.length > 0) {
+          const asad = data.find(
+            (a: any) =>
+              a.name?.toLowerCase().includes('asad') ||
+              a.id?.toLowerCase().includes('asad')
+          );
+          const merged = asad
+            ? data
+            : [{ id: 'muhammad-asad', name: 'Muhammad Asad' }, ...data];
+          setAuthorsData(merged);
+
+          if (!currentAuthor || currentAuthor === 'admin') {
+            setCurrentAuthor(asad ? asad.id : 'muhammad-asad');
+          }
+        } else {
+          const defaultList = [{ id: 'muhammad-asad', name: 'Muhammad Asad' }];
+          setAuthorsData(defaultList);
+          if (!currentAuthor || currentAuthor === 'admin') {
+            setCurrentAuthor('muhammad-asad');
+          }
         }
       })
-      .catch(console.error);
+      .catch(() => {
+        const defaultList = [{ id: 'muhammad-asad', name: 'Muhammad Asad' }];
+        setAuthorsData(defaultList);
+        if (!currentAuthor || currentAuthor === 'admin') {
+          setCurrentAuthor('muhammad-asad');
+        }
+      });
 
     fetch('/api/categories')
       .then((res) => res.json())
       .then((data) => {
-        if (Array.isArray(data)) {
-          setCategoriesData(data.map((c: any) => c.name));
+        if (Array.isArray(data) && data.length > 0) {
+          const fetchedNames = data.map((c: any) => c.name);
+          setCategoriesData((prev) => Array.from(new Set([...prev, ...fetchedNames])));
         }
       })
-      .catch(console.error);
+      .catch(() => {});
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const addAuthor = async (name: string) => {
-    if (!name.trim()) return alert('Author name is required');
+    const trimmed = name.trim();
+    if (!trimmed) return alert('Author name is required');
     try {
       const res = await fetch('/api/authors', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ name: trimmed }),
       });
       if (!res.ok) throw new Error('Failed to add author');
       const data = await res.json();
-      const newAuthor: Author = { id: data.id, name };
+      const newAuthor: Author = { id: data.id, name: trimmed };
       setAuthorsData([...authorsData, newAuthor]);
       setCurrentAuthor(data.id);
       setNewAuthorName('');
@@ -522,33 +200,30 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      // Changed: Responsive sizing. Full width on mobile, 340px and sticky on desktop (lg).
-      className={`w-full lg:w-[340px] shrink-0 border-t lg:border-t-0 lg:border-l border-gray-200 bg-white lg:sticky lg:top-0 lg:h-screen overflow-y-auto ${className}`}
+      className={`w-full md:w-[340px] lg:w-[360px] shrink-0 border-t md:border-t-0 md:border-l border-gray-200 bg-white md:h-full md:overflow-y-auto no-scrollbar z-20 ${className}`}
     >
-      {/* Changed: Adjusted padding and flex layout to support responsive grids inside */}
-      <div className="p-5 lg:p-6 flex flex-col gap-8">
-        
-        {/* Title Section (Always Full Width) */}
-        <section className="space-y-4">
-          <div className="space-y-1">
-            <Label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Post Title</Label>
-            <h3 className="text-[17px] font-bold text-[#37352f] leading-[1.3] line-clamp-3 break-words" title={displayTitle}>
-              {displayTitle}
-            </h3>
-          </div>
+      <div className="p-5 md:p-6 flex flex-col gap-6 no-scrollbar pb-24 md:pb-12">
+        {/* Post Title Preview */}
+        <section className="space-y-1.5">
+          <Label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Post Title</Label>
+          <h3
+            className="text-[16px] font-bold text-[#37352f] leading-snug line-clamp-3 break-words"
+            title={displayTitle}
+          >
+            {displayTitle}
+          </h3>
         </section>
 
-        <Separator className="hidden lg:block" />
+        <Separator className="hidden md:block" />
 
-        {/* Changed: Grouped Image and Author into a grid so they sit side-by-side on mobile/tablets */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6 lg:gap-8">
-          
-          {/* Featured Image Section */}
-          <section className="space-y-3">
-            <Label className="text-sm font-semibold text-gray-900 tracking-tight">
+        {/* Featured Image and Author Container */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-6">
+          {/* Featured Image */}
+          <section className="space-y-2.5">
+            <Label className="text-xs font-bold text-gray-700 uppercase tracking-wider">
               Featured Image
             </Label>
-            <div className="relative group flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-[#2383e2] rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors overflow-hidden cursor-pointer">
+            <div className="relative group flex flex-col items-center justify-center w-full h-38 border-2 border-dashed border-[#2383e2]/60 hover:border-[#2383e2] rounded-lg bg-blue-50/20 hover:bg-blue-50/40 transition-colors overflow-hidden cursor-pointer">
               {featuredImage ? (
                 <>
                   <img
@@ -557,15 +232,18 @@ const Sidebar: React.FC<SidebarProps> = ({
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="text-white text-sm font-medium">Change Image</span>
+                    <span className="text-white text-xs font-medium px-2.5 py-1 rounded bg-black/40 backdrop-blur-xs">
+                      Change Image
+                    </span>
                   </div>
                 </>
               ) : (
-                <div className="flex flex-col items-center text-gray-500">
-                  <svg className="w-9 h-9 -2 opacity-100 text-[#2383e2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                  </svg>
-                  <span className="text-sm">{isUploading ? 'Uploading...' : 'Click to upload'}</span>
+                <div className="flex flex-col items-center text-gray-500 gap-1.5 p-3 text-center">
+                  <ImageIcon className="w-8 h-8 text-[#2383e2]" />
+                  <span className="text-xs font-medium text-gray-700">
+                    {isUploading ? 'Uploading...' : 'Click to upload image'}
+                  </span>
+                  <span className="text-[11px] text-gray-400">PNG, JPG, WebP up to 10MB</span>
                 </div>
               )}
               <input
@@ -578,13 +256,11 @@ const Sidebar: React.FC<SidebarProps> = ({
             </div>
           </section>
 
-          {/* Author Selection Section */}
-          <section className="space-y-3">
-            <div className="flex items-center justify-between">
-              <Label className="text-sm font-semibold text-gray-900 tracking-tight">Author</Label>
-            </div>
+          {/* Author Selection */}
+          <section className="space-y-2.5">
+            <Label className="text-xs font-bold text-gray-700 uppercase tracking-wider">Author</Label>
             <Select value={currentAuthor} onValueChange={setCurrentAuthor}>
-              <SelectTrigger className="w-full">
+              <SelectTrigger className="w-full h-10 border-gray-200">
                 <SelectValue placeholder="Select author" />
               </SelectTrigger>
               <SelectContent>
@@ -595,10 +271,12 @@ const Sidebar: React.FC<SidebarProps> = ({
                         {author.avatar ? (
                           <AvatarImage src={author.avatar} alt={author.name} />
                         ) : (
-                          <AvatarFallback className="text-[10px]">{author.name[0]}</AvatarFallback>
+                          <AvatarFallback className="text-[10px] bg-blue-100 text-blue-700 font-semibold">
+                            {author.name[0]}
+                          </AvatarFallback>
                         )}
                       </Avatar>
-                      <span>{author.name}</span>
+                      <span className="text-xs font-medium">{author.name}</span>
                     </div>
                   </SelectItem>
                 ))}
@@ -607,7 +285,11 @@ const Sidebar: React.FC<SidebarProps> = ({
 
             <Dialog>
               <DialogTrigger asChild>
-                <Button size="sm" variant="secondary" className="w-full text-sm font-medium bg-[#2383e2] hover:bg-[#1a66b2] text-white rounded-sm cursor-pointer">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="w-full text-xs font-medium border-[#2383e2] text-[#2383e2] hover:bg-[#2383e2] hover:text-white rounded-md cursor-pointer transition-colors"
+                >
                   + Add New Author
                 </Button>
               </DialogTrigger>
@@ -624,47 +306,48 @@ const Sidebar: React.FC<SidebarProps> = ({
                   />
                 </div>
                 <DialogFooter>
-                  <Button className='bg-[#2383e2] rounded-sm hover:bg-[#1a66b2] cursor-pointer' onClick={() => addAuthor(newAuthorName)}>Create Author</Button>
+                  <Button
+                    className="bg-[#2383e2] hover:bg-[#1a66b2] text-white cursor-pointer"
+                    onClick={() => addAuthor(newAuthorName)}
+                  >
+                    Create Author
+                  </Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
           </section>
-
         </div>
 
         <Separator className="hidden lg:block" />
 
-        {/* Changed: Grouped Categories and Publish Button into a grid for mobile screens */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6 lg:gap-8">
-          
-          {/* Categories Section */}
-          <section className="space-y-3">
-            <Label className="text-sm font-semibold text-gray-900 tracking-tight">Categories</Label>
-            
-            <ScrollArea className="h-[280px] rounded-md border border-gray-200 bg-gray-50/50 p-3">
-              <div className="space-y-3 p-2">
-                {categoriesData.map((cat) => (
-                  <div key={cat} className="flex items-center gap-3">
-                    <input
-                      type="checkbox"
-                      checked={selectedCategories.includes(cat)}
-                      onChange={() => toggleCategory(cat)}
-                      id={`cat-${cat}`}
-                      className="w-4 h-4 rounded border-gray-300 text-[#2383e2] focus:ring-[#2383e2] cursor-pointer"
-                    />
-                    <Label
-                      htmlFor={`cat-${cat}`}
-                      className="cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      {cat}
-                    </Label>
-                  </div>
-                ))}
-                {categoriesData.length === 0 && (
-                  <p className="text-sm text-gray-500 italic">No categories yet.</p>
-                )}
-              </div>
-            </ScrollArea>
+        {/* Categories Section */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
+          <section className="space-y-2.5">
+            <Label className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+              Categories
+            </Label>
+
+            <div className="h-[220px] overflow-y-auto rounded-md border border-gray-200 bg-gray-50/60 p-3 no-scrollbar space-y-2.5">
+              {categoriesData.map((cat) => (
+                <label
+                  key={cat}
+                  htmlFor={`cat-${cat}`}
+                  className="flex items-center gap-2.5 cursor-pointer text-xs font-medium text-gray-700 hover:text-gray-900 select-none"
+                >
+                  <input
+                    type="checkbox"
+                    checked={selectedCategories.includes(cat)}
+                    onChange={() => toggleCategory(cat)}
+                    id={`cat-${cat}`}
+                    className="w-4 h-4 rounded border-gray-300 text-[#2383e2] focus:ring-[#2383e2] cursor-pointer"
+                  />
+                  <span>{cat}</span>
+                </label>
+              ))}
+              {categoriesData.length === 0 && (
+                <p className="text-xs text-gray-400 italic">No categories yet.</p>
+              )}
+            </div>
 
             <div className="flex gap-2 pt-1">
               <Input
@@ -672,27 +355,29 @@ const Sidebar: React.FC<SidebarProps> = ({
                 value={newCategory}
                 onChange={(e) => setNewCategory(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && addCategory(newCategory)}
-                className="h-9"
+                className="h-8.5 text-xs"
               />
-              <Button size="sm" className="h-9 px-4 bg-[#2383e2] hover:bg-[#1a66b2] rounded-sm text-white cursor-pointer" onClick={() => addCategory(newCategory)}>
+              <Button
+                size="sm"
+                className="h-8.5 px-3.5 bg-[#2383e2] hover:bg-[#1a66b2] text-white text-xs cursor-pointer"
+                onClick={() => addCategory(newCategory)}
+              >
                 Add
               </Button>
             </div>
           </section>
 
-          {/* Publish Section (Aligned to bottom in grid) */}
-          <section className='space-y-3 flex flex-col justify-end'>
-            <Button 
-              onClick={onPublish} 
-              className="w-full bg-[#2383e2] hover:bg-[#1a66b2] text-white font-semibold py-5 flex items-center gap-2 transition-colors rounded-sm cursor-pointer"
+          {/* Publish Action Button */}
+          <section className="space-y-2.5 flex flex-col justify-end">
+            <Button
+              onClick={onPublish}
+              className="w-full bg-[#2383e2] hover:bg-[#1a66b2] text-white font-semibold py-4.5 flex items-center justify-center gap-2 transition-colors rounded-lg cursor-pointer shadow-xs"
             >
-              <Send size={16} />
-              Publish Post
+              <Send size={15} />
+              {publishButtonText}
             </Button>
           </section>
-
         </div>
-        
       </div>
     </aside>
   );

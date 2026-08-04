@@ -1,6 +1,7 @@
 
 import { MetadataRoute } from "next";
 import admin from "firebase-admin";
+import { getInteriorBlogsCollection } from "@/lib/mongodb";
 
 export const dynamic = "force-dynamic";
 
@@ -46,6 +47,22 @@ async function getCommonQuestions() {
   }
 }
 
+async function getInteriorBlogs() {
+  try {
+    const collection = await getInteriorBlogsCollection();
+    const rawBlogs = await collection.find({}).toArray();
+    return rawBlogs.map((doc) => ({
+      id: doc._id.toString(),
+      slug: doc.slug,
+      updatedAt: doc.updatedAt,
+      createdAt: doc.createdAt,
+    }));
+  } catch (error) {
+    console.error("Error fetching interior design blogs for sitemap:", error);
+    return [];
+  }
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://www.vaphers.com";
 
@@ -56,6 +73,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/about-us`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/blogs`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+    { url: `${baseUrl}/interior-design-marketing`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+    { url: `${baseUrl}/interior-design-marketing/blogs`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
     { url: `${baseUrl}/common-questions`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
 
     // SEO
@@ -102,7 +121,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     };
   });
 
-  // 5. Fetch common questions dynamically from Firestore
+  // 5. Fetch interior design marketing blogs from MongoDB
+  const interiorBlogs = await getInteriorBlogs();
+  const interiorBlogRoutes: MetadataRoute.Sitemap = interiorBlogs.map((blog: any) => {
+    let lastModified = new Date();
+    if (blog.updatedAt) {
+      lastModified = new Date(blog.updatedAt);
+    } else if (blog.createdAt) {
+      lastModified = new Date(blog.createdAt);
+    }
+    return {
+      url: `${baseUrl}/interior-design-marketing/${blog.slug}`,
+      lastModified: isNaN(lastModified.getTime()) ? new Date() : lastModified,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    };
+  });
+
+  // 6. Fetch common questions dynamically from Firestore
   const questions = await getCommonQuestions();
 
   const questionRoutes: MetadataRoute.Sitemap = questions.map((q: any) => {
@@ -122,5 +158,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     };
   });
 
-  return [...staticRoutes, ...blogRoutes, ...questionRoutes];
+  return [...staticRoutes, ...blogRoutes, ...interiorBlogRoutes, ...questionRoutes];
 }

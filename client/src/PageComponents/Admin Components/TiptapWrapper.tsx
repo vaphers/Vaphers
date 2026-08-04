@@ -1,133 +1,14 @@
-// 'use client';
-
-// import React, { useState } from 'react';
-// import Tiptap from './Editor';
-// import MetaSEOPreview from './MetaSEOPreview';
-// import Sidebar from './BlogPageSidebar'; 
-
-// export default function TiptapWrapper() {
-//   const [title, setTitle] = useState('Add a spectacular title...');
-//   const [content, setContent] = useState('<p>Start typing your blog...</p>');
-//   const [slug, setSlug] = useState('');
-//   const [metaTitle, setMetaTitle] = useState('');
-//   const [metaDescription, setMetaDescription] = useState('');
-
-//   // Sidebar state
-//   const [featuredImage, setFeaturedImage] = useState<string | null>(null);
-//   const [authors, setAuthors] = useState([
-//     { id: 'admin', name: 'Admin' },
-//     { id: 'john', name: 'John Doe' },
-//   ]);
-//   const [currentAuthor, setCurrentAuthor] = useState('admin');
-//   const [categories, setCategories] = useState(['Blog', 'Car Detailing', 'Car Polishing', 'Car Wash']);
-//   const [selectedCategories, setSelectedCategories] = useState<string[]>(['Blog']);
-
-//   // Handler functions
-//   const addAuthor = (name: string) => {
-//     const id = name.toLowerCase().replace(/\s+/g, '-');
-//     setAuthors([...authors, { id, name }]);
-//     setCurrentAuthor(id);
-//   };
-
-//   const addCategory = (name: string) => {
-//     if (!categories.includes(name)) setCategories([...categories, name]);
-//     setSelectedCategories([...selectedCategories, name]);
-//   };
-
-//   const handlePublish = async () => {
-//     try {
-//       const payload = {
-//         title,
-//         content,          
-//         slug,
-//         metaTitle,
-//         metaDescription,
-//         featuredImage,
-//         author: currentAuthor,
-//         categories: selectedCategories,
-//       };
-
-//       const res = await fetch('/api/blogs', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(payload),
-//       });
-
-//       if (!res.ok) {
-//         const err = await res.json();
-//         console.error(err);
-//         alert('Failed to publish blog: ' + (err.error || res.statusText));
-//         return;
-//       }
-
-//       const data = await res.json();
-//       console.log('Blog created with id:', data.id);
-//       alert('Blog published successfully!');
-//       // Optionally: reset state or redirect to /blogs/[slug]
-//     } catch (err) {
-//       console.error(err);
-//       alert('Unexpected error while publishing');
-//     }
-//   };
-
-//   return (
-//     <div className="flex mx-auto pt-0">
-//       {/* Center Editor and Meta area */}
-//       <div className="flex-1" >
-//         <Tiptap
-//           title={title}
-//           onTitleChange={setTitle}
-//           content={content}
-//           onChange={setContent}
-//         />
-//         <MetaSEOPreview
-//           slug={slug}
-//           metaTitle={metaTitle}
-//           metaDescription={metaDescription}
-//           onSlugChange={setSlug}
-//           onMetaTitleChange={setMetaTitle}
-//           onMetaDescriptionChange={setMetaDescription}
-//           baseUrl="https://www.vaphers.com"
-//         />
-//       </div>
-
-//       {/* Sidebar on the right */}
-//       <Sidebar
-//         title={title}
-//         onPublish={handlePublish}
-//         featuredImage={featuredImage}
-//         setFeaturedImage={setFeaturedImage}
-//         authors={authors}
-//         currentAuthor={currentAuthor}
-//         setCurrentAuthor={setCurrentAuthor}
-//         addAuthor={addAuthor}
-//         categories={categories}
-//         selectedCategories={selectedCategories}
-//         setSelectedCategories={setSelectedCategories}
-//         addCategory={addCategory}
-//         className="max-w-full"
-//       />
-//     </div>
-//   );
-// }
-
-
-
-
-
-
-
-
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Tiptap from './Editor';
 import MetaSEOPreview from './MetaSEOPreview';
-import Sidebar from './BlogPageSidebar'; 
+import Sidebar from './BlogPageSidebar';
 
 export default function TiptapWrapper() {
+  const router = useRouter();
+
   const [title, setTitle] = useState('Add a spectacular title...');
   const [content, setContent] = useState('<p>Start typing your blog...</p>');
   const [slug, setSlug] = useState('');
@@ -137,14 +18,12 @@ export default function TiptapWrapper() {
   // Sidebar state
   const [featuredImage, setFeaturedImage] = useState<string | null>(null);
   const [authors, setAuthors] = useState([
-    { id: 'admin', name: 'Admin' },
-    { id: 'john', name: 'John Doe' },
+    { id: 'muhammad-asad', name: 'Muhammad Asad' },
   ]);
-  const [currentAuthor, setCurrentAuthor] = useState('admin');
-  const [categories, setCategories] = useState(['Blog', 'Car Detailing', 'Car Polishing', 'Car Wash']);
+  const [currentAuthor, setCurrentAuthor] = useState('muhammad-asad');
+  const [categories, setCategories] = useState(['Blog', 'Digital Marketing', 'SEO', 'Web Design']);
   const [selectedCategories, setSelectedCategories] = useState<string[]>(['Blog']);
 
-  // Handler functions
   const addAuthor = (name: string) => {
     const id = name.toLowerCase().replace(/\s+/g, '-');
     setAuthors([...authors, { id, name }]);
@@ -157,12 +36,21 @@ export default function TiptapWrapper() {
   };
 
   const handlePublish = async () => {
+    if (!title || title === 'Add a spectacular title...' || title === 'Untitled') {
+      alert('Please enter a valid title for the blog post.');
+      return;
+    }
+    if (!slug) {
+      alert('Please enter a URL slug.');
+      return;
+    }
+
     try {
       const payload = {
         title,
-        content,          
+        content,
         slug,
-        metaTitle,
+        metaTitle: metaTitle || title,
         metaDescription,
         featuredImage,
         author: currentAuthor,
@@ -184,10 +72,8 @@ export default function TiptapWrapper() {
         return;
       }
 
-      const data = await res.json();
-      console.log('Blog created with id:', data.id);
       alert('Blog published successfully!');
-      // Optionally: reset state or redirect to /blogs/[slug]
+      router.push('/admin-dashboard/posts');
     } catch (err) {
       console.error(err);
       alert('Unexpected error while publishing');
@@ -195,12 +81,9 @@ export default function TiptapWrapper() {
   };
 
   return (
-    // Changed: Added flex-col for mobile, lg:flex-row for desktop, min-h-screen
-    <div className="flex flex-col lg:flex-row mx-auto pt-0 w-full min-h-screen">
-      
+    <div className="flex flex-col md:flex-row w-full h-full md:h-screen md:overflow-hidden bg-white">
       {/* Center Editor and Meta area */}
-      {/* Changed: Added w-full and min-w-0 to prevent flexbox overflow on mobile */}
-      <div className="flex-1 w-full min-w-0 p-4 lg:p-6">
+      <div className="flex-1 w-full min-w-0 md:h-full md:overflow-y-auto p-4 md:p-8 no-scrollbar pb-24 md:pb-12">
         <Tiptap
           title={title}
           onTitleChange={setTitle}
@@ -214,11 +97,11 @@ export default function TiptapWrapper() {
           onSlugChange={setSlug}
           onMetaTitleChange={setMetaTitle}
           onMetaDescriptionChange={setMetaDescription}
-          baseUrl="https://www.vaphers.com"
+          baseUrl="https://www.vaphers.com/blogs"
         />
       </div>
 
-      {/* Sidebar on the right (bottom on mobile) */}
+      {/* Sidebar on the right */}
       <Sidebar
         title={title}
         onPublish={handlePublish}
@@ -232,7 +115,7 @@ export default function TiptapWrapper() {
         selectedCategories={selectedCategories}
         setSelectedCategories={setSelectedCategories}
         addCategory={addCategory}
-        className="max-w-full"
+        publishButtonText="Publish Post"
       />
     </div>
   );

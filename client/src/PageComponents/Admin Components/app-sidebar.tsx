@@ -1,6 +1,6 @@
-"use client"
+'use client';
 
-import { useState } from "react"
+import React, { useState } from 'react';
 import {
   LogOut,
   ChevronLeft,
@@ -17,221 +17,307 @@ import {
   HelpCircle,
   PlusCircle,
   Inbox,
-  FolderKanban
-} from "lucide-react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+  FolderKanban,
+  Palette,
+  ExternalLink,
+  Compass,
+  FilePlus2,
+} from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 type MenuItem = {
-  title: string
-  url: string
-  icon: React.ElementType
-}
+  title: string;
+  url: string;
+  icon: React.ElementType;
+};
 
 type MenuGroup = {
-  groupTitle: string
-  items: MenuItem[]
-}
+  groupTitle: string;
+  items: MenuItem[];
+};
 
 const menuGroups: MenuGroup[] = [
   {
-    groupTitle: "Overview",
+    groupTitle: 'Overview',
     items: [
-      { title: "Analytics", url: "/admin-dashboard", icon: ChartArea },
-    ]
+      { title: 'Analytics', url: '/admin-dashboard', icon: ChartArea },
+    ],
   },
   {
-    groupTitle: "Content",
+    groupTitle: 'Blog Posts',
     items: [
-      { title: "Posts", url: "/admin-dashboard/posts", icon: StickyNote },
-      { title: "New Post", url: "/admin-dashboard/posts/add-posts", icon: PencilLine },
-      { title: "Common Questions", url: "/admin-dashboard/common-questions", icon: HelpCircle },
-      { title: "New Question", url: "/admin-dashboard/common-questions/add", icon: PlusCircle },
-      { title: "Bulk Upload", url: "/admin-dashboard/bulk-upload", icon: Upload },
-    ]
+      { title: 'Standard Posts', url: '/admin-dashboard/posts', icon: StickyNote },
+      { title: 'New Post', url: '/admin-dashboard/posts/add-posts', icon: PencilLine },
+    ],
   },
   {
-    groupTitle: "Operations",
+    groupTitle: 'Interior Marketing',
     items: [
-      { title: "Projects", url: "/admin-dashboard/projects", icon: FolderKanban },
-      { title: "Leads", url: "/admin-dashboard/leads", icon: Inbox },
-      { title: "Expense", url: "/admin-dashboard/expenses", icon: Wallet },
-      { title: "Tasks", url: "/admin-dashboard/tasks", icon: ListChecks },
-    ]
-  }
-]
+      { title: 'Interior Blogs', url: '/admin-dashboard/interior-design-marketing/posts', icon: Palette },
+      { title: 'New Interior Blog', url: '/admin-dashboard/interior-design-marketing/new', icon: FilePlus2 },
+    ],
+  },
+  {
+    groupTitle: 'Common Questions',
+    items: [
+      { title: 'All Questions', url: '/admin-dashboard/common-questions', icon: HelpCircle },
+      { title: 'New Question', url: '/admin-dashboard/common-questions/add', icon: PlusCircle },
+    ],
+  },
+  {
+    groupTitle: 'Bulk Upload',
+    items: [
+      { title: 'Bulk Upload', url: '/admin-dashboard/bulk-upload', icon: Upload },
+    ],
+  },
+  {
+    groupTitle: 'Operations',
+    items: [
+      { title: 'Projects', url: '/admin-dashboard/projects', icon: FolderKanban },
+      { title: 'Leads', url: '/admin-dashboard/leads', icon: Inbox },
+      { title: 'Expense', url: '/admin-dashboard/expenses', icon: Wallet },
+      { title: 'Tasks', url: '/admin-dashboard/tasks', icon: ListChecks },
+    ],
+  },
+];
 
-// Flattened list for mobile navigation bar
-const flatMenuItems = menuGroups.flatMap(group => group.items)
+const flatMenuItems = menuGroups.flatMap((group) => group.items);
 
 export function AppSidebar() {
-  const [isCollapsed, setIsCollapsed] = useState(false)
-  const [isMobileOpen, setIsMobileOpen] = useState(false)
-  const [isLoggingOut, setIsLoggingOut] = useState(false)
-  const pathname = usePathname()
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const pathname = usePathname();
 
   const handleLogout = async () => {
-    setIsLoggingOut(true)
+    setIsLoggingOut(true);
     try {
-      await fetch("/api/admin-logout", { method: "POST" })
-      window.location.href = "/asad-login"
+      await fetch('/api/admin-logout', { method: 'POST' });
+      window.location.href = '/asad-login';
     } catch (error) {
-      console.error("Failed to logout:", error)
-      setIsLoggingOut(false)
+      console.error('Failed to logout:', error);
+      setIsLoggingOut(false);
     }
-  }
+  };
 
   const isActive = (url: string) => {
-    if (url === "/admin-dashboard") return pathname === "/admin-dashboard"
-    return pathname.startsWith(url)
-  }
+    if (url === '/admin-dashboard') return pathname === '/admin-dashboard';
+    if (url === '/admin-dashboard/posts') {
+      return pathname === '/admin-dashboard/posts' || pathname.startsWith('/admin-dashboard/edit-post');
+    }
+    if (url === '/admin-dashboard/interior-design-marketing/posts') {
+      return (
+        pathname === '/admin-dashboard/interior-design-marketing/posts' ||
+        pathname.startsWith('/admin-dashboard/interior-design-marketing/edit')
+      );
+    }
+    if (url === '/admin-dashboard/common-questions') {
+      return (
+        pathname === '/admin-dashboard/common-questions' ||
+        pathname.startsWith('/admin-dashboard/common-questions/edit')
+      );
+    }
+    return pathname.startsWith(url);
+  };
 
   return (
     <>
       {/* ================= DESKTOP SIDEBAR ================= */}
-      <div 
-        className={`hidden md:flex flex-col h-screen bg-[#2383e2] text-white transition-all duration-300 sticky top-0 shadow-xl ${isCollapsed ? 'w-18' : 'w-64'}`}
+      <aside
+        className={`hidden md:flex flex-col h-screen bg-gradient-to-b from-[#1b6fc2] via-[#165fab] to-[#104a88] text-white transition-all duration-300 sticky top-0 shadow-xl z-30 select-none border-r border-white/10 ${
+          isCollapsed ? 'w-[76px]' : 'w-64'
+        }`}
       >
-        {/* Header */}
-        <div className="border-b border-white/15 p-4 flex items-center justify-between">
+        {/* Brand Header */}
+        <div className="h-16 px-4 border-b border-white/10 flex items-center justify-between bg-black/10">
           {!isCollapsed && (
-            <Link href="/admin-dashboard" className="flex items-center gap-2">
-              <span className="text-gray-100 bungee-shade text-2xl tracking-wide select-none">Vaphers</span>
-              <span className="text-[10px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded bg-white/20 text-white">Admin</span>
+            <Link href="/admin-dashboard" className="flex items-center gap-2 group">
+              <span className="text-white bungee-shade text-2xl tracking-wider group-hover:opacity-90 transition-opacity">
+                Vaphers
+              </span>
             </Link>
           )}
-          <button 
+          <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="p-2 text-gray-200 hover:text-white hover:bg-white/10 rounded-lg transition-colors ml-auto cursor-pointer"
-            title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            className={`p-1.5 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer ${
+              isCollapsed ? 'mx-auto' : 'ml-auto'
+            }`}
+            title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
-            {isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
+            {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
           </button>
         </div>
 
-        {/* Grouped Menu Items */}
-        <nav className="flex-1 px-3 py-4 overflow-y-auto space-y-6 custom-scrollbar">
+        {/* Scrollable Navigation Area (Scrollbar Hidden) */}
+        <nav className="flex-1 px-3 py-4 overflow-y-auto space-y-5 no-scrollbar">
           {menuGroups.map((group, groupIdx) => (
             <div key={group.groupTitle} className="space-y-1">
               {!isCollapsed ? (
-                <div className="px-3 text-[11px] font-bold text-blue-100 uppercase tracking-wider mb-2">
-                  {group.groupTitle}
+                <div className="px-3 mb-1.5">
+                  <span className="text-[11px] font-semibold text-blue-100/75 uppercase tracking-wider">
+                    {group.groupTitle}
+                  </span>
                 </div>
               ) : (
-                groupIdx > 0 && <div className="border-t border-white/15 my-2 mx-1" />
+                groupIdx > 0 && <div className="border-t border-white/10 my-2 mx-1" />
               )}
 
-              {group.items.map((item) => {
-                const active = isActive(item.url)
-                return (
-                  <Link
-                    key={item.title}
-                    href={item.url}
-                    title={isCollapsed ? item.title : undefined}
-                    className={`flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium transition-all duration-200 text-sm ${
-                      active
-                        ? "bg-white text-[#2383e2] font-semibold shadow-md"
-                        : "text-white/90 hover:bg-white/15 hover:text-white"
-                    } ${isCollapsed ? "justify-center px-0" : ""}`}
-                  >
-                    <item.icon size={19} className="shrink-0" />
-                    {!isCollapsed && <span className="truncate">{item.title}</span>}
-                  </Link>
-                )
-              })}
+              <div className="space-y-0.5">
+                {group.items.map((item) => {
+                  const active = isActive(item.url);
+                  return (
+                    <Link
+                      key={item.title}
+                      href={item.url}
+                      title={isCollapsed ? item.title : undefined}
+                      className={`group flex items-center gap-3 px-3 py-2 rounded-lg text-[13.5px] font-medium transition-colors ${
+                        active
+                          ? 'bg-white text-[#165fab] font-semibold shadow-xs'
+                          : 'text-white/85 hover:bg-white/10 hover:text-white'
+                      } ${isCollapsed ? 'justify-center px-0 h-10 w-10 mx-auto' : ''}`}
+                    >
+                      <item.icon
+                        size={17}
+                        className={`shrink-0 transition-transform ${
+                          active ? 'text-[#165fab]' : 'text-white/80 group-hover:scale-105'
+                        }`}
+                      />
+                      {!isCollapsed && <span className="truncate">{item.title}</span>}
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
           ))}
         </nav>
 
-        {/* Footer */}
-        <div className="border-t border-white/15 p-3">
-          <button 
+        {/* Live Site Quick Links */}
+        {!isCollapsed && (
+          <div className="px-3 py-2 border-t border-white/10 bg-black/5">
+            <Link
+              href="/"
+              target="_blank"
+              className="flex items-center justify-between px-3 py-2 rounded-lg text-xs text-blue-100/90 hover:text-white hover:bg-white/10 transition-colors"
+            >
+              <span className="flex items-center gap-2">
+                <Compass size={14} className="text-amber-300" />
+                Visit Website
+              </span>
+              <ExternalLink size={12} className="opacity-60" />
+            </Link>
+          </div>
+        )}
+
+        {/* User / Logout Footer */}
+        <div className="border-t border-white/10 p-3 bg-black/10">
+          <button
             onClick={handleLogout}
             disabled={isLoggingOut}
-            className={`flex items-center gap-3 p-3 rounded-xl hover:bg-red-500/20 text-white transition-colors duration-200 w-full cursor-pointer ${isCollapsed ? 'justify-center p-2.5' : ''} ${isLoggingOut ? 'opacity-50 cursor-not-allowed' : ''}`}
-            title="Logout"
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-red-500/20 text-white transition-colors w-full cursor-pointer text-xs font-semibold ${
+              isCollapsed ? 'justify-center px-0' : ''
+            } ${isLoggingOut ? 'opacity-50 cursor-not-allowed' : ''}`}
+            title="Sign Out"
           >
-            {isLoggingOut ? <Loader2 size={19} className="animate-spin" /> : <LogOut size={19} />}
-            {!isCollapsed && <span className="font-medium text-sm">{isLoggingOut ? 'Logging out...' : 'Logout'}</span>}
+            {isLoggingOut ? <Loader2 size={16} className="animate-spin" /> : <LogOut size={16} />}
+            {!isCollapsed && <span>{isLoggingOut ? 'Signing out...' : 'Sign Out'}</span>}
           </button>
         </div>
-      </div>
+      </aside>
 
-      {/* ================= MOBILE BOTTOM NAV ================= */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full h-16 bg-[#2383e2] text-white flex items-center justify-around z-40 border-t border-white/20 shadow-[0_-4px_10px_rgba(0,0,0,0.15)]">
+      {/* ================= MOBILE BOTTOM NAVIGATION ================= */}
+      <div className="md:hidden fixed bottom-0 left-0 w-full h-15 bg-gradient-to-r from-[#1b6fc2] via-[#165fab] to-[#104a88] text-white flex items-center justify-around z-40 border-t border-white/15 shadow-lg">
         {flatMenuItems.slice(0, 4).map((item) => {
-          const active = isActive(item.url)
+          const active = isActive(item.url);
           return (
-            <Link 
-              key={item.title} 
-              href={item.url} 
-              className={`p-2.5 rounded-xl transition-colors ${active ? "bg-white text-[#2383e2] shadow-sm" : "hover:bg-white/10"}`}
+            <Link
+              key={item.title}
+              href={item.url}
+              className={`p-2 rounded-lg transition-colors ${
+                active ? 'bg-white text-[#165fab]' : 'hover:bg-white/10 text-white/85'
+              }`}
             >
-              <item.icon size={22} />
+              <item.icon size={19} />
             </Link>
-          )
+          );
         })}
-        <button onClick={() => setIsMobileOpen(true)} className="p-2.5 hover:bg-white/10 rounded-xl transition-colors">
-          <ChevronUp size={22} />
+        <button
+          onClick={() => setIsMobileOpen(true)}
+          className="p-2 hover:bg-white/10 rounded-lg transition-colors text-white cursor-pointer"
+          title="More menu items"
+        >
+          <ChevronUp size={20} />
         </button>
       </div>
 
-      {/* ================= MOBILE BOTTOM DIALOG (DRAWER) ================= */}
-      <div 
-        className={`md:hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 transition-opacity duration-300 ${isMobileOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+      {/* ================= MOBILE BOTTOM DRAWER ================= */}
+      <div
+        className={`md:hidden fixed inset-0 bg-black/60 z-50 transition-opacity duration-200 ${
+          isMobileOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
         onClick={() => setIsMobileOpen(false)}
       />
 
-      <div 
-        className={`md:hidden fixed bottom-0 left-0 w-full bg-[#2383e2] text-white rounded-t-3xl shadow-2xl z-50 transition-transform duration-300 ease-in-out flex flex-col max-h-[85vh] ${isMobileOpen ? 'translate-y-0' : 'translate-y-full'}`}
+      <div
+        className={`md:hidden fixed bottom-0 left-0 w-full bg-gradient-to-b from-[#1b6fc2] via-[#165fab] to-[#104a88] text-white rounded-t-2xl shadow-2xl z-50 transition-transform duration-200 ease-out flex flex-col max-h-[80vh] border-t border-white/20 ${
+          isMobileOpen ? 'translate-y-0' : 'translate-y-full'
+        }`}
       >
-        <div className="flex items-center justify-between p-5 border-b border-white/15">
-          <div className="flex items-center gap-2">
-            <span className="text-gray-100 bungee-shade text-2xl tracking-wide">Vaphers</span>
-            <span className="text-[10px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded bg-white/20 text-white">Admin</span>
-          </div>
-          <button onClick={() => setIsMobileOpen(false)} className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
-            <X size={20} />
+        <div className="flex items-center justify-between p-4 border-b border-white/15">
+          <span className="text-white bungee-shade text-xl tracking-wider">Vaphers</span>
+          <button
+            onClick={() => setIsMobileOpen(false)}
+            className="p-1.5 bg-white/10 rounded-full hover:bg-white/20 transition-colors cursor-pointer"
+          >
+            <X size={18} />
           </button>
         </div>
 
-        <nav className="flex-1 overflow-y-auto p-4 space-y-6">
+        <nav className="flex-1 overflow-y-auto p-4 space-y-5 no-scrollbar">
           {menuGroups.map((group) => (
             <div key={group.groupTitle} className="space-y-1">
-              <div className="px-3 text-[11px] font-bold text-blue-100 uppercase tracking-wider mb-2">
-                {group.groupTitle}
+              <div className="px-2 mb-1">
+                <span className="text-[11px] font-semibold text-blue-100/75 uppercase tracking-wider">
+                  {group.groupTitle}
+                </span>
               </div>
-              {group.items.map((item) => {
-                const active = isActive(item.url)
-                return (
-                  <Link
-                    key={item.title}
-                    href={item.url}
-                    onClick={() => setIsMobileOpen(false)}
-                    className={`flex items-center gap-3.5 p-3.5 rounded-xl transition-all ${
-                      active ? "bg-white text-[#2383e2] font-semibold shadow-md" : "hover:bg-white/10"
-                    }`}
-                  >
-                    <item.icon size={22} />
-                    <span className="font-medium text-base">{item.title}</span>
-                  </Link>
-                )
-              })}
+              <div className="space-y-0.5">
+                {group.items.map((item) => {
+                  const active = isActive(item.url);
+                  return (
+                    <Link
+                      key={item.title}
+                      href={item.url}
+                      onClick={() => setIsMobileOpen(false)}
+                      className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors text-sm ${
+                        active
+                          ? 'bg-white text-[#165fab] font-semibold'
+                          : 'hover:bg-white/10 text-white/90'
+                      }`}
+                    >
+                      <item.icon size={18} className={active ? 'text-[#165fab]' : 'text-white/80'} />
+                      <span>{item.title}</span>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
           ))}
-          
-          <div className="pt-4 border-t border-white/15">
-            <button 
+
+          <div className="pt-3 border-t border-white/15">
+            <button
               onClick={handleLogout}
               disabled={isLoggingOut}
-              className={`flex items-center gap-3.5 p-3.5 rounded-xl hover:bg-red-500/20 text-white w-full transition-colors ${isLoggingOut ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-red-500/20 text-white w-full transition-colors cursor-pointer text-sm font-semibold ${
+                isLoggingOut ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
             >
-              {isLoggingOut ? <Loader2 size={22} className="animate-spin" /> : <LogOut size={22} />}
-              <span className="font-medium text-base">{isLoggingOut ? 'Logging out...' : 'Logout'}</span>
+              {isLoggingOut ? <Loader2 size={18} className="animate-spin" /> : <LogOut size={18} />}
+              <span>{isLoggingOut ? 'Signing out...' : 'Sign Out'}</span>
             </button>
           </div>
         </nav>
       </div>
     </>
-  )
+  );
 }

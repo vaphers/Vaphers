@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import Tiptap from '@/PageComponents/Admin Components/Editor'; 
+import Tiptap from '@/PageComponents/Admin Components/Editor';
 import MetaSEOPreview from '@/PageComponents/Admin Components/MetaSEOPreview';
 import Sidebar from '@/PageComponents/Admin Components/BlogPageSidebar';
+import AdminLoader from '@/app/admin-dashboard/Components/AdminLoader';
 
 export default function EditCommonQuestionPage() {
   const params = useParams();
@@ -22,7 +23,7 @@ export default function EditCommonQuestionPage() {
 
   // Sidebar states
   const [featuredImage, setFeaturedImage] = useState<string | null>(null);
-  const [authors, setAuthors] = useState<{id: string, name: string}[]>([]);
+  const [authors, setAuthors] = useState<{ id: string; name: string }[]>([]);
   const [currentAuthor, setCurrentAuthor] = useState('admin');
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -32,30 +33,33 @@ export default function EditCommonQuestionPage() {
       try {
         const [cqRes, authRes, catRes] = await Promise.all([
           fetch(`/api/common-questions/${slugParam}`),
-          fetch('/api/authors'),
-          fetch('/api/categories')
+          fetch('/api/authors').catch(() => null),
+          fetch('/api/categories').catch(() => null),
         ]);
 
         if (!cqRes.ok) throw new Error('Common question not found');
-        
+
         const cqData = await cqRes.json();
-        const authorData = await authRes.json();
-        const categoryData = await catRes.json();
+        const authorData = authRes ? await authRes.json() : [];
+        const categoryData = catRes ? await catRes.json() : [];
 
         setTitle(cqData.title || '');
-        setContent(cqData.contentHtml || '<p></p>'); 
-        setSlug(cqData.slug || '');
+        setContent(cqData.contentHtml || cqData.content || '<p></p>');
+        setSlug(cqData.slug || slugParam);
         setMetaTitle(cqData.metaTitle || '');
         setMetaDescription(cqData.metaDescription || '');
         setFeaturedImage(cqData.featuredImage || null);
         setCurrentAuthor(cqData.authorId || cqData.author || 'admin');
         setSelectedCategories(cqData.categories || []);
 
-        setAuthors(authorData || []);
-        setCategories(categoryData.map((c: any) => c.name) || []);
-
+        if (Array.isArray(authorData) && authorData.length > 0) {
+          setAuthors(authorData);
+        }
+        if (Array.isArray(categoryData) && categoryData.length > 0) {
+          setCategories(categoryData.map((c: any) => c.name));
+        }
       } catch (err) {
-        console.error("Error loading edit common question page:", err);
+        console.error('Error loading edit common question page:', err);
         alert('Could not load common question data.');
       } finally {
         setLoading(false);
@@ -77,10 +81,15 @@ export default function EditCommonQuestionPage() {
   };
 
   const handleUpdate = async () => {
+    if (!title.trim()) {
+      alert('Please provide a question title');
+      return;
+    }
+
     try {
       const payload = {
         title,
-        contentHtml: content,          
+        contentHtml: content,
         slug,
         metaTitle,
         metaDescription,
@@ -102,7 +111,11 @@ export default function EditCommonQuestionPage() {
       }
 
       alert('Common Question updated successfully!');
-      router.push('/admin-dashboard/common-questions');
+      if (slug !== slugParam) {
+        router.push(`/admin-dashboard/common-questions/edit/${slug}`);
+      } else {
+        router.push('/admin-dashboard/common-questions');
+      }
     } catch (err) {
       console.error(err);
       alert('Unexpected error while updating');
@@ -110,29 +123,20 @@ export default function EditCommonQuestionPage() {
   };
 
   if (loading) {
-    return (
-      <div className="flex flex-col items-center justify-center h-screen gap-4 bg-gray-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#2383e2]"></div>
-        <p className="text-gray-500 font-medium">Loading Question Data...</p>
-      </div>
-    );
+    return <AdminLoader message="Loading Question Data..." />;
   }
 
   return (
-    <div className="flex flex-col lg:flex-row mx-auto w-full min-h-screen pt-4 lg:pt-10 px-4 lg:px-10">
-      <div className="flex-1 w-full min-w-0 p-0 lg:p-5 mb-8 lg:mb-0">
-        <div className="mb-4 pb-2 border-b border-gray-200">
-          <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">Common Questions</span>
-          <h2 className="text-2xl font-bold text-gray-900">Edit Common Question</h2>
-        </div>
-
+    <div className="flex flex-col md:flex-row w-full h-full md:h-screen md:overflow-hidden bg-white">
+      {/* Center Editor and Meta area */}
+      <div className="flex-1 w-full min-w-0 md:h-full md:overflow-y-auto p-4 md:p-8 no-scrollbar pb-24 md:pb-12">
         <Tiptap
           title={title}
           onTitleChange={setTitle}
           content={content}
           onChange={setContent}
         />
-        
+
         <MetaSEOPreview
           slug={slug}
           metaTitle={metaTitle}
@@ -144,6 +148,7 @@ export default function EditCommonQuestionPage() {
         />
       </div>
 
+      {/* Sidebar on the right */}
       <Sidebar
         title={title}
         onPublish={handleUpdate}
@@ -157,7 +162,7 @@ export default function EditCommonQuestionPage() {
         selectedCategories={selectedCategories}
         setSelectedCategories={setSelectedCategories}
         addCategory={addCategory}
-        className="max-w-full"
+        publishButtonText="Update Question"
       />
     </div>
   );
