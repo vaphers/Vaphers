@@ -93,6 +93,127 @@ const injectWidgets = (contentHtml: string, widgets: any[], slug: string): { htm
             <p style="color: white; font-size: 1.05rem; font-weight: bold; letter-spacing: 0.1em; text-transform: uppercase; margin: 0; position: relative; z-index: 10;">${widget.author || ''}</p>
           </div>
         `;
+      } else if (widget.type === 'strategy') {
+        const bgWaveBlue = `data:image/svg+xml,%3Csvg width='240' height='240' viewBox='0 0 240 240' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 -30 C 90 70 270 100 270 160' stroke='%2338BDF8' stroke-width='6' stroke-opacity='0.25' stroke-linecap='round'/%3E%3Cpath d='M90 -30 C 150 70 270 40 270 100' stroke='%2338BDF8' stroke-width='6' stroke-opacity='0.25' stroke-linecap='round'/%3E%3Cpath d='M150 -30 C 200 40 270 10 270 40' stroke='%2338BDF8' stroke-width='6' stroke-opacity='0.25' stroke-linecap='round'/%3E%3C/svg%3E`;
+        htmlSnippet = `
+          <div data-type="strategy" class="widget-container relative overflow-hidden rounded-2xl bg-[#090D1A] border border-blue-500/30 p-6 sm:p-8 md:p-10 my-8 shadow-2xl grid grid-cols-1 md:grid-cols-12 gap-8 items-center not-prose before:absolute before:top-0 before:right-0 before:w-72 before:h-72 before:bg-no-repeat before:bg-right-top before:pointer-events-none after:absolute after:-bottom-24 after:-left-24 after:w-64 after:h-64 after:rounded-full after:border-[45px] after:border-blue-600/20 after:pointer-events-none" style="--bg-wave-blue: url('${bgWaveBlue}'); background-image: var(--bg-wave-blue);">
+            <div class="widget-main-col relative z-10 md:col-span-7 flex flex-col justify-center text-left">
+              <span class="widget-badge" style="display: inline-flex; align-items: center; white-space: nowrap; font-size: 11px; font-weight: bold; letter-spacing: 0.1em; text-transform: uppercase; color: #7dd3fc; background: rgba(56,189,248,0.15); border: 1px solid rgba(56,189,248,0.3); padding: 0.25rem 0.6rem; border-radius: 9999px; margin-bottom: 1rem; width: fit-content;">⚡ 1-ON-1 STRATEGY CALL</span>
+              <h2 style="color: white; font-size: 1.85rem; font-weight: 800; margin-top: 0; margin-bottom: 0.75rem; line-height: 1.2;">${widget.heading || 'Schedule Your Free 30-Min Strategy Call'}</h2>
+              <p style="color: #cbd5e1; font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem;">${widget.description || 'Discuss your growth targets with our search & acquisition specialists. We will analyze your website architecture, review search opportunities, and outline a tailored roadmap to scale revenue.'}</p>
+              <p><a href="${widget.buttonUrl || 'https://calendar.app.google/2fERfiu4ESvHmAtb7'}" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; background-color: #FFD100; color: #090D1A; font-weight: 800; padding: 0.875rem 1.75rem; border-radius: 0.75rem; text-decoration: none; box-shadow: 0 10px 15px -3px rgba(245,158,11,0.2);">${widget.buttonText || 'Book A Free Strategy Call →'}</a></p>
+            </div>
+            <div class="widget-card-col relative z-10 md:col-span-5 select-none" contenteditable="false">
+              <div style="background-color: rgba(5,17,38,0.9); backdrop-filter: blur(12px); border-radius: 0.75rem; padding: 1.5rem; color: white; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3); border: 1px solid rgba(96,165,250,0.3); text-align: left;">
+                <div style="color: white; font-weight: 800; font-size: 1.05rem; margin-bottom: 1.25rem; line-height: 1.4;">Interactive Growth & Budget Estimator</div>
+                <div style="margin-bottom: 1.25rem;">
+                  <div style="font-size: 0.75rem; color: #bae6fd; font-weight: 600; margin-bottom: 0.625rem;">Target Monthly Budget</div>
+                  <div style="position: relative; height: 10px; background-color: rgba(2,6,23,0.8); border-radius: 9999px; display: flex; align-items: center;">
+                    <div style="height: 100%; width: 66%; background: linear-gradient(to right, #2563eb, #38bdf8); border-radius: 9999px;"></div>
+                    <div style="position: absolute; left: 60%; transform: translateX(-50%); background-color: #0066FF; color: white; font-size: 11px; font-weight: bold; padding: 2px 10px; border-radius: 6px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.2); white-space: nowrap;">‹ $4,000 / mo ›</div>
+                  </div>
+                </div>
+                <div style="margin-bottom: 0.5rem;">
+                  <div style="font-size: 0.75rem; color: #bae6fd; font-weight: 600; margin-bottom: 0.625rem;">Target Time Horizon</div>
+                  <div style="position: relative; height: 10px; background-color: rgba(2,6,23,0.8); border-radius: 9999px; display: flex; align-items: center;">
+                    <div style="height: 100%; width: 75%; background: linear-gradient(to right, #2563eb, #38bdf8); border-radius: 9999px;"></div>
+                    <div style="position: absolute; left: 70%; transform: translateX(-50%); background-color: #0066FF; color: white; font-size: 11px; font-weight: bold; padding: 2px 10px; border-radius: 6px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.2); white-space: nowrap;">‹ 12 Months Growth ›</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (widget.type === 'ai-audit') {
+        htmlSnippet = `
+          <div data-type="ai-audit" class="widget-container relative overflow-hidden rounded-2xl bg-[#0D071C] border border-purple-500/30 p-6 sm:p-8 md:p-10 my-8 shadow-2xl grid grid-cols-1 md:grid-cols-12 gap-8 items-center not-prose after:absolute after:-bottom-24 after:-left-24 after:w-64 after:h-64 after:rounded-full after:border-[45px] after:border-purple-600/20 after:pointer-events-none">
+            <div class="widget-main-col relative z-10 md:col-span-7 flex flex-col justify-center text-left">
+              <span class="widget-badge" style="display: inline-flex; align-items: center; white-space: nowrap; font-size: 11px; font-weight: bold; letter-spacing: 0.1em; text-transform: uppercase; color: #d8b4fe; background: rgba(168,85,247,0.15); border: 1px solid rgba(168,85,247,0.3); padding: 0.25rem 0.6rem; border-radius: 9999px; margin-bottom: 1rem; width: fit-content;">🤖 AI SEARCH VISIBILITY</span>
+              <h2 style="color: white; font-size: 1.85rem; font-weight: 800; margin-top: 0; margin-bottom: 0.75rem; line-height: 1.2;">${widget.heading || 'Is Your Website Visible in AI Search Answers?'}</h2>
+              <p style="color: rgba(243,232,255,0.9); font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem;">${widget.description || 'Find out how ChatGPT, Perplexity, Gemini, and Claude cite and rank your business when high-intent buyers ask for recommendations in your industry.'}</p>
+              <p><a href="${widget.buttonUrl || '/contact'}" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; background-color: #A855F7; color: white; font-weight: 800; padding: 0.875rem 1.75rem; border-radius: 0.75rem; text-decoration: none; box-shadow: 0 10px 15px -3px rgba(168,85,247,0.3);">${widget.buttonText || 'Request Free AI Visibility Report →'}</a></p>
+            </div>
+            <div class="widget-card-col relative z-10 md:col-span-5 select-none" contenteditable="false">
+              <div style="background-color: rgba(20,12,42,0.9); backdrop-filter: blur(12px); border-radius: 0.75rem; padding: 1.5rem; color: white; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3); border: 1px solid rgba(192,132,252,0.3); text-align: left;">
+                <div style="color: white; font-weight: 800; font-size: 1.05rem; margin-bottom: 1.25rem; line-height: 1.4;">AI Recommendation Rank Predictor</div>
+                <div style="margin-bottom: 1.25rem;">
+                  <div style="font-size: 0.75rem; color: #e9d5ff; font-weight: 600; margin-bottom: 0.625rem;">Target AI Engines</div>
+                  <div style="position: relative; height: 10px; background-color: rgba(19,14,46,0.9); border-radius: 9999px; display: flex; align-items: center;">
+                    <div style="height: 100%; width: 80%; background: linear-gradient(to right, #9333ea, #e879f9); border-radius: 9999px;"></div>
+                    <div style="position: absolute; left: 70%; transform: translateX(-50%); background-color: #7C3AED; color: white; font-size: 11px; font-weight: bold; padding: 2px 10px; border-radius: 6px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.2); white-space: nowrap;">‹ Top 3 Cited ›</div>
+                  </div>
+                </div>
+                <div style="margin-bottom: 0.5rem;">
+                  <div style="font-size: 0.75rem; color: #e9d5ff; font-weight: 600; margin-bottom: 0.625rem;">Citation Goal</div>
+                  <div style="position: relative; height: 10px; background-color: rgba(19,14,46,0.9); border-radius: 9999px; display: flex; align-items: center;">
+                    <div style="height: 100%; width: 66%; background: linear-gradient(to right, #9333ea, #e879f9); border-radius: 9999px;"></div>
+                    <div style="position: absolute; left: 60%; transform: translateX(-50%); background-color: #7C3AED; color: white; font-size: 11px; font-weight: bold; padding: 2px 10px; border-radius: 6px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.2); white-space: nowrap;">‹ High Intent ›</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (widget.type === 'seo-audit') {
+        htmlSnippet = `
+          <div data-type="seo-audit" class="widget-container relative overflow-hidden rounded-2xl bg-[#031415] border border-teal-500/30 p-6 sm:p-8 md:p-10 my-8 shadow-2xl grid grid-cols-1 md:grid-cols-12 gap-8 items-center not-prose after:absolute after:-bottom-24 after:-left-24 after:w-64 after:h-64 after:rounded-full after:border-[45px] after:border-teal-600/20 after:pointer-events-none">
+            <div class="widget-main-col relative z-10 md:col-span-7 flex flex-col justify-center text-left">
+              <span class="widget-badge" style="display: inline-flex; align-items: center; white-space: nowrap; font-size: 11px; font-weight: bold; letter-spacing: 0.1em; text-transform: uppercase; color: #5eead4; background: rgba(45,212,191,0.15); border: 1px solid rgba(45,212,191,0.3); padding: 0.25rem 0.6rem; border-radius: 9999px; margin-bottom: 1rem; width: fit-content;">🔍 NO-COST TECHNICAL AUDIT</span>
+              <h2 style="color: white; font-size: 1.85rem; font-weight: 800; margin-top: 0; margin-bottom: 0.75rem; line-height: 1.2;">${widget.heading || 'Uncover What Is Holding Your Website Rankings Back'}</h2>
+              <p style="color: rgba(204,251,241,0.9); font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem;">${widget.description || 'Get a comprehensive diagnostic audit covering your technical health, Core Web Vitals, indexation issues, and high-intent keyword ranking opportunities.'}</p>
+              <p><a href="${widget.buttonUrl || '/contact'}" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; background-color: #2DD4BF; color: #031415; font-weight: 800; padding: 0.875rem 1.75rem; border-radius: 0.75rem; text-decoration: none; box-shadow: 0 10px 15px -3px rgba(45,212,191,0.25);">${widget.buttonText || 'Request Free SEO Audit →'}</a></p>
+            </div>
+            <div class="widget-card-col relative z-10 md:col-span-5 select-none" contenteditable="false">
+              <div style="background-color: rgba(6,32,34,0.9); backdrop-filter: blur(12px); border-radius: 0.75rem; padding: 1.5rem; color: white; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3); border: 1px solid rgba(45,212,191,0.3); text-align: left;">
+                <div style="color: white; font-weight: 800; font-size: 1.05rem; margin-bottom: 1.25rem; line-height: 1.4;">Website Technical Health & Audit</div>
+                <div style="margin-bottom: 1.25rem;">
+                  <div style="font-size: 0.75rem; color: #99f6e4; font-weight: 600; margin-bottom: 0.625rem;">Target Organic Traffic</div>
+                  <div style="position: relative; height: 10px; background-color: rgba(4,38,40,0.9); border-radius: 9999px; display: flex; align-items: center;">
+                    <div style="height: 100%; width: 75%; background: linear-gradient(to right, #0d9488, #34d399); border-radius: 9999px;"></div>
+                    <div style="position: absolute; left: 70%; transform: translateX(-50%); background-color: #0D9488; color: white; font-size: 11px; font-weight: bold; padding: 2px 10px; border-radius: 6px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.2); white-space: nowrap;">‹ 50,000+ Visits ›</div>
+                  </div>
+                </div>
+                <div style="margin-bottom: 0.5rem;">
+                  <div style="font-size: 0.75rem; color: #99f6e4; font-weight: 600; margin-bottom: 0.625rem;">Technical Health Target</div>
+                  <div style="position: relative; height: 10px; background-color: rgba(4,38,40,0.9); border-radius: 9999px; display: flex; align-items: center;">
+                    <div style="height: 100%; width: 85%; background: linear-gradient(to right, #0d9488, #34d399); border-radius: 9999px;"></div>
+                    <div style="position: absolute; left: 80%; transform: translateX(-50%); background-color: #0D9488; color: white; font-size: 11px; font-weight: bold; padding: 2px 10px; border-radius: 6px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.2); white-space: nowrap;">‹ 98 / 100 ›</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (widget.type === 'competitor-audit') {
+        htmlSnippet = `
+          <div data-type="competitor-audit" class="widget-container relative overflow-hidden rounded-2xl bg-[#150F06] border border-amber-500/30 p-6 sm:p-8 md:p-10 my-8 shadow-2xl grid grid-cols-1 md:grid-cols-12 gap-8 items-center not-prose after:absolute after:-bottom-24 after:-left-24 after:w-64 after:h-64 after:rounded-full after:border-[45px] after:border-amber-600/20 after:pointer-events-none">
+            <div class="widget-main-col relative z-10 md:col-span-7 flex flex-col justify-center text-left">
+              <span class="widget-badge" style="display: inline-flex; align-items: center; white-space: nowrap; font-size: 11px; font-weight: bold; letter-spacing: 0.1em; text-transform: uppercase; color: #fcd34d; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); padding: 0.25rem 0.6rem; border-radius: 9999px; margin-bottom: 1rem; width: fit-content;">🎯 COMPETITOR GAP ANALYSIS</span>
+              <h2 style="color: white; font-size: 1.85rem; font-weight: 800; margin-top: 0; margin-bottom: 0.75rem; line-height: 1.2;">${widget.heading || 'Discover The High-Value Keywords Your Competitors Are Winning'}</h2>
+              <p style="color: rgba(254,243,199,0.9); font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem;">${widget.description || 'See the exact search queries and content strategies driving traffic to your top competitors — and learn how to outperform them for qualified client leads.'}</p>
+              <p><a href="${widget.buttonUrl || '/contact'}" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; background-color: #F59E0B; color: #150F06; font-weight: 800; padding: 0.875rem 1.75rem; border-radius: 0.75rem; text-decoration: none; box-shadow: 0 10px 15px -3px rgba(245,158,11,0.25);">${widget.buttonText || 'Get Free Competitor Analysis →'}</a></p>
+            </div>
+            <div class="widget-card-col relative z-10 md:col-span-5 select-none" contenteditable="false">
+              <div style="background-color: rgba(29,20,7,0.9); backdrop-filter: blur(12px); border-radius: 0.75rem; padding: 1.5rem; color: white; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3); border: 1px solid rgba(251,191,36,0.3); text-align: left;">
+                <div style="color: white; font-weight: 800; font-size: 1.05rem; margin-bottom: 1.25rem; line-height: 1.4;">Competitor Keyword Share Analyzer</div>
+                <div style="margin-bottom: 1.25rem;">
+                  <div style="font-size: 0.75rem; color: #fde68a; font-weight: 600; margin-bottom: 0.625rem;">Competitors Analyzed</div>
+                  <div style="position: relative; height: 10px; background-color: rgba(29,23,11,0.9); border-radius: 9999px; display: flex; align-items: center;">
+                    <div style="height: 100%; width: 66%; background: linear-gradient(to right, #d97706, #fbbf24); border-radius: 9999px;"></div>
+                    <div style="position: absolute; left: 60%; transform: translateX(-50%); background-color: #D97706; color: white; font-size: 11px; font-weight: bold; padding: 2px 10px; border-radius: 6px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.2); white-space: nowrap;">‹ Top 3 Competitors ›</div>
+                  </div>
+                </div>
+                <div style="margin-bottom: 0.5rem;">
+                  <div style="font-size: 0.75rem; color: #fde68a; font-weight: 600; margin-bottom: 0.625rem;">Keyword Gap Opportunity</div>
+                  <div style="position: relative; height: 10px; background-color: rgba(29,23,11,0.9); border-radius: 9999px; display: flex; align-items: center;">
+                    <div style="height: 100%; width: 80%; background: linear-gradient(to right, #d97706, #fbbf24); border-radius: 9999px;"></div>
+                    <div style="position: absolute; left: 75%; transform: translateX(-50%); background-color: #D97706; color: white; font-size: 11px; font-weight: bold; padding: 2px 10px; border-radius: 6px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.2); white-space: nowrap;">‹ 50+ Keywords ›</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
       } else if (widget.type === 'image') {
         htmlSnippet = `
           <figure class="image-wrapper" style="margin: 2rem 0; display: flex; flex-direction: column; align-items: center;">

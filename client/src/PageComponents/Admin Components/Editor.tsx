@@ -58,6 +58,12 @@ import {
   Terminal,
   Copy,
   Check,
+  Calendar,
+  Sparkles,
+  SearchCheck,
+  Crosshair,
+  ChevronDown,
+  Layers,
 } from 'lucide-react';
 
 const lowlight = createLowlight(common);
@@ -204,6 +210,342 @@ const CustomImage = Image.extend({
   },
 });
 
+const StrategyBox = Node.create({
+  name: 'strategyBox',
+  group: 'block',
+  content: 'block+',
+  defining: true,
+  parseHTML() {
+    return [
+      {
+        tag: 'div[data-type="strategy"]',
+        contentElement: (node) => (node as HTMLElement).querySelector('.widget-main-col') || (node as HTMLElement),
+      },
+    ];
+  },
+  renderHTML({ HTMLAttributes }) {
+    const gridStyle = `background-color: #F8FAFC; background-image: linear-gradient(to right, rgba(14, 165, 233, 0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(14, 165, 233, 0.08) 1px, transparent 1px); background-size: 24px 24px;`;
+    return [
+      'div',
+      mergeAttributes(HTMLAttributes, {
+        'data-type': 'strategy',
+        class:
+          'widget-container relative overflow-hidden rounded-3xl border border-blue-200/70 p-6 sm:p-8 md:p-12 my-10 shadow-lg shadow-blue-500/5 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 items-center not-prose transition-shadow duration-300 hover:shadow-xl hover:shadow-blue-500/10',
+        style: gridStyle,
+      }),
+      [
+        'div',
+        {
+          class:
+            'widget-main-col md:col-span-7 flex flex-col justify-center text-left [&>.widget-badge]:!inline-flex [&>.widget-badge]:!items-center [&>.widget-badge]:!text-[11px] [&>.widget-badge]:!font-bold [&>.widget-badge]:!tracking-widest [&>.widget-badge]:!uppercase [&>.widget-badge]:!text-blue-700 [&>.widget-badge]:!bg-blue-100/90 [&>.widget-badge]:!border [&>.widget-badge]:!border-blue-200 [&>.widget-badge]:!px-3.5 [&>.widget-badge]:!py-1 [&>.widget-badge]:!rounded-full [&>.widget-badge]:!mb-4 [&>.widget-badge]:!w-fit [&>h2,&>h3]:!text-[#0F172A] [&>h2,&>h3]:!text-2xl sm:[&>h2,&>h3]:!text-3xl md:[&>h2,&>h3]:!text-[2.1rem] [&>h2,&>h3]:!font-extrabold [&>h2,&>h3]:!tracking-tight [&>h2,&>h3]:!mb-3 [&>h2,&>h3]:!mt-0 [&>h2,&>h3]:!leading-[1.15] [&>p:not(:last-of-type)]:!text-[#475569] [&>p:not(:last-of-type)]:!text-base sm:[&>p:not(:last-of-type)]:!text-[1.05rem] [&>p:not(:last-of-type)]:!leading-relaxed [&>p:not(:last-of-type)]:!mb-7 [&_a]:!inline-flex [&_a]:!items-center [&_a]:!justify-center [&_a]:!gap-2 [&_a]:!bg-[#0F172A] hover:[&_a]:!bg-[#1E293B] [&_a]:!text-white [&_a]:!font-bold [&_a]:!py-3.5 [&_a]:!px-7 [&_a]:!rounded-lg [&_a]:!text-sm sm:[&_a]:!text-base [&_a]:!will-change-transform [&_a]:!transition-transform [&_a]:!duration-150 [&_a]:!ease-out [&_a]:!shadow-md hover:[&_a]:!-translate-y-0.5 [&_a]:!cursor-pointer [&_a]:!no-underline [&_a]:!w-fit',
+        },
+        0,
+      ],
+      [
+        'div',
+        { class: 'widget-card-col md:col-span-5 select-none', contenteditable: 'false' },
+        [
+          'div',
+          { class: 'relative rounded-2xl bg-gradient-to-b from-[#003057] to-[#001D38] p-6 sm:p-7 text-white shadow-2xl shadow-blue-950/40 border border-blue-400/20 text-left overflow-hidden' },
+          [
+            'div',
+            { class: 'absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl pointer-events-none' },
+          ],
+          ['div', { class: 'text-white font-bold text-base sm:text-lg mb-6 leading-snug tracking-tight relative z-10' }, 'Plan your marketing budget with our easy to use Marketing Calculator'],
+          [
+            'div',
+            { class: 'mb-6 relative z-10' },
+            ['div', { class: 'text-xs text-blue-200 font-medium mb-3' }, 'What is your monthly budget?'],
+            [
+              'div',
+              { class: 'relative h-2.5 bg-[#001429] rounded-full flex items-center border border-blue-900/60' },
+              [
+                'div',
+                { class: 'h-full w-2/3 bg-gradient-to-r from-blue-600 to-sky-400 rounded-full' },
+              ],
+              [
+                'div',
+                { class: 'absolute left-[60%] -translate-x-1/2 bg-[#0066FF] text-white text-[11px] font-bold px-2.5 py-0.5 rounded-md shadow-md border border-white/20 whitespace-nowrap flex items-center gap-1' },
+                '‹ $4000 ›',
+              ],
+            ],
+          ],
+          [
+            'div',
+            { class: 'mb-2 relative z-10' },
+            ['div', { class: 'text-xs text-blue-200 font-medium mb-3' }, 'What is your time frame?'],
+            [
+              'div',
+              { class: 'relative h-2.5 bg-[#001429] rounded-full flex items-center border border-blue-900/60' },
+              [
+                'div',
+                { class: 'h-full w-3/4 bg-gradient-to-r from-blue-600 to-sky-400 rounded-full' },
+              ],
+              [
+                'div',
+                { class: 'absolute left-[70%] -translate-x-1/2 bg-[#0066FF] text-white text-[11px] font-bold px-2.5 py-0.5 rounded-md shadow-md border border-white/20 whitespace-nowrap flex items-center gap-1' },
+                '‹ 12 months ›',
+              ],
+            ],
+          ],
+        ],
+      ],
+    ];
+  },
+});
+
+const AiAuditBox = Node.create({
+  name: 'aiAuditBox',
+  group: 'block',
+  content: 'block+',
+  defining: true,
+  parseHTML() {
+    return [
+      {
+        tag: 'div[data-type="ai-audit"]',
+        contentElement: (node) => (node as HTMLElement).querySelector('.widget-main-col') || (node as HTMLElement),
+      },
+    ];
+  },
+  renderHTML({ HTMLAttributes }) {
+    const gridStyle = `background-color: #FAF5FF; background-image: linear-gradient(to right, rgba(168, 85, 247, 0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(168, 85, 247, 0.08) 1px, transparent 1px); background-size: 24px 24px;`;
+    return [
+      'div',
+      mergeAttributes(HTMLAttributes, {
+        'data-type': 'ai-audit',
+        class:
+          'widget-container relative overflow-hidden rounded-3xl border border-purple-200/70 p-6 sm:p-8 md:p-12 my-10 shadow-lg shadow-purple-500/5 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 items-center not-prose transition-shadow duration-300 hover:shadow-xl hover:shadow-purple-500/10',
+        style: gridStyle,
+      }),
+      [
+        'div',
+        {
+          class:
+            'widget-main-col md:col-span-7 flex flex-col justify-center text-left [&>.widget-badge]:!inline-flex [&>.widget-badge]:!items-center [&>.widget-badge]:!text-[11px] [&>.widget-badge]:!font-bold [&>.widget-badge]:!tracking-widest [&>.widget-badge]:!uppercase [&>.widget-badge]:!text-purple-700 [&>.widget-badge]:!bg-purple-100/90 [&>.widget-badge]:!border [&>.widget-badge]:!border-purple-200 [&>.widget-badge]:!px-3.5 [&>.widget-badge]:!py-1 [&>.widget-badge]:!rounded-full [&>.widget-badge]:!mb-4 [&>.widget-badge]:!w-fit [&>h2,&>h3]:!text-[#0F172A] [&>h2,&>h3]:!text-2xl sm:[&>h2,&>h3]:!text-3xl md:[&>h2,&>h3]:!text-[2.1rem] [&>h2,&>h3]:!font-extrabold [&>h2,&>h3]:!tracking-tight [&>h2,&>h3]:!mb-3 [&>h2,&>h3]:!mt-0 [&>h2,&>h3]:!leading-[1.15] [&>p:not(:last-of-type)]:!text-[#475569] [&>p:not(:last-of-type)]:!text-base sm:[&>p:not(:last-of-type)]:!text-[1.05rem] [&>p:not(:last-of-type)]:!leading-relaxed [&>p:not(:last-of-type)]:!mb-7 [&_a]:!inline-flex [&_a]:!items-center [&_a]:!justify-center [&_a]:!gap-2 [&_a]:!bg-[#0F172A] hover:[&_a]:!bg-[#1E293B] [&_a]:!text-white [&_a]:!font-bold [&_a]:!py-3.5 [&_a]:!px-7 [&_a]:!rounded-lg [&_a]:!text-sm sm:[&_a]:!text-base [&_a]:!will-change-transform [&_a]:!transition-transform [&_a]:!duration-150 [&_a]:!ease-out [&_a]:!shadow-md hover:[&_a]:!-translate-y-0.5 [&_a]:!cursor-pointer [&_a]:!no-underline [&_a]:!w-fit',
+        },
+        0,
+      ],
+      [
+        'div',
+        { class: 'widget-card-col md:col-span-5 select-none', contenteditable: 'false' },
+        [
+          'div',
+          { class: 'relative rounded-2xl bg-gradient-to-b from-[#1E113A] to-[#120826] p-6 sm:p-7 text-white shadow-2xl shadow-purple-950/40 border border-purple-400/20 text-left overflow-hidden' },
+          [
+            'div',
+            { class: 'absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl pointer-events-none' },
+          ],
+          ['div', { class: 'text-white font-bold text-base sm:text-lg mb-6 leading-snug tracking-tight relative z-10' }, 'Benchmark your visibility with our AI Search Calculator'],
+          [
+            'div',
+            { class: 'mb-6 relative z-10' },
+            ['div', { class: 'text-xs text-purple-200 font-medium mb-3' }, 'What is your target AI visibility?'],
+            [
+              'div',
+              { class: 'relative h-2.5 bg-[#0C051A] rounded-full flex items-center border border-purple-900/60' },
+              [
+                'div',
+                { class: 'h-full w-4/5 bg-gradient-to-r from-purple-600 to-fuchsia-400 rounded-full' },
+              ],
+              [
+                'div',
+                { class: 'absolute left-[70%] -translate-x-1/2 bg-[#7C3AED] text-white text-[11px] font-bold px-2.5 py-0.5 rounded-md shadow-md border border-white/20 whitespace-nowrap flex items-center gap-1' },
+                '‹ Top 3 Cited ›',
+              ],
+            ],
+          ],
+          [
+            'div',
+            { class: 'mb-2 relative z-10' },
+            ['div', { class: 'text-xs text-purple-200 font-medium mb-3' }, 'What is your industry sector?'],
+            [
+              'div',
+              { class: 'relative h-2.5 bg-[#0C051A] rounded-full flex items-center border border-purple-900/60' },
+              [
+                'div',
+                { class: 'h-full w-2/3 bg-gradient-to-r from-purple-600 to-fuchsia-400 rounded-full' },
+              ],
+              [
+                'div',
+                { class: 'absolute left-[60%] -translate-x-1/2 bg-[#7C3AED] text-white text-[11px] font-bold px-2.5 py-0.5 rounded-md shadow-md border border-white/20 whitespace-nowrap flex items-center gap-1' },
+                '‹ High Intent ›',
+              ],
+            ],
+          ],
+        ],
+      ],
+    ];
+  },
+});
+
+const SeoAuditBox = Node.create({
+  name: 'seoAuditBox',
+  group: 'block',
+  content: 'block+',
+  defining: true,
+  parseHTML() {
+    return [
+      {
+        tag: 'div[data-type="seo-audit"]',
+        contentElement: (node) => (node as HTMLElement).querySelector('.widget-main-col') || (node as HTMLElement),
+      },
+    ];
+  },
+  renderHTML({ HTMLAttributes }) {
+    const gridStyle = `background-color: #F0FDF4; background-image: linear-gradient(to right, rgba(20, 184, 166, 0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(20, 184, 166, 0.08) 1px, transparent 1px); background-size: 24px 24px;`;
+    return [
+      'div',
+      mergeAttributes(HTMLAttributes, {
+        'data-type': 'seo-audit',
+        class:
+          'widget-container relative overflow-hidden rounded-3xl border border-teal-200/70 p-6 sm:p-8 md:p-12 my-10 shadow-lg shadow-teal-500/5 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 items-center not-prose transition-shadow duration-300 hover:shadow-xl hover:shadow-teal-500/10',
+        style: gridStyle,
+      }),
+      [
+        'div',
+        {
+          class:
+            'widget-main-col md:col-span-7 flex flex-col justify-center text-left [&>.widget-badge]:!inline-flex [&>.widget-badge]:!items-center [&>.widget-badge]:!text-[11px] [&>.widget-badge]:!font-bold [&>.widget-badge]:!tracking-widest [&>.widget-badge]:!uppercase [&>.widget-badge]:!text-teal-700 [&>.widget-badge]:!bg-teal-100/90 [&>.widget-badge]:!border [&>.widget-badge]:!border-teal-200 [&>.widget-badge]:!px-3.5 [&>.widget-badge]:!py-1 [&>.widget-badge]:!rounded-full [&>.widget-badge]:!mb-4 [&>.widget-badge]:!w-fit [&>h2,&>h3]:!text-[#0F172A] [&>h2,&>h3]:!text-2xl sm:[&>h2,&>h3]:!text-3xl md:[&>h2,&>h3]:!text-[2.1rem] [&>h2,&>h3]:!font-extrabold [&>h2,&>h3]:!tracking-tight [&>h2,&>h3]:!mb-3 [&>h2,&>h3]:!mt-0 [&>h2,&>h3]:!leading-[1.15] [&>p:not(:last-of-type)]:!text-[#475569] [&>p:not(:last-of-type)]:!text-base sm:[&>p:not(:last-of-type)]:!text-[1.05rem] [&>p:not(:last-of-type)]:!leading-relaxed [&>p:not(:last-of-type)]:!mb-7 [&_a]:!inline-flex [&_a]:!items-center [&_a]:!justify-center [&_a]:!gap-2 [&_a]:!bg-[#0F172A] hover:[&_a]:!bg-[#1E293B] [&_a]:!text-white [&_a]:!font-bold [&_a]:!py-3.5 [&_a]:!px-7 [&_a]:!rounded-lg [&_a]:!text-sm sm:[&_a]:!text-base [&_a]:!will-change-transform [&_a]:!transition-transform [&_a]:!duration-150 [&_a]:!ease-out [&_a]:!shadow-md hover:[&_a]:!-translate-y-0.5 [&_a]:!cursor-pointer [&_a]:!no-underline [&_a]:!w-fit',
+        },
+        0,
+      ],
+      [
+        'div',
+        { class: 'widget-card-col md:col-span-5 select-none', contenteditable: 'false' },
+        [
+          'div',
+          { class: 'relative rounded-2xl bg-gradient-to-b from-[#053235] to-[#021F21] p-6 sm:p-7 text-white shadow-2xl shadow-teal-950/40 border border-teal-400/20 text-left overflow-hidden' },
+          [
+            'div',
+            { class: 'absolute top-0 right-0 w-32 h-32 bg-teal-500/10 rounded-full blur-2xl pointer-events-none' },
+          ],
+          ['div', { class: 'text-white font-bold text-base sm:text-lg mb-6 leading-snug tracking-tight relative z-10' }, 'Analyze your website health with our SEO Diagnostic Audit'],
+          [
+            'div',
+            { class: 'mb-6 relative z-10' },
+            ['div', { class: 'text-xs text-teal-200 font-medium mb-3' }, 'What is your monthly traffic goal?'],
+            [
+              'div',
+              { class: 'relative h-2.5 bg-[#011415] rounded-full flex items-center border border-teal-900/60' },
+              [
+                'div',
+                { class: 'h-full w-3/4 bg-gradient-to-r from-teal-600 to-emerald-400 rounded-full' },
+              ],
+              [
+                'div',
+                { class: 'absolute left-[70%] -translate-x-1/2 bg-[#0D9488] text-white text-[11px] font-bold px-2.5 py-0.5 rounded-md shadow-md border border-white/20 whitespace-nowrap flex items-center gap-1' },
+                '‹ 50,000+ Visits ›',
+              ],
+            ],
+          ],
+          [
+            'div',
+            { class: 'mb-2 relative z-10' },
+            ['div', { class: 'text-xs text-teal-200 font-medium mb-3' }, 'What is your target health score?'],
+            [
+              'div',
+              { class: 'relative h-2.5 bg-[#011415] rounded-full flex items-center border border-teal-900/60' },
+              [
+                'div',
+                { class: 'h-full w-[85%] bg-gradient-to-r from-teal-600 to-emerald-400 rounded-full' },
+              ],
+              [
+                'div',
+                { class: 'absolute left-[80%] -translate-x-1/2 bg-[#0D9488] text-white text-[11px] font-bold px-2.5 py-0.5 rounded-md shadow-md border border-white/20 whitespace-nowrap flex items-center gap-1' },
+                '‹ 98 / 100 ›',
+              ],
+            ],
+          ],
+        ],
+      ],
+    ];
+  },
+});
+
+const CompetitorAuditBox = Node.create({
+  name: 'competitorAuditBox',
+  group: 'block',
+  content: 'block+',
+  defining: true,
+  parseHTML() {
+    return [
+      {
+        tag: 'div[data-type="competitor-audit"]',
+        contentElement: (node) => (node as HTMLElement).querySelector('.widget-main-col') || (node as HTMLElement),
+      },
+    ];
+  },
+  renderHTML({ HTMLAttributes }) {
+    const gridStyle = `background-color: #FFFDF5; background-image: linear-gradient(to right, rgba(217, 119, 6, 0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(217, 119, 6, 0.08) 1px, transparent 1px); background-size: 24px 24px;`;
+    return [
+      'div',
+      mergeAttributes(HTMLAttributes, {
+        'data-type': 'competitor-audit',
+        class:
+          'widget-container relative overflow-hidden rounded-3xl border border-amber-200/70 p-6 sm:p-8 md:p-12 my-10 shadow-lg shadow-amber-500/5 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 items-center not-prose transition-shadow duration-300 hover:shadow-xl hover:shadow-amber-500/10',
+        style: gridStyle,
+      }),
+      [
+        'div',
+        {
+          class:
+            'widget-main-col md:col-span-7 flex flex-col justify-center text-left [&>.widget-badge]:!inline-flex [&>.widget-badge]:!items-center [&>.widget-badge]:!text-[11px] [&>.widget-badge]:!font-bold [&>.widget-badge]:!tracking-widest [&>.widget-badge]:!uppercase [&>.widget-badge]:!text-amber-800 [&>.widget-badge]:!bg-amber-100/90 [&>.widget-badge]:!border [&>.widget-badge]:!border-amber-200 [&>.widget-badge]:!px-3.5 [&>.widget-badge]:!py-1 [&>.widget-badge]:!rounded-full [&>.widget-badge]:!mb-4 [&>.widget-badge]:!w-fit [&>h2,&>h3]:!text-[#0F172A] [&>h2,&>h3]:!text-2xl sm:[&>h2,&>h3]:!text-3xl md:[&>h2,&>h3]:!text-[2.1rem] [&>h2,&>h3]:!font-extrabold [&>h2,&>h3]:!tracking-tight [&>h2,&>h3]:!mb-3 [&>h2,&>h3]:!mt-0 [&>h2,&>h3]:!leading-[1.15] [&>p:not(:last-of-type)]:!text-[#475569] [&>p:not(:last-of-type)]:!text-base sm:[&>p:not(:last-of-type)]:!text-[1.05rem] [&>p:not(:last-of-type)]:!leading-relaxed [&>p:not(:last-of-type)]:!mb-7 [&_a]:!inline-flex [&_a]:!items-center [&_a]:!justify-center [&_a]:!gap-2 [&_a]:!bg-[#0F172A] hover:[&_a]:!bg-[#1E293B] [&_a]:!text-white [&_a]:!font-bold [&_a]:!py-3.5 [&_a]:!px-7 [&_a]:!rounded-lg [&_a]:!text-sm sm:[&_a]:!text-base [&_a]:!will-change-transform [&_a]:!transition-transform [&_a]:!duration-150 [&_a]:!ease-out [&_a]:!shadow-md hover:[&_a]:!-translate-y-0.5 [&_a]:!cursor-pointer [&_a]:!no-underline [&_a]:!w-fit',
+        },
+        0,
+      ],
+      [
+        'div',
+        { class: 'widget-card-col md:col-span-5 select-none', contenteditable: 'false' },
+        [
+          'div',
+          { class: 'relative rounded-2xl bg-gradient-to-b from-[#2B1B06] to-[#1A0E02] p-6 sm:p-7 text-white shadow-2xl shadow-amber-950/40 border border-amber-400/20 text-left overflow-hidden' },
+          [
+            'div',
+            { class: 'absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none' },
+          ],
+          ['div', { class: 'text-white font-bold text-base sm:text-lg mb-6 leading-snug tracking-tight relative z-10' }, 'Plan your market share takeover with Competitor Gap Analysis'],
+          [
+            'div',
+            { class: 'mb-6 relative z-10' },
+            ['div', { class: 'text-xs text-amber-200 font-medium mb-3' }, 'How many competitors to analyze?'],
+            [
+              'div',
+              { class: 'relative h-2.5 bg-[#120901] rounded-full flex items-center border border-amber-900/60' },
+              [
+                'div',
+                { class: 'h-full w-2/3 bg-gradient-to-r from-amber-600 to-yellow-400 rounded-full' },
+              ],
+              [
+                'div',
+                { class: 'absolute left-[60%] -translate-x-1/2 bg-[#D97706] text-white text-[11px] font-bold px-2.5 py-0.5 rounded-md shadow-md border border-white/20 whitespace-nowrap flex items-center gap-1' },
+                '‹ Top 3 Competitors ›',
+              ],
+            ],
+          ],
+          [
+            'div',
+            { class: 'mb-2 relative z-10' },
+            ['div', { class: 'text-xs text-amber-200 font-medium mb-3' }, 'What is your keyword gap target?'],
+            [
+              'div',
+              { class: 'relative h-2.5 bg-[#120901] rounded-full flex items-center border border-amber-900/60' },
+              [
+                'div',
+                { class: 'h-full w-4/5 bg-gradient-to-r from-amber-600 to-yellow-400 rounded-full' },
+              ],
+              [
+                'div',
+                { class: 'absolute left-[75%] -translate-x-1/2 bg-[#D97706] text-white text-[11px] font-bold px-2.5 py-0.5 rounded-md shadow-md border border-white/20 whitespace-nowrap flex items-center gap-1' },
+                '‹ 50+ Keywords ›',
+              ],
+            ],
+          ],
+        ],
+      ],
+    ];
+  },
+});
+
 const FaqBox = Node.create({
   name: 'faqBox',
   group: 'block',
@@ -281,12 +623,28 @@ const TestimonialBox = Node.create({
 const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const widgetsMenuRef = useRef<HTMLDivElement>(null);
+  const [isWidgetsMenuOpen, setIsWidgetsMenuOpen] = useState(false);
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
   const [linkUrl, setLinkUrl] = useState('');
   const [linkSelectionActive, setLinkSelectionActive] = useState(false);
   const [activeFormat, setActiveFormat] = useState('0');
 
   const [isInitialized, setIsInitialized] = useState(false);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (widgetsMenuRef.current && !widgetsMenuRef.current.contains(event.target as globalThis.Node)) {
+        setIsWidgetsMenuOpen(false);
+      }
+    };
+    if (isWidgetsMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isWidgetsMenuOpen]);
 
   const btnBase =
     'p-1.5 text-[#37352f]/60 rounded hover:bg-[#efefef] hover:text-[#37352f] transition-colors focus:outline-none flex items-center justify-center';
@@ -317,6 +675,10 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange
       OrderedList,
       ListItem,
       CustomCodeBlock.configure({ lowlight, defaultLanguage: 'javascript' }),
+      StrategyBox,
+      AiAuditBox,
+      SeoAuditBox,
+      CompetitorAuditBox,
       FaqBox,
       CtaBox,
       TestimonialBox,
@@ -468,6 +830,186 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange
     setActiveFormat(value);
     if (value === '0') editor.chain().focus().setParagraph().run();
     else editor.chain().focus().toggleHeading({ level: Number(value) as 1 | 2 | 3 | 4 | 5 | 6 }).run();
+  };
+
+  const insertStrategy = () => {
+    if (!editor) return;
+    const section = [
+      {
+        type: 'strategyBox',
+        content: [
+          {
+            type: 'heading',
+            attrs: { level: 2 },
+            content: [{ type: 'text', text: 'Try our free Marketing Strategy Session' }],
+          },
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                text: 'Craft a tailored online marketing strategy! Meet directly with our search and acquisition specialists for a custom plan based on your location, reach, timeframe, and budget.',
+              },
+            ],
+          },
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                marks: [
+                  {
+                    type: 'link',
+                    attrs: {
+                      href: 'https://calendar.app.google/2fERfiu4ESvHmAtb7',
+                      target: '_blank',
+                    },
+                  },
+                ],
+                text: 'Plan Your Marketing Strategy',
+              },
+            ],
+          },
+        ],
+      },
+      { type: 'paragraph' },
+    ];
+    editor.chain().focus().insertContent(section).run();
+  };
+
+  const insertAiAudit = () => {
+    if (!editor) return;
+    const section = [
+      {
+        type: 'aiAuditBox',
+        content: [
+          {
+            type: 'heading',
+            attrs: { level: 2 },
+            content: [{ type: 'text', text: 'Try our free AI Search Visibility Audit' }],
+          },
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                text: 'Find out how ChatGPT, Perplexity, Gemini, and Claude cite and rank your business. Request a custom plan based on your industry, reach, and AI search presence.',
+              },
+            ],
+          },
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                marks: [
+                  {
+                    type: 'link',
+                    attrs: {
+                      href: '/contact',
+                      target: '_blank',
+                    },
+                  },
+                ],
+                text: 'Plan Your AI Search Strategy',
+              },
+            ],
+          },
+        ],
+      },
+      { type: 'paragraph' },
+    ];
+    editor.chain().focus().insertContent(section).run();
+  };
+
+  const insertSeoAudit = () => {
+    if (!editor) return;
+    const section = [
+      {
+        type: 'seoAuditBox',
+        content: [
+          {
+            type: 'heading',
+            attrs: { level: 2 },
+            content: [{ type: 'text', text: 'Try our free No-Cost SEO Audit' }],
+          },
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                text: 'Uncover what is holding your search rankings and website performance back. Receive a diagnostic breakdown of your technical health, Core Web Vitals, and keyword opportunities.',
+              },
+            ],
+          },
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                marks: [
+                  {
+                    type: 'link',
+                    attrs: {
+                      href: '/contact',
+                      target: '_blank',
+                    },
+                  },
+                ],
+                text: 'Plan Your SEO Audit',
+              },
+            ],
+          },
+        ],
+      },
+      { type: 'paragraph' },
+    ];
+    editor.chain().focus().insertContent(section).run();
+  };
+
+  const insertCompetitorAudit = () => {
+    if (!editor) return;
+    const section = [
+      {
+        type: 'competitorAuditBox',
+        content: [
+          {
+            type: 'heading',
+            attrs: { level: 2 },
+            content: [{ type: 'text', text: 'Try our free Competitor Gap Analysis' }],
+          },
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                text: 'See the exact search queries and content strategies driving traffic to your top competitors — and learn how to outperform them for qualified client leads.',
+              },
+            ],
+          },
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                marks: [
+                  {
+                    type: 'link',
+                    attrs: {
+                      href: '/contact',
+                      target: '_blank',
+                    },
+                  },
+                ],
+                text: 'Plan Your Competitor Analysis',
+              },
+            ],
+          },
+        ],
+      },
+      { type: 'paragraph' },
+    ];
+    editor.chain().focus().insertContent(section).run();
   };
 
   const insertFaq = () => {
@@ -715,16 +1257,180 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange
             <Terminal size={16} />
           </button>
 
-          <div className="flex ml-1 gap-0.5 bg-[#f7f6f3] p-0.5 rounded">
-            <button onClick={insertFaq} className={btnBase} title="FAQ Block">
-              <HelpCircle size={15} />
+          {/* Insert Widgets Dropdown */}
+          <div className="relative inline-block text-left ml-1" ref={widgetsMenuRef}>
+            <button
+              type="button"
+              onClick={() => setIsWidgetsMenuOpen((prev) => !prev)}
+              className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-blue-700 bg-blue-50/90 hover:bg-blue-100/90 border border-blue-200/70 rounded-md transition-all shadow-xs cursor-pointer"
+              title="Insert Lead Generation & Growth Widgets"
+            >
+              <Layers size={13} className="text-blue-600" />
+              <span>+ Widgets</span>
+              <ChevronDown
+                size={12}
+                className={`text-blue-500 transition-transform duration-200 ${
+                  isWidgetsMenuOpen ? 'rotate-180' : ''
+                }`}
+              />
             </button>
-            <button onClick={insertCta} className={btnBase} title="CTA Banner">
-              <Megaphone size={15} />
-            </button>
-            <button onClick={insertTestimonial} className={btnBase} title="Testimonial">
-              <Star size={15} />
-            </button>
+
+            {isWidgetsMenuOpen && (
+              <div className="absolute left-0 mt-2 w-80 rounded-xl bg-white shadow-2xl ring-1 ring-black/10 focus:outline-none z-50 p-2 border border-gray-100 animate-in fade-in zoom-in-95 duration-150">
+                <div className="px-2.5 py-1.5 text-[10px] font-bold tracking-wider text-gray-400 uppercase">
+                  Growth & Audit Widgets
+                </div>
+                <div className="space-y-0.5">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      insertStrategy();
+                      setIsWidgetsMenuOpen(false);
+                    }}
+                    className="w-full flex items-start gap-2.5 px-2.5 py-2 rounded-lg text-left hover:bg-blue-50/60 transition-colors group cursor-pointer"
+                  >
+                    <div className="p-1.5 rounded-md bg-blue-100/70 text-blue-700 group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0 mt-0.5">
+                      <Calendar size={14} />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-gray-800 group-hover:text-blue-700">
+                        Free Strategy Session
+                      </div>
+                      <div className="text-[11px] text-gray-500 leading-tight">
+                        Google Calendar 30-min booking link
+                      </div>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      insertAiAudit();
+                      setIsWidgetsMenuOpen(false);
+                    }}
+                    className="w-full flex items-start gap-2.5 px-2.5 py-2 rounded-lg text-left hover:bg-purple-50/60 transition-colors group cursor-pointer"
+                  >
+                    <div className="p-1.5 rounded-md bg-purple-100/70 text-purple-700 group-hover:bg-purple-600 group-hover:text-white transition-colors shrink-0 mt-0.5">
+                      <Sparkles size={14} />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-gray-800 group-hover:text-purple-700">
+                        AI Search Visibility Audit
+                      </div>
+                      <div className="text-[11px] text-gray-500 leading-tight">
+                        ChatGPT, Perplexity & Gemini report
+                      </div>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      insertSeoAudit();
+                      setIsWidgetsMenuOpen(false);
+                    }}
+                    className="w-full flex items-start gap-2.5 px-2.5 py-2 rounded-lg text-left hover:bg-teal-50/60 transition-colors group cursor-pointer"
+                  >
+                    <div className="p-1.5 rounded-md bg-teal-100/70 text-teal-700 group-hover:bg-teal-600 group-hover:text-white transition-colors shrink-0 mt-0.5">
+                      <SearchCheck size={14} />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-gray-800 group-hover:text-teal-700">
+                        No-Cost SEO Audit
+                      </div>
+                      <div className="text-[11px] text-gray-500 leading-tight">
+                        Technical health & ranking opportunities
+                      </div>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      insertCompetitorAudit();
+                      setIsWidgetsMenuOpen(false);
+                    }}
+                    className="w-full flex items-start gap-2.5 px-2.5 py-2 rounded-lg text-left hover:bg-amber-50/60 transition-colors group cursor-pointer"
+                  >
+                    <div className="p-1.5 rounded-md bg-amber-100/70 text-amber-700 group-hover:bg-amber-600 group-hover:text-white transition-colors shrink-0 mt-0.5">
+                      <Crosshair size={14} />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-gray-800 group-hover:text-amber-700">
+                        Competitor Gap Analysis
+                      </div>
+                      <div className="text-[11px] text-gray-500 leading-tight">
+                        Competitor keyword & traffic X-Ray
+                      </div>
+                    </div>
+                  </button>
+                </div>
+
+                <div className="my-1.5 border-t border-gray-100" />
+
+                <div className="px-2.5 py-1 text-[10px] font-bold tracking-wider text-gray-400 uppercase">
+                  Components
+                </div>
+                <div className="space-y-0.5">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      insertCta();
+                      setIsWidgetsMenuOpen(false);
+                    }}
+                    className="w-full flex items-start gap-2.5 px-2.5 py-1.5 rounded-lg text-left hover:bg-gray-100 transition-colors group cursor-pointer"
+                  >
+                    <div className="p-1 rounded-md bg-slate-100 text-slate-700 group-hover:bg-slate-800 group-hover:text-white transition-colors shrink-0 mt-0.5">
+                      <Megaphone size={13} />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-gray-800">CTA Banner</div>
+                      <div className="text-[11px] text-gray-500 leading-tight">
+                        High-contrast lead banner
+                      </div>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      insertTestimonial();
+                      setIsWidgetsMenuOpen(false);
+                    }}
+                    className="w-full flex items-start gap-2.5 px-2.5 py-1.5 rounded-lg text-left hover:bg-gray-100 transition-colors group cursor-pointer"
+                  >
+                    <div className="p-1 rounded-md bg-yellow-100 text-yellow-700 group-hover:bg-yellow-500 group-hover:text-white transition-colors shrink-0 mt-0.5">
+                      <Star size={13} />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-gray-800">Testimonial Card</div>
+                      <div className="text-[11px] text-gray-500 leading-tight">
+                        Client review & rating
+                      </div>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      insertFaq();
+                      setIsWidgetsMenuOpen(false);
+                    }}
+                    className="w-full flex items-start gap-2.5 px-2.5 py-1.5 rounded-lg text-left hover:bg-gray-100 transition-colors group cursor-pointer"
+                  >
+                    <div className="p-1 rounded-md bg-blue-100 text-blue-700 group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0 mt-0.5">
+                      <HelpCircle size={13} />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-gray-800">FAQ Section</div>
+                      <div className="text-[11px] text-gray-500 leading-tight">
+                        Frequently asked questions
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
