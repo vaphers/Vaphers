@@ -1527,6 +1527,10 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange
                       <div className="text-[11px] text-gray-500 leading-tight">
                         Responsive 2-4 column grid (&lt; 200KB)
                       </div>
+                    </div>
+                  </button>
+                </div>
+              </div>
             )}
           </div>
         )}
