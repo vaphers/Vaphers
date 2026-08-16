@@ -368,6 +368,13 @@ export default function GuestPostsAdminPage() {
                               <span>Live</span>
                             </Link>
                           )}
+                          <Link
+                            href={`/admin-dashboard/guest-posts/edit/${sub.id}`}
+                            className="px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium rounded-sm transition-colors flex items-center gap-1 cursor-pointer"
+                            title="Edit article in full rich text studio"
+                          >
+                            <span>Edit in Editor</span>
+                          </Link>
                           <button
                             onClick={() => {
                               setSelectedPost(sub);
@@ -377,7 +384,7 @@ export default function GuestPostsAdminPage() {
                             className="px-3 py-1.5 bg-[#2383e2] hover:bg-[#1c6ebf] text-white text-xs font-medium rounded-sm transition-colors flex items-center gap-1 shadow-xs cursor-pointer"
                           >
                             <Eye size={13} />
-                            <span>Review</span>
+                            <span>Quick Review</span>
                           </button>
                         </div>
                       </td>
@@ -507,6 +514,12 @@ export default function GuestPostsAdminPage() {
               </button>
 
               <div className="flex items-center gap-2">
+                <Link
+                  href={`/admin-dashboard/guest-posts/edit/${selectedPost.id}`}
+                  className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-medium rounded transition-colors"
+                >
+                  Open in Full Editor &rarr;
+                </Link>
                 <button
                   onClick={() => handleAction('reject')}
                   disabled={actionLoading}

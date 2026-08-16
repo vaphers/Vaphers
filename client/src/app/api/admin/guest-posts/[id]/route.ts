@@ -27,7 +27,17 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await req.json();
-    const { action, feedbackNote } = body;
+    const {
+      action,
+      feedbackNote,
+      title,
+      slug,
+      contentHtml,
+      metaTitle,
+      metaDescription,
+      featuredImage,
+      categories,
+    } = body;
 
     const submissionRef = db.collection('guestSubmissions').doc(id);
     const submissionDoc = await submissionRef.get();
@@ -39,19 +49,42 @@ export async function PUT(
     const subData = submissionDoc.data() || {};
     const now = new Date().toISOString();
 
+    // If admin is saving edits to the content
+    const editPayload: any = {};
+    if (title !== undefined) editPayload.title = title;
+    if (slug !== undefined) editPayload.slug = slug;
+    if (contentHtml !== undefined) editPayload.contentHtml = contentHtml;
+    if (metaTitle !== undefined) editPayload.metaTitle = metaTitle;
+    if (metaDescription !== undefined) editPayload.metaDescription = metaDescription;
+    if (featuredImage !== undefined) editPayload.featuredImage = featuredImage;
+    if (categories !== undefined) editPayload.categories = categories;
+
+    if (Object.keys(editPayload).length > 0) {
+      editPayload.updatedAt = now;
+      await submissionRef.update(editPayload);
+      Object.assign(subData, editPayload);
+    }
+
+    if (action === 'save_only') {
+      return NextResponse.json({
+        message: 'Guest submission updated successfully by Admin',
+        submission: { id, ...subData, ...editPayload },
+      });
+    }
+
     if (action === 'approve') {
       // 1. Publish into main blogs collection
-      const slug = (subData.slug || subData.title || '')
+      const finalRawSlug = (subData.slug || subData.title || '')
         .toLowerCase()
         .replace(/[^\w\s-]/g, '')
         .replace(/[\s_-]+/g, '-')
         .replace(/^-+|-+$/g, '') || `post-${Date.now()}`;
 
       // Check if slug exists in blogs
-      let finalSlug = slug;
+      let finalSlug = finalRawSlug;
       const existingBlog = await db.collection('blogs').where('slug', '==', finalSlug).get();
       if (!existingBlog.empty) {
-        finalSlug = `${slug}-${Date.now().toString().slice(-4)}`;
+        finalSlug = `${finalRawSlug}-${Date.now().toString().slice(-4)}`;
       }
 
       // Fetch writer profile for fresh bio and name
@@ -135,7 +168,7 @@ export async function PUT(
       });
     }
 
-    return NextResponse.json({ error: 'Invalid action provided' }, { status: 400 });
+    return NextResponse.json({ message: 'Updated', submission: subData });
   } catch (error: any) {
     console.error('Error handling guest submission review:', error);
     return NextResponse.json({ error: error.message }, { status: 500 });

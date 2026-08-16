@@ -308,6 +308,7 @@ export default function GuestEditor({ submissionId }: Props) {
               onTitleChange={handleTitleChange}
               content={content}
               onChange={setContent}
+              hideWidgets={true}
             />
           </div>
 

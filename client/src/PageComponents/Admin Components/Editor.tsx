@@ -82,6 +82,7 @@ type EditorProps = {
   onChange?: (value: string) => void;
   title: string;
   onTitleChange: (value: string) => void;
+  hideWidgets?: boolean;
 };
 
 const Divider = () => <div className="w-[1px] h-4 bg-[#e5e5e5] mx-1 hidden sm:block" />;
@@ -629,7 +630,7 @@ const TestimonialBox = Node.create({
   },
 });
 
-const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange }) => {
+const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange, hideWidgets = false }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const widgetsMenuRef = useRef<HTMLDivElement>(null);
@@ -723,7 +724,6 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange
       updateToolbarState(editor);
     },
     onSelectionUpdate: ({ editor }) => updateToolbarState(editor),
-    immediatelyRender: false,
     editorProps: {
       handleKeyDown(view, event) {
         if (event.key === 'Enter' && event.shiftKey) {
@@ -1294,7 +1294,8 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange
           </button>
 
           {/* Insert Widgets Dropdown */}
-          <div className="relative inline-block text-left ml-1" ref={widgetsMenuRef}>
+          {!hideWidgets && (
+            <div className="relative inline-block text-left ml-1" ref={widgetsMenuRef}>
             <button
               type="button"
               onClick={() => setIsWidgetsMenuOpen((prev) => !prev)}
@@ -1526,12 +1527,9 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange
                       <div className="text-[11px] text-gray-500 leading-tight">
                         Responsive 2-4 column grid (&lt; 200KB)
                       </div>
-                    </div>
-                  </button>
-                </div>
-              </div>
             )}
           </div>
+        )}
         </div>
 
         <Divider />
