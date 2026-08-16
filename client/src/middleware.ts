@@ -39,8 +39,8 @@ export default clerkMiddleware(async (auth, request) => {
     }
   }
 
-  // 3. Protect Admin APIs (JWT based auth)
-  if (path.startsWith('/api/admin')) {
+  // 3. Protect Internal Admin APIs (excluding public /api/admin-login)
+  if (path.startsWith('/api/admin/') && !path.startsWith('/api/admin-login')) {
     if (!token) {
       return NextResponse.json(
         { success: false, error: 'The data cannot be accessed' },
