@@ -8,8 +8,9 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import TrafficSources from './TrafficSources';
 import Audience from './Audiences';
+import PagesTab from './Pages';
 
-const MAIN_TABS = ['Traffic sources', 'Audience', 'Pages', 'Conversions'];
+const MAIN_TABS = ['Traffic sources', 'Audience', 'Pages'];
 
 // Helpers for default dates
 const getTodayStr = () => format(new Date(), 'yyyy-MM-dd');
@@ -376,15 +377,10 @@ export default function AnalyticsDashboard() {
         )}
         
         {activeMainTab === 'Pages' && (
-          <div className="py-20 text-center border border-slate-200 bg-white rounded-sm text-slate-400 montserrat-medium text-sm shadow-sm">
-            Pages Analytics Component
-          </div>
-        )}
-        
-        {activeMainTab === 'Conversions' && (
-          <div className="py-20 text-center border border-slate-200 bg-white rounded-sm text-slate-400 montserrat-medium text-sm shadow-sm">
-            Conversions Analytics Component
-          </div>
+          <PagesTab 
+            dateRange={dateRange} 
+            compareDateRange={isComparing ? compareDateRange : undefined} 
+          />
         )}
       </div>
 

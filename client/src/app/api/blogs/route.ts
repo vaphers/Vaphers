@@ -24,6 +24,8 @@ export async function POST(req: NextRequest) {
       featuredImage,
       author,
       categories,
+      status = 'published',
+      scheduledAt = null,
     } = body;
 
     if (!title || !slug || !content) {
@@ -42,6 +44,14 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    let parsedScheduledAt = null;
+    if (status === 'scheduled' && scheduledAt) {
+      const d = new Date(scheduledAt);
+      if (!isNaN(d.getTime())) {
+        parsedScheduledAt = admin.firestore.Timestamp.fromDate(d);
+      }
+    }
+
     const docRef = await db.collection('blogs').add({
       title,
       slug,
@@ -49,13 +59,15 @@ export async function POST(req: NextRequest) {
       metaTitle: metaTitle || title,
       metaDescription: metaDescription || '',
       featuredImage: featuredImage || null,
-      authorId: author,
+      authorId: author || 'muhammad-asad',
       categories: categories || [],
+      status: status || 'published',
+      scheduledAt: parsedScheduledAt,
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
       updatedAt: admin.firestore.FieldValue.serverTimestamp(),
     });
 
-    return NextResponse.json({ id: docRef.id, slug }, { status: 201 });
+    return NextResponse.json({ id: docRef.id, slug, status }, { status: 201 });
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : String(err);
     console.error('Error creating blog', err);
@@ -70,23 +82,67 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
+    const includeAll = searchParams.get('includeAll') === 'true' || searchParams.get('admin') === 'true';
+    const statusFilter = searchParams.get('status');
+    const limitParam = searchParams.get('limit');
+    const limit = limitParam ? parseInt(limitParam, 10) : 100;
     
     const blogsQuery = db
       .collection("blogs")
       .orderBy("createdAt", "desc");
 
     const snapshot = await blogsQuery.get();
-    const blogs = snapshot.docs.map(doc => ({
-      id: doc.id,
-      slug: doc.data().slug,
-      title: doc.data().title,
-      featuredImage: doc.data().featuredImage,
-      categories: doc.data().categories || [],
-      metaDescription: doc.data().metaDescription || '',
-      createdAt: doc.data().createdAt,
-      authorId: doc.data().authorId,
-    }));
+    const now = new Date();
 
+    let blogs = snapshot.docs.map(doc => {
+      const data = doc.data();
+      let scheduledAtDate: string | null = null;
+      if (data.scheduledAt) {
+        if (typeof data.scheduledAt.toDate === 'function') {
+          scheduledAtDate = data.scheduledAt.toDate().toISOString();
+        } else if (data.scheduledAt._seconds) {
+          scheduledAtDate = new Date(data.scheduledAt._seconds * 1000).toISOString();
+        } else {
+          scheduledAtDate = String(data.scheduledAt);
+        }
+      }
+
+      return {
+        id: doc.id,
+        slug: data.slug,
+        title: data.title,
+        featuredImage: data.featuredImage,
+        categories: data.categories || [],
+        metaDescription: data.metaDescription || '',
+        createdAt: data.createdAt,
+        authorId: data.authorId,
+        status: data.status || 'published',
+        scheduledAt: scheduledAtDate,
+      };
+    });
+
+    // If not admin / includeAll, filter only publicly visible posts
+    if (!includeAll) {
+      blogs = blogs.filter((b: any) => {
+        if (statusFilter) {
+          return b.status === statusFilter;
+        }
+        // Public visibility logic
+        if (b.status === 'draft') return false;
+        if (b.status === 'scheduled') {
+          if (!b.scheduledAt) return false;
+          return new Date(b.scheduledAt) <= now;
+        }
+        // default: published or legacy blogs without status
+        return true;
+      });
+    } else if (statusFilter && statusFilter !== 'all') {
+      blogs = blogs.filter((b: any) => b.status === statusFilter);
+    }
+
+    if (limit && limit > 0) {
+      blogs = blogs.slice(0, limit);
+    }
 
     return NextResponse.json({ blogs });
   } catch (err) {

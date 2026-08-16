@@ -64,7 +64,16 @@ import {
   Crosshair,
   ChevronDown,
   Layers,
+  Youtube,
+  Globe,
+  Images,
 } from 'lucide-react';
+import {
+  YouTubeEmbedNode,
+  WebsiteCardNode,
+  ImageGalleryNode,
+  validateImageSize,
+} from './EditorEmbedExtensions';
 
 const lowlight = createLowlight(common);
 
@@ -662,6 +671,7 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange
   };
 
   const editor = useEditor({
+    immediatelyRender: false,
     extensions: [
       StarterKit.configure({
         heading: false,
@@ -683,6 +693,9 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange
       CtaBox,
       TestimonialBox,
       CustomImage,
+      YouTubeEmbedNode,
+      WebsiteCardNode,
+      ImageGalleryNode,
       TextAlign.configure({
         types: ['heading', 'paragraph', 'image'],
         alignments: ['left', 'center', 'right', 'justify'],
@@ -782,6 +795,14 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange
     if (!editor) return;
     const file = event.target.files?.[0];
     if (!file) return;
+
+    // Strict image size limit check (< 200KB)
+    const sizeCheck = validateImageSize(file);
+    if (!sizeCheck.valid) {
+      alert(sizeCheck.error);
+      event.target.value = '';
+      return;
+    }
 
     const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
     const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
@@ -1100,6 +1121,21 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange
       { type: 'paragraph' },
     ];
     editor.chain().focus().insertContent(testimonialSection).run();
+  };
+
+  const insertYouTube = () => {
+    if (!editor) return;
+    editor.chain().focus().insertContent({ type: 'youtubeEmbed', attrs: { src: '' } }).run();
+  };
+
+  const insertWebsiteCard = () => {
+    if (!editor) return;
+    editor.chain().focus().insertContent({ type: 'websiteCard', attrs: { url: '' } }).run();
+  };
+
+  const insertImageGallery = () => {
+    if (!editor) return;
+    editor.chain().focus().insertContent({ type: 'imageGallery', attrs: { images: [], columns: 2 } }).run();
   };
 
   return (
@@ -1425,6 +1461,70 @@ const Tiptap: React.FC<EditorProps> = ({ content, onChange, title, onTitleChange
                       <div className="text-xs font-semibold text-gray-800">FAQ Section</div>
                       <div className="text-[11px] text-gray-500 leading-tight">
                         Frequently asked questions
+                      </div>
+                    </div>
+                  </button>
+                </div>
+
+                <div className="my-1.5 border-t border-gray-100" />
+
+                <div className="px-2.5 py-1 text-[10px] font-bold tracking-wider text-gray-400 uppercase">
+                  Rich Embeds & Media
+                </div>
+                <div className="space-y-0.5">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      insertYouTube();
+                      setIsWidgetsMenuOpen(false);
+                    }}
+                    className="w-full flex items-start gap-2.5 px-2.5 py-1.5 rounded-lg text-left hover:bg-red-50/60 transition-colors group cursor-pointer"
+                  >
+                    <div className="p-1 rounded-md bg-red-100 text-red-700 group-hover:bg-red-600 group-hover:text-white transition-colors shrink-0 mt-0.5">
+                      <Youtube size={13} />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-gray-800">YouTube Video</div>
+                      <div className="text-[11px] text-gray-500 leading-tight">
+                        Responsive 16:9 video player
+                      </div>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      insertWebsiteCard();
+                      setIsWidgetsMenuOpen(false);
+                    }}
+                    className="w-full flex items-start gap-2.5 px-2.5 py-1.5 rounded-lg text-left hover:bg-blue-50/60 transition-colors group cursor-pointer"
+                  >
+                    <div className="p-1 rounded-md bg-blue-100 text-blue-700 group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0 mt-0.5">
+                      <Globe size={13} />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-gray-800">Website Bookmark Card</div>
+                      <div className="text-[11px] text-gray-500 leading-tight">
+                        Auto-fetches OpenGraph preview & favicon
+                      </div>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      insertImageGallery();
+                      setIsWidgetsMenuOpen(false);
+                    }}
+                    className="w-full flex items-start gap-2.5 px-2.5 py-1.5 rounded-lg text-left hover:bg-indigo-50/60 transition-colors group cursor-pointer"
+                  >
+                    <div className="p-1 rounded-md bg-indigo-100 text-indigo-700 group-hover:bg-indigo-600 group-hover:text-white transition-colors shrink-0 mt-0.5">
+                      <Images size={13} />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-gray-800">Multi-Image Gallery</div>
+                      <div className="text-[11px] text-gray-500 leading-tight">
+                        Responsive 2-4 column grid (&lt; 200KB)
                       </div>
                     </div>
                   </button>

@@ -9,19 +9,20 @@ import {
   X,
   PencilLine,
   ChartArea,
-  ListChecks,
   StickyNote,
   Loader2,
-  Wallet,
   Upload,
   HelpCircle,
   PlusCircle,
   Inbox,
-  FolderKanban,
   Palette,
   ExternalLink,
   Compass,
   FilePlus2,
+  Calendar,
+  SearchCheck,
+  FileCheck2,
+  MessageSquareText,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -39,45 +40,31 @@ type MenuGroup = {
 
 const menuGroups: MenuGroup[] = [
   {
-    groupTitle: 'Overview',
+    groupTitle: 'Management & Insights',
     items: [
       { title: 'Analytics', url: '/admin-dashboard', icon: ChartArea },
+      { title: 'Content Calendar', url: '/admin-dashboard/calendar', icon: Calendar },
+      { title: 'Lead Inquiries', url: '/admin-dashboard/leads', icon: Inbox },
     ],
   },
   {
-    groupTitle: 'Blog Posts',
+    groupTitle: 'Guest Post Network',
     items: [
-      { title: 'Standard Posts', url: '/admin-dashboard/posts', icon: StickyNote },
-      { title: 'New Post', url: '/admin-dashboard/posts/add-posts', icon: PencilLine },
+      { title: 'Guest Submissions', url: '/admin-dashboard/guest-posts', icon: FileCheck2 },
+      { title: 'Contributor Writers', url: '/admin-dashboard/contributors', icon: SearchCheck },
+      { title: 'Support Tickets & Quota', url: '/admin-dashboard/support', icon: MessageSquareText },
+      { title: 'Live Writer Portal', url: '/write-for-us', icon: Compass },
     ],
   },
   {
-    groupTitle: 'Interior Marketing',
+    groupTitle: 'Content & Publishing',
     items: [
-      { title: 'Interior Blogs', url: '/admin-dashboard/interior-design-marketing/posts', icon: Palette },
-      { title: 'New Interior Blog', url: '/admin-dashboard/interior-design-marketing/new', icon: FilePlus2 },
-    ],
-  },
-  {
-    groupTitle: 'Common Questions',
-    items: [
-      { title: 'All Questions', url: '/admin-dashboard/common-questions', icon: HelpCircle },
-      { title: 'New Question', url: '/admin-dashboard/common-questions/add', icon: PlusCircle },
-    ],
-  },
-  {
-    groupTitle: 'Bulk Upload',
-    items: [
+      { title: 'All Blog Posts', url: '/admin-dashboard/posts', icon: StickyNote },
+      { title: 'Add New Post', url: '/admin-dashboard/posts/add-posts', icon: PencilLine },
+      { title: 'Interior Design Posts', url: '/admin-dashboard/interior-design-marketing/posts', icon: Palette },
+      { title: 'New Interior Post', url: '/admin-dashboard/interior-design-marketing/new', icon: FilePlus2 },
+      { title: 'FAQ Questions', url: '/admin-dashboard/common-questions', icon: HelpCircle },
       { title: 'Bulk Upload', url: '/admin-dashboard/bulk-upload', icon: Upload },
-    ],
-  },
-  {
-    groupTitle: 'Operations',
-    items: [
-      { title: 'Projects', url: '/admin-dashboard/projects', icon: FolderKanban },
-      { title: 'Leads', url: '/admin-dashboard/leads', icon: Inbox },
-      { title: 'Expense', url: '/admin-dashboard/expenses', icon: Wallet },
-      { title: 'Tasks', url: '/admin-dashboard/tasks', icon: ListChecks },
     ],
   },
 ];

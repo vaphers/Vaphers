@@ -131,7 +131,7 @@ export async function getDevicesData(startDate = '30daysAgo', endDate = 'today')
       ],
     });
 
-    const formattedData = response.rows.map((row) => {
+    const formattedData = (response.rows || []).map((row) => {
       return {
         deviceCategory: row.dimensionValues[0].value,
         sessions: parseInt(row.metricValues[0].value, 10),
@@ -151,3 +151,53 @@ export async function getDevicesData(startDate = '30daysAgo', endDate = 'today')
     throw new Error('Failed to fetch devices data');
   }
 }
+
+export async function getPagesData(startDate = '30daysAgo', endDate = 'today') {
+  const propertyId = process.env.GOOGLE_ANALYTICS_PROPERTY_ID;
+
+  try {
+    const [response] = await analyticsDataClient.runReport({
+      property: `properties/${propertyId}`,
+      dateRanges: [
+        { startDate: startDate, endDate: endDate },
+      ],
+      dimensions: [
+        { name: 'pagePath' },
+        { name: 'pageTitle' },
+      ],
+      metrics: [
+        { name: 'screenPageViews' },
+        { name: 'sessions' },
+        { name: 'totalUsers' },
+        { name: 'averageSessionDuration' },
+        { name: 'engagementRate' },
+        { name: 'bounceRate' },
+      ],
+      limit: 100,
+      orderBys: [
+        {
+          metric: { metricName: 'screenPageViews' },
+          desc: true,
+        },
+      ],
+    });
+
+    const formattedData = (response.rows || []).map((row) => {
+      return {
+        pagePath: row.dimensionValues[0]?.value || '/',
+        pageTitle: row.dimensionValues[1]?.value || 'Untitled',
+        views: parseInt(row.metricValues[0]?.value || '0', 10),
+        sessions: parseInt(row.metricValues[1]?.value || '0', 10),
+        users: parseInt(row.metricValues[2]?.value || '0', 10),
+        avgDuration: parseFloat(row.metricValues[3]?.value || '0').toFixed(1),
+        engagementRate: parseFloat(row.metricValues[4]?.value || '0').toFixed(4),
+        bounceRate: parseFloat(row.metricValues[5]?.value || '0').toFixed(4),
+      };
+    });
+
+    return formattedData;
+  } catch (error) {
+    console.error('Error fetching GA4 Pages data:', error);
+    throw new Error('Failed to fetch pages data');
+  }
+}

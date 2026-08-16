@@ -468,8 +468,36 @@ async function fetchBlogWithAuthor(slug: string) {
   const blog = await fetchBlog(slug);
   if (!blog) return null;
   const authors = await fetchAuthors();
-  const author = authors.find((a: any) => a.id === blog.authorId);
-  return { ...blog, authorName: author?.name ?? "Unknown" };
+  const matchedAuthor = authors.find((a: any) => a.id === blog.authorId || a.name === blog.author);
+
+  const authorName =
+    blog.authorName ||
+    blog.guestAuthorName ||
+    matchedAuthor?.name ||
+    blog.author ||
+    "Muhammad Asad";
+
+  const authorBio =
+    blog.authorBio ||
+    blog.guestAuthorBio ||
+    matchedAuthor?.bio ||
+    "Digital marketing strategist, SEO consultant, and technology writer contributing insights on search engine optimization, full-stack web development, and digital brand acceleration.";
+
+  const authorWebsite =
+    blog.authorWebsite ||
+    blog.guestAuthorWebsite ||
+    matchedAuthor?.website ||
+    null;
+
+  const isGuest = Boolean(blog.isGuestPost || blog.guestAuthorName || blog.guestSubmissionId);
+
+  return {
+    ...blog,
+    authorName,
+    authorBio,
+    authorWebsite,
+    isGuest,
+  };
 }
 
 // --- TOC GENERATOR ---
@@ -691,33 +719,38 @@ export default async function BlogPage({ params }: Props) {
                 dangerouslySetInnerHTML={{ __html: processedHtml }}
               />
 
+              {/* Dynamic Author Bio Box */}
               <div className="mt-16 border-t border-gray-200 pt-8">
-                <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 sm:p-8 flex flex-col sm:flex-row gap-6 items-start">
-                  <img
-                    src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772005005/Logo_edsgzp.jpg"
-                    alt="Vaphers Logo"
-                    className="w-16 h-16 rounded-md object-cover border border-gray-200 shrink-0"
-                  />
+                <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row gap-6 items-start">
+                  <div className="w-16 h-16 rounded-full bg-blue-100 text-blue-700 font-bold text-xl flex items-center justify-center border border-blue-200 shrink-0 uppercase">
+                    {blog.authorName ? blog.authorName.charAt(0) : "V"}
+                  </div>
 
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                      About Vaphers
-                    </h3>
+                  <div className="space-y-2 flex-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h3 className="text-lg font-bold text-gray-900">
+                        About the Author: {blog.authorName}
+                      </h3>
+                      {blog.isGuest && (
+                        <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                          Guest Contributor
+                        </span>
+                      )}
+                    </div>
                     <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-                      The Vaphers team consists of SEO strategists, PPC specialists, web designers,
-                      and analytics experts dedicated to driving measurable digital growth.
-                      Using data-driven strategies, advanced search marketing techniques, and
-                      conversion-focused design, Vaphers helps businesses increase visibility,
-                      generate qualified leads, and scale revenue sustainably.
+                      {blog.authorBio}
                     </p>
-                    <a
-                      href="https://www.vaphers.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block mt-3 text-blue-600 font-medium text-sm hover:underline"
-                    >
-                      Visit Vaphers Website &rarr;
-                    </a>
+                    {blog.authorWebsite && (
+                      <a
+                        href={blog.authorWebsite.startsWith("http") ? blog.authorWebsite : `https://${blog.authorWebsite}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-blue-600 font-semibold text-sm hover:underline pt-1"
+                      >
+                        <span>Visit Author's Website</span>
+                        <span aria-hidden="true">&rarr;</span>
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

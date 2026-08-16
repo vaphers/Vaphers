@@ -27,12 +27,14 @@ export default function EditPostPage() {
   const [currentAuthor, setCurrentAuthor] = useState('admin');
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [status, setStatus] = useState<'published' | 'draft' | 'scheduled'>('published');
+  const [scheduledAt, setScheduledAt] = useState<string>('');
 
   useEffect(() => {
     const loadAllData = async () => {
       try {
         const [postRes, authRes, catRes] = await Promise.all([
-          fetch(`/api/blogs/${slugParam}`),
+          fetch(`/api/blogs/${slugParam}?admin=true`),
           fetch('/api/authors').catch(() => null),
           fetch('/api/categories').catch(() => null),
         ]);
@@ -52,6 +54,17 @@ export default function EditPostPage() {
         setFeaturedImage(postData.featuredImage || null);
         setCurrentAuthor(postData.authorId || postData.author || 'admin');
         setSelectedCategories(postData.categories || []);
+        setStatus(postData.status || 'published');
+        
+        if (postData.scheduledAt) {
+          let schedIso = '';
+          if (postData.scheduledAt._seconds) {
+            schedIso = new Date(postData.scheduledAt._seconds * 1000).toISOString();
+          } else {
+            schedIso = new Date(postData.scheduledAt).toISOString();
+          }
+          setScheduledAt(schedIso.slice(0, 16));
+        }
 
         // Populate Sidebar Master Lists
         if (Array.isArray(authorData) && authorData.length > 0) {
@@ -88,6 +101,11 @@ export default function EditPostPage() {
       return;
     }
 
+    if (status === 'scheduled' && !scheduledAt) {
+      alert('Please select a scheduled publication date and time.');
+      return;
+    }
+
     try {
       const payload = {
         title,
@@ -98,6 +116,8 @@ export default function EditPostPage() {
         featuredImage,
         authorId: currentAuthor,
         categories: selectedCategories,
+        status,
+        scheduledAt: status === 'scheduled' ? scheduledAt : null,
       };
 
       const res = await fetch(`/api/blogs/${slugParam}`, {
@@ -165,6 +185,10 @@ export default function EditPostPage() {
         selectedCategories={selectedCategories}
         setSelectedCategories={setSelectedCategories}
         addCategory={addCategory}
+        status={status}
+        setStatus={setStatus}
+        scheduledAt={scheduledAt}
+        setScheduledAt={setScheduledAt}
         publishButtonText="Update Post"
       />
     </div>

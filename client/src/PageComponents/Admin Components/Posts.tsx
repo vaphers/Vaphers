@@ -13,6 +13,8 @@ type Post = {
   authorId: string;
   categories: string[];
   slug?: string;
+  status?: 'published' | 'draft' | 'scheduled';
+  scheduledAt?: string | null;
 };
 
 type Author = { id: string; name: string; avatar?: string; };
@@ -23,6 +25,7 @@ const POSTS_PER_PAGE = 15;
 export default function AdminPostsPage() {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [statusFilter, setStatusFilter] = useState<'all' | 'published' | 'draft' | 'scheduled'>('all');
   const [posts, setPosts] = useState<Post[]>([]);
   const [authors, setAuthors] = useState<Author[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -35,12 +38,12 @@ export default function AdminPostsPage() {
   
   const [postToEdit, setPostToEdit] = useState<Post | null>(null);
   const [isSavingEdit, setIsSavingEdit] = useState(false);
-  const [editForm, setEditForm] = useState({ title: '', slug: '', category: '', authorId: '' });
+  const [editForm, setEditForm] = useState({ title: '', slug: '', category: '', authorId: '', status: 'published' as 'published' | 'draft' | 'scheduled', scheduledAt: '' });
 
   useEffect(() => {
     setLoading(true);
     Promise.all([
-      fetch('/api/blogs?limit=100').then((res) => res.json()),
+      fetch('/api/blogs?limit=500&includeAll=true').then((res) => res.json()),
       fetch('/api/authors').then((res) => res.json()),
       fetch('/api/categories').then((res) => res.json()),
     ])
@@ -60,6 +63,27 @@ export default function AdminPostsPage() {
     if (!authorId) return { name: "Unknown", avatar: null };
     const author = authors.find((a) => String(a.id) === String(authorId));
     return author || { name: "Unknown", avatar: null };
+  };
+
+  const handleQuickPublish = async (post: Post) => {
+    try {
+      const res = await fetch(`/api/blogs/${post.slug || post.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          status: 'published',
+          scheduledAt: null,
+        }),
+      });
+      if (res.ok) {
+        setPosts(posts.map(p => p.id === post.id ? { ...p, status: 'published', scheduledAt: null } : p));
+      } else {
+        alert("Failed to publish post");
+      }
+    } catch (e) {
+      console.error(e);
+      alert("Error publishing post");
+    }
   };
 
   const handleDelete = async () => {
@@ -93,6 +117,8 @@ export default function AdminPostsPage() {
           slug: editForm.slug,
           authorId: editForm.authorId,
           categories: editForm.category ? [editForm.category] : [],
+          status: editForm.status,
+          scheduledAt: editForm.status === 'scheduled' ? editForm.scheduledAt : null,
         })
       });
       if (res.ok) {
@@ -104,6 +130,8 @@ export default function AdminPostsPage() {
               slug: editForm.slug,
               authorId: editForm.authorId,
               categories: editForm.category ? [editForm.category] : [],
+              status: editForm.status,
+              scheduledAt: editForm.status === 'scheduled' ? editForm.scheduledAt : null,
             };
           }
           return p;
@@ -122,11 +150,20 @@ export default function AdminPostsPage() {
   };
 
   const filteredPosts = posts
+    .filter((post) => {
+      if (statusFilter === 'all') return true;
+      return (post.status || 'published') === statusFilter;
+    })
     .filter((post) => post.title.toLowerCase().includes(search.toLowerCase().trim()))
     .filter((post) => selectedCategory === "all" ? true : post.categories?.includes(selectedCategory));
 
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE) || 1;
   const paginatedPosts = filteredPosts.slice((page - 1) * POSTS_PER_PAGE, page * POSTS_PER_PAGE);
+
+  // Status counts
+  const publishedCount = posts.filter(p => (p.status || 'published') === 'published').length;
+  const draftCount = posts.filter(p => p.status === 'draft').length;
+  const scheduledCount = posts.filter(p => p.status === 'scheduled').length;
 
   const skeletonRows = Array.from({ length: 5 }).map((_, i) => (
     <tr key={i} className="border-b border-gray-100 animate-pulse bg-white">
@@ -169,6 +206,52 @@ export default function AdminPostsPage() {
       </header>
 
       <div className="w-full px-4 md:px-8 space-y-6">
+        {/* Status Filter Tabs */}
+        <div className="flex items-center gap-2 border-b border-gray-200 pb-3 overflow-x-auto">
+          <button
+            onClick={() => { setStatusFilter('all'); setPage(1); }}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer ${
+              statusFilter === 'all'
+                ? 'bg-slate-900 text-white shadow-xs'
+                : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+            }`}
+          >
+            All Posts ({posts.length})
+          </button>
+          <button
+            onClick={() => { setStatusFilter('published'); setPage(1); }}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
+              statusFilter === 'published'
+                ? 'bg-emerald-600 text-white shadow-xs'
+                : 'bg-white text-emerald-700 border border-emerald-200 hover:bg-emerald-50'
+            }`}
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+            Published ({publishedCount})
+          </button>
+          <button
+            onClick={() => { setStatusFilter('draft'); setPage(1); }}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
+              statusFilter === 'draft'
+                ? 'bg-amber-600 text-white shadow-xs'
+                : 'bg-white text-amber-700 border border-amber-200 hover:bg-amber-50'
+            }`}
+          >
+            <span className="w-2 h-2 rounded-full bg-amber-400"></span>
+            Drafts ({draftCount})
+          </button>
+          <button
+            onClick={() => { setStatusFilter('scheduled'); setPage(1); }}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
+              statusFilter === 'scheduled'
+                ? 'bg-indigo-600 text-white shadow-xs'
+                : 'bg-white text-indigo-700 border border-indigo-200 hover:bg-indigo-50'
+            }`}
+          >
+            <span className="w-2 h-2 rounded-full bg-indigo-400"></span>
+            Scheduled ({scheduledCount})
+          </button>
+        </div>
 
         <div className="flex flex-col sm:flex-row flex-wrap gap-4 bg-white p-4 rounded-sm border border-gray-200 shadow-xs">
           <div className="relative flex-1 min-w-[280px]">
@@ -204,17 +287,19 @@ export default function AdminPostsPage() {
             <table className="min-w-full divide-y divide-gray-200 text-left text-sm">
               <thead className="bg-gray-50/80">
                 <tr>
-                  <th className="px-6 py-4 font-semibold text-gray-500 uppercase tracking-wider text-xs w-24">Media</th>
-                  <th className="px-6 py-4 font-semibold text-gray-500 uppercase tracking-wider text-xs">Title & Details</th>
-                  <th className="px-6 py-4 font-semibold text-gray-500 uppercase tracking-wider text-xs w-56">Author</th>
-                  <th className="px-6 py-4 font-semibold text-gray-500 uppercase tracking-wider text-xs w-64">Categories</th>
-                  <th className="px-6 py-4 font-semibold text-gray-500 uppercase tracking-wider text-xs w-32 text-right">Actions</th>
+                  <th className="px-6 py-4 font-medium text-gray-500 uppercase tracking-wider text-xs w-24">Media</th>
+                  <th className="px-6 py-4 font-medium text-gray-500 uppercase tracking-wider text-xs">Title & Details</th>
+                  <th className="px-6 py-4 font-medium text-gray-500 uppercase tracking-wider text-xs w-36">Status</th>
+                  <th className="px-6 py-4 font-medium text-gray-500 uppercase tracking-wider text-xs w-52">Author</th>
+                  <th className="px-6 py-4 font-medium text-gray-500 uppercase tracking-wider text-xs w-56">Categories</th>
+                  <th className="px-6 py-4 font-medium text-gray-500 uppercase tracking-wider text-xs w-36 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100 bg-white">
                 {loading ? skeletonRows : paginatedPosts.length > 0 ? (
                   paginatedPosts.map((post) => {
                     const author = getAuthor(post.authorId);
+                    const postStatus = post.status || 'published';
                     return (
                       <Fragment key={post.id}>
                         <tr className="hover:bg-blue-50/30 transition-colors group">
@@ -232,6 +317,30 @@ export default function AdminPostsPage() {
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
+                            {postStatus === 'published' && (
+                              <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                Published
+                              </span>
+                            )}
+                            {postStatus === 'draft' && (
+                              <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+                                Draft
+                              </span>
+                            )}
+                            {postStatus === 'scheduled' && (
+                              <div className="flex flex-col">
+                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200 w-fit">
+                                  Scheduled
+                                </span>
+                                {post.scheduledAt && (
+                                  <span className="text-[11px] text-slate-500 font-mono mt-1">
+                                    {new Date(post.scheduledAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                                  </span>
+                                )}
+                              </div>
+                            )}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
                             <div className="flex items-center gap-3">
                               {author.avatar ? <img src={author.avatar} alt={author.name} className="w-8 h-8 rounded-full object-cover border border-gray-200" /> : <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center border border-blue-200"><User size={14} className="text-blue-600" /></div>}
                               <span className="text-gray-700 font-medium text-sm">{author.name}</span>
@@ -246,6 +355,15 @@ export default function AdminPostsPage() {
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-right">
                             <div className="flex items-center justify-end gap-1">
+                              {postStatus !== 'published' && (
+                                <button
+                                  onClick={() => handleQuickPublish(post)}
+                                  className="p-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded transition-colors"
+                                  title="Publish this post now"
+                                >
+                                  Publish
+                                </button>
+                              )}
                               <button 
                                 onClick={() => {
                                   if (postToEdit?.id === post.id) {
@@ -256,7 +374,9 @@ export default function AdminPostsPage() {
                                       title: post.title || '',
                                       slug: post.slug || '',
                                       category: post.categories?.[0] || '',
-                                      authorId: post.authorId || ''
+                                      authorId: post.authorId || '',
+                                      status: post.status || 'published',
+                                      scheduledAt: post.scheduledAt ? new Date(post.scheduledAt).toISOString().slice(0, 16) : '',
                                     });
                                   }
                                 }}
@@ -284,60 +404,81 @@ export default function AdminPostsPage() {
                         </tr>
                         {postToEdit?.id === post.id && (
                           <tr className="bg-amber-50/30 border-y border-amber-100 shadow-inner">
-                            <td colSpan={5} className="px-6 py-4">
-                              <div className="bg-white p-4 rounded-md border border-amber-200 shadow-sm flex flex-col sm:flex-row gap-4 items-end">
-                                <div className="flex-1 w-full space-y-3">
-                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <td colSpan={6} className="px-6 py-4">
+                              <div className="bg-white p-4 rounded-md border border-amber-200 shadow-sm flex flex-col gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                  <div>
+                                    <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wider">Title</label>
+                                    <input 
+                                      type="text" 
+                                      value={editForm.title} 
+                                      onChange={e => setEditForm({...editForm, title: e.target.value})}
+                                      className="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-shadow"
+                                    />
+                                  </div>
+                                  <div>
+                                    <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wider">Slug</label>
+                                    <input 
+                                      type="text" 
+                                      value={editForm.slug} 
+                                      onChange={e => setEditForm({...editForm, slug: e.target.value})}
+                                      className="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-shadow font-mono"
+                                    />
+                                  </div>
+                                  <div>
+                                    <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wider">Status</label>
+                                    <select 
+                                      value={editForm.status} 
+                                      onChange={e => setEditForm({...editForm, status: e.target.value as any})}
+                                      className="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-shadow bg-white"
+                                    >
+                                      <option value="published">Published</option>
+                                      <option value="draft">Draft</option>
+                                      <option value="scheduled">Scheduled</option>
+                                    </select>
+                                  </div>
+                                  {editForm.status === 'scheduled' && (
                                     <div>
-                                      <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wider">Title</label>
+                                      <label className="block text-xs font-semibold text-indigo-700 mb-1 uppercase tracking-wider">Scheduled Date & Time</label>
                                       <input 
-                                        type="text" 
-                                        value={editForm.title} 
-                                        onChange={e => setEditForm({...editForm, title: e.target.value})}
-                                        className="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-shadow"
+                                        type="datetime-local" 
+                                        value={editForm.scheduledAt} 
+                                        onChange={e => setEditForm({...editForm, scheduledAt: e.target.value})}
+                                        className="w-full border border-indigo-300 bg-indigo-50/50 rounded px-3 py-1.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow font-mono"
                                       />
                                     </div>
-                                    <div>
-                                      <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wider">Slug</label>
-                                      <input 
-                                        type="text" 
-                                        value={editForm.slug} 
-                                        onChange={e => setEditForm({...editForm, slug: e.target.value})}
-                                        className="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-shadow font-mono"
-                                      />
-                                    </div>
-                                    <div>
-                                      <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wider">Category</label>
-                                      <select 
-                                        value={editForm.category} 
-                                        onChange={e => setEditForm({...editForm, category: e.target.value})}
-                                        className="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-shadow bg-white"
-                                      >
-                                        <option value="">Uncategorized</option>
-                                        {categories.map((cat) => (
-                                          <option key={cat.id} value={cat.name}>{cat.name}</option>
-                                        ))}
-                                      </select>
-                                    </div>
-                                    <div>
-                                      <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wider">Author</label>
-                                      <select 
-                                        value={editForm.authorId} 
-                                        onChange={e => setEditForm({...editForm, authorId: e.target.value})}
-                                        className="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-shadow bg-white"
-                                      >
-                                        <option value="">Unknown Author</option>
-                                        {authors.map((author) => (
-                                          <option key={author.id} value={author.id}>{author.name}</option>
-                                        ))}
-                                      </select>
-                                    </div>
+                                  )}
+                                  <div>
+                                    <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wider">Category</label>
+                                    <select 
+                                      value={editForm.category} 
+                                      onChange={e => setEditForm({...editForm, category: e.target.value})}
+                                      className="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-shadow bg-white"
+                                    >
+                                      <option value="">Uncategorized</option>
+                                      {categories.map((cat) => (
+                                        <option key={cat.id} value={cat.name}>{cat.name}</option>
+                                      ))}
+                                    </select>
+                                  </div>
+                                  <div>
+                                    <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wider">Author</label>
+                                    <select 
+                                      value={editForm.authorId} 
+                                      onChange={e => setEditForm({...editForm, authorId: e.target.value})}
+                                      className="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-shadow bg-white"
+                                    >
+                                      <option value="">Unknown Author</option>
+                                      {authors.map((author) => (
+                                        <option key={author.id} value={author.id}>{author.name}</option>
+                                      ))}
+                                    </select>
                                   </div>
                                 </div>
-                                <div className="flex gap-2 w-full sm:w-auto mt-4 sm:mt-0">
+                                <div className="flex justify-end gap-2 pt-2 border-t border-amber-100">
                                   <button 
                                     onClick={() => setPostToEdit(null)}
-                                    className="px-4 py-2 border border-gray-300 rounded text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors w-full sm:w-auto"
+                                    className="px-4 py-2 border border-gray-300 rounded text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
                                     disabled={isSavingEdit}
                                   >
                                     Cancel
@@ -345,9 +486,9 @@ export default function AdminPostsPage() {
                                   <button 
                                     onClick={handleQuickEditSave}
                                     disabled={isSavingEdit}
-                                    className="px-4 py-2 bg-amber-600 text-white rounded text-sm font-medium hover:bg-amber-700 transition-colors flex items-center justify-center min-w-[80px] shadow-sm w-full sm:w-auto"
+                                    className="px-4 py-2 bg-amber-600 text-white rounded text-sm font-medium hover:bg-amber-700 transition-colors flex items-center justify-center min-w-[80px] shadow-sm cursor-pointer"
                                   >
-                                    {isSavingEdit ? <Loader2 size={16} className="animate-spin" /> : 'Update'}
+                                    {isSavingEdit ? <Loader2 size={16} className="animate-spin" /> : 'Update Post'}
                                   </button>
                                 </div>
                               </div>

@@ -21,7 +21,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
-import { Send, Upload, Image as ImageIcon } from 'lucide-react';
+import { Send, Upload, Image as ImageIcon, Calendar, Clock, FileText, CheckCircle2 } from 'lucide-react';
 
 type Author = { id: string; name: string; avatar?: string };
 
@@ -40,6 +40,10 @@ type SidebarProps = {
   addCategory: (name: string) => void;
   className?: string;
   publishButtonText?: string;
+  status?: 'published' | 'draft' | 'scheduled';
+  setStatus?: (status: 'published' | 'draft' | 'scheduled') => void;
+  scheduledAt?: string;
+  setScheduledAt?: (dt: string) => void;
 };
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -54,11 +58,28 @@ const Sidebar: React.FC<SidebarProps> = ({
   categories,
   selectedCategories,
   setSelectedCategories,
-  publishButtonText = 'Publish Post',
+  publishButtonText,
+  status = 'published',
+  setStatus,
+  scheduledAt = '',
+  setScheduledAt,
 }) => {
   const [newAuthorName, setNewAuthorName] = useState('');
   const [newCategory, setNewCategory] = useState('');
   const [isUploading, setIsUploading] = useState(false);
+  const [internalStatus, setInternalStatus] = useState<'published' | 'draft' | 'scheduled'>(status);
+  const [internalScheduledAt, setInternalScheduledAt] = useState(scheduledAt);
+
+  const currentStatus = status || internalStatus;
+  const handleStatusChange = (val: 'published' | 'draft' | 'scheduled') => {
+    if (setStatus) setStatus(val);
+    setInternalStatus(val);
+  };
+
+  const handleScheduledAtChange = (val: string) => {
+    if (setScheduledAt) setScheduledAt(val);
+    setInternalScheduledAt(val);
+  };
 
   const [authorsData, setAuthorsData] = useState<Author[]>(authors);
   const [categoriesData, setCategoriesData] = useState<string[]>(categories);
@@ -320,6 +341,82 @@ const Sidebar: React.FC<SidebarProps> = ({
 
         <Separator className="hidden lg:block" />
 
+        {/* Post Status & Scheduling Section */}
+        <section className="space-y-3">
+          <Label className="text-xs font-bold text-gray-700 uppercase tracking-wider">
+            Publication Status
+          </Label>
+
+          <div className="grid grid-cols-3 gap-1.5 p-1 bg-gray-100 rounded-lg border border-gray-200">
+            <button
+              type="button"
+              onClick={() => handleStatusChange('published')}
+              className={`py-1.5 px-2 text-xs font-semibold rounded-md transition-all cursor-pointer flex items-center justify-center gap-1 ${
+                currentStatus === 'published'
+                  ? 'bg-white text-emerald-700 shadow-xs'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              <CheckCircle2 size={13} className={currentStatus === 'published' ? 'text-emerald-600' : 'text-gray-400'} />
+              Publish
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleStatusChange('draft')}
+              className={`py-1.5 px-2 text-xs font-semibold rounded-md transition-all cursor-pointer flex items-center justify-center gap-1 ${
+                currentStatus === 'draft'
+                  ? 'bg-white text-amber-700 shadow-xs'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              <FileText size={13} className={currentStatus === 'draft' ? 'text-amber-600' : 'text-gray-400'} />
+              Draft
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                handleStatusChange('scheduled');
+                if (!internalScheduledAt) {
+                  // Default to tomorrow 10:00 AM
+                  const tomorrow = new Date();
+                  tomorrow.setDate(tomorrow.getDate() + 1);
+                  tomorrow.setHours(10, 0, 0, 0);
+                  const formatted = tomorrow.toISOString().slice(0, 16);
+                  handleScheduledAtChange(formatted);
+                }
+              }}
+              className={`py-1.5 px-2 text-xs font-semibold rounded-md transition-all cursor-pointer flex items-center justify-center gap-1 ${
+                currentStatus === 'scheduled'
+                  ? 'bg-white text-blue-700 shadow-xs'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              <Calendar size={13} className={currentStatus === 'scheduled' ? 'text-blue-600' : 'text-gray-400'} />
+              Schedule
+            </button>
+          </div>
+
+          {currentStatus === 'scheduled' && (
+            <div className="space-y-1.5 p-2.5 bg-blue-50/70 border border-blue-200 rounded-lg animate-in fade-in duration-200">
+              <label className="text-[11px] font-semibold text-blue-900 flex items-center gap-1">
+                <Clock size={12} className="text-blue-600" />
+                Select Date & Time (Auto-Publishes):
+              </label>
+              <input
+                type="datetime-local"
+                value={internalScheduledAt ? internalScheduledAt.slice(0, 16) : ''}
+                onChange={(e) => handleScheduledAtChange(e.target.value)}
+                min={new Date().toISOString().slice(0, 16)}
+                className="w-full bg-white border border-blue-200 rounded px-2.5 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-blue-500 font-mono"
+              />
+            </div>
+          )}
+        </section>
+
+        <Separator className="hidden lg:block" />
+
         {/* Categories Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
           <section className="space-y-2.5">
@@ -327,7 +424,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               Categories
             </Label>
 
-            <div className="h-[220px] overflow-y-auto rounded-md border border-gray-200 bg-gray-50/60 p-3 no-scrollbar space-y-2.5">
+            <div className="h-[180px] overflow-y-auto rounded-md border border-gray-200 bg-gray-50/60 p-3 no-scrollbar space-y-2.5">
               {categoriesData.map((cat) => (
                 <label
                   key={cat}
@@ -371,10 +468,30 @@ const Sidebar: React.FC<SidebarProps> = ({
           <section className="space-y-2.5 flex flex-col justify-end">
             <Button
               onClick={onPublish}
-              className="w-full bg-[#2383e2] hover:bg-[#1a66b2] text-white font-semibold py-4.5 flex items-center justify-center gap-2 transition-colors rounded-lg cursor-pointer shadow-xs"
+              className={`w-full text-white font-semibold py-4.5 flex items-center justify-center gap-2 transition-colors rounded-lg cursor-pointer shadow-xs ${
+                currentStatus === 'draft'
+                  ? 'bg-amber-600 hover:bg-amber-700'
+                  : currentStatus === 'scheduled'
+                  ? 'bg-indigo-600 hover:bg-indigo-700'
+                  : 'bg-[#2383e2] hover:bg-[#1a66b2]'
+              }`}
             >
-              <Send size={15} />
-              {publishButtonText}
+              {currentStatus === 'draft' ? (
+                <>
+                  <FileText size={15} />
+                  {publishButtonText || 'Save as Draft'}
+                </>
+              ) : currentStatus === 'scheduled' ? (
+                <>
+                  <Calendar size={15} />
+                  {publishButtonText || 'Schedule Publication'}
+                </>
+              ) : (
+                <>
+                  <Send size={15} />
+                  {publishButtonText || 'Publish Post Now'}
+                </>
+              )}
             </Button>
           </section>
         </div>

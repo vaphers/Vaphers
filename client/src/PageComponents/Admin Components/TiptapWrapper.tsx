@@ -23,6 +23,8 @@ export default function TiptapWrapper() {
   const [currentAuthor, setCurrentAuthor] = useState('muhammad-asad');
   const [categories, setCategories] = useState(['Blog', 'Digital Marketing', 'SEO', 'Web Design']);
   const [selectedCategories, setSelectedCategories] = useState<string[]>(['Blog']);
+  const [status, setStatus] = useState<'published' | 'draft' | 'scheduled'>('published');
+  const [scheduledAt, setScheduledAt] = useState<string>('');
 
   const addAuthor = (name: string) => {
     const id = name.toLowerCase().replace(/\s+/g, '-');
@@ -45,6 +47,11 @@ export default function TiptapWrapper() {
       return;
     }
 
+    if (status === 'scheduled' && !scheduledAt) {
+      alert('Please select a future date and time for scheduled publication.');
+      return;
+    }
+
     try {
       const payload = {
         title,
@@ -55,6 +62,8 @@ export default function TiptapWrapper() {
         featuredImage,
         author: currentAuthor,
         categories: selectedCategories,
+        status,
+        scheduledAt: status === 'scheduled' ? scheduledAt : null,
       };
 
       const res = await fetch('/api/blogs', {
@@ -68,15 +77,21 @@ export default function TiptapWrapper() {
       if (!res.ok) {
         const err = await res.json();
         console.error(err);
-        alert('Failed to publish blog: ' + (err.error || res.statusText));
+        alert('Failed to save blog: ' + (err.error || res.statusText));
         return;
       }
 
-      alert('Blog published successfully!');
+      const msg =
+        status === 'draft'
+          ? 'Blog saved as draft!'
+          : status === 'scheduled'
+          ? 'Blog successfully scheduled!'
+          : 'Blog published successfully!';
+      alert(msg);
       router.push('/admin-dashboard/posts');
     } catch (err) {
       console.error(err);
-      alert('Unexpected error while publishing');
+      alert('Unexpected error while saving blog');
     }
   };
 
@@ -115,7 +130,10 @@ export default function TiptapWrapper() {
         selectedCategories={selectedCategories}
         setSelectedCategories={setSelectedCategories}
         addCategory={addCategory}
-        publishButtonText="Publish Post"
+        status={status}
+        setStatus={setStatus}
+        scheduledAt={scheduledAt}
+        setScheduledAt={setScheduledAt}
       />
     </div>
   );

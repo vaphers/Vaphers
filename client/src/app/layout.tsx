@@ -114,34 +114,43 @@ export const metadata = {
   },
 }
 
+import { ClerkProvider } from '@clerk/nextjs'
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-<html
-  lang="en"
-  className={`${bungeeInline.variable} ${bungeeShade.variable} ${montserrat.variable} ${libreFranklin.variable}`}
->
-      <head>
-        <script src="https://analytics.ahrefs.com/analytics.js" data-key="R7lOm40+Rsly7oGYYcI9cQ" async></script>
-        <meta
-          name="google-site-verification"
-          content="_jKz-Nn1SbmybTMfTSQNuWSiY79pDFJTVfNEqZKc33w"
-        />
-        <link rel="preconnect" href="https://res.cloudinary.com" />
-        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
-      </head>
+    <ClerkProvider
+      signInUrl="/write-for-us/login"
+      signUpUrl="/write-for-us/signup"
+      signInFallbackRedirectUrl="/write-for-us/dashboard"
+      signUpFallbackRedirectUrl="/write-for-us/dashboard"
+    >
+      <html
+        lang="en"
+        className={`${bungeeInline.variable} ${bungeeShade.variable} ${montserrat.variable} ${libreFranklin.variable}`}
+      >
+        <head>
+          <script src="https://analytics.ahrefs.com/analytics.js" data-key="R7lOm40+Rsly7oGYYcI9cQ" async></script>
+          <meta
+            name="google-site-verification"
+            content="_jKz-Nn1SbmybTMfTSQNuWSiY79pDFJTVfNEqZKc33w"
+          />
+          <link rel="preconnect" href="https://res.cloudinary.com" />
+          <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+        </head>
 
-      <body>
-        {children}
+        <body>
+          {children}
 
-        <Toaster richColors position="top-right" closeButton duration={5000} />
+          <Toaster richColors position="top-right" closeButton duration={5000} />
 
-        <SpeedInsights />
-        <GoogleAnalytics gaId="G-0CXH1J99VZ" />
-      </body>
-    </html>
+          <SpeedInsights />
+          <GoogleAnalytics gaId="G-0CXH1J99VZ" />
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }

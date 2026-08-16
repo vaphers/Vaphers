@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import dynamic from "next/dynamic"
+import { usePathname } from "next/navigation"
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
 import { Bars3Icon, ChevronDownIcon } from "@heroicons/react/24/outline"
 import { digitalMarketing, webDev, creativeServices, featured, cta } from "@/lib/menu-data"
@@ -13,6 +14,8 @@ const MobileMenu = dynamic(() => import("./MobileMenu"), { ssr: false })
 
 export default function NavBar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const isWriteForUs = pathname?.startsWith('/write-for-us')
 
   return (
     <header className="sm:p-6 lg:sticky lg:top-0 z-50 bg-transparent">
@@ -211,10 +214,27 @@ export default function NavBar() {
         </div>
 
         {/* CTA Button */}
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link href="/contact" className="text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
-            Get A Proposal <span aria-hidden="true">&rarr;</span>
-          </Link>
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-3">
+          {isWriteForUs ? (
+            <>
+              <Link
+                href="/write-for-us/login"
+                className="text-sm font-semibold text-gray-700 hover:text-blue-600 transition-colors duration-200"
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/write-for-us/signup"
+                className="rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-xs hover:bg-blue-700 transition-colors duration-200"
+              >
+                Sign Up &rarr;
+              </Link>
+            </>
+          ) : (
+            <Link href="/contact" className="text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
+              Get A Proposal <span aria-hidden="true">&rarr;</span>
+            </Link>
+          )}
         </div>
       </nav>
 

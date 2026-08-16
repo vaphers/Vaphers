@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getTrafficData, getGeographyData, getDevicesData } from '@/lib/ga4';
+import { getTrafficData, getGeographyData, getDevicesData, getPagesData } from '@/lib/ga4';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -19,10 +19,15 @@ export async function GET(request) {
       if (compareStart && compareEnd) {
         compareData = await getGeographyData(compareStart, compareEnd);
       }
-    } else if (type === 'devices') { // NEW ROUTE HANDLING
+    } else if (type === 'devices') {
       data = await getDevicesData(startDate, endDate);
       if (compareStart && compareEnd) {
         compareData = await getDevicesData(compareStart, compareEnd);
+      }
+    } else if (type === 'pages') {
+      data = await getPagesData(startDate, endDate);
+      if (compareStart && compareEnd) {
+        compareData = await getPagesData(compareStart, compareEnd);
       }
     } else {
       data = await getTrafficData(startDate, endDate);

@@ -41,6 +41,9 @@ export async function GET(
 ) {
   try {
     const { slug } = await context.params;
+    const { searchParams } = new URL(req.url);
+    const allowUnpublished = searchParams.get('admin') === 'true' || searchParams.get('preview') === 'true';
+
     if (!slug) {
       return NextResponse.json({ error: "Missing slug" }, { status: 400 });
     }
@@ -51,7 +54,29 @@ export async function GET(
       return NextResponse.json({ error: "Blog not found" }, { status: 404 });
     }
     const blogDoc = snapshot.docs[0];
-    return NextResponse.json({ id: blogDoc.id, ...blogDoc.data() });
+    const data = blogDoc.data();
+
+    // Check visibility for public viewers
+    if (!allowUnpublished) {
+      if (data.status === 'draft') {
+        return NextResponse.json({ error: "Blog is in draft mode" }, { status: 404 });
+      }
+      if (data.status === 'scheduled' && data.scheduledAt) {
+        let schedDate: Date | null = null;
+        if (typeof data.scheduledAt.toDate === 'function') {
+          schedDate = data.scheduledAt.toDate();
+        } else if (data.scheduledAt._seconds) {
+          schedDate = new Date(data.scheduledAt._seconds * 1000);
+        } else {
+          schedDate = new Date(data.scheduledAt);
+        }
+        if (schedDate && schedDate > new Date()) {
+          return NextResponse.json({ error: "Blog is scheduled for future publication" }, { status: 404 });
+        }
+      }
+    }
+
+    return NextResponse.json({ id: blogDoc.id, ...data });
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : String(err);
     return NextResponse.json({ error: errorMessage }, { status: 500 });
@@ -80,10 +105,22 @@ export async function PUT(
 
     // Get the document reference and update it
     const docRef = snapshot.docs[0].ref;
-    
+
+    let updateData = { ...body };
+    if (body.status === 'scheduled' && body.scheduledAt) {
+      const d = new Date(body.scheduledAt);
+      if (!isNaN(d.getTime())) {
+        updateData.scheduledAt = admin.firestore.Timestamp.fromDate(d);
+      }
+    } else if (body.status === 'published' || body.status === 'draft') {
+      if (body.scheduledAt === null || body.scheduledAt === '') {
+        updateData.scheduledAt = null;
+      }
+    }
+
     // Pass the payload sent from the client
     await docRef.update({
-      ...body,
+      ...updateData,
       updatedAt: admin.firestore.FieldValue.serverTimestamp() 
     });
 
