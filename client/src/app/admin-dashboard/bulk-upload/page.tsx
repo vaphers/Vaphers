@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
 }
 
-const JWT_SECRET = process.env.JWT_SECRET!;
+const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-jwt-key';
 
 export default async function Page() {
   const cookieStore = await cookies();

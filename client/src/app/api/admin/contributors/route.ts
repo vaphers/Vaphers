@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
 
     // Group submissions by authorId
     const subsByAuthor = new Map<string, { total: number; approved: number; pending: number }>();
-    subsSnap.forEach((doc) => {
+    subsSnap.forEach((doc: any) => {
       const data = doc.data();
       const authorId = data.authorId;
       if (authorId) {
@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
       }
     });
 
-    const contributors = writersSnap.docs.map((doc) => {
+    const contributors = writersSnap.docs.map((doc: any) => {
       const data = doc.data();
       const stats = subsByAuthor.get(doc.id) || { total: 0, approved: 0, pending: 0 };
       return {

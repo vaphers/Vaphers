@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
 
     const snapshot = await query.get();
     const rawSubmissions = snapshot.docs
-      .map((doc) => ({
+      .map((doc: any) => ({
         id: doc.id,
         ...doc.data(),
       }))
@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
     const writersByIp = new Map<string, Array<{ uid: string; name: string; email: string }>>();
     const writersById = new Map<string, any>();
 
-    writersSnapshot.forEach((doc) => {
+    writersSnapshot.forEach((doc: any) => {
       const data = doc.data();
       writersById.set(doc.id, data);
       const ip = data.registrationIp || data.lastActiveIp;

@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
 import InteriorPosts from '@/PageComponents/Admin Components/InteriorPosts';
 
-const JWT_SECRET = process.env.JWT_SECRET!;
+const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-jwt-key';
 
 export default async function AdminInteriorMarketingPostsPage() {
   const cookieStore = await cookies();

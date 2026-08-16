@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
 import InteriorAdminClientWrapper from '@/PageComponents/Admin Components/InteriorAdminClientWrapper';
 
-const JWT_SECRET = process.env.JWT_SECRET!;
+const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-jwt-key';
 
 export default async function AdminNewInteriorBlogPage() {
   const cookieStore = await cookies();

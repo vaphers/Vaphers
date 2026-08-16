@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import AnalyticsDashboard from "./Components/Dashboard";
 
-const JWT_SECRET = process.env.JWT_SECRET!;
+const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-jwt-key';
 
 export default async function AdminDashboard() {
   const cookieStore = await cookies();

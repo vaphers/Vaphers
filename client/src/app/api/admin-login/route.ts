@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { SignJWT } from "jose";
 
-const SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
+const SECRET = new TextEncoder().encode(process.env.JWT_SECRET || 'fallback-secret-jwt-key');
 
 export async function POST(req: Request) {
   try {

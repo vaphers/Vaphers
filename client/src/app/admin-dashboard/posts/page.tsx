@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import AdminDashboardClientWrapper from '@/PageComponents/Admin Components/AdminDashboardClientWrapper'; 
 import AdminPostsPage from "@/PageComponents/Admin Components/Posts";
 
-const JWT_SECRET = process.env.JWT_SECRET!;
+const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-jwt-key';
 
 export default async function AdminDashboard() {
   const cookieStore = await cookies();

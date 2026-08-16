@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
       .get();
 
     const submissions = snapshot.docs
-      .map((doc) => ({
+      .map((doc: any) => ({
         id: doc.id,
         ...doc.data(),
       }))

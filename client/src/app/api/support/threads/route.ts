@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
 
     const snapshot = await query.get();
     const threads = snapshot.docs
-      .map((doc) => ({
+      .map((doc: any) => ({
         id: doc.id,
         ...doc.data(),
       }))
