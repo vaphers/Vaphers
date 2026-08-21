@@ -16,6 +16,9 @@ import {
   DollarSign,
   Plus,
   ArrowRight,
+  FileText,
+  ExternalLink,
+  Edit,
 } from 'lucide-react';
 import AdminLoader from '../Components/AdminLoader';
 
@@ -28,6 +31,10 @@ type Thread = {
   lastMessage: string;
   lastMessageAt: string;
   unreadByAdmin: boolean;
+  postId?: string;
+  postTitle?: string;
+  postSlug?: string;
+  initiatedBy?: 'admin' | 'user';
 };
 
 type Message = {
@@ -47,7 +54,6 @@ export default function AdminSupportInboxPage() {
   const [loadingThreads, setLoadingThreads] = useState(true);
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [sending, setSending] = useState(false);
-  const [quotaActionLoading, setQuotaActionLoading] = useState(false);
   const [search, setSearch] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -126,41 +132,6 @@ export default function AdminSupportInboxPage() {
     }
   };
 
-  const handleQuickQuotaBoost = async (incrementSlots: number, priceLabel: string) => {
-    if (!selectedThread) return;
-    setQuotaActionLoading(true);
-
-    try {
-      // 1. Fetch current contributor doc
-      const profRes = await fetch(`/api/guest/profile?uid=${selectedThread.userId}`);
-      const profData = await profRes.json();
-      const currentQuota = profData.profile?.monthlyQuota || 2;
-      const newQuota = currentQuota + incrementSlots;
-
-      // 2. Update contributor quota
-      const updateRes = await fetch('/api/admin/contributors', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          uid: selectedThread.userId,
-          monthlyQuota: newQuota,
-        }),
-      });
-
-      if (!updateRes.ok) throw new Error('Failed to update contributor quota');
-
-      // 3. Send automated confirmation reply
-      const confirmationMsg = `✅ Payment verified (${priceLabel})! Your monthly publishing quota has been upgraded to ${newQuota} articles per month (+${incrementSlots} extra slot). You can now draft and submit your new post from your dashboard.`;
-      await handleSendMessage(undefined, confirmationMsg);
-
-      alert(`Success: Upgraded ${selectedThread.userName}'s monthly quota to ${newQuota} blogs/month.`);
-    } catch (err: any) {
-      alert(`Error boosting quota: ${err.message}`);
-    } finally {
-      setQuotaActionLoading(false);
-    }
-  };
-
   const filteredThreads = threads.filter((t) => {
     if (!search) return true;
     const q = search.toLowerCase();
@@ -168,6 +139,7 @@ export default function AdminSupportInboxPage() {
       t.userName?.toLowerCase().includes(q) ||
       t.userEmail?.toLowerCase().includes(q) ||
       t.topic?.toLowerCase().includes(q) ||
+      t.postTitle?.toLowerCase().includes(q) ||
       t.lastMessage?.toLowerCase().includes(q)
     );
   });
@@ -198,7 +170,7 @@ export default function AdminSupportInboxPage() {
             V<span className="text-[#2383e2]">aphers</span>
           </h1>
           <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:inline border-l border-slate-200 pl-4">
-            Writer Support Desk &amp; Extra Quotas ($35)
+            Writer Support Desk &amp; Post Dispute Resolution
           </span>
         </div>
 
@@ -210,10 +182,10 @@ export default function AdminSupportInboxPage() {
             <RefreshCw size={13} />
             <span>Refresh</span>
           </button>
-          <Link href="/admin-dashboard/contributors">
+          <Link href="/admin-dashboard/guest-posts">
             <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[#2383e2] hover:bg-[#1c6ebf] text-white text-xs montserrat-medium transition-colors shadow-sm cursor-pointer">
-              <User size={13} />
-              <span>Contributor Quotas</span>
+              <FileText size={13} />
+              <span>Guest Posts</span>
             </button>
           </Link>
         </div>
@@ -230,7 +202,7 @@ export default function AdminSupportInboxPage() {
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search tickets by writer or topic..."
+                placeholder="Search tickets by writer, post, or topic..."
                 className="w-full pl-9 pr-3 py-1.5 text-xs border border-gray-300 rounded-sm bg-gray-50 focus:bg-white focus:outline-none focus:border-blue-500 font-normal"
               />
             </div>
@@ -267,10 +239,15 @@ export default function AdminSupportInboxPage() {
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-1.5 mb-1.5">
+                    <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
                       <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-blue-100/70 text-blue-800 font-medium truncate max-w-[200px]">
                         {thread.topic || 'Inquiry'}
                       </span>
+                      {thread.postTitle && (
+                        <span className="px-1.5 py-0.5 rounded text-[10px] bg-amber-50 text-amber-800 border border-amber-200 font-medium truncate max-w-[150px]">
+                          📄 {thread.postTitle}
+                        </span>
+                      )}
                       {thread.unreadByAdmin && (
                         <span className="w-2 h-2 rounded-full bg-[#2383e2]"></span>
                       )}
@@ -286,7 +263,7 @@ export default function AdminSupportInboxPage() {
           </div>
         </div>
 
-        {/* Right Side: Active Ticket Thread & Quota Tools */}
+        {/* Right Side: Active Ticket Thread */}
         <div className="flex-1 bg-white border border-gray-200 rounded-sm shadow-xs flex flex-col min-h-[500px]">
           {selectedThread ? (
             <>
@@ -309,32 +286,44 @@ export default function AdminSupportInboxPage() {
                   </div>
                 </div>
 
-                {/* 1-Click Fast Quota Upgrade Actions */}
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => handleQuickQuotaBoost(1, '$35 payment')}
-                    disabled={quotaActionLoading}
-                    className="px-3 py-1.5 rounded-sm bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium flex items-center gap-1 transition-colors shadow-xs cursor-pointer disabled:opacity-50"
-                    title="Instantly add 1 publishing slot ($35)"
-                  >
-                    {quotaActionLoading ? (
-                      <Loader2 size={12} className="animate-spin" />
-                    ) : (
-                      <DollarSign size={13} />
+                {/* Linked Post Direct Actions */}
+                {selectedThread.postId && (
+                  <div className="flex items-center gap-2">
+                    <Link
+                      href={`/admin-dashboard/guest-posts/edit/${selectedThread.postId}`}
+                      className="px-3 py-1.5 rounded-sm bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-medium flex items-center gap-1 transition-colors border border-gray-200"
+                    >
+                      <Edit size={12} />
+                      <span>Edit Linked Post</span>
+                    </Link>
+                    {selectedThread.postSlug && (
+                      <Link
+                        href={`/blogs/${selectedThread.postSlug}`}
+                        target="_blank"
+                        className="px-3 py-1.5 rounded-sm bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-medium flex items-center gap-1 border border-emerald-200"
+                      >
+                        <ExternalLink size={12} />
+                        <span>Live Post</span>
+                      </Link>
                     )}
-                    <span>+1 Slot ($35 Verified)</span>
-                  </button>
-
-                  <button
-                    onClick={() => handleQuickQuotaBoost(5, '$150 agency bundle')}
-                    disabled={quotaActionLoading}
-                    className="px-3 py-1.5 rounded-sm bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium flex items-center gap-1 transition-colors shadow-xs cursor-pointer disabled:opacity-50"
-                    title="Instantly add 5 publishing slots ($150 bundle)"
-                  >
-                    <span>+5 Slots (Agency)</span>
-                  </button>
-                </div>
+                  </div>
+                )}
               </div>
+
+              {/* Linked Post Notice Strip */}
+              {selectedThread.postTitle && (
+                <div className="p-2.5 px-6 bg-amber-50 border-b border-amber-200 text-xs text-amber-900 flex items-center justify-between">
+                  <div className="flex items-center gap-2 truncate">
+                    <FileText size={14} className="text-amber-700 shrink-0" />
+                    <span className="truncate">
+                      <strong>Linked Article:</strong> {selectedThread.postTitle}
+                    </span>
+                  </div>
+                  <span className="text-[10px] font-mono uppercase bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-semibold shrink-0">
+                    Active Dispute / Resolution
+                  </span>
+                </div>
+              )}
 
               {/* Chat Message History */}
               <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-slate-50/40">
@@ -381,7 +370,7 @@ export default function AdminSupportInboxPage() {
                 <div ref={messagesEndRef} />
               </div>
 
-              {/* Reply Composer & Quick Response Suggestions */}
+              {/* Reply Composer */}
               <div className="p-4 border-t border-gray-200 bg-white space-y-3 shrink-0">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="text-[11px] text-gray-400 font-medium">Quick Replies:</span>
@@ -389,23 +378,23 @@ export default function AdminSupportInboxPage() {
                     type="button"
                     onClick={() =>
                       setInputText(
-                        'Thank you for reaching out! We have received your request and our editorial team is currently reviewing it.'
+                        'Please revise your article according to our content guidelines: ensure a real individual author byline is provided and images are under 200 KB.'
                       )
                     }
                     className="px-2 py-0.5 rounded text-[11px] bg-gray-100 hover:bg-gray-200 text-gray-700 cursor-pointer"
                   >
-                    Under Review
+                    Policy Guidelines
                   </button>
                   <button
                     type="button"
                     onClick={() =>
                       setInputText(
-                        'Please ensure your article meets our 800+ word guidelines and that all uploaded images are compressed under 200 KB.'
+                        'Thank you for updating the draft! Your changes have been reviewed and your post is live.'
                       )
                     }
                     className="px-2 py-0.5 rounded text-[11px] bg-gray-100 hover:bg-gray-200 text-gray-700 cursor-pointer"
                   >
-                    Quality Reminder
+                    Resolved &amp; Live
                   </button>
                 </div>
 

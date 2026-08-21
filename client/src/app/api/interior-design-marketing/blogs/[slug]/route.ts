@@ -1,16 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getInteriorBlogsCollection } from '@/lib/mongodb';
-import { ObjectId } from 'mongodb';
+import { getInteriorBlogBySlug, updateInteriorBlog, deleteInteriorBlog } from '@/lib/interiorBlogs';
 
-// Helper to build a query matching either slug or _id (if valid ObjectId)
-function buildSlugOrIdQuery(slugOrId: string) {
-  if (ObjectId.isValid(slugOrId) && slugOrId.length === 24) {
-    return {
-      $or: [{ slug: slugOrId }, { _id: new ObjectId(slugOrId) }],
-    };
-  }
-  return { slug: slugOrId };
-}
+export const dynamic = 'force-dynamic';
 
 // GET: Fetch single blog by slug
 export async function GET(
@@ -23,34 +14,16 @@ export async function GET(
       return NextResponse.json({ error: 'Missing slug parameter' }, { status: 400 });
     }
 
-    const collection = await getInteriorBlogsCollection();
-    const query = buildSlugOrIdQuery(slug);
-    const blogDoc = await collection.findOne(query);
+    const blog = await getInteriorBlogBySlug(slug);
 
-    if (!blogDoc) {
+    if (!blog) {
       return NextResponse.json({ error: 'Blog not found' }, { status: 404 });
     }
 
-    const formattedBlog = {
-      id: blogDoc._id.toString(),
-      slug: blogDoc.slug,
-      title: blogDoc.title,
-      contentHtml: blogDoc.contentHtml,
-      metaTitle: blogDoc.metaTitle || blogDoc.title,
-      metaDescription: blogDoc.metaDescription || '',
-      featuredImage: blogDoc.featuredImage || null,
-      authorId: blogDoc.authorId || 'admin',
-      authorName: blogDoc.authorName || 'Vaphers Team',
-      categories: blogDoc.categories || [],
-      createdAt: blogDoc.createdAt ? new Date(blogDoc.createdAt).toISOString() : new Date().toISOString(),
-      updatedAt: blogDoc.updatedAt ? new Date(blogDoc.updatedAt).toISOString() : new Date().toISOString(),
-    };
-
-    return NextResponse.json(formattedBlog, { status: 200 });
-  } catch (err) {
+    return NextResponse.json(blog, { status: 200 });
+  } catch (err: any) {
     console.error('Error fetching interior design blog by slug:', err);
-    const errorMessage = err instanceof Error ? err.message : String(err);
-    return NextResponse.json({ error: errorMessage }, { status: 500 });
+    return NextResponse.json({ error: err.message || 'Server error' }, { status: 500 });
   }
 }
 
@@ -66,43 +39,10 @@ export async function PUT(
     }
 
     const body = await req.json();
-    const collection = await getInteriorBlogsCollection();
-    const query = buildSlugOrIdQuery(slug);
-
-    const existing = await collection.findOne(query);
-    if (!existing) {
-      return NextResponse.json({ error: 'Blog not found' }, { status: 404 });
-    }
-
-    // Check if slug is being updated and ensure it is not taken by another post
-    let updatedSlug = existing.slug;
-    if (body.slug && body.slug !== existing.slug) {
-      const cleanSlug = String(body.slug)
-        .trim()
-        .toLowerCase()
-        .replace(/[^a-z0-9-]+/g, '-')
-        .replace(/^-+|-+$/g, '');
-
-      const slugClash = await collection.findOne({
-        slug: cleanSlug,
-        _id: { $ne: existing._id },
-      });
-
-      if (slugClash) {
-        return NextResponse.json(
-          { error: 'The new slug is already in use by another blog post.' },
-          { status: 409 }
-        );
-      }
-      updatedSlug = cleanSlug;
-    }
-
-    const updateFields: Record<string, any> = {
-      updatedAt: new Date(),
-    };
+    const updateFields: any = {};
 
     if (body.title !== undefined) updateFields.title = body.title.trim();
-    if (body.slug !== undefined) updateFields.slug = updatedSlug;
+    if (body.slug !== undefined) updateFields.slug = body.slug.trim().toLowerCase();
     if (body.contentHtml !== undefined) updateFields.contentHtml = body.contentHtml;
     if (body.content !== undefined && body.contentHtml === undefined) updateFields.contentHtml = body.content;
     if (body.metaTitle !== undefined) updateFields.metaTitle = body.metaTitle;
@@ -113,18 +53,16 @@ export async function PUT(
     if (body.author !== undefined && body.authorId === undefined) updateFields.authorId = body.author;
     if (body.categories !== undefined) updateFields.categories = body.categories;
 
-    await collection.updateOne({ _id: existing._id }, { $set: updateFields });
+    const result = await updateInteriorBlog(slug, updateFields);
 
     return NextResponse.json({
       success: true,
-      id: existing._id.toString(),
-      slug: updatedSlug,
-      message: 'Blog updated successfully',
+      slug: result.slug,
+      message: 'Interior blog updated successfully',
     });
-  } catch (err) {
+  } catch (err: any) {
     console.error('Error updating interior design blog:', err);
-    const errorMessage = err instanceof Error ? err.message : String(err);
-    return NextResponse.json({ error: errorMessage }, { status: 500 });
+    return NextResponse.json({ error: err.message || 'Server error' }, { status: 500 });
   }
 }
 
@@ -139,22 +77,14 @@ export async function DELETE(
       return NextResponse.json({ error: 'Missing slug parameter' }, { status: 400 });
     }
 
-    const collection = await getInteriorBlogsCollection();
-    const query = buildSlugOrIdQuery(slug);
-
-    const result = await collection.deleteOne(query);
-
-    if (result.deletedCount === 0) {
-      return NextResponse.json({ error: 'Blog not found' }, { status: 404 });
-    }
+    await deleteInteriorBlog(slug);
 
     return NextResponse.json({
       success: true,
       message: 'Blog post deleted successfully',
     });
-  } catch (err) {
+  } catch (err: any) {
     console.error('Error deleting interior design blog:', err);
-    const errorMessage = err instanceof Error ? err.message : String(err);
-    return NextResponse.json({ error: errorMessage }, { status: 500 });
+    return NextResponse.json({ error: err.message || 'Server error' }, { status: 500 });
   }
 }

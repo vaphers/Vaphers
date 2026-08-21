@@ -38,11 +38,6 @@ type WriterProfile = {
   email: string;
   bio?: string;
   website?: string;
-  monthlyQuota?: number;
-  submissionsThisMonth?: number;
-  weeklyQuota?: number;
-  submissionsThisWeek?: number;
-  remainingQuota: number;
 };
 
 type Submission = {
@@ -53,8 +48,23 @@ type Submission = {
   feedbackNote?: string;
   publishedSlug?: string;
   categories?: string[];
+  paid?: boolean;
   updatedAt?: string;
   createdAt?: string;
+};
+
+const loadRazorpayScript = () => {
+  return new Promise((resolve) => {
+    if ((window as any).Razorpay) {
+      resolve(true);
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
 };
 
 export default function WriterDashboardPage() {
@@ -65,11 +75,14 @@ export default function WriterDashboardPage() {
   const [profile, setProfile] = useState<WriterProfile | null>(null);
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'all' | 'pending' | 'needs_revision' | 'approved' | 'draft'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'draft' | 'approved' | 'needs_revision'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [chatModalOpen, setChatModalOpen] = useState(false);
-  const [chatInitialTopic, setChatInitialTopic] = useState('Extra Post Quota Request ($35)');
+  const [selectedPostForChat, setSelectedPostForChat] = useState<{ id: string; title: string } | null>(null);
   const [profileModalOpen, setProfileModalOpen] = useState(false);
+  const [publishingId, setPublishingId] = useState<string | null>(null);
+  const [publishSuccessSlug, setPublishSuccessSlug] = useState<string | null>(null);
+  const [price, setPrice] = useState<number>(25);
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -77,6 +90,14 @@ export default function WriterDashboardPage() {
       router.push('/write-for-us/login');
       return;
     }
+
+    // Fetch dynamic pricing
+    fetch('/api/guest/pricing')
+      .then((r) => r.json())
+      .then((d) => {
+        if (typeof d.price === 'number') setPrice(d.price);
+      })
+      .catch(() => {});
 
     const primaryEmail = user.primaryEmailAddress?.emailAddress || user.emailAddresses?.[0]?.emailAddress || '';
     const fallbackName = user.fullName || user.firstName || primaryEmail.split('@')[0] || 'Contributor';
@@ -101,466 +122,465 @@ export default function WriterDashboardPage() {
         setSubmissions(subsData.submissions);
       }
     } catch (err) {
-      console.error('Failed to load contributor dashboard data:', err);
+      console.error('Failed to load dashboard:', err);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSignOut = async () => {
-    await signOut();
-    router.push('/write-for-us');
-  };
-
   const counts = useMemo(() => {
     return {
       all: submissions.length,
-      pending: submissions.filter((s) => s.status === 'pending').length,
-      needs_revision: submissions.filter((s) => s.status === 'needs_revision').length,
-      approved: submissions.filter((s) => s.status === 'approved').length,
       draft: submissions.filter((s) => s.status === 'draft').length,
+      approved: submissions.filter((s) => s.status === 'approved').length,
+      needs_revision: submissions.filter((s) => s.status === 'needs_revision').length,
     };
   }, [submissions]);
 
   const filteredSubmissions = useMemo(() => {
     return submissions.filter((s) => {
-      if (activeTab !== 'all' && s.status !== activeTab) return false;
+      if (activeTab === 'draft' && s.status !== 'draft') return false;
+      if (activeTab === 'approved' && s.status !== 'approved') return false;
+      if (activeTab === 'needs_revision' && s.status !== 'needs_revision') return false;
+
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
-        const matchTitle = s.title?.toLowerCase().includes(q);
-        const matchCategory = s.categories?.some((c) => c.toLowerCase().includes(q));
-        return matchTitle || matchCategory;
+        return (
+          s.title.toLowerCase().includes(q) ||
+          s.slug?.toLowerCase().includes(q) ||
+          s.categories?.some((c) => c.toLowerCase().includes(q))
+        );
       }
       return true;
     });
   }, [submissions, activeTab, searchQuery]);
 
-  const quota = profile?.monthlyQuota || profile?.weeklyQuota || 2;
-  const submissionsThisMonth =
-    profile?.submissionsThisMonth !== undefined
-      ? profile.submissionsThisMonth
-      : profile?.submissionsThisWeek || 0;
-  const remainingQuota = profile?.remainingQuota !== undefined ? profile.remainingQuota : Math.max(0, quota - submissionsThisMonth);
+  // Handle direct 1-click Razorpay publish from dashboard
+  const handleDirectPublish = async (sub: Submission) => {
+    if (!user) return;
+    setPublishingId(sub.id);
 
-  if (loading || !isLoaded) {
+    try {
+      const scriptLoaded = await loadRazorpayScript();
+      if (!scriptLoaded) throw new Error('Razorpay SDK failed to load');
+
+      const orderRes = await fetch('/api/guest/payments/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          submissionId: sub.id,
+          authorId: user.id,
+          authorEmail: user.primaryEmailAddress?.emailAddress || '',
+          authorName: profile?.name || user.fullName || 'Contributor',
+        }),
+      });
+
+      const orderData = await orderRes.json();
+      if (!orderRes.ok) throw new Error(orderData.error || 'Failed to initialize payment');
+
+      const options = {
+        key: orderData.keyId,
+        amount: orderData.amount,
+        currency: orderData.currency || 'USD',
+        name: 'Vaphers',
+        description: `Publish: "${sub.title.slice(0, 30)}..."`,
+        image: 'https://www.vaphers.com/logo.svg',
+        order_id: orderData.orderId,
+        handler: async function (response: any) {
+          try {
+            const verifyRes = await fetch('/api/guest/payments/verify-and-publish', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                razorpayOrderId: response.razorpay_order_id,
+                razorpayPaymentId: response.razorpay_payment_id,
+                razorpaySignature: response.razorpay_signature,
+                submissionId: sub.id,
+                authorId: user.id,
+              }),
+            });
+
+            const verifyData = await verifyRes.json();
+            if (!verifyRes.ok) throw new Error(verifyData.error || 'Payment verification failed');
+
+            setPublishSuccessSlug(verifyData.publishedSlug);
+            const primaryEmail = user.primaryEmailAddress?.emailAddress || '';
+            loadProfileAndSubmissions(user.id, primaryEmail, profile?.name || 'Contributor');
+          } catch (err: any) {
+            alert(`Error: ${err.message}`);
+          }
+        },
+        prefill: {
+          name: profile?.name || user.fullName || '',
+          email: user.primaryEmailAddress?.emailAddress || '',
+        },
+        theme: {
+          color: '#2383e2',
+        },
+        modal: {
+          ondismiss: function () {
+            setPublishingId(null);
+          },
+        },
+      };
+
+      const paymentObj = new (window as any).Razorpay(options);
+      paymentObj.open();
+    } catch (err: any) {
+      alert(`Error starting checkout: ${err.message}`);
+    } finally {
+      setPublishingId(null);
+    }
+  };
+
+  if (!isLoaded || loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center text-slate-600 libre-franklin-regular">
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center text-slate-600 font-sans">
         <div className="flex flex-col items-center gap-3">
           <Loader2 className="w-8 h-8 animate-spin text-[#2383e2]" />
-          <span className="text-sm font-medium text-slate-500">Loading contributor portal...</span>
+          <span className="text-sm font-medium">Connecting to Contributor Desk...</span>
         </div>
       </div>
     );
   }
 
+  const primaryEmail = user?.primaryEmailAddress?.emailAddress || user?.emailAddresses?.[0]?.emailAddress || '';
+
   return (
-    <div className="min-h-screen bg-slate-50/60 text-slate-900 libre-franklin-regular pb-20">
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-        @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700&display=swap');
-        .libre-franklin-regular { font-family: 'Libre Franklin', sans-serif !important; font-weight: 400 !important; }
-        .libre-franklin-medium { font-family: 'Libre Franklin', sans-serif !important; font-weight: 500 !important; }
-        .libre-franklin-semibold { font-family: 'Libre Franklin', sans-serif !important; font-weight: 600 !important; }
-      `,
-        }}
-      />
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans pb-16">
+      {/* Top Header */}
+      <header className="sticky top-0 z-30 bg-white border-b border-slate-200 px-4 sm:px-8 py-3.5 flex items-center justify-between shadow-2xs">
+        <div className="flex items-center gap-4 sm:gap-6">
+          <Link href="/">
+            <Image
+              src="/logo.svg"
+              alt="Vaphers"
+              width={125}
+              height={32}
+              priority
+              className="w-auto h-7"
+            />
+          </Link>
+          <span className="hidden sm:inline-block text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-[#2383e2] border border-blue-200">
+            Contributor Portal
+          </span>
+        </div>
 
-      {/* Enterprise Top Navigation */}
-      <header className="border-b border-slate-200 bg-white sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-8">
-            <Link href="/" className="flex items-center">
-              <Image
-                src="/logo.svg"
-                alt="Vaphers"
-                width={130}
-                height={34}
-                priority
-                quality={90}
-                className="w-auto h-8"
-              />
-            </Link>
+        <div className="flex items-center gap-3">
+          {/* Author Profile Button */}
+          <button
+            onClick={() => setProfileModalOpen(true)}
+            className="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold transition-colors flex items-center gap-1.5 shadow-2xs cursor-pointer"
+          >
+            <UserIcon size={14} className="text-[#2383e2]" />
+            <span className="hidden sm:inline">Author Profile</span>
+          </button>
 
-            <nav className="hidden md:flex items-center gap-6 text-xs sm:text-sm libre-franklin-medium text-slate-600">
-              <Link href="/write-for-us/dashboard" className="text-[#2383e2] font-semibold border-b-2 border-[#2383e2] py-5">
-                Overview
-              </Link>
-              <Link href="/write-for-us" target="_blank" className="hover:text-slate-900 transition-colors py-5 flex items-center gap-1">
-                <span>Guidelines &amp; Rules</span>
-                <ExternalLink size={12} className="text-slate-400" />
-              </Link>
-              <Link href="/blogs" target="_blank" className="hover:text-slate-900 transition-colors py-5 flex items-center gap-1">
-                <span>Published Blogs</span>
-                <ExternalLink size={12} className="text-slate-400" />
-              </Link>
-            </nav>
-          </div>
+          {/* Support Ticket Desk */}
+          <button
+            onClick={() => {
+              setSelectedPostForChat(null);
+              setChatModalOpen(true);
+            }}
+            className="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold transition-colors flex items-center gap-1.5 shadow-2xs cursor-pointer"
+          >
+            <MessageSquare size={14} className="text-[#2383e2]" />
+            <span className="hidden sm:inline">Support Desk</span>
+          </button>
 
-          <div className="flex items-center gap-3">
-            {/* Support Desk Ticket Button */}
-            <button
-              onClick={() => {
-                setChatInitialTopic('General Support & Editorial Inquiry');
-                setChatModalOpen(true);
-              }}
-              className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs libre-franklin-medium transition-colors cursor-pointer"
-            >
-              <MessageSquare size={14} className="text-[#2383e2]" />
-              <span>Support Desk</span>
+          {/* New Article Draft Button */}
+          <Link href="/write-for-us/editor">
+            <button className="px-4 py-2 rounded-xl bg-[#2383e2] hover:bg-[#1a6cb8] text-white text-xs font-semibold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer">
+              <Plus size={14} />
+              <span>Create New Draft</span>
             </button>
+          </Link>
 
-            <Link href="/write-for-us/editor">
-              <button className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#2383e2] hover:bg-[#1a6cb8] text-white text-xs sm:text-sm libre-franklin-medium transition-colors shadow-2xs cursor-pointer">
-                <Plus size={15} />
-                <span>New Article</span>
-              </button>
-            </Link>
-
-            {/* Profile Avatar & Logout */}
-            <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
-              <div
-                className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs libre-franklin-semibold"
-                title={user?.primaryEmailAddress?.emailAddress || ''}
-              >
-                {profile?.name ? profile.name[0].toUpperCase() : 'W'}
-              </div>
-              <button
-                onClick={handleSignOut}
-                className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"
-                title="Sign Out"
-              >
-                <LogOut size={16} />
-              </button>
-            </div>
-          </div>
+          {/* Logout */}
+          <button
+            onClick={() => signOut(() => router.push('/write-for-us/login'))}
+            className="p-2 text-slate-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors cursor-pointer"
+            title="Sign Out"
+          >
+            <LogOut size={16} />
+          </button>
         </div>
       </header>
 
-      {/* Main Container */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-8">
-        {/* Welcome Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-xl sm:text-2xl libre-franklin-semibold text-slate-900 tracking-tight">
-              Welcome, {profile?.name || user?.fullName || user?.firstName || 'Contributor'}
-            </h1>
-            <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-              {profile?.bio
-                ? profile.bio
-                : 'Manage your technical publications, draft revisions, and monthly publishing quota.'}
-            </p>
+        {/* KPI Strip */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-1">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider block">
+              Active Article Drafts
+            </span>
+            <div className="text-3xl font-bold text-slate-900">{counts.draft}</div>
+            <span className="text-[11px] text-slate-400 block">Compose and edit for free</span>
           </div>
 
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => setProfileModalOpen(true)}
-              className="px-3.5 py-2 rounded-lg bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs libre-franklin-medium transition-colors flex items-center gap-1.5 shadow-2xs cursor-pointer"
-            >
-              <UserIcon size={14} className="text-[#2383e2]" />
-              <span>Edit Author Profile &amp; Bio</span>
-            </button>
-            <div className="hidden sm:flex items-center gap-1.5 text-xs text-slate-500 pl-2 border-l border-slate-200">
-              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-              <span>Active</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Enterprise KPI & Metric Strip */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* Monthly Quota Card */}
-          <div className="p-5 bg-white border border-slate-200 rounded-xl shadow-2xs space-y-3">
-            <div className="flex items-center justify-between text-xs libre-franklin-medium text-slate-500 uppercase tracking-wider">
-              <span>Monthly Quota</span>
-              <span className="text-[11px] px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-semibold">
-                {quota} / Month
-              </span>
-            </div>
-            <div className="flex items-baseline justify-between">
-              <span className="text-2xl libre-franklin-semibold text-slate-900">
-                {remainingQuota} <span className="text-xs font-normal text-slate-400">slots remaining</span>
-              </span>
-            </div>
-            <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
-              <div
-                className="bg-[#2383e2] h-1.5 rounded-full transition-all duration-500"
-                style={{ width: `${Math.min(100, (submissionsThisMonth / (quota || 2)) * 100)}%` }}
-              />
-            </div>
-            <button
-              onClick={() => {
-                setChatInitialTopic('Extra Post Quota Request ($35)');
-                setChatModalOpen(true);
-              }}
-              className="text-[11px] text-[#2383e2] hover:underline libre-franklin-medium inline-flex items-center gap-1 pt-1 cursor-pointer"
-            >
-              <DollarSign size={12} className="text-emerald-600" />
-              <span>Need More? Request Slot ($35) &rarr;</span>
-            </button>
+          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-1">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider block">
+              Published Live Articles
+            </span>
+            <div className="text-3xl font-bold text-emerald-600">{counts.approved}</div>
+            <span className="text-[11px] text-slate-400 block">Live on /blogs with DoFollow links</span>
           </div>
 
-          {/* Published Articles Card */}
-          <div className="p-5 bg-white border border-slate-200 rounded-xl shadow-2xs space-y-3">
-            <div className="flex items-center justify-between text-xs libre-franklin-medium text-slate-500 uppercase tracking-wider">
-              <span>Live on Blog</span>
-              <FileCheck2 size={16} className="text-emerald-600" />
-            </div>
-            <div className="text-2xl libre-franklin-semibold text-slate-900">
-              {counts.approved}
-            </div>
-            <p className="text-[11px] text-slate-400">
-              Permanent DoFollow indexed articles
-            </p>
-          </div>
-
-          {/* Under Review Card */}
-          <div className="p-5 bg-white border border-slate-200 rounded-xl shadow-2xs space-y-3">
-            <div className="flex items-center justify-between text-xs libre-franklin-medium text-slate-500 uppercase tracking-wider">
-              <span>Pending Review</span>
-              <Clock size={16} className="text-amber-500" />
-            </div>
-            <div className="text-2xl libre-franklin-semibold text-slate-900">
-              {counts.pending}
-            </div>
-            <p className="text-[11px] text-slate-400">
-              48h peer editorial review cycle
-            </p>
-          </div>
-
-          {/* Needs Revision Card */}
-          <div className="p-5 bg-white border border-slate-200 rounded-xl shadow-2xs space-y-3">
-            <div className="flex items-center justify-between text-xs libre-franklin-medium text-slate-500 uppercase tracking-wider">
-              <span>Action Required</span>
-              <AlertCircle size={16} className="text-indigo-600" />
-            </div>
-            <div className="text-2xl libre-franklin-semibold text-slate-900">
-              {counts.needs_revision}
-            </div>
-            <p className="text-[11px] text-slate-400">
-              Editorial revision notes pending update
-            </p>
+          <div className="p-6 rounded-2xl bg-blue-50/80 border border-blue-200 shadow-2xs space-y-1">
+            <span className="text-xs font-semibold text-[#1a6cb8] uppercase tracking-wider block">
+              Instant Publication Fee
+            </span>
+            <div className="text-3xl font-bold text-[#2383e2]">${price} / Post</div>
+            <span className="text-[11px] text-slate-600 block">Secure checkout via Razorpay</span>
           </div>
         </div>
 
-        {/* Submissions Section */}
-        <div className="space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
-            {/* Status Filter Tabs */}
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-              <button
-                onClick={() => setActiveTab('all')}
-                className={`px-3 py-1.5 rounded-lg text-xs libre-franklin-medium transition-colors cursor-pointer ${
-                  activeTab === 'all'
-                    ? 'bg-slate-900 text-white'
-                    : 'text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                All Articles ({counts.all})
-              </button>
-              <button
-                onClick={() => setActiveTab('pending')}
-                className={`px-3 py-1.5 rounded-lg text-xs libre-franklin-medium transition-colors cursor-pointer flex items-center gap-1.5 ${
-                  activeTab === 'pending'
-                    ? 'bg-amber-600 text-white'
-                    : 'text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-                In Review ({counts.pending})
-              </button>
+        {/* Tab Filters & Search Bar */}
+        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between border-b border-slate-200 pb-4">
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+            <button
+              onClick={() => setActiveTab('all')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                activeTab === 'all'
+                  ? 'bg-slate-900 text-white shadow-xs'
+                  : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+              }`}
+            >
+              All Articles ({counts.all})
+            </button>
+            <button
+              onClick={() => setActiveTab('draft')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                activeTab === 'draft'
+                  ? 'bg-slate-900 text-white shadow-xs'
+                  : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+              }`}
+            >
+              Drafts ({counts.draft})
+            </button>
+            <button
+              onClick={() => setActiveTab('approved')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                activeTab === 'approved'
+                  ? 'bg-emerald-600 text-white shadow-xs'
+                  : 'bg-white text-emerald-700 border border-emerald-200 hover:bg-emerald-50'
+              }`}
+            >
+              Live ({counts.approved})
+            </button>
+            {counts.needs_revision > 0 && (
               <button
                 onClick={() => setActiveTab('needs_revision')}
-                className={`px-3 py-1.5 rounded-lg text-xs libre-franklin-medium transition-colors cursor-pointer flex items-center gap-1.5 ${
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                   activeTab === 'needs_revision'
-                    ? 'bg-indigo-600 text-white'
-                    : 'text-slate-600 hover:bg-slate-100'
+                    ? 'bg-amber-600 text-white shadow-xs'
+                    : 'bg-white text-amber-700 border border-amber-200 hover:bg-amber-50'
                 }`}
               >
-                Needs Action ({counts.needs_revision})
+                Needs Revision ({counts.needs_revision})
               </button>
-              <button
-                onClick={() => setActiveTab('approved')}
-                className={`px-3 py-1.5 rounded-lg text-xs libre-franklin-medium transition-colors cursor-pointer flex items-center gap-1.5 ${
-                  activeTab === 'approved'
-                    ? 'bg-emerald-600 text-white'
-                    : 'text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                Live ({counts.approved})
-              </button>
-              <button
-                onClick={() => setActiveTab('draft')}
-                className={`px-3 py-1.5 rounded-lg text-xs libre-franklin-medium transition-colors cursor-pointer ${
-                  activeTab === 'draft'
-                    ? 'bg-slate-700 text-white'
-                    : 'text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                Drafts ({counts.draft})
-              </button>
-            </div>
-
-            {/* Search Filter */}
-            <div className="relative w-full sm:w-64">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search articles..."
-                className="w-full pl-9 pr-3.5 py-1.5 text-xs rounded-lg bg-white border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
-              />
-            </div>
+            )}
           </div>
 
-          {/* Submissions List / Empty States */}
+          <div className="relative w-full sm:w-64">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search by article title..."
+              className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl bg-white border border-slate-200 focus:outline-none focus:border-blue-500 text-slate-900"
+            />
+          </div>
+        </div>
+
+        {/* Submissions List */}
+        <div className="space-y-4">
           {filteredSubmissions.length === 0 ? (
-            <div className="bg-white border border-slate-200 rounded-xl p-12 text-center space-y-3">
-              <div className="w-12 h-12 rounded-full bg-blue-50 text-[#2383e2] flex items-center justify-center mx-auto">
-                <PenTool size={20} />
+            <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center space-y-4 shadow-2xs">
+              <FileText className="w-12 h-12 text-slate-300 mx-auto" />
+              <div className="space-y-1">
+                <h3 className="text-base font-bold text-slate-800">No articles found</h3>
+                <p className="text-xs text-slate-500 max-w-sm mx-auto font-normal">
+                  Start by drafting your first technical marketing or SEO guest post.
+                </p>
               </div>
-              <h3 className="text-sm libre-franklin-semibold text-slate-900">
-                {searchQuery ? 'No matching articles found' : 'No publications yet'}
-              </h3>
-              <p className="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">
-                {searchQuery
-                  ? 'Try searching with a different keyword or clear the search filter.'
-                  : 'Start writing your first technical guest article to publish on the Vaphers blog network.'}
-              </p>
-              {!searchQuery && (
-                <div className="pt-2">
-                  <Link href="/write-for-us/editor">
-                    <button className="px-4 py-2 bg-[#2383e2] hover:bg-[#1a6cb8] text-white text-xs libre-franklin-medium rounded-lg transition-colors cursor-pointer shadow-xs">
-                      Create Your First Article &rarr;
-                    </button>
-                  </Link>
-                </div>
-              )}
+              <Link href="/write-for-us/editor">
+                <button className="px-5 py-2.5 rounded-xl bg-[#2383e2] hover:bg-[#1a6cb8] text-white text-xs font-semibold transition-all shadow-xs cursor-pointer inline-flex items-center gap-1.5">
+                  <Plus size={14} />
+                  <span>Start a New Draft</span>
+                </button>
+              </Link>
             </div>
           ) : (
-            <div className="space-y-3">
-              {filteredSubmissions.map((sub) => (
-                <div
-                  key={sub.id}
-                  className="bg-white border border-slate-200 hover:border-slate-300 rounded-xl p-4 sm:p-5 transition-all shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4"
-                >
-                  <div className="space-y-1.5 min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="text-sm libre-franklin-semibold text-slate-900 truncate">
-                        {sub.title || 'Untitled Draft'}
-                      </h3>
+            filteredSubmissions.map((sub) => (
+              <div
+                key={sub.id}
+                className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-2xs hover:border-slate-300 transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+              >
+                <div className="space-y-1.5 max-w-2xl">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-[11px] font-mono text-blue-600 bg-blue-50 px-2 py-0.5 rounded font-semibold">
+                      {sub.categories?.[0] || 'Marketing'}
+                    </span>
 
-                      {/* Status Badges */}
-                      {sub.status === 'pending' && (
-                        <span className="px-2 py-0.5 rounded text-[11px] libre-franklin-medium bg-amber-50 text-amber-700 border border-amber-200 flex items-center gap-1">
-                          <Clock size={11} />
-                          <span>In Review</span>
-                        </span>
-                      )}
-                      {sub.status === 'needs_revision' && (
-                        <span className="px-2 py-0.5 rounded text-[11px] libre-franklin-medium bg-indigo-50 text-indigo-700 border border-indigo-200 flex items-center gap-1">
-                          <AlertCircle size={11} />
-                          <span>Action Needed</span>
-                        </span>
-                      )}
-                      {sub.status === 'approved' && (
-                        <span className="px-2 py-0.5 rounded text-[11px] libre-franklin-medium bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
-                          <CheckCircle2 size={11} />
-                          <span>Live</span>
-                        </span>
-                      )}
-                      {sub.status === 'draft' && (
-                        <span className="px-2 py-0.5 rounded text-[11px] libre-franklin-medium bg-slate-100 text-slate-600 border border-slate-200">
-                          Draft
-                        </span>
-                      )}
-                      {sub.status === 'rejected' && (
-                        <span className="px-2 py-0.5 rounded text-[11px] libre-franklin-medium bg-red-50 text-red-700 border border-red-200">
-                          Rejected
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500">
-                      <span>Category: {sub.categories?.[0] || 'Digital Marketing'}</span>
-                      <span>&bull;</span>
-                      <span>
-                        Updated:{' '}
-                        {sub.updatedAt
-                          ? new Date(sub.updatedAt).toLocaleDateString(undefined, {
-                              month: 'short',
-                              day: 'numeric',
-                              year: 'numeric',
-                            })
-                          : 'Recent'}
+                    {sub.status === 'approved' && (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        <CheckCircle2 size={12} />
+                        Live on /blogs
                       </span>
-                    </div>
+                    )}
 
-                    {/* Revision Feedback Callout */}
-                    {sub.feedbackNote && sub.status === 'needs_revision' && (
-                      <div className="mt-2 p-2.5 rounded-lg bg-indigo-50/70 border border-indigo-200 text-xs text-indigo-900 leading-snug">
-                        <strong className="font-semibold text-indigo-800">Editorial Revision Note: </strong>
-                        {sub.feedbackNote}
-                      </div>
+                    {sub.status === 'draft' && (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">
+                        Draft
+                      </span>
+                    )}
+
+                    {sub.status === 'needs_revision' && (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+                        <AlertCircle size={12} />
+                        Revision Note
+                      </span>
                     )}
                   </div>
 
-                  {/* Actions */}
-                  <div className="flex items-center gap-2 shrink-0">
-                    {sub.status === 'approved' && sub.publishedSlug && (
-                      <Link
-                        href={`/blogs/${sub.publishedSlug}`}
-                        target="_blank"
-                        className="px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-700 text-xs libre-franklin-medium flex items-center gap-1 transition-colors"
-                      >
-                        <ExternalLink size={13} />
-                        <span>Live Post</span>
-                      </Link>
-                    )}
+                  <h3 className="text-base font-bold text-slate-900 leading-snug">
+                    {sub.title || 'Untitled Post'}
+                  </h3>
 
-                    <Link href={`/write-for-us/editor/${sub.id}`}>
-                      <button className="px-3.5 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs libre-franklin-medium flex items-center gap-1 transition-colors cursor-pointer">
-                        <Edit3 size={13} />
-                        <span>{sub.status === 'draft' || sub.status === 'needs_revision' ? 'Edit Article' : 'View Draft'}</span>
-                      </button>
-                    </Link>
+                  {sub.feedbackNote && (
+                    <p className="text-xs text-amber-800 bg-amber-50/80 p-2.5 rounded-xl border border-amber-200">
+                      <strong>Editorial note:</strong> {sub.feedbackNote}
+                    </p>
+                  )}
+
+                  <div className="text-[11px] text-slate-400 font-mono">
+                    Last updated:{' '}
+                    {sub.updatedAt
+                      ? new Date(sub.updatedAt).toLocaleDateString(undefined, {
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric',
+                        })
+                      : 'Recently'}
                   </div>
                 </div>
-              ))}
-            </div>
+
+                {/* Card Actions */}
+                <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto justify-end">
+                  {/* Post-Linked Support Ticket */}
+                  <button
+                    onClick={() => {
+                      setSelectedPostForChat({ id: sub.id, title: sub.title });
+                      setChatModalOpen(true);
+                    }}
+                    className="p-2 rounded-xl text-slate-500 hover:text-[#2383e2] hover:bg-blue-50 border border-slate-200 transition-colors cursor-pointer"
+                    title="Open ticket for this post"
+                  >
+                    <MessageSquare size={16} />
+                  </button>
+
+                  <Link href={`/write-for-us/editor?id=${sub.id}`}>
+                    <button className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors flex items-center gap-1.5 cursor-pointer">
+                      <Edit3 size={14} />
+                      <span>Edit Post</span>
+                    </button>
+                  </Link>
+
+                  {sub.status === 'approved' && sub.publishedSlug ? (
+                    <Link
+                      href={`/blogs/${sub.publishedSlug}`}
+                      target="_blank"
+                      className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition-colors flex items-center gap-1.5 shadow-2xs"
+                    >
+                      <ExternalLink size={14} />
+                      <span>View Live</span>
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => handleDirectPublish(sub)}
+                      disabled={publishingId === sub.id}
+                      className="px-4 py-2 rounded-xl bg-[#2383e2] hover:bg-[#1a6cb8] text-white text-xs font-semibold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                    >
+                      {publishingId === sub.id ? (
+                        <Loader2 size={13} className="animate-spin" />
+                      ) : (
+                        <DollarSign size={13} />
+                      )}
+                      <span>Publish (${price})</span>
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))
           )}
         </div>
       </main>
 
-      {/* Support Chat / Extra Quota Ticket Modal */}
+      {/* Support Chat Modal */}
       {user && (
         <SupportChatModal
           isOpen={chatModalOpen}
-          onClose={() => setChatModalOpen(false)}
+          onClose={() => {
+            setChatModalOpen(false);
+            setSelectedPostForChat(null);
+          }}
           userId={user.id}
           userName={profile?.name || user.fullName || user.firstName || 'Writer'}
-          userEmail={user.primaryEmailAddress?.emailAddress || user.emailAddresses?.[0]?.emailAddress || ''}
-          initialTopic={chatInitialTopic}
+          userEmail={primaryEmail}
+          postId={selectedPostForChat?.id}
+          postTitle={selectedPostForChat?.title}
         />
       )}
 
-      {/* Author Profile Settings Modal */}
+      {/* Writer Profile Edit Modal */}
       {user && (
         <WriterProfileModal
           isOpen={profileModalOpen}
           onClose={() => setProfileModalOpen(false)}
           uid={user.id}
-          initialName={profile?.name || user.fullName || user.firstName || ''}
+          initialName={profile?.name || user.fullName || ''}
           initialBio={profile?.bio || ''}
           initialWebsite={profile?.website || ''}
-          onProfileUpdated={(updated) => {
-            if (profile) {
-              setProfile({ ...profile, ...updated });
-            }
+          onProfileUpdated={(updated: { name: string; bio: string; website: string }) => {
+            setProfile((prev) => (prev ? { ...prev, ...updated } : null));
           }}
         />
+      )}
+
+      {/* Instant Publish Celebration Modal */}
+      {publishSuccessSlug && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in">
+          <div className="bg-white rounded-3xl p-8 max-w-md w-full text-center space-y-6 shadow-2xl border border-slate-200">
+            <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-2xl">
+              🎉
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-2xl font-bold text-slate-900">Article Published Live!</h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                Payment verified. Your blog post is now active on Vaphers with your verified author attribution and permanent DoFollow backlinks.
+              </p>
+            </div>
+
+            <div className="pt-2 flex flex-col gap-2.5">
+              <Link
+                href={`/blogs/${publishSuccessSlug}`}
+                target="_blank"
+                className="w-full py-3 rounded-xl bg-[#2383e2] hover:bg-[#1a6cb8] text-white text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 shadow-sm"
+              >
+                <span>View Live Article &rarr;</span>
+                <ExternalLink size={14} />
+              </Link>
+              <button
+                onClick={() => setPublishSuccessSlug(null)}
+                className="w-full py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

@@ -6,20 +6,20 @@
 
 // const Footer: React.FC = () => {
 //   return (
-//     <footer className="w-full bg-white text-gray-900 font-sans border-t border-gray-200">
+//     <footer className="w-full bg-blue-600 text-white font-sans border-t border-blue-500">
       
 //       {/* --- Top Banner Section (Badges & CTA) --- */}
-//       <div className="w-full bg-white pt-5 px-4 sm:px-6 lg:px-10">
+//       <div className="w-full pt-5 px-4 sm:px-6 lg:px-10">
 //         <div className="max-w-7xl mx-auto flex flex-col xl:flex-row items-center justify-between gap-12 xl:gap-16">
           
 //           {/* Partner Badges Row */}
 //           <div className="flex flex-wrap items-center justify-center xl:justify-start gap-8 sm:gap-12 flex-1 w-full">
-//             <div className="relative h-16 w-32 sm:h-20 sm:w-40 transition-transform duration-300 hover:scale-105">
+//             <div className="relative h-16 w-32 sm:h-20 sm:w-40 transition-transform duration-300 hover:scale-105 ">
 //               <Image 
 //                 src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773064257/google-premier-partner-no-year-1_k2zdgi.png" 
 //                 alt="Google Premier Partner" 
 //                 fill
-//                 className="object-contain"
+//                 className="object-contain rounded-lg"
 //                 sizes="(max-width: 640px) 128px, 160px"
 //               />
 //             </div>
@@ -43,8 +43,8 @@
 //             </div>
 //             <div className="relative h-16 w-32 sm:h-20 sm:w-40 transition-transform duration-300 hover:scale-105">
 //               <Image 
-//                 src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773064254/Meta_Business_Partners_two_line_xszs70.png" 
-//                 alt="Meta Business Partner" 
+//                 src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773496852/Facebook-Partner_1_z2dmm2.png" 
+//                 alt="Facebook Partner" 
 //                 fill
 //                 className="object-contain"
 //                 sizes="(max-width: 640px) 128px, 160px"
@@ -53,19 +53,19 @@
 //           </div>
 
 //           {/* Vertical Divider (Desktop) / Horizontal Divider (Mobile) */}
-//           <div className="hidden xl:block w-px h-32 bg-gray-700 opacity-50"></div>
-//           <div className="block xl:hidden w-full h-px bg-gray-700 opacity-50"></div>
+//           <div className="hidden xl:block w-px h-32 bg-white opacity-20"></div>
+//           <div className="block xl:hidden w-full h-px bg-white opacity-20"></div>
 
 //           {/* CTA Box */}
 //           <div className="flex flex-col items-center md:items-start text-center md:text-left w-full xl:w-auto min-w-[280px]">
-//             <h3 className="text-gray-800 text-xl sm:text-2xl font-bold leading-tight mb-5">
+//             <h3 className="text-white text-xl sm:text-2xl font-bold leading-tight mb-5">
 //               Ready to speak with a<br />
 //               marketing expert?<br />
 //               Give us a call
 //             </h3>
 //             <a
 //               href="tel:+919641861932"
-//               className="inline-block w-full sm:w-auto text-center bg-white border-[3px] border-blue-500 text-blue-600 font-bold text-lg sm:text-xl py-3 px-8 rounded transition-colors hover:bg-gray-100"
+//               className="inline-block w-full sm:w-auto text-center bg-white border-[3px] border-white text-blue-600 font-bold text-lg sm:text-xl py-3 px-8 rounded transition-colors hover:bg-blue-50"
 //             >
 //               +91 9641861932
 //             </a>
@@ -73,69 +73,77 @@
 
 //         </div>
 //       </div>
-//     <div className="hidden md:block max-w-7xl mx-auto border-t border-gray-300 my-8"></div>
+      
+//       {/* Divider */}
+//       <div className="hidden md:block max-w-7xl mx-auto border-t border-white/20 my-8"></div>
+      
 //       {/* --- Main Footer Links --- */}
 //       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-//         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-x-8 gap-y-12 py-14 border-b border-gray-200">
+//         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-x-8 gap-y-12 py-14 border-b border-white/20">
           
 //           {/* Logo & Contact Info */}
 //           <div className="col-span-1 sm:col-span-2 lg:col-span-2">
 //             <Link href="/" className="flex -m-1.5 p-1.5 mb-6">
-//               <Image 
-//                 src="/logo.svg" 
-//                 alt="Vaphers Logo" 
-//                 width={180} 
-//                 height={50}
-//                 className="h-12 w-auto transition duration-300 hover:opacity-80"
-//                 priority
-//               />
+//               <h3 className="text-xl md:text-6xl font-medium bungee-shade text-white lg:w-1/3 shrink-0">
+//                 V<span className="text-white md:text-5xl">aphers</span>
+//               </h3>
 //             </Link>
-//             <p className="py-2 text-sm text-gray-600 max-w-xs">
+//             <p className="py-2 text-sm text-blue-100 max-w-xs leading-relaxed">
 //               Trusted SEO partner for local businesses. We help you scale and rank #1 locally.
 //             </p>
+//             <a 
+//               href="mailto:crew@vaphers.com" 
+//               className="inline-flex items-center gap-2 mt-2 text-sm text-blue-100 hover:text-white transition-colors font-medium"
+//             >
+//               <svg className="w-4 h-4 text-white shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+//                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+//               </svg>
+//               crew@vaphers.com
+//             </a>
 //           </div>
 
 //           {/* Explore */}
 //           <div>
-//             <h4 className="text-lg text-gray-900 font-medium mb-6">Explore</h4>
+//             <h4 className="text-lg text-white font-semibold mb-6">Explore</h4>
 //             <ul className="text-sm space-y-4">
-//               <li><Link href="/blogs" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Blogs</Link></li>
-//               <li><Link href="/about-us" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">About Us</Link></li>
-//               <li><Link href="/pricing" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Pricing</Link></li>
-//               <li><Link href="/contact" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Contact Us</Link></li>
+//               <li><Link href="/blogs" className="text-blue-100 hover:text-white transition-colors font-medium">Blogs</Link></li>
+//               <li><Link href="/common-questions" className="text-blue-100 hover:text-white transition-colors font-medium">Common Questions</Link></li>
+//               <li><Link href="/about-us" className="text-blue-100 hover:text-white transition-colors font-medium">About Us</Link></li>
+//               <li><Link href="/pricing" className="text-blue-100 hover:text-white transition-colors font-medium">Pricing</Link></li>
+//               <li><Link href="/contact" className="text-blue-100 hover:text-white transition-colors font-medium">Contact Us</Link></li>
 //             </ul>
 //           </div>
 
 //           {/* Main Services */}
 //           <div>
-//             <h4 className="text-lg text-gray-900 font-medium mb-6">Services</h4>
+//             <h4 className="text-lg text-white font-semibold mb-6">Services</h4>
 //             <ul className="text-sm space-y-4">
-//               <li><Link href="/seo-services" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">SEO Services</Link></li>
-//               <li><Link href="/website-development-services" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Web Development</Link></li>
-//               <li><Link href="/ppc-marketing" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">PPC Marketing</Link></li>
-//               <li><Link href="/seo-services/local-seo-services" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Local SEO</Link></li>
+//               <li><Link href="/seo-services" className="text-blue-100 hover:text-white transition-colors font-medium">SEO Services</Link></li>
+//               <li><Link href="/website-development-services" className="text-blue-100 hover:text-white transition-colors font-medium">Web Development</Link></li>
+//               <li><Link href="/ppc-marketing" className="text-blue-100 hover:text-white transition-colors font-medium">PPC Marketing</Link></li>
+//               <li><Link href="/seo-services/local-seo-services" className="text-blue-100 hover:text-white transition-colors font-medium">Local SEO</Link></li>
 //             </ul>
 //           </div>
 
 //           {/* Specialized SEO */}
 //           <div>
-//             <h4 className="text-lg text-gray-900 font-medium mb-6">Specialized SEO</h4>
+//             <h4 className="text-lg text-white font-semibold mb-6">Specialized SEO</h4>
 //             <ul className="text-sm space-y-4">
-//               <li><Link href="/seo-services/ai-seo-services" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">AI SEO Services</Link></li>
-//               <li><Link href="/seo-services/ecommerce-seo-services" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Ecommerce SEO</Link></li>
-//               <li><Link href="/seo-services/technical-seo-services" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Technical SEO</Link></li>
-//               <li><Link href="/seo-services/seo-audit-services" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">SEO Audits</Link></li>
+//               <li><Link href="/seo-services/ai-seo-services" className="text-blue-100 hover:text-white transition-colors font-medium">AI SEO Services</Link></li>
+//               <li><Link href="/seo-services/ecommerce-seo-services" className="text-blue-100 hover:text-white transition-colors font-medium">Ecommerce SEO</Link></li>
+//               <li><Link href="/seo-services/technical-seo-services" className="text-blue-100 hover:text-white transition-colors font-medium">Technical SEO</Link></li>
+//               <li><Link href="/seo-services/seo-audit-services" className="text-blue-100 hover:text-white transition-colors font-medium">SEO Audits</Link></li>
 //             </ul>
 //           </div>
 
 //           {/* Development & Ads */}
 //           <div>
-//             <h4 className="text-lg text-gray-900 font-medium mb-6">Web & Ads</h4>
+//             <h4 className="text-lg text-white font-semibold mb-6">Web & Ads</h4>
 //             <ul className="text-sm space-y-4">
-//               <li><Link href="/website-development-services/nextjs-website-development" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Next.js Development</Link></li>
-//               <li><Link href="/website-development-services/ecommerce-development" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Ecommerce Dev</Link></li>
-//               <li><Link href="/ppc-marketing/google-ads-management-services" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Google Ads</Link></li>
-//               <li><Link href="/ppc-marketing/meta-ads-management-services" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Meta Ads</Link></li>
+//               <li><Link href="/website-development-services/nextjs-website-development" className="text-blue-100 hover:text-white transition-colors font-medium">Next.js Development</Link></li>
+//               <li><Link href="/website-development-services/ecommerce-development" className="text-blue-100 hover:text-white transition-colors font-medium">Ecommerce Dev</Link></li>
+//               <li><Link href="/ppc-marketing/google-ads-management-services" className="text-blue-100 hover:text-white transition-colors font-medium">Google Ads</Link></li>
+//               <li><Link href="/ppc-marketing/meta-ads-management-services" className="text-blue-100 hover:text-white transition-colors font-medium">Meta Ads</Link></li>
 //             </ul>
 //           </div>
 
@@ -144,16 +152,16 @@
 //         {/* --- Social Icons & Copyright --- */}
 //         <div className="py-7">
 //           <div className="flex flex-col items-center justify-center lg:justify-between lg:flex-row gap-4">
-//             <span className="text-sm text-gray-500 text-center lg:text-left">
-//               © <Link href="/" className="hover:text-blue-600 font-bold text-gray-900 transition-colors">Vaphers</Link> 2026, All rights reserved.
+//             <span className="text-sm text-blue-200 text-center lg:text-left">
+//               © <Link href="/" className="hover:text-white font-bold text-white transition-colors">Vaphers</Link> 2026, All rights reserved.
 //             </span>
 //             <div className="flex space-x-4">
-//               <a href="https://twitter.com" aria-label="Twitter" className="w-9 h-9 rounded-full bg-gray-100 flex justify-center items-center hover:bg-blue-600 hover:text-white text-gray-600 transition-all duration-300">
+//               <a href="https://twitter.com" aria-label="Twitter" className="w-9 h-9 rounded-full bg-blue-500/50 flex justify-center items-center hover:bg-white hover:text-blue-600 text-white transition-all duration-300">
 //                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
 //                   <path d="M11.3214 8.93666L16.4919 3.05566H15.2667L10.7772 8.16205L7.1914 3.05566H3.05566L8.47803 10.7774L3.05566 16.9446H4.28097L9.022 11.552L12.8088 16.9446H16.9446L11.3211 8.93666H11.3214ZM9.64322 10.8455L9.09382 10.0765L4.72246 3.95821H6.60445L10.1322 8.8959L10.6816 9.66481L15.2672 16.083H13.3852L9.64322 10.8458V10.8455Z" />
 //                 </svg>
 //               </a>
-//               <a href="https://instagram.com" aria-label="Instagram" className="w-9 h-9 rounded-full bg-gray-100 flex justify-center items-center hover:bg-blue-600 hover:text-white text-gray-600 transition-all duration-300">
+//               <a href="https://instagram.com" aria-label="Instagram" className="w-9 h-9 rounded-full bg-blue-500/50 flex justify-center items-center hover:bg-white hover:text-blue-600 text-white transition-all duration-300">
 //                 <svg className="w-4 h-4" viewBox="0 0 15 15" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 //                   <path d="M4.70975 7.93663C4.70975 6.65824 5.76102 5.62163 7.0582 5.62163C8.35537 5.62163 9.40721 6.65824 9.40721 7.93663C9.40721 9.21502 8.35537 10.2516 7.0582 10.2516C5.76102 10.2516 4.70975 9.21502 4.70975 7.93663ZM3.43991 7.93663C3.43991 9.90608 5.05982 11.5025 7.0582 11.5025C9.05658 11.5025 10.6765 9.90608 10.6765 7.93663C10.6765 5.96719 9.05658 4.37074 7.0582 4.37074C5.05982 4.37074 3.43991 5.96719 3.43991 7.93663ZM9.97414 4.22935C9.97408 4.39417 10.0236 4.55531 10.1165 4.69239C10.2093 4.82946 10.3413 4.93633 10.4958 4.99946C10.6503 5.06259 10.8203 5.07916 10.9844 5.04707C11.1484 5.01498 11.2991 4.93568 11.4174 4.81918C11.5357 4.70268 11.6163 4.55423 11.649 4.39259C11.6817 4.23095 11.665 4.06339 11.6011 3.91109C11.5371 3.7588 11.4288 3.6286 11.2898 3.53698C11.1508 3.44536 10.9873 3.39642 10.8201 3.39635H10.8197C10.5955 3.39646 10.3806 3.48424 10.222 3.64043C10.0635 3.79661 9.97434 4.00843 9.97414 4.22935ZM4.21142 13.5892C3.52442 13.5584 3.15101 13.4456 2.90286 13.3504C2.57387 13.2241 2.33914 13.0738 2.09235 12.8309C1.84555 12.588 1.69278 12.3569 1.56527 12.0327C1.46854 11.7882 1.3541 11.4201 1.32287 10.7431C1.28871 10.0111 1.28189 9.79119 1.28189 7.93669C1.28189 6.08219 1.28927 5.86291 1.32287 5.1303C1.35416 4.45324 1.46944 4.08585 1.56527 3.84069C1.69335 3.51647 1.84589 3.28513 2.09235 3.04191C2.3388 2.79869 2.57331 2.64813 2.90286 2.52247C3.1509 2.42713 3.52442 2.31435 4.21142 2.28358C4.95417 2.24991 5.17729 2.24319 7.0582 2.24319C8.9391 2.24319 9.16244 2.25047 9.90582 2.28358C10.5928 2.31441 10.9656 2.42802 11.2144 2.52247C11.5434 2.64813 11.7781 2.79902 12.0249 3.04191C12.2717 3.2848 12.4239 3.51647 12.552 3.84069C12.6487 4.08513 12.7631 4.45324 12.7944 5.1303C12.8285 5.86291 12.8354 6.08219 12.8354 7.93669C12.8354 9.79119 12.8285 10.0105 12.7944 10.7431C12.7631 11.4201 12.6481 11.7881 12.552 12.0327C12.4239 12.3569 12.2714 12.5882 12.0249 12.8309C11.7784 13.0736 11.5434 13.2241 11.2144 13.3504C10.9663 13.4457 10.5928 13.5585 9.90582 13.5892C9.16306 13.6229 8.93994 13.6296 7.0582 13.6296C5.17645 13.6296 4.95395 13.6229 4.21142 13.5892ZM4.15307 1.03424C3.40294 1.06791 2.89035 1.18513 2.4427 1.3568C1.9791 1.53408 1.58663 1.77191 1.19446 2.1578C0.802277 2.54369 0.56157 2.93108 0.381687 3.38797C0.207498 3.82941 0.0885535 4.3343 0.0543922 5.07358C0.0196672 5.81402 0.0117188 6.05074 0.0117188 7.93663C0.0117188 9.82252 0.0196672 10.0592 0.0543922 10.7997C0.0885535 11.539 0.207498 12.0439 0.381687 12.4853C0.56157 12.9419 0.802334 13.3297 1.19446 13.7155C1.58658 14.1012 1.9791 14.3387 2.4427 14.5165C2.89119 14.6881 3.40294 14.8054 4.15307 14.839C4.90479 14.8727 5.1446 14.8811 7.0582 14.8811C8.9718 14.8811 9.212 14.8732 9.96332 14.839C10.7135 14.8054 11.2258 14.6881 11.6737 14.5165C12.137 14.3387 12.5298 14.1014 12.9219 13.7155C13.3141 13.3296 13.5543 12.9419 13.7347 12.4853C13.9089 12.0439 14.0284 11.539 14.062 10.7997C14.0962 10.0587 14.1041 9.82252 14.1041 7.93663C14.1041 6.05074 14.0962 5.81402 14.062 5.07358C14.0278 4.33424 13.9089 3.82935 13.7347 3.38797C13.5548 2.93108 13.3141 2.54369 12.9219 2.1578C12.5298 1.77191 12.137 1.53408 11.6743 1.3568C11.2258 1.18513 10.7135 1.06791 9.96388 1.03424C9.21256 1.00057 8.97236 0.992188 7.05876 0.992188C5.14516 0.992188 4.90479 1.00057 4.15307 1.03424Z" fill="currentColor"/>
 //                 </svg>
@@ -175,23 +183,76 @@
 
 
 
+
+
+
+
+
+
+
+
+
 'use client'
 
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { motion, Variants } from 'framer-motion'
+
+// Stagger container animation
+const brandContainerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.055,
+      delayChildren: 0.1,
+    },
+  },
+}
+
+// Enterprise-grade masked rise & 3D tilt
+const brandLetterVariants: Variants = {
+  hidden: {
+    y: '120%',
+    opacity: 0,
+    rotateX: 40,
+    rotateZ: -2,
+    filter: 'blur(6px)',
+  },
+  visible: {
+    y: '0%',
+    opacity: 1,
+    rotateX: 0,
+    rotateZ: 0,
+    filter: 'blur(0px)',
+    transition: {
+      duration: 1.05,
+      ease: [0.19, 1, 0.22, 1], // Cinematic Quintic Ease-Out
+    },
+  },
+}
+
+const BRAND_LETTERS = [
+  { char: 'V', isAccent: true },
+  { char: 'a', isAccent: false },
+  { char: 'p', isAccent: false },
+  { char: 'h', isAccent: false },
+  { char: 'e', isAccent: false },
+  { char: 'r', isAccent: false },
+  { char: 's', isAccent: false },
+]
 
 const Footer: React.FC = () => {
   return (
-    <footer className="w-full bg-blue-600 text-white font-sans border-t border-blue-500">
+    <footer className="w-full bg-blue-600 text-white font-sans border-t border-blue-500 overflow-hidden">
       
       {/* --- Top Banner Section (Badges & CTA) --- */}
-      <div className="w-full pt-5 px-4 sm:px-6 lg:px-10">
+      <div className="w-full pt-10 pb-6 px-4 sm:px-6 lg:px-10">
         <div className="max-w-7xl mx-auto flex flex-col xl:flex-row items-center justify-between gap-12 xl:gap-16">
           
           {/* Partner Badges Row */}
           <div className="flex flex-wrap items-center justify-center xl:justify-start gap-8 sm:gap-12 flex-1 w-full">
-            <div className="relative h-16 w-32 sm:h-20 sm:w-40 transition-transform duration-300 hover:scale-105 ">
+            <div className="relative h-16 w-32 sm:h-20 sm:w-40 transition-transform duration-300 hover:scale-105">
               <Image 
                 src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1773064257/google-premier-partner-no-year-1_k2zdgi.png" 
                 alt="Google Premier Partner" 
@@ -242,7 +303,7 @@ const Footer: React.FC = () => {
             </h3>
             <a
               href="tel:+919641861932"
-              className="inline-block w-full sm:w-auto text-center bg-white border-[3px] border-white text-blue-600 font-bold text-lg sm:text-xl py-3 px-8 rounded transition-colors hover:bg-blue-50"
+              className="inline-block w-full sm:w-auto text-center bg-white border-[3px] border-white text-blue-600 font-bold text-lg sm:text-xl py-3.5 px-8 rounded-lg transition-all hover:bg-blue-50 hover:shadow-md"
             >
               +91 9641861932
             </a>
@@ -252,25 +313,25 @@ const Footer: React.FC = () => {
       </div>
       
       {/* Divider */}
-      <div className="hidden md:block max-w-7xl mx-auto border-t border-white/20 my-8"></div>
+      <div className="hidden md:block max-w-7xl mx-auto border-t border-white/20 my-6"></div>
       
       {/* --- Main Footer Links --- */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-x-8 gap-y-12 py-14 border-b border-white/20">
           
           {/* Logo & Contact Info */}
-          <div className="col-span-1 sm:col-span-2 lg:col-span-2">
-            <Link href="/" className="flex -m-1.5 p-1.5 mb-6">
-              <h3 className="text-xl md:text-6xl font-medium bungee-shade text-white lg:w-1/3 shrink-0">
-                V<span className="text-white md:text-5xl">aphers</span>
+          <div className="col-span-1 sm:col-span-2 lg:col-span-2 space-y-4">
+            <Link href="/" className="inline-block">
+              <h3 className="text-xl md:text-5xl font-medium bungee-shade text-white">
+                V<span className="text-white md:text-4xl">aphers</span>
               </h3>
             </Link>
-            <p className="py-2 text-sm text-blue-100 max-w-xs leading-relaxed">
+            <p className="text-sm text-blue-100 max-w-xs leading-relaxed">
               Trusted SEO partner for local businesses. We help you scale and rank #1 locally.
             </p>
             <a 
               href="mailto:crew@vaphers.com" 
-              className="inline-flex items-center gap-2 mt-2 text-sm text-blue-100 hover:text-white transition-colors font-medium"
+              className="inline-flex items-center gap-2 text-sm text-blue-100 hover:text-white transition-colors font-medium"
             >
               <svg className="w-4 h-4 text-white shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -281,20 +342,20 @@ const Footer: React.FC = () => {
 
           {/* Explore */}
           <div>
-            <h4 className="text-lg text-white font-semibold mb-6">Explore</h4>
-            <ul className="text-sm space-y-4">
+            <h4 className="text-base sm:text-lg text-white font-semibold mb-6">Explore</h4>
+            <ul className="text-sm space-y-3.5">
               <li><Link href="/blogs" className="text-blue-100 hover:text-white transition-colors font-medium">Blogs</Link></li>
-              <li><Link href="/common-questions" className="text-blue-100 hover:text-white transition-colors font-medium">Common Questions</Link></li>
+              <li><Link href="/write-for-us" className="text-blue-100 hover:text-white transition-colors font-medium">Write For Us</Link></li>
               <li><Link href="/about-us" className="text-blue-100 hover:text-white transition-colors font-medium">About Us</Link></li>
-              <li><Link href="/pricing" className="text-blue-100 hover:text-white transition-colors font-medium">Pricing</Link></li>
-              <li><Link href="/contact" className="text-blue-100 hover:text-white transition-colors font-medium">Contact Us</Link></li>
+              <li><Link href="/privacy-policy" className="text-blue-100 hover:text-white transition-colors font-medium">Privacy Policy</Link></li>
+              <li><Link href="/terms-and-conditions" className="text-blue-100 hover:text-white transition-colors font-medium">Terms &amp; Conditions</Link></li>
             </ul>
           </div>
 
           {/* Main Services */}
           <div>
-            <h4 className="text-lg text-white font-semibold mb-6">Services</h4>
-            <ul className="text-sm space-y-4">
+            <h4 className="text-base sm:text-lg text-white font-semibold mb-6">Services</h4>
+            <ul className="text-sm space-y-3.5">
               <li><Link href="/seo-services" className="text-blue-100 hover:text-white transition-colors font-medium">SEO Services</Link></li>
               <li><Link href="/website-development-services" className="text-blue-100 hover:text-white transition-colors font-medium">Web Development</Link></li>
               <li><Link href="/ppc-marketing" className="text-blue-100 hover:text-white transition-colors font-medium">PPC Marketing</Link></li>
@@ -304,8 +365,8 @@ const Footer: React.FC = () => {
 
           {/* Specialized SEO */}
           <div>
-            <h4 className="text-lg text-white font-semibold mb-6">Specialized SEO</h4>
-            <ul className="text-sm space-y-4">
+            <h4 className="text-base sm:text-lg text-white font-semibold mb-6">Specialized SEO</h4>
+            <ul className="text-sm space-y-3.5">
               <li><Link href="/seo-services/ai-seo-services" className="text-blue-100 hover:text-white transition-colors font-medium">AI SEO Services</Link></li>
               <li><Link href="/seo-services/ecommerce-seo-services" className="text-blue-100 hover:text-white transition-colors font-medium">Ecommerce SEO</Link></li>
               <li><Link href="/seo-services/technical-seo-services" className="text-blue-100 hover:text-white transition-colors font-medium">Technical SEO</Link></li>
@@ -315,8 +376,8 @@ const Footer: React.FC = () => {
 
           {/* Development & Ads */}
           <div>
-            <h4 className="text-lg text-white font-semibold mb-6">Web & Ads</h4>
-            <ul className="text-sm space-y-4">
+            <h4 className="text-base sm:text-lg text-white font-semibold mb-6">Web & Ads</h4>
+            <ul className="text-sm space-y-3.5">
               <li><Link href="/website-development-services/nextjs-website-development" className="text-blue-100 hover:text-white transition-colors font-medium">Next.js Development</Link></li>
               <li><Link href="/website-development-services/ecommerce-development" className="text-blue-100 hover:text-white transition-colors font-medium">Ecommerce Dev</Link></li>
               <li><Link href="/ppc-marketing/google-ads-management-services" className="text-blue-100 hover:text-white transition-colors font-medium">Google Ads</Link></li>
@@ -327,18 +388,18 @@ const Footer: React.FC = () => {
         </div>
 
         {/* --- Social Icons & Copyright --- */}
-        <div className="py-7">
-          <div className="flex flex-col items-center justify-center lg:justify-between lg:flex-row gap-4">
-            <span className="text-sm text-blue-200 text-center lg:text-left">
+        <div className="py-8">
+          <div className="flex flex-col items-center justify-center lg:justify-between lg:flex-row gap-6">
+            <span className="text-sm text-blue-100 text-center lg:text-left font-medium">
               © <Link href="/" className="hover:text-white font-bold text-white transition-colors">Vaphers</Link> 2026, All rights reserved.
             </span>
             <div className="flex space-x-4">
-              <a href="https://twitter.com" aria-label="Twitter" className="w-9 h-9 rounded-full bg-blue-500/50 flex justify-center items-center hover:bg-white hover:text-blue-600 text-white transition-all duration-300">
+              <a href="https://twitter.com" aria-label="Twitter" className="w-10 h-10 rounded-full bg-blue-500/60 flex justify-center items-center hover:bg-white hover:text-blue-600 text-white transition-all duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
                   <path d="M11.3214 8.93666L16.4919 3.05566H15.2667L10.7772 8.16205L7.1914 3.05566H3.05566L8.47803 10.7774L3.05566 16.9446H4.28097L9.022 11.552L12.8088 16.9446H16.9446L11.3211 8.93666H11.3214ZM9.64322 10.8455L9.09382 10.0765L4.72246 3.95821H6.60445L10.1322 8.8959L10.6816 9.66481L15.2672 16.083H13.3852L9.64322 10.8458V10.8455Z" />
                 </svg>
               </a>
-              <a href="https://instagram.com" aria-label="Instagram" className="w-9 h-9 rounded-full bg-blue-500/50 flex justify-center items-center hover:bg-white hover:text-blue-600 text-white transition-all duration-300">
+              <a href="https://instagram.com" aria-label="Instagram" className="w-10 h-10 rounded-full bg-blue-500/60 flex justify-center items-center hover:bg-white hover:text-blue-600 text-white transition-all duration-300">
                 <svg className="w-4 h-4" viewBox="0 0 15 15" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path d="M4.70975 7.93663C4.70975 6.65824 5.76102 5.62163 7.0582 5.62163C8.35537 5.62163 9.40721 6.65824 9.40721 7.93663C9.40721 9.21502 8.35537 10.2516 7.0582 10.2516C5.76102 10.2516 4.70975 9.21502 4.70975 7.93663ZM3.43991 7.93663C3.43991 9.90608 5.05982 11.5025 7.0582 11.5025C9.05658 11.5025 10.6765 9.90608 10.6765 7.93663C10.6765 5.96719 9.05658 4.37074 7.0582 4.37074C5.05982 4.37074 3.43991 5.96719 3.43991 7.93663ZM9.97414 4.22935C9.97408 4.39417 10.0236 4.55531 10.1165 4.69239C10.2093 4.82946 10.3413 4.93633 10.4958 4.99946C10.6503 5.06259 10.8203 5.07916 10.9844 5.04707C11.1484 5.01498 11.2991 4.93568 11.4174 4.81918C11.5357 4.70268 11.6163 4.55423 11.649 4.39259C11.6817 4.23095 11.665 4.06339 11.6011 3.91109C11.5371 3.7588 11.4288 3.6286 11.2898 3.53698C11.1508 3.44536 10.9873 3.39642 10.8201 3.39635H10.8197C10.5955 3.39646 10.3806 3.48424 10.222 3.64043C10.0635 3.79661 9.97434 4.00843 9.97414 4.22935ZM4.21142 13.5892C3.52442 13.5584 3.15101 13.4456 2.90286 13.3504C2.57387 13.2241 2.33914 13.0738 2.09235 12.8309C1.84555 12.588 1.69278 12.3569 1.56527 12.0327C1.46854 11.7882 1.3541 11.4201 1.32287 10.7431C1.28871 10.0111 1.28189 9.79119 1.28189 7.93669C1.28189 6.08219 1.28927 5.86291 1.32287 5.1303C1.35416 4.45324 1.46944 4.08585 1.56527 3.84069C1.69335 3.51647 1.84589 3.28513 2.09235 3.04191C2.3388 2.79869 2.57331 2.64813 2.90286 2.52247C3.1509 2.42713 3.52442 2.31435 4.21142 2.28358C4.95417 2.24991 5.17729 2.24319 7.0582 2.24319C8.9391 2.24319 9.16244 2.25047 9.90582 2.28358C10.5928 2.31441 10.9656 2.42802 11.2144 2.52247C11.5434 2.64813 11.7781 2.79902 12.0249 3.04191C12.2717 3.2848 12.4239 3.51647 12.552 3.84069C12.6487 4.08513 12.7631 4.45324 12.7944 5.1303C12.8285 5.86291 12.8354 6.08219 12.8354 7.93669C12.8354 9.79119 12.8285 10.0105 12.7944 10.7431C12.7631 11.4201 12.6481 11.7881 12.552 12.0327C12.4239 12.3569 12.2714 12.5882 12.0249 12.8309C11.7784 13.0736 11.5434 13.2241 11.2144 13.3504C10.9663 13.4457 10.5928 13.5585 9.90582 13.5892C9.16306 13.6229 8.93994 13.6296 7.0582 13.6296C5.17645 13.6296 4.95395 13.6229 4.21142 13.5892ZM4.15307 1.03424C3.40294 1.06791 2.89035 1.18513 2.4427 1.3568C1.9791 1.53408 1.58663 1.77191 1.19446 2.1578C0.802277 2.54369 0.56157 2.93108 0.381687 3.38797C0.207498 3.82941 0.0885535 4.3343 0.0543922 5.07358C0.0196672 5.81402 0.0117188 6.05074 0.0117188 7.93663C0.0117188 9.82252 0.0196672 10.0592 0.0543922 10.7997C0.0885535 11.539 0.207498 12.0439 0.381687 12.4853C0.56157 12.9419 0.802334 13.3297 1.19446 13.7155C1.58658 14.1012 1.9791 14.3387 2.4427 14.5165C2.89119 14.6881 3.40294 14.8054 4.15307 14.839C4.90479 14.8727 5.1446 14.8811 7.0582 14.8811C8.9718 14.8811 9.212 14.8732 9.96332 14.839C10.7135 14.8054 11.2258 14.6881 11.6737 14.5165C12.137 14.3387 12.5298 14.1014 12.9219 13.7155C13.3141 13.3296 13.5543 12.9419 13.7347 12.4853C13.9089 12.0439 14.0284 11.539 14.062 10.7997C14.0962 10.0587 14.1041 9.82252 14.1041 7.93663C14.1041 6.05074 14.0962 5.81402 14.062 5.07358C14.0278 4.33424 13.9089 3.82935 13.7347 3.38797C13.5548 2.93108 13.3141 2.54369 12.9219 2.1578C12.5298 1.77191 12.137 1.53408 11.6743 1.3568C11.2258 1.18513 10.7135 1.06791 9.96388 1.03424C9.21256 1.00057 8.97236 0.992188 7.05876 0.992188C5.14516 0.992188 4.90479 1.00057 4.15307 1.03424Z" fill="currentColor"/>
                 </svg>
@@ -347,6 +408,43 @@ const Footer: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* --- DESKTOP ONLY: Enterprise Masked 3D Brand Reveal --- */}
+      <div className="hidden lg:block w-full bg-gradient-to-b from-blue-600 via-blue-50/90 to-white pt-40 pb-8 px-6 sm:px-10 lg:px-14 overflow-hidden select-none">
+        <motion.div
+          variants={brandContainerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
+          className="w-full flex justify-center items-center [perspective:1200px]"
+        >
+          <div className="flex items-center justify-center space-x-[0.01em] tracking-tight">
+            {BRAND_LETTERS.map((item, index) => (
+              <div 
+                key={index} 
+                className="overflow-hidden inline-flex py-3 px-0.5 transform-gpu"
+              >
+                <motion.span
+                  variants={brandLetterVariants}
+                  whileHover={{ 
+                    y: -10, 
+                    scale: 1.04,
+                    transition: { type: 'spring', stiffness: 350, damping: 12 } 
+                  }}
+                  className={`bungee-shade text-[15.5vw] xl:text-[16vw] leading-[0.8] inline-block cursor-default transform-gpu will-change-transform ${
+                    item.isAccent 
+                      ? 'text-blue-600 drop-shadow-sm' 
+                      : 'text-slate-900 drop-shadow-sm'
+                  }`}
+                >
+                  {item.char}
+                </motion.span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
     </footer>
   )
 }

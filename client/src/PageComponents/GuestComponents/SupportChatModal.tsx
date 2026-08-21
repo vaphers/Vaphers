@@ -11,6 +11,7 @@ import {
   CheckCircle,
   HelpCircle,
   TrendingUp,
+  FileText,
   DollarSign,
 } from 'lucide-react';
 
@@ -34,16 +35,12 @@ type Props = {
     displayName?: string | null;
     email?: string | null;
   };
+  postId?: string;
+  postTitle?: string;
+  postSlug?: string;
   initialTopic?: string;
   initialMessageText?: string;
 };
-
-const TOPICS = [
-  'Extra Post Quota Request ($35)',
-  'Article Review & Publishing Inquiry',
-  'Technical Issue or Bug Report',
-  'General Editorial Question',
-];
 
 export default function SupportChatModal({
   isOpen,
@@ -52,17 +49,23 @@ export default function SupportChatModal({
   userName,
   userEmail,
   user,
-  initialTopic = 'Extra Post Quota Request ($35)',
+  postId,
+  postTitle,
+  postSlug,
+  initialTopic,
   initialMessageText = '',
 }: Props) {
   const effectiveUserId = userId || user?.uid || '';
   const effectiveUserName = userName || user?.displayName || 'Writer';
   const effectiveUserEmail = userEmail || user?.email || '';
 
+  const defaultTopic = postId && postTitle
+    ? `Editorial Support: "${postTitle.slice(0, 35)}..."`
+    : 'Editorial & Contributor Support';
+
   const [threadId, setThreadId] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState(initialMessageText);
-  const [selectedTopic, setSelectedTopic] = useState(initialTopic);
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -71,7 +74,12 @@ export default function SupportChatModal({
     if (!effectiveUserId) return;
     setLoading(true);
     try {
-      const res = await fetch(`/api/support/threads?userId=${effectiveUserId}`);
+      // Query threads for this user, filtering by postId if provided
+      const queryUrl = postId
+        ? `/api/support/threads?userId=${effectiveUserId}&postId=${postId}`
+        : `/api/support/threads?userId=${effectiveUserId}`;
+
+      const res = await fetch(queryUrl);
       const data = await res.json();
       const existingThreads = data.threads || [];
 
@@ -80,6 +88,7 @@ export default function SupportChatModal({
         setThreadId(active.id);
         fetchMessages(active.id);
       } else {
+        // Create initial thread with post metadata
         const createRes = await fetch('/api/support/threads', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -87,10 +96,13 @@ export default function SupportChatModal({
             userId: effectiveUserId,
             userName: effectiveUserName,
             userEmail: effectiveUserEmail,
-            topic: selectedTopic,
+            topic: initialTopic || defaultTopic,
+            postId,
+            postTitle,
+            postSlug,
             initialMessage:
-              selectedTopic === 'Extra Post Quota Request ($35)'
-                ? `Hi Editorial Team, I would like to request an extra blog publication slot ($35). Please provide payment and approval details.`
+              postId && postTitle
+                ? `Hi Editorial Team, I have a question regarding my article: "${postTitle}".`
                 : `Hello Editorial Team, I have a question regarding my contributor account.`,
           }),
         });
@@ -121,7 +133,7 @@ export default function SupportChatModal({
     if (isOpen && effectiveUserId) {
       initThread();
     }
-  }, [isOpen, effectiveUserId]);
+  }, [isOpen, effectiveUserId, postId]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -170,11 +182,11 @@ export default function SupportChatModal({
             </div>
             <div>
               <h3 className="text-sm font-semibold text-white flex items-center gap-1.5">
-                <span>Editorial Support Desk</span>
+                <span>Editorial Support &amp; Resolution Desk</span>
                 <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
               </h3>
               <p className="text-[11px] text-blue-100 font-light">
-                Direct desk for quota upgrades &amp; publishing assistance
+                Direct desk for post revisions &amp; contributor assistance
               </p>
             </div>
           </div>
@@ -186,18 +198,20 @@ export default function SupportChatModal({
           </button>
         </div>
 
-        {/* Quota Banner */}
-        <div className="p-3 bg-blue-50/80 border-b border-blue-200 text-xs text-blue-900 flex items-center justify-between shrink-0">
-          <div className="flex items-center gap-2">
-            <DollarSign size={15} className="text-[#2383e2] shrink-0" />
-            <span>
-              <strong>Extra Blog Quota:</strong> $35 per slot (Instant quota boost).
+        {/* Linked Post Context Badge */}
+        {postTitle && (
+          <div className="p-3 bg-blue-50/90 border-b border-blue-200 text-xs text-blue-900 flex items-center justify-between shrink-0">
+            <div className="flex items-center gap-2 truncate">
+              <FileText size={14} className="text-[#2383e2] shrink-0" />
+              <span className="truncate">
+                <strong>Linked Post:</strong> {postTitle}
+              </span>
+            </div>
+            <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-blue-100 font-semibold text-blue-800 shrink-0 ml-2">
+              Article Thread
             </span>
           </div>
-          <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-blue-100 font-semibold text-blue-800">
-            Fast Response
-          </span>
-        </div>
+        )}
 
         {/* Message Area */}
         <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50/50">
@@ -211,7 +225,7 @@ export default function SupportChatModal({
               <MessageSquare size={32} className="text-slate-300" />
               <p className="text-xs text-slate-600 font-medium">No messages in this ticket yet</p>
               <p className="text-[11px] text-slate-400 max-w-xs">
-                Type your inquiry or quota upgrade request below. An editor will reply directly.
+                Type your inquiry or editorial revision question below. An editor will reply directly.
               </p>
             </div>
           ) : (

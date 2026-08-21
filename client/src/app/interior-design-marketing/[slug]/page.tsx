@@ -10,7 +10,7 @@ import BlogLeadForm from '@/PageComponents/Blogs Components/BlogLeadForm';
 import SummarizeButtons from '@/PageComponents/Blogs Components/SummarizeButtons';
 import GooglePreferredSourceBadge from '@/PageComponents/Global Components/GooglePreferredSourceBadge';
 import { Calendar, User, Clock, ChevronRight, Compass } from 'lucide-react';
-import { getInteriorBlogsCollection } from '@/lib/mongodb';
+import { getInteriorBlogBySlug, getAllInteriorBlogs } from '@/lib/interiorBlogs';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,48 +20,23 @@ type Props = {
 
 // --- DATA FETCHING FUNCTIONS ---
 async function fetchInteriorBlog(slug: string) {
-  try {
-    const collection = await getInteriorBlogsCollection();
-    const doc = await collection.findOne({ slug });
-    if (!doc) return null;
-
-    return {
-      id: doc._id.toString(),
-      slug: doc.slug,
-      title: doc.title,
-      contentHtml: doc.contentHtml,
-      metaTitle: doc.metaTitle || doc.title,
-      metaDescription: doc.metaDescription || '',
-      featuredImage: doc.featuredImage || null,
-      authorId: doc.authorId || 'admin',
-      authorName: doc.authorName || 'Vaphers Team',
-      categories: doc.categories || [],
-      createdAt: doc.createdAt ? new Date(doc.createdAt).toISOString() : new Date().toISOString(),
-      updatedAt: doc.updatedAt ? new Date(doc.updatedAt).toISOString() : new Date().toISOString(),
-    };
-  } catch (error) {
-    console.error('Error fetching interior design blog:', error);
-    return null;
-  }
+  return await getInteriorBlogBySlug(slug);
 }
 
 async function fetchLatestInteriorBlogs(excludeSlug: string) {
   try {
-    const collection = await getInteriorBlogsCollection();
-    const docs = await collection
-      .find({ slug: { $ne: excludeSlug } })
-      .sort({ createdAt: -1 })
-      .limit(6)
-      .toArray();
-
-    return docs.map((doc) => ({
-      id: doc._id.toString(),
-      slug: doc.slug,
-      title: doc.title,
-      featuredImage: doc.featuredImage || null,
-      categories: doc.categories || [],
-      createdAt: doc.createdAt ? new Date(doc.createdAt).toISOString() : new Date().toISOString(),
-    }));
+    const all = await getAllInteriorBlogs({ limit: 7 });
+    return all
+      .filter((b) => b.slug !== excludeSlug)
+      .slice(0, 6)
+      .map((b) => ({
+        id: b.id,
+        slug: b.slug,
+        title: b.title,
+        featuredImage: b.featuredImage || null,
+        categories: b.categories || [],
+        createdAt: b.createdAt,
+      }));
   } catch (error) {
     console.error('Error fetching latest interior blogs:', error);
     return [];

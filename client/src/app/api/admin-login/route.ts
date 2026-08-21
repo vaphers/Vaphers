@@ -9,8 +9,21 @@ export async function POST(req: Request) {
     const adminEmail = process.env.ADMIN_EMAIL;
     const adminPassword = process.env.ADMIN_PASSWORD;
 
-    if (email === adminEmail && password === adminPassword) {
-      const token = await new SignJWT({ email })
+    if (!adminEmail || !adminPassword) {
+      console.error('ADMIN_EMAIL or ADMIN_PASSWORD environment variable is not set on the server.');
+      return NextResponse.json(
+        { error: 'Server configuration error: ADMIN_EMAIL or ADMIN_PASSWORD is not set in environment variables.' },
+        { status: 500 }
+      );
+    }
+
+    const cleanInputEmail = (email || '').trim().toLowerCase();
+    const cleanAdminEmail = (adminEmail || '').trim().toLowerCase();
+    const cleanInputPassword = (password || '').trim();
+    const cleanAdminPassword = (adminPassword || '').trim();
+
+    if (cleanInputEmail === cleanAdminEmail && cleanInputPassword === cleanAdminPassword) {
+      const token = await new SignJWT({ email: cleanAdminEmail })
         .setProtectedHeader({ alg: "HS256" })
         .setIssuedAt()
         .setExpirationTime("4h") 
@@ -29,8 +42,9 @@ export async function POST(req: Request) {
       return response;
     }
 
-    return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
-  } catch (error) {
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json({ error: "Invalid email or password" }, { status: 401 });
+  } catch (error: any) {
+    console.error('Error in admin-login:', error);
+    return NextResponse.json({ error: error.message || "Internal Server Error" }, { status: 500 });
   }
 }

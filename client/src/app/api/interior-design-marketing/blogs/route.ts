@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getInteriorBlogsCollection } from '@/lib/mongodb';
+import { getAllInteriorBlogs, createInteriorBlog } from '@/lib/interiorBlogs';
+
+export const dynamic = 'force-dynamic';
 
 // GET: Fetch interior design marketing blogs
 export async function GET(req: NextRequest) {
@@ -9,46 +11,13 @@ export async function GET(req: NextRequest) {
     const categoryParam = searchParams.get('category');
     const searchParam = searchParams.get('search');
 
-    const collection = await getInteriorBlogsCollection();
+    const limit = limitParam ? parseInt(limitParam, 10) : undefined;
 
-    const filter: Record<string, any> = {};
-
-    if (categoryParam && categoryParam !== 'all') {
-      filter.categories = categoryParam;
-    }
-
-    if (searchParam) {
-      filter.$or = [
-        { title: { $regex: searchParam, $options: 'i' } },
-        { metaDescription: { $regex: searchParam, $options: 'i' } },
-      ];
-    }
-
-    let query = collection.find(filter).sort({ createdAt: -1 });
-
-    if (limitParam) {
-      const limit = parseInt(limitParam, 10);
-      if (!isNaN(limit) && limit > 0) {
-        query = query.limit(limit);
-      }
-    }
-
-    const rawBlogs = await query.toArray();
-
-    const blogs = rawBlogs.map((doc) => ({
-      id: doc._id.toString(),
-      slug: doc.slug,
-      title: doc.title,
-      contentHtml: doc.contentHtml,
-      metaTitle: doc.metaTitle || doc.title,
-      metaDescription: doc.metaDescription || '',
-      featuredImage: doc.featuredImage || null,
-      authorId: doc.authorId || 'admin',
-      authorName: doc.authorName || 'Vaphers Team',
-      categories: doc.categories || [],
-      createdAt: doc.createdAt ? new Date(doc.createdAt).toISOString() : new Date().toISOString(),
-      updatedAt: doc.updatedAt ? new Date(doc.updatedAt).toISOString() : new Date().toISOString(),
-    }));
+    const blogs = await getAllInteriorBlogs({
+      category: categoryParam,
+      search: searchParam,
+      limit: !isNaN(Number(limit)) ? Number(limit) : undefined,
+    });
 
     return NextResponse.json({ blogs }, { status: 200 });
   } catch (err) {
@@ -88,57 +57,27 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const cleanSlug = String(slug)
-      .trim()
-      .toLowerCase()
-      .replace(/[^a-z0-9-]+/g, '-')
-      .replace(/^-+|-+$/g, '');
-
-    if (!cleanSlug) {
-      return NextResponse.json(
-        { error: 'A valid slug is required' },
-        { status: 400 }
-      );
-    }
-
-    const collection = await getInteriorBlogsCollection();
-
-    // Check slug uniqueness
-    const existing = await collection.findOne({ slug: cleanSlug });
-    if (existing) {
-      return NextResponse.json(
-        { error: 'A blog with this slug already exists. Please choose a different slug.' },
-        { status: 409 }
-      );
-    }
-
-    const now = new Date();
-    const newDoc = {
-      title: title.trim(),
-      slug: cleanSlug,
+    const result = await createInteriorBlog({
+      title,
+      slug,
       contentHtml: postContent,
-      metaTitle: metaTitle?.trim() || title.trim(),
-      metaDescription: metaDescription?.trim() || '',
-      featuredImage: featuredImage || null,
+      metaTitle,
+      metaDescription,
+      featuredImage,
       authorId: authorId || author || 'admin',
       authorName: authorName || 'Vaphers Team',
-      categories: Array.isArray(categories) ? categories : [],
-      createdAt: now,
-      updatedAt: now,
-    };
-
-    const result = await collection.insertOne(newDoc);
+      categories: Array.isArray(categories) ? categories : ['Interior Design Marketing'],
+    });
 
     return NextResponse.json(
-      { success: true, id: result.insertedId.toString(), slug: cleanSlug },
+      { success: true, id: result.id, slug: result.slug },
       { status: 201 }
     );
-  } catch (err) {
+  } catch (err: any) {
     console.error('Error creating interior design blog:', err);
-    const errorMessage = err instanceof Error ? err.message : String(err);
     return NextResponse.json(
-      { error: errorMessage },
-      { status: 500 }
+      { error: err.message || 'Failed to create interior design blog' },
+      { status: err.message?.includes('already exists') ? 409 : 500 }
     );
   }
 }

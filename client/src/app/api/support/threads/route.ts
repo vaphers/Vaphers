@@ -5,11 +5,16 @@ export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get('userId');
+    const postId = searchParams.get('postId');
 
     let query: any = db.collection('supportThreads');
 
     if (userId) {
       query = query.where('userId', '==', userId);
+    }
+
+    if (postId) {
+      query = query.where('postId', '==', postId);
     }
 
     const snapshot = await query.get();
@@ -34,7 +39,17 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { userId, userName, userEmail, topic, initialMessage } = body;
+    const {
+      userId,
+      userName,
+      userEmail,
+      topic,
+      initialMessage,
+      postId,
+      postTitle,
+      postSlug,
+      initiatedBy = 'user',
+    } = body;
 
     if (!userId || !initialMessage) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
@@ -42,9 +57,8 @@ export async function POST(req: NextRequest) {
 
     const now = new Date().toISOString();
 
-    // Check if user already has an active thread with this topic or open thread
     const threadRef = db.collection('supportThreads').doc();
-    const threadData = {
+    const threadData: any = {
       id: threadRef.id,
       userId,
       userName: userName || 'Writer',
@@ -52,11 +66,16 @@ export async function POST(req: NextRequest) {
       topic: topic || 'General Inquiry',
       lastMessage: initialMessage,
       lastMessageAt: now,
-      unreadByAdmin: true,
-      unreadByUser: false,
+      unreadByAdmin: initiatedBy === 'user',
+      unreadByUser: initiatedBy === 'admin',
+      initiatedBy,
       createdAt: now,
       updatedAt: now,
     };
+
+    if (postId) threadData.postId = postId;
+    if (postTitle) threadData.postTitle = postTitle;
+    if (postSlug) threadData.postSlug = postSlug;
 
     await threadRef.set(threadData);
 
@@ -64,9 +83,9 @@ export async function POST(req: NextRequest) {
     const msgRef = threadRef.collection('messages').doc();
     await msgRef.set({
       id: msgRef.id,
-      senderId: userId,
-      senderRole: 'user',
-      senderName: userName || 'Writer',
+      senderId: initiatedBy === 'admin' ? 'admin_desk' : userId,
+      senderRole: initiatedBy === 'admin' ? 'admin' : 'user',
+      senderName: initiatedBy === 'admin' ? 'Vaphers Editorial Desk' : (userName || 'Writer'),
       text: initialMessage,
       createdAt: now,
     });
