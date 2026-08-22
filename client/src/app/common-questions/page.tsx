@@ -5,6 +5,8 @@ import NavBar from '@/PageComponents/Global Components/Header';
 import Footer from '@/PageComponents/Global Components/Footer';
 import Script from 'next/script'; 
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
   title: 'Common Questions & Answers | Vaphers', 
   description: 'Find answers to common questions about digital marketing, SEO, PPC advertising, and custom web development.',

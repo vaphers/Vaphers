@@ -1,8 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import GuestEditor from '@/PageComponents/GuestComponents/GuestEditor';
 
 export default function NewGuestPostPage() {
-  return <GuestEditor />;
+  return (
+    <Suspense fallback={<div>Loading editor...</div>}>
+      <GuestEditor />
+    </Suspense>
+  );
 }
