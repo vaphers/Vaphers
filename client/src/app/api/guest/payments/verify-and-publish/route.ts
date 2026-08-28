@@ -3,6 +3,8 @@ import { db } from '@/lib/firebaseAdmin';
 import { verifyRazorpaySignature } from '@/lib/razorpay';
 import { extractExternalTargetDomains } from '@/lib/antiAbuse';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -82,6 +84,18 @@ export async function POST(req: NextRequest) {
       authorWebsite
     );
 
+    // Fetch dynamic pricing
+    let currentPrice = 25;
+    let currentCurrency = 'USD';
+    try {
+      const pricingDoc = await db.collection('systemSettings').doc('guestPostPricing').get();
+      if (pricingDoc.exists) {
+        const pData = pricingDoc.data() || {};
+        if (typeof pData.price === 'number') currentPrice = pData.price;
+        if (pData.currency) currentCurrency = pData.currency;
+      }
+    } catch {}
+
     // 5. Instant Publishing into main blogs collection
     const blogDoc = {
       title: subData.title || 'Untitled Post',
@@ -104,8 +118,8 @@ export async function POST(req: NextRequest) {
       scheduledAt: null,
       isGuestPost: true,
       guestSubmissionId: submissionId,
-      paidAmount: 25,
-      currency: 'USD',
+      paidAmount: currentPrice,
+      currency: currentCurrency,
       razorpayPaymentId,
       createdAt: now,
       updatedAt: now,
@@ -121,12 +135,12 @@ export async function POST(req: NextRequest) {
       authorId: effectiveAuthorId,
       authorName,
       authorEmail,
-      amount: 25,
-      currency: 'USD',
+      amount: currentPrice,
+      currency: currentCurrency,
       razorpayOrderId,
       razorpayPaymentId,
       status: 'completed',
-      purpose: 'Guest Post Instant Publication ($25)',
+      purpose: `Guest Post Instant Publication ($${currentPrice})`,
       createdAt: now,
     });
 
@@ -136,8 +150,8 @@ export async function POST(req: NextRequest) {
       publishedBlogId: newBlogRef.id,
       publishedSlug: finalSlug,
       paid: true,
-      paidAmount: 25,
-      currency: 'USD',
+      paidAmount: currentPrice,
+      currency: currentCurrency,
       razorpayOrderId,
       razorpayPaymentId,
       publishedAt: now,

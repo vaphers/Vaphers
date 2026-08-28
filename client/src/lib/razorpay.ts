@@ -6,17 +6,19 @@ export const getRazorpayInstance = () => {
   const key_secret = process.env.RAZORPAY_KEY_SECRET;
 
   if (!key_id || !key_secret) {
-    throw new Error('Razorpay credentials (RAZORPAY_KEY_ID / RAZORPAY_KEY_SECRET) are missing in environment variables.');
+    throw new Error(
+      'Server configuration error: RAZORPAY_KEY_ID or RAZORPAY_KEY_SECRET is not configured in Vercel environment variables.'
+    );
   }
 
   return new Razorpay({
-    key_id,
-    key_secret,
+    key_id: key_id.trim(),
+    key_secret: key_secret.trim(),
   });
 };
 
 /**
- * Creates a Razorpay Order for a guest post publication ($25.00 USD)
+ * Creates a Razorpay Order for a guest post publication
  */
 export async function createGuestPostOrder({
   submissionId,
@@ -37,19 +39,46 @@ export async function createGuestPostOrder({
 
   const options = {
     amount: amountInCents,
-    currency,
+    currency: currency.toUpperCase(),
     receipt: `rcpt_${submissionId.slice(-8)}_${Date.now().toString().slice(-4)}`,
     notes: {
       submissionId,
       authorId,
       authorEmail: authorEmail || '',
       authorName: authorName || '',
-      purpose: 'Vaphers Guest Post Instant Publication Fee ($25)',
+      purpose: `Vaphers Guest Post Instant Publication Fee ($${amountInCents / 100})`,
     },
   };
 
-  const order = await instance.orders.create(options);
-  return order;
+  try {
+    const order = await instance.orders.create(options);
+    return order;
+  } catch (err: any) {
+    const errorDescription =
+      err.error?.description ||
+      err.description ||
+      err.error?.message ||
+      err.message ||
+      (typeof err === 'object' ? JSON.stringify(err) : String(err));
+
+    console.error('Razorpay Order Creation Failed:', {
+      errorDescription,
+      rawError: err,
+      options,
+    });
+
+    if (
+      typeof errorDescription === 'string' &&
+      (errorDescription.toLowerCase().includes('currency') ||
+        errorDescription.toLowerCase().includes('international'))
+    ) {
+      throw new Error(
+        `Razorpay Error: ${errorDescription}. International Payments (USD) may still be under review in your Razorpay Dashboard.`
+      );
+    }
+
+    throw new Error(`Razorpay Error: ${errorDescription}`);
+  }
 }
 
 /**
@@ -68,7 +97,7 @@ export function verifyRazorpaySignature({
   if (!secret) return false;
 
   const generatedSignature = crypto
-    .createHmac('sha256', secret)
+    .createHmac('sha256', secret.trim())
     .update(`${orderId}|${paymentId}`)
     .digest('hex');
 

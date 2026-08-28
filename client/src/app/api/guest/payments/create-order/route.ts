@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/firebaseAdmin';
 import { createGuestPostOrder } from '@/lib/razorpay';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -9,8 +11,22 @@ export async function POST(req: NextRequest) {
 
     if (!submissionId || !authorId) {
       return NextResponse.json(
-        { error: 'Missing required parameters (submissionId or authorId)' },
+        { error: 'Missing required parameters (submissionId or authorId).' },
         { status: 400 }
+      );
+    }
+
+    const keyId = process.env.RAZORPAY_KEY_ID;
+    const keySecret = process.env.RAZORPAY_KEY_SECRET;
+
+    if (!keyId || !keySecret) {
+      console.error('RAZORPAY_KEY_ID or RAZORPAY_KEY_SECRET is missing in environment variables on Vercel.');
+      return NextResponse.json(
+        {
+          error:
+            'Server configuration error: RAZORPAY_KEY_ID or RAZORPAY_KEY_SECRET is not configured in Vercel Environment Variables.',
+        },
+        { status: 500 }
       );
     }
 
@@ -19,20 +35,12 @@ export async function POST(req: NextRequest) {
     const submissionDoc = await submissionRef.get();
 
     if (!submissionDoc.exists) {
-      return NextResponse.json({ error: 'Article draft not found' }, { status: 404 });
+      return NextResponse.json({ error: 'Article draft not found in database.' }, { status: 404 });
     }
 
     const subData = submissionDoc.data() || {};
     if (subData.authorId && subData.authorId !== authorId) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
-    }
-
-    const keyId = process.env.RAZORPAY_KEY_ID;
-    if (!keyId) {
-      return NextResponse.json(
-        { error: 'Razorpay configuration is missing on server.' },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: 'Unauthorized: Draft does not belong to this author.' }, { status: 403 });
     }
 
     // Fetch dynamic pricing from systemSettings (fallback: $25 USD)
@@ -51,7 +59,7 @@ export async function POST(req: NextRequest) {
         }
       }
     } catch (priceErr) {
-      console.warn('Failed to read dynamic pricing, defaulting to 25 USD:', priceErr);
+      console.warn('Failed to read dynamic pricing from Firestore, defaulting to 25 USD:', priceErr);
     }
 
     const amountInCents = Math.round(currentPrice * 100);
@@ -71,13 +79,13 @@ export async function POST(req: NextRequest) {
       amount: order.amount,
       currency: order.currency,
       price: currentPrice,
-      keyId,
+      keyId: keyId.trim(),
       submissionTitle: subData.title || 'Untitled Post',
     });
   } catch (error: any) {
-    console.error('Error creating Razorpay order:', error);
+    console.error('Error in create-order endpoint:', error);
     return NextResponse.json(
-      { error: error.message || 'Failed to initialize payment order' },
+      { error: error.message || 'Failed to initialize payment order.' },
       { status: 500 }
     );
   }
