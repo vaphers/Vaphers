@@ -116,7 +116,7 @@ export default function MarketingGuestPostGuidelines() {
   const highlights = [
     "100% ORIGINAL CONTENT",
     "MARKETING NICHE ONLY",
-    `INSTANT PUBLISHING ($${price})`,
+    `INSTANT PUBLISHING ($${price % 1 === 0 ? price : price.toFixed(2)})`,
     "STRICT ZERO-SPAM POLICY"
   ];
 

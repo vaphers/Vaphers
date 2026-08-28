@@ -330,7 +330,7 @@ export default function WriterDashboardPage() {
             <span className="text-xs font-semibold text-[#1a6cb8] uppercase tracking-wider block">
               Instant Publication Fee
             </span>
-            <div className="text-3xl font-bold text-[#2383e2]">${price} / Post</div>
+            <div className="text-3xl font-bold text-[#2383e2]">${price % 1 === 0 ? price : price.toFixed(2)} / Post</div>
             <span className="text-[11px] text-slate-600 block">Secure checkout via Razorpay</span>
           </div>
         </div>
@@ -508,7 +508,7 @@ export default function WriterDashboardPage() {
                       ) : (
                         <DollarSign size={13} />
                       )}
-                      <span>Publish (${price})</span>
+                      <span>Publish (${price % 1 === 0 ? price : price.toFixed(2)})</span>
                     </button>
                   )}
                 </div>

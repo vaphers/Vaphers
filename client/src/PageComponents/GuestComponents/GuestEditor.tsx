@@ -412,7 +412,7 @@ export default function GuestEditor({ submissionId: propSubmissionId }: GuestEdi
               ) : (
                 <DollarSign size={14} />
               )}
-              <span>Publish Article (${price})</span>
+              <span>Publish Article (${price % 1 === 0 ? price : price.toFixed(2)})</span>
             </button>
           )}
         </div>
@@ -479,7 +479,7 @@ export default function GuestEditor({ submissionId: propSubmissionId }: GuestEdi
               <span>Instant Publishing</span>
             </div>
             <p className="text-xs text-slate-700 leading-relaxed font-normal">
-              Compose drafts for free. Click <strong>"Publish Article (${price})"</strong> to checkout securely with Razorpay and instantly go live on <strong>/blogs</strong> with permanent DoFollow backlinks.
+              Compose drafts for free. Click <strong>"Publish Article (${price % 1 === 0 ? price : price.toFixed(2)})"</strong> to checkout securely with Razorpay and instantly go live on <strong>/blogs</strong> with permanent DoFollow backlinks.
             </p>
           </div>
 

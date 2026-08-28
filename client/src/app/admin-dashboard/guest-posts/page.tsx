@@ -257,7 +257,7 @@ export default function GuestPostsAdminPage() {
             title="Set global publication price for guest articles"
           >
             <DollarSign size={13} className="text-emerald-700" />
-            <span>Price: <strong>${pricing.price} USD</strong></span>
+            <span>Price: <strong>${pricing.price % 1 === 0 ? pricing.price : pricing.price.toFixed(2)} USD</strong></span>
           </button>
 
           <button
@@ -531,16 +531,17 @@ export default function GuestPostsAdminPage() {
 
               <div>
                 <label className="block text-slate-700 font-medium mb-1.5">
-                  Guest Post Price (USD $):
+                  Guest Post Price (USD $): <span className="text-gray-400 font-normal">(supports cents e.g. 24.99 or 25)</span>
                 </label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-sm">$</span>
                   <input
                     type="number"
-                    min="1"
-                    step="1"
+                    min="0.01"
+                    step="0.01"
                     value={priceInput}
                     onChange={(e) => setPriceInput(e.target.value)}
+                    placeholder="e.g. 24.99"
                     required
                     className="w-full pl-8 pr-4 py-2 text-sm border border-gray-300 rounded font-semibold bg-white focus:outline-none focus:border-blue-500"
                   />

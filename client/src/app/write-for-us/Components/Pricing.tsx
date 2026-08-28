@@ -57,7 +57,7 @@ export default function MarketingGuestPostPricing() {
               </span>
               <div className="flex items-baseline justify-center space-x-1 text-5xl sm:text-6xl font-serif text-gray-900 mb-2">
                 <span className="text-3xl sm:text-4xl text-blue-600 font-bold">$</span>
-                <span className="font-bold">{price}</span>
+                <span className="font-bold">{price % 1 === 0 ? price : price.toFixed(2)}</span>
                 <span className="text-sm sm:text-base text-gray-500 font-sans font-medium">/ article</span>
               </div>
               <p className="text-[13px] sm:text-sm text-gray-700 font-medium leading-snug">

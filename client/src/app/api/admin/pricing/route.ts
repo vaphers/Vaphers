@@ -8,8 +8,9 @@ export async function GET() {
     const doc = await db.collection('systemSettings').doc('guestPostPricing').get();
     if (doc.exists) {
       const data = doc.data() || {};
+      const priceNum = typeof data.price === 'number' ? data.price : 25;
       return NextResponse.json({
-        price: typeof data.price === 'number' ? data.price : 25,
+        price: Math.round(priceNum * 100) / 100,
         currency: data.currency || 'USD',
         updatedAt: data.updatedAt || null,
         updatedBy: data.updatedBy || null,
@@ -34,16 +35,19 @@ export async function PUT(req: NextRequest) {
     const { price, currency = 'USD', updatedBy } = body;
 
     const numericPrice = Number(price);
-    if (isNaN(numericPrice) || numericPrice < 1) {
+    if (isNaN(numericPrice) || numericPrice < 0.01) {
       return NextResponse.json(
-        { error: 'Invalid price. Price must be a positive number.' },
+        { error: 'Invalid price. Price must be at least $0.01.' },
         { status: 400 }
       );
     }
 
+    // Clean to 2 decimal places (dollars and cents)
+    const cleanPrice = Math.round(numericPrice * 100) / 100;
+
     const now = new Date().toISOString();
     const payload = {
-      price: numericPrice,
+      price: cleanPrice,
       currency: currency.toUpperCase(),
       updatedAt: now,
       updatedBy: updatedBy || 'admin',
@@ -53,7 +57,7 @@ export async function PUT(req: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: `Guest post pricing successfully updated to $${numericPrice} ${currency}.`,
+      message: `Guest post pricing successfully updated to $${cleanPrice % 1 === 0 ? cleanPrice : cleanPrice.toFixed(2)} ${currency}.`,
       pricing: payload,
     });
   } catch (error: any) {

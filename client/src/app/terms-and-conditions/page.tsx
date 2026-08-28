@@ -55,10 +55,10 @@ export default function TermsAndConditionsPage() {
 
         {/* Content Body */}
         <div className="space-y-10 text-xs sm:text-sm text-slate-700 leading-relaxed">
-          {/* Section 1: Guest Post Publishing & $X Fee */}
+          {/* Section 1: Guest Post Publishing & Fee */}
           <section className="space-y-3">
             <h2 className="text-lg sm:text-xl font-bold text-slate-900 flex items-center gap-2">
-              <span className="text-[#2383e2]">1.</span> Guest Post Publishing Fee (${price}.00) &amp; Payment Terms
+              <span className="text-[#2383e2]">1.</span> Guest Post Publishing Fee (${Number(price).toFixed(2)}) &amp; Payment Terms
             </h2>
             <p>
               Vaphers operates a paid publication infrastructure for digital marketing, performance marketing, and SEO guest contributions:
@@ -68,13 +68,13 @@ export default function TermsAndConditionsPage() {
                 <strong>Drafting is Free:</strong> Registered contributors may compose, edit, format, and store an unlimited number of article drafts within their dashboard editor at no cost.
               </li>
               <li>
-                <strong>Publication Fee:</strong> To publish a specific article live on <Link href="/blogs" className="text-[#2383e2] hover:underline font-semibold">/blogs</Link>, a one-time, non-refundable publication fee of **${price}.00 USD** is payable per article via our integrated Razorpay payment gateway.
+                <strong>Publication Fee:</strong> To publish a specific article live on <Link href="/blogs" className="text-[#2383e2] hover:underline font-semibold">/blogs</Link>, a one-time, non-refundable publication fee of **${Number(price).toFixed(2)} USD** is payable per article via our integrated Razorpay payment gateway.
               </li>
               <li>
                 <strong>Instant Publishing:</strong> Upon successful transaction verification, the article is published live and queued for search engine indexation immediately.
               </li>
               <li>
-                <strong>Refund Policy:</strong> Because publishing grants instant public distribution, server hosting, and permanent backlink attribution, all completed ${price} publication transactions are final and non-refundable.
+                <strong>Refund Policy:</strong> Because publishing grants instant public distribution, server hosting, and permanent backlink attribution, all completed ${price % 1 === 0 ? price : price.toFixed(2)} publication transactions are final and non-refundable.
               </li>
             </ul>
           </section>
