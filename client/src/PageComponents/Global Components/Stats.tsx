@@ -20,9 +20,9 @@ const Stats = () => {
             <span className="text-5xl md:text-6xl tracking-tight text-blue-700 font-semibold">
               {inView ? <CountUp end={150} duration={3} /> : 0}+
             </span>
-            <p className="mt-6 font-medium text-xl">Happy Clients</p>
+            <p className="mt-6 font-medium text-xl">Happy Studios</p>
             <p className="mt-2 text-muted-foreground">
-              Partnering with innovative brands globally to drive digital success.
+              Partnering with luxury interior designers & architects to drive predictable project growth.
             </p>
           </div>
 
@@ -31,9 +31,9 @@ const Stats = () => {
             <span className="text-5xl md:text-6xl tracking-tight font-semibold text-muted-foreground">
               {inView ? <CountUp end={1200} duration={3.5} separator="," /> : 0}+
             </span>
-            <p className="mt-6 font-medium text-xl">Campaigns Launched</p>
+            <p className="mt-6 font-medium text-xl">Design Inquiries Delivered</p>
             <p className="mt-2 text-muted-foreground">
-              Delivering targeted, data-driven marketing campaigns that convert.
+              Delivering high-intent, qualified luxury homeowner inquiries that convert.
             </p>
           </div>
 
@@ -44,7 +44,7 @@ const Stats = () => {
             </span>
             <p className="mt-6 font-medium text-xl">Average Client ROI</p>
             <p className="mt-2 text-muted-foreground">
-              Maximizing returns on ad spend through optimized strategic scaling.
+              Maximizing returns on ad spend through high-ticket design commissions.
             </p>
           </div>
 
@@ -53,9 +53,9 @@ const Stats = () => {
             <span className="text-5xl md:text-6xl tracking-tight font-semibold text-muted-foreground">
               ${inView ? <CountUp end={50} duration={3.2} /> : 0}M+
             </span>
-            <p className="mt-6 font-medium text-xl">Revenue Generated</p>
+            <p className="mt-6 font-medium text-xl">Project Pipeline Value</p>
             <p className="mt-2 text-muted-foreground">
-              Driving real, measurable financial growth and leads for our partners.
+              Driving real, high-value project inquiries and signed contracts for interior designers.
             </p>
           </div>
 

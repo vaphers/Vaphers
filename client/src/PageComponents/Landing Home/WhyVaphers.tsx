@@ -5,11 +5,11 @@ import { motion, Variants } from 'framer-motion';
 import { ResponsiveContainer, BarChart, Bar, YAxis, XAxis, LabelList } from 'recharts';
 
 const barData = [
-  { category: 'Client Retention', percentage: 97, label: '97% / 100%' },
-  { category: 'Budget Growth', percentage: 56, label: '56% / 100%' },
-  { category: 'ROI', percentage: 82, label: '82% / 100%' },
-  { category: 'Increase in AI Citation', percentage: 79, label: '79% / 100%' },
-  { category: 'Traffic Increase', percentage: 87, label: '87% / 100%' },
+  { category: 'Studio Retention', percentage: 97, label: '97% / 100%' },
+  { category: 'Project Budget Growth', percentage: 76, label: '76% / 100%' },
+  { category: 'Client Acquisition ROI', percentage: 88, label: '88% / 100%' },
+  { category: 'Increase in AI Citations', percentage: 82, label: '82% / 100%' },
+  { category: 'High-Intent Search Traffic', percentage: 91, label: '91% / 100%' },
 ];
 
 const mainVariants: Variants = {
@@ -125,10 +125,10 @@ const WhyVaphers: FC = () => {
 
           <motion.div variants={textVariants} className="lg:col-span-7 space-y-4 sm:space-y-6">
             <p className="text-base lg:text-lg text-slate-800 font-medium leading-relaxed">
-              At Vaphers, we specialize in innovative digital marketing strategies that drive results. As a premier <strong>SEM marketing agency</strong>, our team is dedicated to helping businesses grow and succeed online through precision targeting and top-tier search visibility.
+              At Vaphers, we specialize in bespoke growth marketing specifically engineered for <strong>interior designers, luxury studios, and architectural firms</strong>. As a premier marketing partner for the design industry, our team is dedicated to helping your studio attract high-budget residential and commercial projects through precision targeting and top-tier search visibility.
             </p>
             <p className="text-base lg:text-lg text-slate-600 leading-relaxed">
-              With tailored solutions and a focus on measurable outcomes, we provide top-tier <strong>data-driven growth strategies</strong> to empower brands to connect with their audience. Our dedicated <strong>digital strategist</strong> team works closely with you to achieve your goals in the digital landscape.
+              With tailored client acquisition systems and a focus on high-ticket project revenue, we empower interior designers to elevate their market presence and command higher design fees. Our dedicated <strong>design marketing strategists</strong> work closely with you to turn your visual portfolio into a steady stream of signed design contracts.
             </p>
           </motion.div>
         </div>

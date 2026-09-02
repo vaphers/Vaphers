@@ -10,8 +10,8 @@ export default function AISeoHero() {
         <div className="flex flex-col justify-center py-4 relative h-full">
           
           {/* 1. Huge Heading - Scaled down slightly for mobile to prevent overflow */}
-          <h3 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5.5rem] xl:text-7xl text-blue-600 bungee-shade leading-[1.2] md:leading-none break-words text-center lg:text-left">
-            leading ai <br className="hidden sm:block" /> seo agency in U.S
+          <h3 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5.5rem] xl:text-7xl text-blue-600 bungee-shade leading-tight md:leading-none break-words text-center lg:text-left">
+            ai search <br className="hidden sm:block" /> for Interior Design Firms
           </h3>
 
           {/* 2. Responsive Cards Container */}
@@ -95,7 +95,7 @@ export default function AISeoHero() {
 
           {/* 3. Bottom Text */}
           <p className="text-lg sm:text-xl md:text-[1.5rem] font-medium text-gray-900 leading-snug lg:leading-normal max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
-            We help brands dominate generative search, ensuring your business is the definitive answer recommended by today's leading AI engines.
+            When affluent clients ask ChatGPT, Perplexity, or Google AI Overviews "Who is the best interior designer near me?", we ensure your studio is the definitive recommendation.
           </p>
         </div>
 
@@ -103,7 +103,7 @@ export default function AISeoHero() {
         <div className="relative w-full h-[350px] sm:h-[450px] lg:h-full lg:min-h-[75vh] rounded-[1.5rem] lg:rounded-[2.5rem] overflow-hidden order-first lg:order-last">
           <Image
             src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1773317259/Untitled_design_3_pfr2ks.png"
-            alt="get featured in ai search results"
+            alt="interior design studio featured in ai search results"
             fill
             className="object-cover object-center"
             priority

@@ -19,57 +19,57 @@ interface Service {
 const services: Service[] = [
   {
     id: "01",
-    title: "SEARCH ENGINE OPTIMIZATION",
+    title: "INTERIOR DESIGN SEO",
     description:
-      "Command the top positions in search. We engineer SEO strategies that transform visibility into compounding organic revenue. From resolving complex technical hurdles to building unshakeable topical authority, we secure the rankings that drive sustainable, high-intent traffic to your brand.",
+      "Command page-one rankings for high-value interior design searches. We engineer SEO strategies that connect your studio with affluent homeowners searching for luxury residential renovations, bespoke space planning, and high-end architects.",
     color: "#2A59A3", 
     imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1773481288/search-engine-optimization-Vaphers_w89yqk.jpg",
-    link: "/seo-services",
+    link: "/seo-for-interior-designers",
   },
   {
     id: "02",
-    title: "LOCAL SEARCH OPTIMIZATION",
+    title: "LOCAL SEO & GOOGLE MAPS",
     description:
-      "Dominate your immediate market. We optimize your local digital footprint—from Google Business Profiles to hyper-local citations—ensuring Vaphers clients capture the 'near me' searches that drive high-intent foot traffic and inbound calls.",
+      "Dominate your city's wealthiest zip codes. We optimize your local digital footprint and Google Business Profile to ensure high-net-worth homeowners discover your interior design studio first when searching locally.",
     color: "#2A59A3", 
     imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1773481288/Local-Search-Optimization-Vaphers_fe4gtt.jpg",
     link: "/seo-services/local-seo-services",
   },
   {
     id: "03",
-    title: "LLM & AI SEO",
+    title: "LLM & AI SEARCH (GEO)",
     description:
-      "Future-proof your digital footprint. We optimize your content architecture to be naturally sourced and cited by leading generative AI assistants like ChatGPT and Gemini. By mastering entity association, we ensure your brand remains the absolute authority in the new era of AI-driven search.",
+      "Ensure your studio is the top recommendation when affluent clients ask ChatGPT, Perplexity, or Gemini for the best interior designer in your market. We structure your digital entity so AI models cite your studio as the authoritative choice.",
     color: "#2A59A3", 
     imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1773481289/LLM-AI-SEO-Vaphers_vamwj8.jpg",
     link: "/seo-services/ai-seo-services",
   },
   {
     id: "04",
-    title: "WEBSITE DESIGN & DEVELOPMENT",
+    title: "LUXURY STUDIO WEBSITES",
     description:
-      "Craft digital experiences that relentlessly convert. We merge intuitive user journeys with striking, modern aesthetics to build platforms that serve as your ultimate growth engine. Our web architecture guarantees blazing-fast load times, seamless responsiveness, and flawless user retention.",
+      "Build an editorial, visually captivating digital flagship that reflects your studio's refined aesthetic. We craft bespoke portfolio websites with immersive project galleries, seamless client consultation flows, and lightning-fast high-resolution media loading.",
     color: "#2A59A3", 
     imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1773481289/WebsiteDesignServices_-_Vaphers_a6rb3g.jpg",
     link: "/website-development-services",
   },
   {
     id: "05",
-    title: "GOOGLE ADS MANAGEMENT",
+    title: "PORTFOLIO & BRAND STORYTELLING",
     description:
-      "Maximize your ROI with precision-targeted search campaigns. We optimize complex bidding strategies, construct compelling ad copy, and refine landing page experiences to ensure you appear exactly when customers are searching—turning every ad dollar into measurable, bottom-line revenue growth.",
+      "Elevate how your projects are perceived by affluent homeowners and architectural publications. We curate project case studies, spatial narratives, and design press positioning that command top-of-market design retainers.",
     color: "#2A59A3", 
-    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1773481289/Google-Ads-Management-Vaphers_dlxpyw.jpg",
-    link: "/ppc-marketing/google-ads-management-services",
+    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1773482014/Meta-Ads-Management-Vaphers_ehf9k6.jpg",
+    link: "/about-us",
   },
   {
     id: "06",
-    title: "META ADS MANAGEMENT",
+    title: "HIGH-TICKET CLIENT ACQUISITION",
     description:
-      "Engage and convert at scale across social platforms. We deploy scroll-stopping, data-driven creatives and leverage advanced machine learning audience targeting to aggressively scale your revenue on Facebook and Instagram, turning passive social scrollers into loyal, high-value customers.",
+      "Turn portfolio visitors and admirers into high-value design commissions. We design qualification workflows and consultation intake funnels that filter out tire-kickers and connect your studio with serious, high-budget homeowners.",
     color: "#2A59A3", 
-    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1773482014/Meta-Ads-Management-Vaphers_ehf9k6.jpg",
-    link: "/ppc-marketing/meta-ads-management-services",
+    imageUrl: "https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1773481289/Google-Ads-Management-Vaphers_dlxpyw.jpg",
+    link: "/contact",
   },
 ];
 
@@ -212,7 +212,7 @@ export default function ServicesShowcase() {
                   {activeService.description}
                   <br /><br className="hidden md:block" />
                   <span className="opacity-80 hidden md:block text-sm">
-                    - At Vaphers, every service we offer is designed to transform
+                    - At Vaphers, every marketing system is crafted to attract luxury design clients.
                   </span>
                 </p>
                 

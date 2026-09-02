@@ -76,12 +76,12 @@ const DoYouNeedSEO: React.FC = () => {
                 </span>
               </h3>
               <p className="text-sm sm:text-base lg:text-lg text-center lg:text-start text-blue-200 font-medium">
-                Stay Competitive in the Digital-First Marketplace
+                Attract Affluent Clients Searching for Luxury Interior Designers
               </p>
             </div>
 
             <p className="text-sm sm:text-base lg:text-lg text-white leading-relaxed text-center lg:text-left">
-              With 93% of online experiences starting on search engines, staying off the first page means missing out on capturing high-intent US customers. Building strong, targeted{' '}
+              When affluent homeowners and property developers search for luxury interior designers or high-end renovation architects, are they discovering your studio or your competitors? Relying solely on word-of-mouth creates unpredictable dry spells. Building strong, targeted{' '}
               <a 
                 href="https://www.vaphers.com/seo-services/local-seo-services" 
                 className="text-blue-300 underline hover:text-blue-200 transition-colors duration-200 font-medium"
@@ -93,16 +93,16 @@ const DoYouNeedSEO: React.FC = () => {
                 href="https://www.vaphers.com/ppc-marketing/lead-generation-services"
                 className="text-blue-300 underline hover:text-blue-200 transition-colors duration-200 font-medium"
               >
-                <strong>effective lead generation</strong>
+                <strong>high-ticket client acquisition</strong>
               </a>
-              . Unlike paid ads that vanish when your budget runs out, investing in <strong>organic search visibility</strong> creates a compounding digital asset that continuously attracts qualified traffic and drives sustainable revenue.
+              . Investing in <strong>organic search visibility and visual discovery</strong> creates a compounding asset that continuously attracts high-net-worth clients, keeping your design project pipeline full year-round.
             </p>
 
             {/* Button */}
             <div className="pt-4 sm:pt-4 lg:pb-4 flex justify-center lg:justify-start">
           <Link href="/contact" className="w-60">
             <button className="w-full rounded-lg bg-blue-600 px-6 py-2.5 font-medium text-white transition-colors hover:bg-blue-800 cursor-pointer">
-              Wanna Get On a Call?
+              Book a Strategy Call
             </button>
           </Link>
             </div>

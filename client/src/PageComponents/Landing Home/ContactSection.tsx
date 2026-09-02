@@ -50,7 +50,7 @@ const ContactSection: React.FC = () => {
       <div className="text-center text-white mb-6 sm:mb-8 max-w-2xl z-10 px-2">
         {/* FIXED: Scaled to text-[28px] for mobile, added a forced line break so "Consultation" doesn't hit the screen edges */}
         <h4 className="text-[28px] sm:text-4xl md:text-5xl bungee-shade tracking-tight leading-[1.2]">
-          Get A Free <br className="block sm:hidden" /> Consultation
+          Get A Free Studio <br className="block sm:hidden" /> Consultation
         </h4>
       </div>
 
@@ -92,7 +92,7 @@ const ContactSection: React.FC = () => {
           id="website" 
           name="website" 
           type="text" 
-          placeholder="Website" 
+          placeholder="Studio / Portfolio Website" 
           className="bg-[#FFF9EA] border-none text-slate-800 placeholder:text-slate-400 placeholder:font-medium h-12 sm:h-14 rounded-xl px-4 sm:px-6 text-sm sm:text-base focus-visible:ring-2 focus-visible:ring-white/50" 
         />
 
@@ -101,20 +101,19 @@ const ContactSection: React.FC = () => {
             <SelectValue placeholder="Select service*" />
           </SelectTrigger>
           <SelectContent className="rounded-xl border-none shadow-xl">
-            <SelectItem value="audit">Website Audit (Free)</SelectItem>
-            <SelectItem value="seo">Search Engine Optimization</SelectItem>
-            <SelectItem value="ppc">Pay Per Click (Paid Ads)</SelectItem>
-            <SelectItem value="smo">Social Media Optimization</SelectItem>
-            <SelectItem value="webdev">Website Development</SelectItem>
-            <SelectItem value="appdev">App Development</SelectItem>
-            <SelectItem value="custom">Custom Softwares</SelectItem>
+            <SelectItem value="audit">Interior Design Marketing Audit (Free)</SelectItem>
+            <SelectItem value="website">Luxury Studio Website & Portfolio</SelectItem>
+            <SelectItem value="seo">Interior Design SEO & Local Visibility</SelectItem>
+            <SelectItem value="ai-seo">AI Search & LLM Visibility (GEO)</SelectItem>
+            <SelectItem value="leads">High-End Client Acquisition</SelectItem>
+            <SelectItem value="full-growth">Full-Service Studio Growth</SelectItem>
           </SelectContent>
         </Select>
 
         <Textarea 
           id="message" 
           name="message" 
-          placeholder="Message*" 
+          placeholder="Tell us about your design studio and project goals*" 
           rows={4} 
           required 
           // FIXED: Adjusted min-height and padding for tiny screens

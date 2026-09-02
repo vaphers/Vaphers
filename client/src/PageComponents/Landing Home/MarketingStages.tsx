@@ -84,15 +84,15 @@ export default function MarketingStagesSection() {
         
         {/* Left Column: Heading, Text & CTA */}
         <div className="w-full lg:w-[35%] flex flex-col justify-center shrink-0">
-          <h3 className="text-4xl md:text-4xl text-gray-900 leading-tight mb-6 tracking-wide bungee-shade">
-            Marketing for <span className="text-blue-700">U.S Businesses</span> Every Any Stage
+          <h3 className="text-4xl md:text-4xl lg:text-5xl text-gray-900 leading-tight mb-6 tracking-wide montserrat-regular">
+            Marketing for <span className="text-blue-700">Interior Designers</span> at Every Stage
           </h3>
           
           <p className="text-gray-500 text-sm md:text-base leading-relaxed mb-10">
-            Whether you are opening your first location or scaling globally, our strategies adapt to your needs. As a leading <strong className="font-semibold text-gray-800">franchise marketing agency</strong> and a dedicated <strong className="font-semibold text-gray-800">search engine marketing company</strong>, we provide tailored, data-driven solutions ensuring your project exceeds expectations from concept to market dominance.
+            Whether you are an independent designer launching your studio or an established luxury firm scaling high-ticket residential commissions, our strategies adapt to your goals. We provide bespoke, data-driven marketing engines that turn your design talent into a consistent roster of affluent, high-paying clients.
           </p>
           
-          <Link href="/seo-services" className="w-60">
+          <Link href="/contact" className="w-60">
             <button className="w-full rounded-lg bg-blue-600 px-6 py-2.5 font-medium text-white transition-colors hover:bg-blue-800 cursor-pointer">
               Not Sure Where to Start?
             </button>
@@ -117,11 +117,11 @@ export default function MarketingStagesSection() {
               ref={(el) => { cardsRef.current[0] = el; }}
               className="w-[85vw] sm:w-[320px] md:w-[350px] bg-gradient-to-br from-blue-500 to-blue-700 text-white p-8 md:p-10 rounded-tl-3xl rounded-br-3xl flex flex-col shadow-lg pointer-events-none"
             >
-              <h4 className="text-xl md:text-2xl bungee-inline-regular tracking-tight mb-6">
-                Just Starting Out:<br />Laying the Foundation
+              <h4 className="text-xl md:text-3xl montserrat-regular-regular tracking-tight mb-6">
+                Emerging Studios:<br />Laying the Foundation
               </h4>
               <p className="text-blue-50 text-sm md:text-base leading-relaxed opacity-90">
-                Launch your brand with confidence. We help new businesses establish a strong digital presence, build foundational SEO, and launch targeted initial campaigns to drive early traction and brand awareness.
+                Establish your luxury brand positioning from day one. We help new interior design studios curate high-impact digital portfolios, optimize local search presence, and launch targeted intro campaigns to secure your first premium residential projects.
               </p>
             </motion.div>
 
@@ -130,37 +130,37 @@ export default function MarketingStagesSection() {
               ref={(el) => { cardsRef.current[1] = el; }}
               className="w-[85vw] sm:w-[320px] md:w-[350px] bg-white border border-blue-100 text-gray-800 p-8 md:p-10 rounded-tl-3xl rounded-br-3xl flex flex-col shadow-sm pointer-events-none"
             >
-              <h4 className="text-xl md:text-3xl bungee-inline-regular tracking-tight mb-6">
-                Established:<br />Accelerating Growth
+              <h4 className="text-xl md:text-3xl montserrat-regular tracking-tight mb-6">
+                Boutique Firms:<br />Accelerating Project Value
               </h4>
               <p className="text-gray-500 text-sm md:text-base leading-relaxed">
-                Take your steady business to the next level. We optimize your existing marketing funnels, expand your reach through advanced search engine marketing, and maximize your overall return on investment.
+                Transition away from budget-conscious clients toward lucrative, full-home transformations. We refine your lead qualification funnels, launch bespoke portfolio experiences, and position your studio in front of affluent homeowners with 6-figure renovation budgets.
               </p>
             </motion.div>
 
-            {/* Card 3: Enterprise (Outlined Style) */}
+            {/* Card 3: Enterprise (Filled Blue Style) */}
             <motion.div 
               ref={(el) => { cardsRef.current[2] = el; }}
               className="w-[85vw] sm:w-[320px] md:w-[350px] bg-gradient-to-br from-blue-500 to-blue-700 text-white p-8 md:p-10 rounded-tl-3xl rounded-br-3xl flex flex-col shadow-sm pointer-events-none"
             >
-              <h4 className="text-xl md:text-3xl bungee-inline-regular tracking-wide mb-6">
-                Enterprise:<br />Scaling at Capacity
+              <h4 className="text-xl md:text-3xl montserrat-regular tracking-wide mb-6">
+                Luxury Studios:<br />Scaling Authority & Retainers
               </h4>
               <p className="text-white text-sm md:text-base leading-relaxed">
-                Dominate your industry. Our enterprise solutions offer multi-location strategies perfect for franchises, comprehensive data analysis, and large-scale media buying to keep you ahead of the competition.
+                Solidify your regional prominence and command top-of-market fees. We engineer bespoke PR, architectural entity SEO, and multi-market visibility so affluent clients and developers seek you out exclusively.
               </p>
             </motion.div>
 
-            {/* Card 4: SaaS & Tech (Outlined Style) */}
+            {/* Card 4: Commercial & Hospitality (Outlined Style) */}
             <motion.div 
               ref={(el) => { cardsRef.current[3] = el; }}
               className="w-[85vw] sm:w-[320px] md:w-[350px] bg-white border border-blue-100 text-gray-800 p-8 md:p-10 rounded-tl-3xl rounded-br-3xl flex flex-col shadow-sm pointer-events-none"
             >
-              <h4 className="text-xl md:text-3xl bungee-inline-regular tracking-wide mb-6">
-                SaaS & Tech:<br />Driving MRR Growth
+              <h4 className="text-xl md:text-3xl montserrat-regular tracking-wide mb-6">
+                Commercial & Hospitality:<br />High-Ticket Contracts
               </h4>
               <p className="text-gray-500 text-sm md:text-base leading-relaxed">
-                Drive user acquisition and reduce churn. As a specialized <strong className="font-semibold text-gray-800">SaaS marketing agency</strong>, we engineer scalable digital growth engines designed to capture high-intent signups and turn active users into lifelong product evangelists.
+                Expand into boutique hotels, luxury retail spaces, corporate headquarters, and high-end developments. We build B2B commercial outreach and specialized search funnels that connect you directly with developers and investors.
               </p>
             </motion.div>
 

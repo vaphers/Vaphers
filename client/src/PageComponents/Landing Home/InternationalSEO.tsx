@@ -13,7 +13,7 @@ export default function InternaionalSEO() {
             V<span className="text-gray-900 text-3xl sm:text-4xl md:text-5xl">aphers</span>
           </h3>
           <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-[3.5rem] font-medium leading-[1.3] md:leading-[1.1] tracking-tight lg:w-2/3">
-            We blend data-driven strategies with modern innovation to deliver <span className="text-blue-600">global SEO services</span> that empower your brand worldwide.
+            We blend high-aesthetic visual storytelling with data-driven SEO to position your <span className="text-blue-600">interior design studio</span> in front of luxury clients.
           </h3>
         </div>
 
@@ -29,7 +29,7 @@ export default function InternaionalSEO() {
               <div className="relative w-full h-[250px] sm:h-full rounded-sm overflow-hidden border border-gray-200 shadow-sm">
                 <Image
                   src="https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1773382246/Leading_International_SEO_Agency_zcmimt.png"
-                  alt="International SEO Expert"
+                  alt="Interior Design Marketing Agency"
                   fill
                   className="object-cover"
                 />
@@ -39,7 +39,7 @@ export default function InternaionalSEO() {
                   98.9%
                 </h4>
                 <p className="text-sm md:text-base text-gray-300 leading-snug">
-                  Client Satisfaction, <br /> and growing globally!
+                  Client Retention, <br /> scaling luxury design studios!
                 </p>
               </div>
             </div>
@@ -47,7 +47,7 @@ export default function InternaionalSEO() {
             {/* Description & Button */}
             <div className="max-w-full lg:max-w-md">
               <p className="text-base md:text-lg text-gray-700 leading-relaxed mb-6 md:mb-8">
-                As a leading International SEO Agency, we help you dominate search results across borders. We blend technical excellence with cultural insights to ensure your business connects with audiences globally.
+                As a premier marketing partner for interior designers, architects, and luxury studios, we help you dominate high-net-worth local and regional searches. We combine visual portfolio presentation with high-intent SEO to connect your studio directly with discerning, premium project inquiries.
               </p>
               <Link 
                 href="/contact"
@@ -67,10 +67,10 @@ export default function InternaionalSEO() {
                 <Lightbulb className="w-5 h-5 md:w-6 md:h-6 text-white" />
               </div>
               <h4 className="text-xl md:text-2xl font-medium mb-3 md:mb-4">
-                Bold, Clean, Future-Ready
+                Aesthetic, High-Ticket Funnels
               </h4>
               <p className="text-sm md:text-base text-gray-500 leading-relaxed">
-                We craft sleek, functional SEO architectures that stay resilient against algorithm updates, helping your brand shine in a competitive digital world.
+                We craft refined digital acquisition funnels tailored for luxury interior designers, positioning your portfolio to attract homeowners ready to invest in full-scale renovations.
               </p>
             </div>
 
@@ -80,10 +80,10 @@ export default function InternaionalSEO() {
                 <Lightbulb className="w-5 h-5 md:w-6 md:h-6 text-white" />
               </div>
               <h4 className="text-xl md:text-2xl font-medium mb-3 md:mb-4">
-                Cross-Border Visibility
+                High-Net-Worth Local Visibility
               </h4>
               <p className="text-sm md:text-base text-gray-500 leading-relaxed">
-                Our localized content strategies ensure that your messaging resonates in any market, turning international traffic into loyal, long-term customers.
+                Our hyper-local SEO and targeted discovery ensure your design studio ranks #1 in the affluent neighborhoods and luxury markets you actually want to design for.
               </p>
             </div>
 

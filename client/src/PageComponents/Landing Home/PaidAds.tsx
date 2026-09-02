@@ -25,44 +25,43 @@ const HomePaidAds = () => {
           <div className="space-y-6 md:space-y-8 order-1 lg:order-2">
             <div>
               <p className="text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider mb-3 sm:mb-4">
-                Affordable Paid Ads Company
+                High-Ticket Client Acquisition
               </p>
               {/* Removed text-center to keep alignment consistent with the paragraph on mobile */}
               <h4 className="text-3xl sm:text-4xl lg:text-5xl font-base tracking-[-0.03em] text-gray-900 bungee-shade leading-tight">
-                Leading <span className="bg-blue-700 bg-clip-text text-transparent">paid search marketing agency </span>
+                Paid Ads for <span className="bg-blue-700 bg-clip-text text-transparent">Interior Designers</span>
               </h4>
             </div>
 
             <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
-              Partner with an affordable paid ads company that delivers exceptional ROI without breaking your budget. 
+              Partner with a specialized paid advertising team that connects your studio directly with affluent homeowners ready for full-scale renovations. 
               Our{' '}
               <a href="https://www.vaphers.com/ppc-marketing" className="text-blue-700 underline hover:text-blue-800 font-medium">
-                affordable PPC marketing
+                interior design PPC marketing
               </a>{' '}
-              strategies combine precision targeting with smart budget management, helping you reach qualified leads 
-              through{' '}
+              strategies combine precision zip-code targeting with visual portfolio creatives across{' '}
               <a href="https://www.vaphers.com/ppc-marketing/google-ads-management-services" className="text-blue-700 underline hover:text-blue-800 font-medium">
-                Google Ads
+                Google Search Ads
               </a>{' '}
               and{' '}
               <a href="https://www.vaphers.com/ppc-marketing/meta-ads-management-services" className="text-blue-700 underline hover:text-blue-800 font-medium">
-                Meta advertising
-              </a>{' '}
-              campaigns. Experience transparent pricing, data-driven optimization, and measurable results that drive sustainable growth.
+                Instagram & Meta ads
+              </a>.
+              Stop wasting budget on casual DIY browsers and start booking lucrative residential and commercial design commissions.
             </p>
 
             {/* Stats - Stacks on tiny screens (grid-cols-1), side-by-side on sm+ */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 pt-2 sm:pt-4">
               <div>
-                <h3 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-700">200%</h3>
+                <h3 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-700">3.8x</h3>
                 <p className="text-sm sm:text-base text-gray-600 mt-2">
-                  Average ROI from well-optimized paid ad campaigns for growing businesses
+                  Average project pipeline value generated from targeted ad spend for luxury design studios
                 </p>
               </div>
               <div>
-                <h3 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-700">65%</h3>
+                <h3 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-700">70%</h3>
                 <p className="text-sm sm:text-base text-gray-600 mt-2">
-                  Lower cost per acquisition compared to traditional advertising channels
+                  Higher qualification rate for inbound consultations compared to generic ads
                 </p>
               </div>
             </div>
@@ -74,7 +73,7 @@ const HomePaidAds = () => {
                   size="lg" 
                   className="w-full sm:w-auto bg-blue-600 hover:bg-blue-800 text-white px-8 cursor-pointer"
                 >
-                  Get Started
+                  Schedule an Ads Audit
                 </Button>
               </Link>
               

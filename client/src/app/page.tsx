@@ -17,17 +17,57 @@ import Invest from '@/PageComponents/Landing Home/Invest'
 import ContactForm from '@/PageComponents/Global Components/Contact'
 import { Search, Target, Facebook, Globe, BrainCircuit, Smartphone } from 'lucide-react'
 import HomeFiller from '@/PageComponents/Landing Home/FillerSection'
-import HomePaidAds from '@/PageComponents/Landing Home/PaidAds'
+import WebsiteSection from '@/PageComponents/Landing Home/WebsiteSection'
 import NavBar from '@/PageComponents/Global Components/Header'
 import MarketingPriceCalculator from '@/PageComponents/Global Components/PriceCalc'
-import WebsiteSection from '@/PageComponents/Landing Home/WebsiteSection'
 import ImageComparisonSlider from '@/PageComponents/Landing Home/ImageComparison'
 import InternaionalSEO from '@/PageComponents/Landing Home/InternationalSEO'
 import Footer from '@/PageComponents/Global Components/Footer'
 import MarketingStagesSection from '@/PageComponents/Landing Home/MarketingStages'
 import ContactSection from '@/PageComponents/Landing Home/ContactSection'
 import WhyVaphers from '@/PageComponents/Landing Home/WhyVaphers'
+import HeroHomeMain from '../PageComponents/Components Home Main/Hero'
+import Charts from '@/PageComponents/Props Based Components/Chart'
 
+
+
+const heroData = {
+    mainTitle: "Elevating interior design studios with high-aesthetic digital growth",
+    mainDescription: "We partner with interior designers and architecture firms to design bespoke luxury websites, dominate high-intent local search, and unlock client acquisition pipelines that deliver high-ticket residential and commercial projects.",
+    topStatLabel: "Client project pipeline value",
+    topStatValue: "$50M+",
+    stats: [
+      {
+        id: "1",
+        category: "Design inquiries delivered",
+        value: "25k+",
+        subtext: "Connecting luxury interior designers with affluent homeowners and high-end property developers.",
+        cardHeight: "220px", // Shortest
+      },
+      {
+        id: "2",
+        category: "Studios scaled",
+        value: "150+",
+        subtext: "Empowering boutique interior design firms and architectural studios nationwide.",
+        cardHeight: "300px", 
+      },
+      {
+        id: "3",
+        category: "Client satisfaction",
+        value: "99%",
+        subtext: "High-touch marketing and luxury web design delivering predictable studio growth.",
+        cardHeight: "420px", // Tallest
+        isStriped: true,     // Triggers the CSS repeating background
+      },
+      {
+        id: "4",
+        category: "Average ROI",
+        value: "350%",
+        subtext: "Maximizing return through high-budget residential transformations and signed design retainers.",
+        cardHeight: "260px", 
+      }
+    ]
+  };
 
 const featuresList = [
   {
@@ -121,7 +161,7 @@ const organizationSchemaData = {
     "https://www.instagram.com/vaphers/",
     "https://www.linkedin.com/in/vaphers-technologies"
   ],
-  "description": "Vaphers is a digital marketing agency specializing in SEO, AI SEO, PPC management, and Next.js web development services."
+  "description": "Vaphers is a premier digital marketing agency specializing in SEO, AI SEO, and high-ticket client acquisition for interior designers, architects, and luxury home studios."
 }
 
 // FAQ Schema Data
@@ -131,82 +171,42 @@ const faqSchemaData = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is digital marketing?",
+      "name": "How does marketing for interior designers differ from general marketing?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Digital marketing is the promotion of your business through online channels like search engines, social media, email, and websites. It helps you reach your target audience where they spend their time online and is more cost-effective than traditional marketing."
+        "text": "Interior design marketing focuses on attracting high-net-worth homeowners and luxury commercial clients who value bespoke craftsmanship and have substantial project budgets. It requires high-aesthetic visual positioning, hyper-local zip-code targeting, entity SEO, and qualified inquiry funnels rather than generic volume traffic."
       }
     },
     {
       "@type": "Question",
-      "name": "How long does it take to see SEO results?",
+      "name": "How long does it take for an interior design studio to see SEO results?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "SEO typically takes 3-6 months to show significant results. However, you may notice small improvements within the first few weeks. SEO is a long-term investment that delivers sustainable organic traffic and continues working for your business over time."
+        "text": "Local SEO and Google Maps optimization typically yield qualified design inquiries within 60 to 90 days. Comprehensive organic ranking for competitive luxury renovation keywords and AI search engine visibility builds compounding authority over 3 to 6 months."
       }
     },
     {
       "@type": "Question",
-      "name": "What is the difference between SEO and PPC?",
+      "name": "How do Google Ads and Meta Ads help interior designers?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "SEO (Search Engine Optimization) focuses on improving organic search rankings and provides long-term results. PPC (Pay-Per-Click) delivers immediate visibility through paid ads but stops when you stop paying. Both strategies work best when used together."
+        "text": "Google Search Ads capture affluent homeowners actively looking for 'luxury interior designer near me' or 'high-end home renovation architect'. Meta (Instagram & Facebook) Ads showcase your portfolio walkthroughs and design aesthetics directly to homeowners in affluent zip codes, building prestige brand awareness and booking design consultations."
       }
     },
     {
       "@type": "Question",
-      "name": "How much should I budget for digital marketing?",
+      "name": "How do you ensure leads are qualified with high design budgets?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most small businesses allocate 7-12% of their revenue to marketing. The exact budget depends on your goals, industry, and competition. We offer affordable packages starting with essential services and scaling up as your business grows."
+        "text": "We implement multi-step consultation intake forms with budget thresholds, tailored messaging that speaks directly to luxury clients, and negative keyword filtering to eliminate DIY inquiries, tire-kickers, and low-budget searches."
       }
     },
     {
       "@type": "Question",
-      "name": "Do I need social media for my business?",
+      "name": "What is Generative Engine Optimization (GEO) for interior designers?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, social media helps you connect with customers, build brand awareness, and drive website traffic. Focus on platforms where your target audience spends time, whether that's Facebook, Instagram, LinkedIn, or others relevant to your industry."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is local SEO and why does it matter?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Local SEO helps your business appear in local search results when people search for services near them. It's crucial for businesses with physical locations or serving specific areas, helping you attract nearby customers actively looking for your services."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do Google Ads work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Google Ads displays your ads when people search for keywords related to your business. You only pay when someone clicks your ad. With proper targeting and optimization, Google Ads can generate qualified leads and provide immediate visibility at the top of search results."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is a conversion rate?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Conversion rate is the percentage of website visitors who complete a desired action, like making a purchase or filling out a contact form. A higher conversion rate means your marketing efforts are effectively turning visitors into customers or leads."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I do digital marketing myself?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "While basic digital marketing is possible on your own, effective campaigns require expertise, time, and ongoing optimization. An experienced agency provides strategy, tools, and knowledge to maximize your ROI while you focus on running your business."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do you measure digital marketing success?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "We track key metrics like website traffic, search rankings, conversion rates, cost per lead, click-through rates, and ROI. You'll receive regular reports showing exactly how your campaigns perform and the real business results we're delivering for your investment."
+        "text": "GEO optimizes your interior design studio's digital entity so that when potential clients ask AI assistants like ChatGPT, Perplexity, or Google AI Overviews for recommendations on the best interior designers in their city, your studio is cited and recommended as the authoritative choice."
       }
     }
   ]
@@ -274,6 +274,7 @@ export default function Page() {
       <main>
         <NavBar/>
         <Hero />
+        {/* <HeroHomeMain/> */}
         <Result />
         <ImageComparisonSlider/>
         <InternaionalSEO/>
@@ -283,15 +284,10 @@ export default function Page() {
         <AiSeoSection />
         <Services/>
         <WebsiteSection />
-        <div className='hidden lg:block'>
-          <BannerMarqee/>
-        </div>
-        <WhyVaphers/>
-        <HomePaidAds/>
-        <div className='pb-15'>
-        <Stats />
-        </div>
-        <MarketingPriceCalculator/>
+
+
+        <Charts {...heroData} />
+
         <ContactSection/>
         <Footer/>
       </main>

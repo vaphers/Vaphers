@@ -95,7 +95,7 @@ const BannerMarqee: React.FC = () => {
       <div style={topMarqueeStyle}>
         <motion.div variants={marqueeVariants} animate="animateRight" style={{ display: 'inline-block' }} className="bungee-shade">
           <span style={textStyleTop}>
-            Vaphers - SEO - Vaphers - Web Design - Vaphers - Paid Ads -
+            Vaphers - Interior Design SEO - Vaphers - Luxury Websites - Vaphers - Studio Portfolios -
           </span>
         </motion.div>
       </div>
@@ -120,7 +120,7 @@ const BannerMarqee: React.FC = () => {
       <div style={bottomMarqueeStyle}>
         <motion.div variants={marqueeVariants} animate="animateLeft" style={{ display: 'inline-block' }} className="bungee-shade">
           <span style={textStyleBottom}>
-            SEO - Paid Ads - Website Dev - Social Media - Ai SEO -
+            Interior Design Websites - Studio Growth - High-End Inquiries - Portfolio Design - Ai SEO -
           </span>
         </motion.div>
       </div>

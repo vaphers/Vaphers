@@ -13,10 +13,7 @@ type ServiceType =
   | 'LOCAL SEO'
   | 'AEO'
   | 'GEO'
-  | 'SERVICE WEBSITE'
-  | 'ECOMMERCE WEBSITE'
-  | 'GOOGLE ADS'
-  | 'META ADS'
+  | 'INTERIOR DESIGN WEBSITE'
 
 type PlanType = 'Basic' | 'Standard' | 'Enterprise'
 
@@ -56,25 +53,10 @@ const pricingData: Record<ServiceType, PricingTier[]> = {
     { name: 'Standard', price: '$999', isOneTime: false },
     { name: 'Enterprise', price: 'Custom', isOneTime: false },
   ],
-  'SERVICE WEBSITE': [
-    { name: 'Basic', price: '$1,699', isOneTime: true },
-    { name: 'Standard', price: '$2,199', isOneTime: true },
+  'INTERIOR DESIGN WEBSITE': [
+    { name: 'Basic', price: '$2,499', isOneTime: true },
+    { name: 'Standard', price: '$4,499', isOneTime: true },
     { name: 'Enterprise', price: 'Custom', isOneTime: true },
-  ],
-  'ECOMMERCE WEBSITE': [
-    { name: 'Basic', price: '$2,899', isOneTime: true },
-    { name: 'Standard', price: '$3,499', isOneTime: true },
-    { name: 'Enterprise', price: 'Custom', isOneTime: true },
-  ],
-  'GOOGLE ADS': [
-    { name: 'Basic', price: '$1,200', isOneTime: false },
-    { name: 'Standard', price: '$2,500', isOneTime: false },
-    { name: 'Enterprise', price: 'Custom', isOneTime: false },
-  ],
-  'META ADS': [
-    { name: 'Basic', price: '$1,000', isOneTime: false },
-    { name: 'Standard', price: '$2,200', isOneTime: false },
-    { name: 'Enterprise', price: 'Custom', isOneTime: false },
   ],
 }
 
@@ -272,210 +254,48 @@ const featuresData: Record<ServiceType, Record<PlanType, FeatureSet>> = {
       extras: ['Custom AI training data optimization', 'Brand entity dominance', 'Research-backed content'],
     },
   },
-  'SERVICE WEBSITE': {
+  'INTERIOR DESIGN WEBSITE': {
     Basic: {
       included: [
-        'Up to 7 pages (Home, About, Services, Contact, etc.)',
-        'Mobile-responsive design',
-        'SEO-optimized structure',
-        'Contact form integration',
-        'Google Maps integration',
-        'Basic on-page SEO',
-        '1 round of revisions',
+        'Curated 6-8 page bespoke design studio site',
+        'High-resolution spatial gallery & project showcases',
+        'Mobile & tablet editorial responsiveness',
+        'Consultation booking & inquiry qualification form',
+        'Studio story, philosophy & services architecture',
+        'On-page SEO for local luxury keywords',
+        'High-speed media compression for fast image loading',
       ],
-      timeline: '3-4 weeks delivery',
-      support: '30 days post-launch support',
+      timeline: '2-3 weeks delivery',
+      support: '30 days post-launch priority support',
     },
     Standard: {
       included: [
-        'Up to 15 pages',
-        'Custom design with brand identity',
-        'Advanced animations & interactions',
-        'Blog/news section',
-        'Service area pages (up to 5)',
-        'Lead capture forms',
-        'Email integration',
-        'Advanced on-page SEO',
-        'Google Analytics & Search Console',
-        '2 rounds of revisions',
+        'Full custom luxury portfolio platform (up to 18 pages)',
+        'Filterable project gallery by room & design aesthetic',
+        'Interactive before-and-after room transformation sliders',
+        'Press & architectural feature media kit section',
+        'Multi-step high-budget client qualification intake',
+        'Editorial typography & smooth scroll animations',
+        'Google Analytics 4 & Search Console verification',
+        'Full local SEO & structured schema integration',
       ],
-      timeline: '4-6 weeks delivery',
-      support: '60 days post-launch support',
-      extras: ['Speed optimization', 'Live chat integration'],
+      timeline: '4-5 weeks delivery',
+      support: '60 days post-launch support & training',
+      extras: ['Video walkthrough optimization', 'Interactive client proposal portal'],
     },
     Enterprise: {
       included: [
-        'Unlimited pages',
-        'Premium custom design',
-        'Advanced Next.js features',
-        'Multi-location functionality',
-        'CMS integration (Sanity/Contentful)',
-        'Advanced forms & automation',
-        'Customer portal/dashboard',
-        'Third-party integrations',
-        'Enterprise SEO setup',
-        'Performance optimization',
-        'Unlimited revisions',
-      ],
-      timeline: '6-10 weeks delivery',
-      support: '6 months priority support + maintenance',
-      extras: ['Dedicated project manager', 'Training sessions', 'Custom features'],
-    },
-  },
-  'ECOMMERCE WEBSITE': {
-    Basic: {
-      included: [
-        'Up to 50 products',
-        'Shopify/WooCommerce setup',
-        'Payment gateway integration (Stripe/PayPal)',
-        'Product pages optimization',
-        'Shopping cart & checkout',
-        'Basic product SEO',
-        'Mobile-responsive design',
-        '1 round of revisions',
-      ],
-      timeline: '4-6 weeks delivery',
-      support: '30 days post-launch support',
-    },
-    Standard: {
-      included: [
-        'Up to 200 products',
-        'Custom ecommerce design',
-        'Multi-payment integration',
-        'Product filtering & search',
-        'Customer accounts',
-        'Email marketing integration',
-        'Product recommendations',
-        'Advanced product SEO',
-        'Abandoned cart recovery',
-        'Analytics & conversion tracking',
-        '2 rounds of revisions',
+        'Flagship bespoke architecture & interior web ecosystem',
+        'Multi-location studio functionality (NY, LA, Miami, etc.)',
+        'Interactive 3D space rendering integration',
+        'Private client portal for moodboards & project milestones',
+        'Custom headless CMS for effortless project uploads',
+        'Enterprise entity SEO & architectural press distribution',
+        'Unlimited revisions & bespoke design direction',
       ],
       timeline: '6-8 weeks delivery',
-      support: '60 days post-launch support',
-      extras: ['Inventory management', 'Discount code system'],
-    },
-    Enterprise: {
-      included: [
-        'Unlimited products',
-        'Headless commerce (Next.js + Shopify/Stripe)',
-        'Custom checkout experience',
-        'Multi-currency & multi-language',
-        'Advanced customer segmentation',
-        'Subscription/recurring payments',
-        'Custom product configurator',
-        'ERP/CRM integration',
-        'Advanced analytics & reporting',
-        'Enterprise security features',
-        'Unlimited revisions',
-      ],
-      timeline: '10-14 weeks delivery',
-      support: '12 months priority support',
-      extras: ['Dedicated dev team', 'Custom integrations', 'Performance SLA'],
-    },
-  },
-  'GOOGLE ADS': {
-    Basic: {
-      included: [
-        'Search ads campaign setup',
-        'Up to 3 ad campaigns',
-        'Keyword research (50 keywords)',
-        'Ad copy creation (5 variations)',
-        'Landing page recommendations',
-        'Conversion tracking setup',
-        'Monthly performance report',
-        'Ad spend: $2,000-$5,000/mo recommended',
-      ],
-      timeline: 'Launch within 1 week',
-      support: 'Email support (48h response)',
-    },
-    Standard: {
-      included: [
-        'Multi-campaign strategy (Search, Display, Shopping)',
-        'Up to 8 campaigns',
-        'Advanced keyword research (150+ keywords)',
-        'A/B testing (10+ ad variations)',
-        'Audience targeting & remarketing',
-        'Conversion rate optimization',
-        'Negative keyword management',
-        'Bi-weekly optimization',
-        'Detailed analytics reports',
-        'Ad spend: $5,000-$15,000/mo recommended',
-      ],
-      timeline: 'Launch within 3-5 days',
-      support: 'Priority support with PPC specialist',
-      extras: ['Landing page optimization', 'Competitor analysis'],
-    },
-    Enterprise: {
-      included: [
-        'Full-funnel Google Ads strategy',
-        'Unlimited campaigns',
-        'Advanced AI bidding strategies',
-        'Video ads (YouTube)',
-        'Performance Max campaigns',
-        'Advanced remarketing & RLSA',
-        'Custom audience segments',
-        'Dynamic ad creation',
-        'Weekly strategy calls',
-        'Real-time dashboard access',
-        'Dedicated PPC manager',
-        'Ad spend: $15,000+/mo managed',
-      ],
-      timeline: 'Launch within 2-3 days',
-      support: '24/7 priority support + Slack',
-      extras: ['CRO testing program', 'Custom attribution modeling', 'Google Shopping feed optimization'],
-    },
-  },
-  'META ADS': {
-    Basic: {
-      included: [
-        'Facebook & Instagram ads setup',
-        'Up to 3 campaigns',
-        'Audience research & targeting',
-        'Ad creative recommendations',
-        'Basic ad copywriting (5 variations)',
-        'Pixel setup & conversion tracking',
-        'Monthly performance report',
-        'Ad spend: $2,000-$4,000/mo recommended',
-      ],
-      timeline: 'Launch within 1 week',
-      support: 'Email support (48h response)',
-    },
-    Standard: {
-      included: [
-        'Advanced Meta ads strategy (FB, IG, Messenger)',
-        'Up to 8 campaigns',
-        'Custom & lookalike audiences',
-        'A/B testing (15+ ad variations)',
-        'Retargeting campaigns',
-        'Ad creative design (static & carousel)',
-        'Lead generation forms',
-        'Bi-weekly optimization',
-        'Detailed analytics & insights',
-        'Ad spend: $4,000-$12,000/mo recommended',
-      ],
-      timeline: 'Launch within 3-5 days',
-      support: 'Priority support with Meta specialist',
-      extras: ['Audience insights reports', 'Funnel optimization'],
-    },
-    Enterprise: {
-      included: [
-        'Enterprise Meta advertising strategy',
-        'Unlimited campaigns (FB, IG, WhatsApp, Audience Network)',
-        'Advanced automation & dynamic ads',
-        'Video ad production & optimization',
-        'Advantage+ campaigns',
-        'Custom audience segmentation',
-        'Multi-product catalog ads',
-        'Influencer collaboration ads',
-        'Weekly strategy sessions',
-        'Real-time performance dashboard',
-        'Dedicated Meta ads manager',
-        'Ad spend: $12,000+/mo managed',
-      ],
-      timeline: 'Launch within 2-3 days',
-      support: '24/7 priority support + Slack',
-      extras: ['Creative production team', 'Brand safety monitoring', 'Advanced attribution'],
+      support: '6 months dedicated studio support',
+      extras: ['Dedicated web director', 'Custom digital showroom features', 'VIP SLA'],
     },
   },
 }
@@ -551,7 +371,7 @@ export default function MarketingPriceCalculator() {
             <span className='text-blue-700'>Marketing Price</span> Calculator
           </h4>
           <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto px-4">
-            Customize your requirements and see real-time pricing with included features
+            Customize marketing requirements for your interior design firm and calculate transparent, real-time pricing
           </p>
         </div>
 
@@ -581,7 +401,7 @@ export default function MarketingPriceCalculator() {
               </div>
               <div className="mt-3 p-2.5 sm:p-3 bg-amber-50 border-l-4 border-amber-400 rounded-r">
                 <p className="text-xs text-gray-700">
-                  <span className="font-semibold text-amber-800">Why our pricing is different:</span> You'd find agencies quoting $299/mo for SEO, but all you'd get is low-quality links and rankings on keywords nobody searches for. We don't work like that.
+                  <span className="font-semibold text-amber-800">Why our pricing is different:</span> We focus exclusively on high-intent marketing that attracts affluent homeowners and signed design contracts—not cheap clicks or unqualified leads.
                 </p>
               </div>
             </div>

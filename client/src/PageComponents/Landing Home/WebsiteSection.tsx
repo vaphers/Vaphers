@@ -118,19 +118,12 @@ const DesignPartnerSection = () => {
                   <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans text-gray-900 mb-4 bungee-shade leading-[1.15]">
                       We Design
                       <span className="bg-blue-700 bg-clip-text text-transparent block sm:inline">
-                      {' '}Conversion-Driven Websites
+                      {' '}Luxury Design Portfolios
                       </span>
                   </h3>
 
                   <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed max-w-xl">
-                      Vaphers is the leading <span className="font-medium">SaaS web design agency</span> focused on building websites that convert traffic into real business outcomes. Every layout is crafted for performance, ensuring your site supports growth from day one. As a trusted{' '}
-                      <a
-                      href="https://www.vaphers.com/website-development-services/nextjs-website-development"
-                      className="text-blue-700 underline hover:text-blue-800 font-medium"
-                      >
-                      Next.js website development agency
-                      </a>
-                      , we build fast, scalable, and SEO-friendly platforms. We also specialize in JavaScript SEO, ensuring that complex, framework-driven websites are fully discoverable and rank highly on search engines.
+                      Vaphers is the premier web design agency for <span className="font-medium">interior designers, architects, and luxury home studios</span>. We build editorial, visually captivating websites that showcase your spatial transformations and design projects in breathtaking clarity. Every layout is crafted for elegance, lightning-fast high-resolution media loading, and seamless search engine discoverability—turning discerning visitors into signed high-budget design commissions.
                   </p>
                 </div>
 
@@ -138,7 +131,7 @@ const DesignPartnerSection = () => {
                   <a href="https://www.vaphers.com/contact" className="block sm:inline-block w-full sm:w-auto">
                     {/* Made text wrap and scaled down padding/text for tiny screens */}
                     <div className="flex items-center justify-center px-4 py-3.5 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs sm:text-base font-semibold rounded-xl sm:rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer group w-full">
-                      <span className="mr-2 sm:mr-3 whitespace-normal text-center leading-tight">Start Your Global SEO Growth</span>
+                      <span className="mr-2 sm:mr-3 whitespace-normal text-center leading-tight">Explore Studio Web Design</span>
                       <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 group-hover:translate-x-1 transition-transform duration-300" />
                     </div>
                   </a>
@@ -229,10 +222,10 @@ const AboutSection = () => {
         <div className="flex flex-col gap-5 sm:gap-8 md:gap-10">
           {/* Scaled down to text-xl for smallest screens */}
           <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-[1.3] md:leading-[1.15] tracking-tight">
-            We’re Vaphers – a strategic digital agency blending data-driven insight with expert SaaS web design.
+            We’re Vaphers – a strategic creative agency blending high-aesthetic portfolio design with data-driven growth for interior designers.
           </h2>
           <p className="text-lg sm:text-xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-[1.3] md:leading-[1.15] tracking-tight text-blue-200">
-            We craft exceptional B2B web design solutions and scalable digital platforms that drive growth.
+            We craft exceptional digital portfolio experiences and luxury design websites that command prestige and attract high-budget clients.
           </p>
         </div>
       </div>
