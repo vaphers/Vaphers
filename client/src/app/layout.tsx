@@ -1,6 +1,6 @@
 import './globals.css'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import { Bungee_Inline, Bungee_Shade, Montserrat, Libre_Franklin } from 'next/font/google'
+import { Bungee_Inline, Bungee_Shade, Montserrat, Libre_Franklin, Outfit, JetBrains_Mono } from 'next/font/google'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { Toaster } from '@/components/ui/sonner'
 import { Suspense } from 'react'
@@ -12,6 +12,13 @@ const bungeeInline = Bungee_Inline({
   display: 'swap',
   variable: '--font-bungee-inline',
 })
+
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  variable: '--font-outfit',
+  display: 'swap',
+});
 
 // Initialize Bungee Shade
 const bungeeShade = Bungee_Shade({
@@ -37,30 +44,38 @@ const libreFranklin = Libre_Franklin({
   variable: '--font-libre-franklin',
 })
 
+// Initialize JetBrains Mono
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  display: 'swap',
+  variable: '--font-jetbrains',
+})
+
 export const metadata = {
   metadataBase: new URL('https://www.vaphers.com/'),
 
   title: {
     default:
-      'Vaphers: Data-Driven SEO & Performance Marketing — America’s Top-Rated Growth Agency',
+      'SEO for Interior Designers | Vaphers — Premier Search Visibility & Growth Agency',
   },
 
   description:
-    'Vaphers is an affordable digital marketing agency offering expert SEO, PPC advertising, and web development services. Drive qualified traffic and grow your revenue with data-driven strategies that deliver measurable results.',
+    'Vaphers is the specialized SEO agency for interior designers, luxury studios, and architectural firms. Dominate local search, get recommended in AI search engines, and attract affluent clients ready to hire.',
 
   alternates: {
     canonical: 'https://www.vaphers.com/',
   },
 
   keywords: [
-    'affordable digital marketing agency',
-    'digital marketing services',
-    'SEO services',
-    'PPC advertising',
-    'web development',
-    'ecommerce SEO',
-    'content marketing',
-    'online marketing agency',
+    'SEO for interior designers',
+    'interior design SEO',
+    'interior designer marketing',
+    'luxury interior design SEO',
+    'local SEO for interior designers',
+    'SEO for design studios',
+    'interior design lead generation',
+    'SEO for architects and designers',
   ],
 
   authors: [{ name: 'Vaphers' }],
@@ -78,24 +93,24 @@ export const metadata = {
     locale: 'en_US',
     url: 'https://www.vaphers.com/',
     siteName: 'Vaphers',
-    title: 'Vaphers: Data-Driven SEO & Performance Marketing — America’s Top-Rated Growth Agency',
+    title: 'SEO for Interior Designers | Vaphers — Premier Search Visibility & Growth Agency',
     description:
-      'We don’t just rank keywords; we scale businesses. By merging elite frontend engineering with precision SEO strategies, Vaphers helps brands dominate search results and achieve measurable, 4x revenue growth through technical excellence and aggressive digital marketing..',
+      'Specialized SEO and organic client acquisition for interior designers, architects, and luxury studios. Dominate local search and get discovered by high-budget clients.',
     images: [
       {
         url: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772636628/Leading_paid_search_marketing_agency_owavgz.png',
         width: 1200,
         height: 630,
-        alt: 'Vaphers: Data-Driven SEO & Performance Marketing',
+        alt: 'Vaphers: SEO for Interior Designers',
       },
     ],
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'Vaphers: Data-Driven SEO & Performance Marketing — America’s Top-Rated Growth Agency',
+    title: 'SEO for Interior Designers | Vaphers — Premier Search Visibility & Growth Agency',
     description:
-      'We don’t just rank keywords; we scale businesses. By merging elite frontend engineering with precision SEO strategies, Vaphers helps brands dominate search results and achieve measurable, 4x revenue growth through technical excellence and aggressive digital marketing..',
+      'Specialized SEO and organic client acquisition for interior designers, architects, and luxury studios. Dominate local search and get discovered by high-budget clients.',
     images: [
       'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047482/vaphers-og-image.png',
     ],
@@ -130,7 +145,7 @@ export default function RootLayout({
     >
       <html
         lang="en"
-        className={`${bungeeInline.variable} ${bungeeShade.variable} ${montserrat.variable} ${libreFranklin.variable}`}
+        className={`${bungeeInline.variable} ${bungeeShade.variable} ${montserrat.variable} ${outfit.variable} ${libreFranklin.variable} ${jetbrainsMono.variable}`}
       >
         <head>
           <script src="https://analytics.ahrefs.com/analytics.js" data-key="R7lOm40+Rsly7oGYYcI9cQ" async></script>

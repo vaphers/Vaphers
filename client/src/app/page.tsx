@@ -272,9 +272,9 @@ export default function Page() {
       />
 
       <main>
-        <NavBar/>
-        <Hero />
-        {/* <HeroHomeMain/> */}
+        {/* <NavBar/> */}
+        {/* <Hero /> */}
+        <HeroHomeMain/>
         <Result />
         <ImageComparisonSlider/>
         <InternaionalSEO/>

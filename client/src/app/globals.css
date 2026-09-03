@@ -5,6 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-jetbrains: var(--font-jetbrains), monospace;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -146,8 +147,16 @@
   font-style: normal;
 }
 
+  .font-sans {
+    font-family: var(--font-sans), "Outfit", ui-sans-serif, system-ui, sans-serif;
+  }
+
 .bungee-shade {
   font-family: var(--font-bungee-shade), sans-serif;
+}
+
+.font-jetbrains {
+  font-family: var(--font-jetbrains), monospace;
 }
 
 .montserrat-regular {
@@ -536,4 +545,4 @@ div[data-type="competitor-audit"] {
   background-color: #1E293B !important;
   transform: translateY(-1px) translateZ(0) !important;
   box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.15) !important;
-}
+}
