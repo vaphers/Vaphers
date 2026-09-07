@@ -57,23 +57,24 @@ export const metadata = {
 
   title: {
     default:
-      'SEO for Interior Designers | Vaphers — Premier Search Visibility & Growth Agency',
+      'Marketing for Interior Designers | Vaphers — Premier Search Visibility & Studio Growth Agency',
   },
 
   description:
-    'Vaphers is the specialized SEO agency for interior designers, luxury studios, and architectural firms. Dominate local search, get recommended in AI search engines, and attract affluent clients ready to hire.',
+    'Vaphers is the specialized growth marketing and SEO agency for interior designers, luxury studios, and architectural firms. Dominate local search, get recommended in AI search engines, and attract affluent clients ready to hire.',
 
   alternates: {
     canonical: 'https://www.vaphers.com/',
   },
 
   keywords: [
+    'marketing for interior designers',
+    'interior designer marketing',
     'SEO for interior designers',
     'interior design SEO',
-    'interior designer marketing',
-    'luxury interior design SEO',
+    'luxury interior design marketing',
     'local SEO for interior designers',
-    'SEO for design studios',
+    'marketing for design studios',
     'interior design lead generation',
     'SEO for architects and designers',
   ],
@@ -93,24 +94,24 @@ export const metadata = {
     locale: 'en_US',
     url: 'https://www.vaphers.com/',
     siteName: 'Vaphers',
-    title: 'SEO for Interior Designers | Vaphers — Premier Search Visibility & Growth Agency',
+    title: 'Marketing for Interior Designers | Vaphers — Premier Search Visibility & Studio Growth Agency',
     description:
-      'Specialized SEO and organic client acquisition for interior designers, architects, and luxury studios. Dominate local search and get discovered by high-budget clients.',
+      'Specialized marketing, SEO and organic client acquisition for interior designers, architects, and luxury studios. Dominate local search and get discovered by high-budget clients.',
     images: [
       {
         url: 'https://res.cloudinary.com/dbwrnwa3l/image/upload/v1772636628/Leading_paid_search_marketing_agency_owavgz.png',
         width: 1200,
         height: 630,
-        alt: 'Vaphers: SEO for Interior Designers',
+        alt: 'Vaphers: Marketing for Interior Designers',
       },
     ],
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'SEO for Interior Designers | Vaphers — Premier Search Visibility & Growth Agency',
+    title: 'Marketing for Interior Designers | Vaphers — Premier Search Visibility & Studio Growth Agency',
     description:
-      'Specialized SEO and organic client acquisition for interior designers, architects, and luxury studios. Dominate local search and get discovered by high-budget clients.',
+      'Specialized marketing, SEO and organic client acquisition for interior designers, architects, and luxury studios. Dominate local search and get discovered by high-budget clients.',
     images: [
       'https://res.cloudinary.com/dbwrnwa3l/image/upload/f_auto,q_auto/v1761047482/vaphers-og-image.png',
     ],

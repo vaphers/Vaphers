@@ -7,7 +7,6 @@ import Hero from "@/PageComponents/Landing Home/Hero"
 import AiSeoSection from "@/PageComponents/Landing Home/AiSeoSection"
 import Result from "@/PageComponents/Landing Home/Results"
 import Grow from "@/PageComponents/Landing Home/Grow"
-import Need from "@/PageComponents/Landing Home/DoYouNeedVisiblity"
 import Banner from "@/PageComponents/Global Components/Banner"
 import TestimonialSection from '@/PageComponents/Global Components/Testimonial'
 import Services from '@/PageComponents/Landing Home/Services'
@@ -27,7 +26,10 @@ import MarketingStagesSection from '@/PageComponents/Landing Home/MarketingStage
 import ContactSection from '@/PageComponents/Landing Home/ContactSection'
 import WhyVaphers from '@/PageComponents/Landing Home/WhyVaphers'
 import HeroHomeMain from '../PageComponents/Components Home Main/Hero'
+import HorizontalProcessSection from '@/PageComponents/Components Home Main/HorizontalProcessSection'
+import SpiralPathSection from '@/PageComponents/Components Home Main/SpiralPathSection'
 import Charts from '@/PageComponents/Props Based Components/Chart'
+import OnlineVisibility from '@/PageComponents/Components Home Main/Visibility'
 
 
 
@@ -278,16 +280,14 @@ export default function Page() {
         <Result />
         <ImageComparisonSlider/>
         <InternaionalSEO/>
-        <Need/>
-        <MarketingStagesSection/>
+        <HorizontalProcessSection />
+        <SpiralPathSection />
+        <OnlineVisibility/>
         <TestimonialSection/>
         <AiSeoSection />
-        <Services/>
+        {/* <Services/> */}
         <WebsiteSection />
-
-
         <Charts {...heroData} />
-
         <ContactSection/>
         <Footer/>
       </main>

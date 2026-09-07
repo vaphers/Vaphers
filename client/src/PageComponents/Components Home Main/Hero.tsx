@@ -481,7 +481,7 @@ export default function HeroSection() {
       variants={containerVariants}
       initial="hidden"
       animate="show"
-      className="min-h-screen relative overflow-hidden flex flex-col justify-between p-6 md:p-10 selection:bg-blue-500/30"
+      className="min-h-screen relative overflow-hidden flex flex-col justify-between p-6 md:p-10 selection:bg-blue-500/30 bg-[#E8EBFF]"
     >
       {/* Background Scribbles - 10 Unique Procedural Shapes emerging from center */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -573,7 +573,7 @@ export default function HeroSection() {
               onClick={() => setActiveDropdown(activeDropdown === 'marketing' ? null : 'marketing')}
               className="bg-blue-600 border-2 border-black rounded-xl px-4 py-2 text-white text-xs sm:text-sm font-semibold hover:bg-blue-700 transition-colors shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer"
             >
-              Get SEO Proposal
+              Get Studio Proposal
             </button>
           </div>
         </div>
@@ -612,87 +612,157 @@ export default function HeroSection() {
                   {activeDropdown === 'marketing' && (
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
                       {/* Column 1: SERVICES WE PROVIDE */}
-                      <div className="md:col-span-4 lg:col-span-4 pr-0 md:pr-6 md:border-r border-black/10">
-                        <div className="text-[11px] font-bold uppercase tracking-wider text-black/50 mb-4 font-mono">
-                          SERVICES WE PROVIDE
+                      <div className="md:col-span-4 lg:col-span-4 pr-0 md:pr-6 md:border-r border-black/10 flex flex-col">
+                        <div className="flex items-center gap-2 mb-4">
+                          <span className="w-2 h-2 rounded-full bg-[#48BB36]" />
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-black/60 font-mono">
+                            SERVICES WE PROVIDE
+                          </span>
                         </div>
-                        <ul className="space-y-1">
+                        <div className="space-y-1.5 flex-1">
                           {[
-                            "Managed SEO Services",
-                            "AI SEO Services",
-                            "Digital Marketing Services",
-                            "Local SEO Services",
-                            "Enterprise SEO Services",
-                            "PPC Services",
+                            {
+                              title: "Luxury Studio SEO",
+                              desc: "Rank #1 for high-ticket residential & commercial searches",
+                              href: "/seo-for-interior-designers",
+                            },
+                            {
+                              title: "Portfolio Website Design",
+                              desc: "Bespoke digital galleries built to command higher retainers",
+                              href: "/#portfolio",
+                            },
+                            {
+                              title: "AI Search & GEO Visibility",
+                              desc: "Get recommended in ChatGPT, Perplexity & AI Overviews",
+                              href: "/#ai-seo",
+                            },
+                            {
+                              title: "Local Map Pack Dominance",
+                              desc: "Capture affluent homeowner queries in your primary city",
+                              href: "/contact",
+                            },
+                            {
+                              title: "Spatial Visual Storytelling",
+                              desc: "Editorial layouts that showcase completed transformations",
+                              href: "/#portfolio",
+                            },
+                            {
+                              title: "Organic Inbound Funnels",
+                              desc: "Predictable private client acquisition without paid ads",
+                              href: "/contact",
+                            },
                           ].map((item) => (
-                            <li key={item}>
-                              <a
-                                href="#"
-                                onClick={(e) => { e.preventDefault(); setActiveDropdown(null); }}
-                                className="group py-2 px-2.5 -mx-2 rounded-lg flex items-center justify-between text-black font-semibold text-sm sm:text-base hover:text-blue-600 hover:bg-black/5 transition-colors"
-                              >
-                                <span>{item}</span>
-                                <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-blue-600" />
-                              </a>
-                            </li>
+                            <a
+                              key={item.title}
+                              href={item.href}
+                              onClick={() => setActiveDropdown(null)}
+                              className="group p-2.5 rounded-xl flex items-start justify-between hover:bg-[#F3F6FF] border border-transparent hover:border-black/10 transition-all cursor-pointer"
+                            >
+                              <div className="flex flex-col pr-2">
+                                <span className="text-sm font-bold text-black group-hover:text-blue-600 transition-colors montserrat-semibold leading-tight">
+                                  {item.title}
+                                </span>
+                                <span className="text-[12px] text-black/55 montserrat-regular mt-0.5 leading-snug">
+                                  {item.desc}
+                                </span>
+                              </div>
+                              <ArrowUpRight className="w-4 h-4 shrink-0 text-black/30 group-hover:text-blue-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all mt-0.5" />
+                            </a>
                           ))}
-                        </ul>
+                        </div>
                       </div>
 
-                      {/* Column 2: OUR SEO AGENCY */}
-                      <div className="md:col-span-4 lg:col-span-4 px-0 md:px-6 md:border-r border-black/10">
-                        <div className="text-[11px] font-bold uppercase tracking-wider text-black/50 mb-4 font-mono flex items-center gap-2">
-                          <Users className="w-4 h-4 text-purple-600" />
-                          <span>OUR SEO AGENCY</span>
+                      {/* Column 2: FOR DESIGN STUDIOS */}
+                      <div className="md:col-span-4 lg:col-span-4 px-0 md:px-6 md:border-r border-black/10 flex flex-col">
+                        <div className="flex items-center gap-2 mb-4">
+                          <span className="w-2 h-2 rounded-full bg-blue-600" />
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-black/60 font-mono">
+                            FOR DESIGN STUDIOS
+                          </span>
                         </div>
-                        <ul className="space-y-1">
+                        <div className="space-y-1.5 flex-1">
                           {[
-                            "SEO Agency",
-                            "What does an SEO Company Do?",
-                            "Best SEO Companies",
-                            "In-House vs. SEO Agency",
-                            "How Much Do SEO Agencies Cost?",
-                            "How to Compare SEO Agencies",
+                            {
+                              title: "The Vaphers Framework",
+                              desc: "Why generic agencies fail high-aesthetic design firms",
+                              href: "/about-us",
+                            },
+                            {
+                              title: "Why High-End Portfolios Convert",
+                              desc: "How intentional UI commands 20-30% higher design fees",
+                              href: "/blogs",
+                            },
+                            {
+                              title: "Breaking The Referral Trap",
+                              desc: "Moving from word-of-mouth plateau to steady inbound",
+                              href: "/blogs",
+                            },
+                            {
+                              title: "AI Search Engine Playbook",
+                              desc: "How high-net-worth clients discover architects via AI",
+                              href: "/blogs",
+                            },
+                            {
+                              title: "Studio Growth Case Studies",
+                              desc: "Verified commission wins & organic search transformations",
+                              href: "/testimonials",
+                            },
+                            {
+                              title: "Client Acquisition Funnels",
+                              desc: "The path from first impression to signed design contract",
+                              href: "/contact",
+                            },
                           ].map((item) => (
-                            <li key={item}>
-                              <a
-                                href="#"
-                                onClick={(e) => { e.preventDefault(); setActiveDropdown(null); }}
-                                className="group py-2 px-2.5 -mx-2 rounded-lg flex items-center justify-between text-black font-semibold text-sm sm:text-base hover:text-blue-600 hover:bg-black/5 transition-colors"
-                              >
-                                <span>{item}</span>
-                                <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-blue-600" />
-                              </a>
-                            </li>
+                            <a
+                              key={item.title}
+                              href={item.href}
+                              onClick={() => setActiveDropdown(null)}
+                              className="group p-2.5 rounded-xl flex items-start justify-between hover:bg-[#F3F6FF] border border-transparent hover:border-black/10 transition-all cursor-pointer"
+                            >
+                              <div className="flex flex-col pr-2">
+                                <span className="text-sm font-bold text-black group-hover:text-blue-600 transition-colors montserrat-semibold leading-tight">
+                                  {item.title}
+                                </span>
+                                <span className="text-[12px] text-black/55 montserrat-regular mt-0.5 leading-snug">
+                                  {item.desc}
+                                </span>
+                              </div>
+                              <ArrowUpRight className="w-4 h-4 shrink-0 text-black/30 group-hover:text-blue-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all mt-0.5" />
+                            </a>
                           ))}
-                        </ul>
+                        </div>
                       </div>
 
-                      {/* Column 3: Call to Action Card */}
+                      {/* Column 3: Elevated Neo-Brutalist CTA Card */}
                       <div className="md:col-span-4 lg:col-span-4 pl-0 md:pl-6 flex flex-col justify-between">
-                        <div className="bg-[#15033E] text-white rounded-2xl p-6 sm:p-7 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-between h-full min-h-[280px]">
+                        <div className="bg-[#1D4D38] text-white rounded-2xl p-6 sm:p-7 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-between h-full min-h-[340px]">
                           <div>
-                            <div className="flex items-start justify-between">
-                              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight leading-tight">
-                                Let’s Drive Results<br />
-                                <span className="text-[#00FFA3]">Together</span>
-                              </h3>
-                              <ArrowUpRight className="w-8 h-8 text-[#00FFA3] flex-shrink-0" />
+                            <div className="inline-flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full text-[11px] font-mono tracking-wider uppercase text-white/90 mb-4 border border-white/15">
+                              <Sparkles className="w-3.5 h-3.5 text-[#48BB36]" />
+                              <span>STUDIO GROWTH AUDIT</span>
                             </div>
-                            <p className="text-xs sm:text-sm text-white/70 mt-3 font-medium">
-                              Custom search & client acquisition campaigns built for high-growth design firms.
+                            <h3 className="text-2xl sm:text-3xl font-normal tracking-tight leading-tight montserrat-medium text-white">
+                              Scale Your Studio’s <br />
+                              <span className="font-bold text-[#48BB36] inline-block montserrat-bold">Client Pipeline</span>
+                            </h3>
+                            <p className="text-xs sm:text-sm text-white/80 mt-3 font-normal montserrat-regular leading-relaxed">
+                              Get a custom strategic roadmap to attract multi-million dollar commissions through luxury SEO & portfolio design.
                             </p>
                           </div>
 
                           <div className="mt-8 space-y-3">
-                            <button
+                            <a
+                              href="/contact"
                               onClick={() => setActiveDropdown(null)}
-                              className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-md active:scale-98 text-sm sm:text-base cursor-pointer"
+                              className="block w-full no-underline"
                             >
-                              Get SEO Proposal
-                            </button>
+                              <button className="w-full bg-[#48BB36] hover:bg-[#3ea82f] text-white font-bold py-3.5 px-6 rounded-xl border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all text-sm sm:text-base cursor-pointer flex items-center justify-center gap-2 montserrat-semibold">
+                                <span>Book Strategy Call</span>
+                                <ArrowUpRight className="w-4 h-4" />
+                              </button>
+                            </a>
                             <div className="text-center font-mono text-[10px] tracking-widest text-white/60 uppercase">
-                              POWERED BY <span className="font-extrabold text-white">VAPHERS</span>
+                              NO OBLIGATION • <span className="font-bold text-white">BUILT FOR STUDIOS</span>
                             </div>
                           </div>
                         </div>
@@ -702,198 +772,324 @@ export default function HeroSection() {
 
                   {/* 2. RESOURCES MENU */}
                   {activeDropdown === 'resources' && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-                      {/* Column 1: LEARN SEO */}
-                      <div className="sm:border-r border-black/10 pr-0 sm:pr-4">
-                        <div className="text-[11px] font-bold uppercase tracking-wider text-black/50 mb-4 font-mono">
-                          LEARN SEO
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+                      {/* Column 1: STUDIO GUIDES & PLAYBOOKS */}
+                      <div className="md:col-span-4 lg:col-span-4 pr-0 md:pr-6 md:border-r border-black/10 flex flex-col">
+                        <div className="flex items-center gap-2 mb-4">
+                          <span className="w-2 h-2 rounded-full bg-blue-600" />
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-black/60 font-mono">
+                            STUDIO GUIDES & PLAYBOOKS
+                          </span>
                         </div>
-                        <ul className="space-y-1">
+                        <div className="space-y-1.5 flex-1">
                           {[
-                            "SEO Basics",
-                            "On-Page SEO",
-                            "Off-Page SEO",
-                            "Technical SEO",
-                            "How Search Engines Work",
+                            {
+                              title: "Studio SEO Blueprint",
+                              desc: "Complete organic search guide for luxury interior designers",
+                              href: "/blogs",
+                            },
+                            {
+                              title: "High-Net-Worth Inbound Funnels",
+                              desc: "How affluent homeowners discover and evaluate designers",
+                              href: "/blogs",
+                            },
+                            {
+                              title: "Portfolio Spatial Storytelling",
+                              desc: "Crafting visual case studies that command top design fees",
+                              href: "/blogs",
+                            },
+                            {
+                              title: "Local Search Dominance",
+                              desc: "Map pack rankings for design studios in prime metropolitan areas",
+                              href: "/blogs",
+                            },
+                            {
+                              title: "Common Questions (FAQ)",
+                              desc: "Transparent answers on pricing, timeline, and deliverables",
+                              href: "/common-questions",
+                            },
+                            {
+                              title: "Studio Growth Insights",
+                              desc: "In-depth analysis of high-performing interior architecture sites",
+                              href: "/blogs",
+                            },
                           ].map((item) => (
-                            <li key={item}>
-                              <a
-                                href="#"
-                                onClick={(e) => { e.preventDefault(); setActiveDropdown(null); }}
-                                className="group py-2 px-2.5 -mx-2 rounded-lg flex items-center justify-between text-black font-semibold text-sm sm:text-base hover:text-blue-600 hover:bg-black/5 transition-colors"
-                              >
-                                <span>{item}</span>
-                                <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-blue-600" />
-                              </a>
-                            </li>
+                            <a
+                              key={item.title}
+                              href={item.href}
+                              onClick={() => setActiveDropdown(null)}
+                              className="group p-2.5 rounded-xl flex items-start justify-between hover:bg-[#F3F6FF] border border-transparent hover:border-black/10 transition-all cursor-pointer"
+                            >
+                              <div className="flex flex-col pr-2">
+                                <span className="text-sm font-bold text-black group-hover:text-blue-600 transition-colors montserrat-semibold leading-tight">
+                                  {item.title}
+                                </span>
+                                <span className="text-[12px] text-black/55 montserrat-regular mt-0.5 leading-snug">
+                                  {item.desc}
+                                </span>
+                              </div>
+                              <ArrowUpRight className="w-4 h-4 shrink-0 text-black/30 group-hover:text-blue-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all mt-0.5" />
+                            </a>
                           ))}
-                        </ul>
+                        </div>
                       </div>
 
-                      {/* Column 2: SEO RESOURCES */}
-                      <div className="lg:border-r border-black/10 pr-0 lg:pr-4">
-                        <div className="text-[11px] font-bold uppercase tracking-wider text-black/50 mb-4 font-mono">
-                          SEO RESOURCES
+                      {/* Column 2: PUBLICATIONS & COMMUNITY */}
+                      <div className="md:col-span-4 lg:col-span-4 px-0 md:px-6 md:border-r border-black/10 flex flex-col">
+                        <div className="flex items-center gap-2 mb-4">
+                          <span className="w-2 h-2 rounded-full bg-purple-600" />
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-black/60 font-mono">
+                            PUBLICATIONS & COMMUNITY
+                          </span>
                         </div>
-                        <ul className="space-y-1">
+                        <div className="space-y-1.5 flex-1">
                           {[
-                            "SEO Blog",
-                            "SEO Content Guide",
-                            "Keyword Research Guide",
-                            "Local SEO Guide",
-                            "SEO Checklist",
+                            {
+                              title: "Vaphers Editorial Journal",
+                              desc: "Articles on design psychology, luxury positioning & digital UI",
+                              href: "/blogs",
+                            },
+                            {
+                              title: "Write For Vaphers",
+                              desc: "Contribute case studies, spatial philosophy & industry perspectives",
+                              href: "/write-for-us",
+                            },
+                            {
+                              title: "Client Transformation Stories",
+                              desc: "Verified traffic growth and closed commission case studies",
+                              href: "/testimonials",
+                            },
+                            {
+                              title: "AI Search Readiness Guide",
+                              desc: "Preparing your portfolio for ChatGPT & Perplexity discovery",
+                              href: "/blogs",
+                            },
+                            {
+                              title: "Design Industry Perspectives",
+                              desc: "Trends shaping high-end residential & commercial studios",
+                              href: "/blogs",
+                            },
+                            {
+                              title: "Free Studio Website Audit",
+                              desc: "Discover where your current portfolio is losing qualified leads",
+                              href: "/contact",
+                            },
                           ].map((item) => (
-                            <li key={item}>
-                              <a
-                                href="#"
-                                onClick={(e) => { e.preventDefault(); setActiveDropdown(null); }}
-                                className="group py-2 px-2.5 -mx-2 rounded-lg flex items-center justify-between text-black font-semibold text-sm sm:text-base hover:text-blue-600 hover:bg-black/5 transition-colors"
-                              >
-                                <span>{item}</span>
-                                <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-blue-600" />
-                              </a>
-                            </li>
+                            <a
+                              key={item.title}
+                              href={item.href}
+                              onClick={() => setActiveDropdown(null)}
+                              className="group p-2.5 rounded-xl flex items-start justify-between hover:bg-[#F3F6FF] border border-transparent hover:border-black/10 transition-all cursor-pointer"
+                            >
+                              <div className="flex flex-col pr-2">
+                                <span className="text-sm font-bold text-black group-hover:text-blue-600 transition-colors montserrat-semibold leading-tight">
+                                  {item.title}
+                                </span>
+                                <span className="text-[12px] text-black/55 montserrat-regular mt-0.5 leading-snug">
+                                  {item.desc}
+                                </span>
+                              </div>
+                              <ArrowUpRight className="w-4 h-4 shrink-0 text-black/30 group-hover:text-blue-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all mt-0.5" />
+                            </a>
                           ))}
-                        </ul>
+                        </div>
                       </div>
 
-                      {/* Column 3: SEO QUESTIONS */}
-                      <div className="sm:border-r border-black/10 pr-0 sm:pr-4">
-                        <div className="text-[11px] font-bold uppercase tracking-wider text-black/50 mb-4 font-mono">
-                          SEO QUESTIONS
-                        </div>
-                        <ul className="space-y-1">
-                          {[
-                            "Is SEO Worth It?",
-                            "What is SEO’s ROI?",
-                            "What are SEO KPIs?",
-                            "How do I drive more leads?",
-                            "Why isn’t my website on Google?",
-                          ].map((item) => (
-                            <li key={item}>
-                              <a
-                                href="#"
-                                onClick={(e) => { e.preventDefault(); setActiveDropdown(null); }}
-                                className="group py-2 px-2.5 -mx-2 rounded-lg flex items-center justify-between text-black font-semibold text-sm sm:text-base hover:text-blue-600 hover:bg-black/5 transition-colors"
-                              >
-                                <span>{item}</span>
-                                <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-blue-600" />
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                      {/* Column 3: Featured Publications Card */}
+                      <div className="md:col-span-4 lg:col-span-4 pl-0 md:pl-6 flex flex-col justify-between">
+                        <div className="bg-[#16203B] text-white rounded-2xl p-6 sm:p-7 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-between h-full min-h-[340px]">
+                          <div>
+                            <div className="inline-flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full text-[11px] font-mono tracking-wider uppercase text-white/90 mb-4 border border-white/15">
+                              <Sparkles className="w-3.5 h-3.5 text-[#60A5FA]" />
+                              <span>STUDIO INTELLIGENCE</span>
+                            </div>
+                            <h3 className="text-2xl sm:text-3xl font-normal tracking-tight leading-tight montserrat-medium text-white">
+                              Master Studio <br />
+                              <span className="font-bold text-[#60A5FA] inline-block montserrat-bold">Client Growth</span>
+                            </h3>
+                            <p className="text-xs sm:text-sm text-white/80 mt-3 font-normal montserrat-regular leading-relaxed">
+                              Access our curated library of strategic teardowns, case studies, and frameworks built exclusively for interior designers & architects.
+                            </p>
+                          </div>
 
-                      {/* Column 4: SEO MINITOOLS */}
-                      <div>
-                        <div className="text-[11px] font-bold uppercase tracking-wider text-black/50 mb-4 font-mono">
-                          SEO MINITOOLS
+                          <div className="mt-8 space-y-3">
+                            <a
+                              href="/blogs"
+                              onClick={() => setActiveDropdown(null)}
+                              className="block w-full no-underline"
+                            >
+                              <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 px-6 rounded-xl border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all text-sm sm:text-base cursor-pointer flex items-center justify-center gap-2 montserrat-semibold">
+                                <span>Browse Studio Journal</span>
+                                <ArrowUpRight className="w-4 h-4" />
+                              </button>
+                            </a>
+                            <div className="text-center font-mono text-[10px] tracking-widest text-white/60 uppercase">
+                              FREE ACCESS • <span className="font-bold text-white">UPDATED WEEKLY</span>
+                            </div>
+                          </div>
                         </div>
-                        <ul className="space-y-1">
-                          {[
-                            "AI Overview Checker",
-                            "SEO Checker",
-                            "Domain Checker",
-                            "Keyword Research Tool",
-                            "Website Traffic Checker",
-                          ].map((item) => (
-                            <li key={item}>
-                              <a
-                                href="#"
-                                onClick={(e) => { e.preventDefault(); setActiveDropdown(null); }}
-                                className="group py-2 px-2.5 -mx-2 rounded-lg flex items-center justify-between text-black font-semibold text-sm sm:text-base hover:text-blue-600 hover:bg-black/5 transition-colors"
-                              >
-                                <span>{item}</span>
-                                <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-blue-600" />
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
                       </div>
                     </div>
                   )}
 
                   {/* 3. AI SEO MENU */}
                   {activeDropdown === 'ai-seo' && (
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                      {/* Column 1: GETTING STARTED */}
-                      <div className="md:border-r border-black/10 pr-0 md:pr-6">
-                        <div className="text-[11px] font-bold uppercase tracking-wider text-black/50 mb-4 font-mono">
-                          GETTING STARTED
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+                      {/* Column 1: AI SEARCH SERVICES */}
+                      <div className="md:col-span-4 lg:col-span-4 pr-0 md:pr-6 md:border-r border-black/10 flex flex-col">
+                        <div className="flex items-center gap-2 mb-4">
+                          <span className="w-2 h-2 rounded-full bg-[#48BB36]" />
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-black/60 font-mono">
+                            AI SEARCH & GEO SERVICES
+                          </span>
                         </div>
-                        <ul className="space-y-1">
+                        <div className="space-y-1.5 flex-1">
                           {[
-                            "AI and SEO",
-                            "AI and Content",
-                            "AI SEO Services",
-                            "Best SEO AI Tools",
-                            "Guide to SEO in 2026",
+                            {
+                              title: "Generative Engine Optimization (GEO)",
+                              desc: "Get recommended when clients ask AI for top interior designers",
+                              href: "/#ai-seo",
+                            },
+                            {
+                              title: "ChatGPT & Perplexity Presence",
+                              desc: "Structure portfolio entities to win conversational AI answers",
+                              href: "/#ai-seo",
+                            },
+                            {
+                              title: "Google AI Overviews (AEO)",
+                              desc: "Capture top-of-page AI summary snapshots in Google Search",
+                              href: "/#ai-seo",
+                            },
+                            {
+                              title: "Entity Authority Building",
+                              desc: "Establish your firm as a verified architectural authority",
+                              href: "/seo-for-interior-designers",
+                            },
+                            {
+                              title: "Spatial Semantic Tagging",
+                              desc: "Help AI vision models accurately evaluate and cite your spaces",
+                              href: "/#portfolio",
+                            },
+                            {
+                              title: "Zero-Click Client Funnels",
+                              desc: "Convert high-net-worth inquiries directly through AI responses",
+                              href: "/contact",
+                            },
                           ].map((item) => (
-                            <li key={item}>
-                              <a
-                                href="#"
-                                onClick={(e) => { e.preventDefault(); setActiveDropdown(null); }}
-                                className="group py-2 px-2.5 -mx-2 rounded-lg flex items-center justify-between text-black font-semibold text-sm sm:text-base hover:text-blue-600 hover:bg-black/5 transition-colors"
-                              >
-                                <span>{item}</span>
-                                <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-blue-600" />
-                              </a>
-                            </li>
+                            <a
+                              key={item.title}
+                              href={item.href}
+                              onClick={() => setActiveDropdown(null)}
+                              className="group p-2.5 rounded-xl flex items-start justify-between hover:bg-[#F3F6FF] border border-transparent hover:border-black/10 transition-all cursor-pointer"
+                            >
+                              <div className="flex flex-col pr-2">
+                                <span className="text-sm font-bold text-black group-hover:text-blue-600 transition-colors montserrat-semibold leading-tight">
+                                  {item.title}
+                                </span>
+                                <span className="text-[12px] text-black/55 montserrat-regular mt-0.5 leading-snug">
+                                  {item.desc}
+                                </span>
+                              </div>
+                              <ArrowUpRight className="w-4 h-4 shrink-0 text-black/30 group-hover:text-blue-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all mt-0.5" />
+                            </a>
                           ))}
-                        </ul>
+                        </div>
                       </div>
 
-                      {/* Column 2: AI ENGINES */}
-                      <div className="md:border-r border-black/10 pr-0 md:pr-6">
-                        <div className="text-[11px] font-bold uppercase tracking-wider text-black/50 mb-4 font-mono">
-                          AI ENGINES
+                      {/* Column 2: HOW AI SEARCH WORKS */}
+                      <div className="md:col-span-4 lg:col-span-4 px-0 md:px-6 md:border-r border-black/10 flex flex-col">
+                        <div className="flex items-center gap-2 mb-4">
+                          <span className="w-2 h-2 rounded-full bg-blue-600" />
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-black/60 font-mono">
+                            HOW AI SEARCH WORKS
+                          </span>
                         </div>
-                        <ul className="space-y-1">
+                        <div className="space-y-1.5 flex-1">
                           {[
-                            "How to Rank in AI Engines",
-                            "SEO for Perplexity",
-                            "SEO for ChatGPT",
-                            "SEO for Gemini",
+                            {
+                              title: "How Affluent Clients Search AI",
+                              desc: "Why high-budget homeowners use LLMs to curate designer shortlists",
+                              href: "/blogs",
+                            },
+                            {
+                              title: "Traditional SEO vs. AI Search",
+                              desc: "The critical shift from keyword queries to semantic citations",
+                              href: "/blogs",
+                            },
+                            {
+                              title: "Brand Citation Architecture",
+                              desc: "Feeding verified spatial portfolio data into LLM training sources",
+                              href: "/blogs",
+                            },
+                            {
+                              title: "Local AI Recommendations",
+                              desc: "Winning geo-targeted AI queries in prime luxury real estate zones",
+                              href: "/seo-for-interior-designers",
+                            },
+                            {
+                              title: "AI Overview Tracker",
+                              desc: "Monitor your studio's visibility across conversational engines",
+                              href: "/contact",
+                            },
+                            {
+                              title: "Future-Proofing Your Studio",
+                              desc: "Protecting your firm's pipeline as AI search adoption accelerates",
+                              href: "/contact",
+                            },
                           ].map((item) => (
-                            <li key={item}>
-                              <a
-                                href="#"
-                                onClick={(e) => { e.preventDefault(); setActiveDropdown(null); }}
-                                className="group py-2 px-2.5 -mx-2 rounded-lg flex items-center justify-between text-black font-semibold text-sm sm:text-base hover:text-blue-600 hover:bg-black/5 transition-colors"
-                              >
-                                <span>{item}</span>
-                                <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-blue-600" />
-                              </a>
-                            </li>
+                            <a
+                              key={item.title}
+                              href={item.href}
+                              onClick={() => setActiveDropdown(null)}
+                              className="group p-2.5 rounded-xl flex items-start justify-between hover:bg-[#F3F6FF] border border-transparent hover:border-black/10 transition-all cursor-pointer"
+                            >
+                              <div className="flex flex-col pr-2">
+                                <span className="text-sm font-bold text-black group-hover:text-blue-600 transition-colors montserrat-semibold leading-tight">
+                                  {item.title}
+                                </span>
+                                <span className="text-[12px] text-black/55 montserrat-regular mt-0.5 leading-snug">
+                                  {item.desc}
+                                </span>
+                              </div>
+                              <ArrowUpRight className="w-4 h-4 shrink-0 text-black/30 group-hover:text-blue-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all mt-0.5" />
+                            </a>
                           ))}
-                        </ul>
+                        </div>
                       </div>
 
-                      {/* Column 3: AI FAQS */}
-                      <div>
-                        <div className="text-[11px] font-bold uppercase tracking-wider text-black/50 mb-4 font-mono">
-                          AI FAQS
+                      {/* Column 3: Featured AI Audit Card */}
+                      <div className="md:col-span-4 lg:col-span-4 pl-0 md:pl-6 flex flex-col justify-between">
+                        <div className="bg-[#0D1527] text-white rounded-2xl p-6 sm:p-7 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-between h-full min-h-[340px]">
+                          <div>
+                            <div className="inline-flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full text-[11px] font-mono tracking-wider uppercase text-white/90 mb-4 border border-white/15">
+                              <Sparkles className="w-3.5 h-3.5 text-[#00FFA3]" />
+                              <span>AI VISIBILITY CHECK</span>
+                            </div>
+                            <h3 className="text-2xl sm:text-3xl font-normal tracking-tight leading-tight montserrat-medium text-white">
+                              Is AI Recommending <br />
+                              <span className="font-bold text-[#00FFA3] inline-block montserrat-bold">Your Design Studio?</span>
+                            </h3>
+                            <p className="text-xs sm:text-sm text-white/80 mt-3 font-normal montserrat-regular leading-relaxed">
+                              We test whether ChatGPT, Perplexity, and Google AI Overviews cite your firm when clients search for premier luxury designers.
+                            </p>
+                          </div>
+
+                          <div className="mt-8 space-y-3">
+                            <a
+                              href="/contact"
+                              onClick={() => setActiveDropdown(null)}
+                              className="block w-full no-underline"
+                            >
+                              <button className="w-full bg-[#48BB36] hover:bg-[#3ea82f] text-white font-bold py-3.5 px-6 rounded-xl border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all text-sm sm:text-base cursor-pointer flex items-center justify-center gap-2 montserrat-semibold">
+                                <span>Request Free AI Audit</span>
+                                <ArrowUpRight className="w-4 h-4" />
+                              </button>
+                            </a>
+                            <div className="text-center font-mono text-[10px] tracking-widest text-white/60 uppercase">
+                              PERPLEXITY • CHATGPT • <span className="font-bold text-white">GOOGLE AEO</span>
+                            </div>
+                          </div>
                         </div>
-                        <ul className="space-y-1">
-                          {[
-                            "What is OmniSEO",
-                            "What is GEO",
-                            "What is AEO",
-                            "What are AI Overviews?",
-                            "Will AI Replace SEO Jobs?",
-                          ].map((item) => (
-                            <li key={item}>
-                              <a
-                                href="#"
-                                onClick={(e) => { e.preventDefault(); setActiveDropdown(null); }}
-                                className="group py-2 px-2.5 -mx-2 rounded-lg flex items-center justify-between text-black font-semibold text-sm sm:text-base hover:text-blue-600 hover:bg-black/5 transition-colors"
-                              >
-                                <span>{item}</span>
-                                <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-blue-600" />
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
                       </div>
                     </div>
                   )}

@@ -221,18 +221,18 @@ export default function ServicesShowcase() {
                   {/* 4. Swapped button for Link component here */}
                   <Link 
                     href={activeService.link}
-                    className="flex items-center gap-2 md:gap-3 border border-white/60 rounded-full px-5 py-2 md:px-6 md:py-2.5 w-max hover:bg-white hover:text-black transition-all group"
+                    className="flex items-center gap-2 md:gap-3 bg-white text-black font-semibold border-2 border-black rounded-full px-6 py-2.5 w-max shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all group cursor-pointer"
                   >
-                    <span className="text-xs md:text-sm tracking-wide font-light">Know More</span>
-                    <ArrowDownRight size={16} strokeWidth={1} className="group-hover:rotate-[-45deg] transition-transform" />
+                    <span className="text-xs md:text-sm tracking-wide">Know More</span>
+                    <ArrowDownRight size={16} strokeWidth={2} className="group-hover:rotate-[-45deg] transition-transform" />
                   </Link>
 
                   {/* Mobile Nav Arrows */}
                   <div className="flex gap-2 md:hidden">
-                    <button onClick={() => paginate(-1)} className="p-2.5 rounded-full border border-white/40 hover:bg-white/10 transition-colors">
+                    <button onClick={() => paginate(-1)} className="p-2.5 rounded-full border-2 border-black bg-white text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer">
                       <ArrowLeft size={16} />
                     </button>
-                    <button onClick={() => paginate(1)} className="p-2.5 rounded-full border border-white/40 hover:bg-white/10 transition-colors">
+                    <button onClick={() => paginate(1)} className="p-2.5 rounded-full border-2 border-black bg-white text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer">
                       <ArrowRight size={16} />
                     </button>
                   </div>
@@ -246,9 +246,9 @@ export default function ServicesShowcase() {
         {/* Global Right Nav Arrow (Desktop) */}
         <button
           onClick={() => paginate(1)}
-          className="absolute right-2 lg:right-32 z-30 p-3 rounded-full border border-gray-400 bg-white/50 backdrop-blur-sm hover:bg-white transition-colors text-gray-600 focus:outline-none hidden md:flex"
+          className="absolute right-2 lg:right-32 z-30 p-3.5 rounded-full border-2 border-black bg-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all text-black focus:outline-none hidden md:flex cursor-pointer"
         >
-          <ArrowRight size={20} strokeWidth={1} />
+          <ArrowRight size={20} strokeWidth={2} />
         </button>
 
       </div>

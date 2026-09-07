@@ -66,10 +66,10 @@ export async function POST(request: Request) {
       const gmailUser = process.env.GMAIL_USER || "vapherstech@gmail.com";
       const gmailPass = (process.env.GMAIL_APP_PASSWORD || "uvbk vgsd ltfk jaxa").replace(/\s+/g, "");
       
-      // Multiple recipients: crew@vaphers.com + primary recipient
+      // Multiple recipients: vaphersonline@gmail.com + primary recipient
       const primaryRecipient = process.env.RECIPIENT_EMAIL || "vapherstech@gmail.com";
       const recipientEmails = Array.from(
-        new Set([primaryRecipient, "crew@vaphers.com", "vapherstech@gmail.com"])
+        new Set([primaryRecipient, "vaphersonline@gmail.com", "vapherstech@gmail.com"])
       ).filter(Boolean).join(", ");
 
       const transporter = nodemailer.createTransport({

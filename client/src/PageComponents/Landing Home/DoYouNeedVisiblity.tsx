@@ -100,11 +100,11 @@ const DoYouNeedSEO: React.FC = () => {
 
             {/* Button */}
             <div className="pt-4 sm:pt-4 lg:pb-4 flex justify-center lg:justify-start">
-          <Link href="/contact" className="w-60">
-            <button className="w-full rounded-lg bg-blue-600 px-6 py-2.5 font-medium text-white transition-colors hover:bg-blue-800 cursor-pointer">
-              Book a Strategy Call
-            </button>
-          </Link>
+              <Link href="/contact" className="w-full sm:w-auto">
+                <button className="w-full sm:w-auto bg-blue-600 border-2 border-black rounded-xl px-8 py-3.5 text-white font-semibold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer">
+                  Book a Strategy Call
+                </button>
+              </Link>
             </div>
           </div>
           

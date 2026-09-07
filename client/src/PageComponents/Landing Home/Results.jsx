@@ -10,7 +10,7 @@ const SECTION_HEIGHT_DESKTOP = 900;
 
 export default function SmoothScrollHero() {
   return (
-    <div className="min-h-screen w-full bg-white relative">
+    <div className="min-h-screen w-full bg-[#F9F8F4] relative">
       <div className="relative z-10">
         <Hero />
       </div>
@@ -63,11 +63,10 @@ const CenterImage = ({ progress }) => {
 
   return (
     <motion.div
-      className="sticky top-0 z-10 h-screen w-full flex items-center justify-center bg-gradient-to-br from-white to-gray-100"
+      className="sticky top-0 z-10 h-screen w-full flex items-center justify-center bg-[#F9F8F4]"
       style={{
         clipPath,
         opacity,
-        filter: "brightness(1.1)",
       }}
     >
       <div className="text-center text-blue-600 px-8 bungee-shade">

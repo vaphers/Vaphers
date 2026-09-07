@@ -123,9 +123,9 @@ const ContactSection: React.FC = () => {
         <Button 
           type="submit" 
           disabled={loading} 
-          className="bg-blue-600 hover:bg-blue-700 border border-white text-white h-12 sm:h-14 rounded-xl text-sm sm:text-base font-semibold w-full mt-1 sm:mt-2 transition-all cursor-pointer"
+          className="bg-blue-600 hover:bg-blue-600 border-2 border-black text-white h-12 sm:h-14 rounded-xl text-sm sm:text-base font-semibold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none w-full mt-2 sm:mt-3 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {loading ? 'Sending...' : 'Submit application'}
+          {loading ? 'Sending...' : 'Submit Application'}
         </Button>
       </form>
     </div>

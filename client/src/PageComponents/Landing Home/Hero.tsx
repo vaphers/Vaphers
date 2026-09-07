@@ -46,13 +46,13 @@ function Hero() {
 
         {/* Buttons */}
         <div className="relative z-10 mt-8 flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4 w-full">
-          <Link href="/seo-services" className="w-60">
-            <button className="w-full rounded-lg bg-blue-600 px-6 py-2.5 font-medium text-white transition-colors hover:bg-blue-500 cursor-pointer">
+          <Link href="/seo-services" className="w-full sm:w-64">
+            <button className="w-full bg-blue-600 border-2 border-black rounded-xl px-6 py-3.5 font-semibold text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer">
               Not Sure Where to Start?
             </button>
           </Link>
-          <Link href="/contact" className="w-60">
-            <button className="w-full rounded-lg border border-blue-600 bg-white px-6 py-2.5 font-medium text-blue-700 transition-colors hover:bg-gray-50 cursor-pointer">
+          <Link href="/contact" className="w-full sm:w-64">
+            <button className="w-full bg-white border-2 border-black rounded-xl px-6 py-3.5 font-semibold text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-black/5 hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer">
               Get a Proposal
             </button>
           </Link>

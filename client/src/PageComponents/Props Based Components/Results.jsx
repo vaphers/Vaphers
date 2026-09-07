@@ -32,7 +32,7 @@ export default function Resilts({
   });
 
   return (
-    <div className="min-h-screen w-full bg-white relative">
+    <div className="min-h-screen w-full bg-[#F9F8F4] relative">
       <div 
         ref={ref}
         style={{ height: `calc(${sectionHeight}px + 100vh)` }}
@@ -92,8 +92,8 @@ const CenterImage = ({ progress, line1, line2 }) => {
 
   return (
     <motion.div
-      className="sticky top-0 z-10 h-screen w-full flex items-center justify-center bg-gradient-to-br from-white to-gray-100"
-      style={{ clipPath, opacity, filter: "brightness(1.1)" }}
+      className="sticky top-0 z-10 h-screen w-full flex items-center justify-center bg-[#F9F8F4]"
+      style={{ clipPath, opacity }}
     >
       <div className="text-center text-blue-600 px-8 bungee-shade">
         <h4 className="text-5xl sm:text-6xl md:text-9xl leading-none tracking-tight">{line1}</h4>

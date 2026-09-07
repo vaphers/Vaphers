@@ -92,13 +92,13 @@
 //               Trusted SEO partner for local businesses. We help you scale and rank #1 locally.
 //             </p>
 //             <a 
-//               href="mailto:crew@vaphers.com" 
+//               href="mailto:vaphersonline@gmail.com" 
 //               className="inline-flex items-center gap-2 mt-2 text-sm text-blue-100 hover:text-white transition-colors font-medium"
 //             >
 //               <svg className="w-4 h-4 text-white shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
 //                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
 //               </svg>
-//               crew@vaphers.com
+//               vaphersonline@gmail.com
 //             </a>
 //           </div>
 
@@ -303,7 +303,7 @@ const Footer: React.FC = () => {
             </h3>
             <a
               href="tel:+919641861932"
-              className="inline-block w-full sm:w-auto text-center bg-white border-[3px] border-white text-blue-600 font-bold text-lg sm:text-xl py-3.5 px-8 rounded-lg transition-all hover:bg-blue-50 hover:shadow-md"
+              className="inline-block w-full sm:w-auto text-center bg-white border-2 border-black text-black font-bold text-lg sm:text-xl py-3.5 px-8 rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer"
             >
               +91 9641861932
             </a>
@@ -330,13 +330,13 @@ const Footer: React.FC = () => {
               Trusted SEO partner for local businesses. We help you scale and rank #1 locally.
             </p>
             <a 
-              href="mailto:crew@vaphers.com" 
+              href="mailto:vaphersonline@gmail.com" 
               className="inline-flex items-center gap-2 text-sm text-blue-100 hover:text-white transition-colors font-medium"
             >
               <svg className="w-4 h-4 text-white shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
-              crew@vaphers.com
+              vaphersonline@gmail.com
             </a>
           </div>
 

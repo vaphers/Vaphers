@@ -51,7 +51,7 @@ export default function InternaionalSEO() {
               </p>
               <Link 
                 href="/contact"
-                className="block w-full sm:w-max text-center rounded-lg bg-blue-600 px-8 py-3.5 font-medium text-white transition-colors hover:bg-blue-800"
+                className="inline-block text-center bg-blue-600 border-2 border-black rounded-xl px-8 py-3.5 text-white font-semibold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer w-full sm:w-auto"
               >
                 Get A Proposal
               </Link>

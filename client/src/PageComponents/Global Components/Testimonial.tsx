@@ -93,12 +93,12 @@ export default function SocialProofSection() {
         {/* Fixed Button Layout */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full px-4 sm:px-0">
           <Link href="/contact" className="w-full sm:w-auto">
-            <button className="w-full sm:w-auto rounded-lg bg-blue-600 px-8 py-3 font-medium text-white transition-colors hover:bg-blue-800 cursor-pointer">
+            <button className="w-full sm:w-auto bg-blue-600 border-2 border-black rounded-xl px-8 py-3.5 text-white font-semibold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer">
               Book a Call
             </button>
           </Link>
-          <Link href="mailto:crew@vaphers.com" className="w-full sm:w-auto">
-            <button className="w-full sm:w-auto rounded-lg bg-blue-50 px-8 py-3 font-medium text-blue-700 hover:bg-blue-100 transition-colors cursor-pointer border border-blue-200">
+          <Link href="mailto:vaphersonline@gmail.com" className="w-full sm:w-auto">
+            <button className="w-full sm:w-auto bg-white border-2 border-black rounded-xl px-8 py-3.5 text-black font-semibold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-black/5 hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer">
               Email Us Directly
             </button>
           </Link>
