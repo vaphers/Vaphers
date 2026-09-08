@@ -71,8 +71,8 @@ const CARDS: ProcessCard[] = [
 // ANIMATED SVG LINE ART
 // =========================================
 
-const drawTransition = { duration: 2.2, ease: 'easeInOut' };
-const floatTransition = { duration: 4, repeat: Infinity, repeatType: 'reverse' as const, ease: 'easeInOut' };
+const drawTransition = { duration: 2.2, ease: 'easeInOut' as const };
+const floatTransition = { duration: 4, repeat: Infinity, repeatType: 'reverse' as const, ease: 'easeInOut' as const };
 
 const CardArt: React.FC<{ type: ProcessCard['artType']; stroke: string }> = ({
   type,
