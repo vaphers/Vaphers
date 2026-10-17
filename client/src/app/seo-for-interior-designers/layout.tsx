@@ -47,7 +47,6 @@ export default function SEOForInteriorDesignersLayout({
 }) {
   return (
     <>
-      <NavBar />
       {children}
       <Footer />
     </>
