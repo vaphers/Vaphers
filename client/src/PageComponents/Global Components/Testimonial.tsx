@@ -1,173 +1,257 @@
-import React from "react";
-import { motion } from "framer-motion";
-import Link from "next/link";
+'use client';
 
-const testimonials = [
-  {
-    id: 1,
-    text: "Vaphers completely transformed our client acquisition pipeline. We went from relying on unpredictable referrals to booking 3-4 high-budget residential renovations every month through local Google search and Instagram ads. The caliber of clients finding our portfolio now is on another level.",
-    name: "Claire Vance",
-    role: "Principal Designer, Vance Interiors",
-    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=150&h=150",
-    initials: null,
-    signature: "Claire V.",
-    rotation: "-rotate-2",
-  },
-  {
-    id: 2,
-    text: "Before working with Vaphers, our design firm struggled to get found in our target affluent zip codes. Within 4 months of their local SEO and AI search optimization, we started ranking #1 for luxury interior designers in our city.",
-    name: "Marcus Sterling",
-    role: "Founder, Studio Sterling Design",
-    avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=150&h=150",
-    initials: null,
-    signature: "Marcus S.",
-    rotation: "rotate-2",
-  },
-  {
-    id: 3,
-    text: "Their Google Ads and Meta campaigns are laser-focused on homeowners with high renovation budgets. We stopped getting tire-kickers and started getting serious inquiries for full-house interior transformations.",
-    name: "Elena Rostova",
-    role: "Creative Director, Maison Rostova",
-    avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=150&h=150",
-    initials: null,
-    signature: "Elena R.",
-    rotation: "-rotate-1",
-  },
-  {
-    id: 4,
-    text: "We were skeptical about digital marketing because our business had always been word-of-mouth. Vaphers built an acquisition engine that preserves our luxury boutique reputation while keeping our project pipeline full.",
-    name: "Sarah Jenkins",
-    role: "Lead Designer, Jenkins Living",
-    avatar: null,
-    initials: "SJ",
-    signature: "Sarah J.",
-    rotation: "rotate-1",
-  },
-  {
-    id: 5,
-    text: "I was most impressed by their understanding of luxury design aesthetics. They know how to present high-end portfolios, speak to affluent homeowners, and convert visual interest into signed design agreements.",
-    name: "Kristy Jones",
-    role: "Founder, Jones & Co. Spatial Design",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150&h=150",
-    initials: null,
-    signature: "Kristy J.",
-    rotation: "-rotate-2",
-  },
-  {
-    id: 6,
-    text: "They’re on top of the work, consistently deliver qualified client inquiries, and make our studio feel like a priority. Our firm has never had a stronger project pipeline.",
-    name: "Austin OeDell",
-    role: "Studio Director, OeDell Architecture",
-    avatar: null,
-    initials: "AO",
-    signature: "Austin",
-    rotation: "rotate-2",
-  },
-  {
-    id: 7,
-    text: "Our inquiries from affluent clients looking for complete home redesigns doubled within the first quarter. Vaphers is easily the best marketing investment our design studio has ever made.",
-    name: "Amelia Bronze",
-    role: "Founder, Atelier Bronze Design",
-    avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=150&h=150",
-    initials: null,
-    signature: "Amelia B.",
-    rotation: "-rotate-1",
-  }
-];
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Instagram } from 'lucide-react';
 
 export default function SocialProofSection() {
-  const duplicatedTestimonials = [...testimonials, ...testimonials];
-
   return (
-    <section className="bg-gradient-to-br from-[#e0f2fe] via-[#f0f9ff] to-[#dbeafe] py-10 md:py-14 overflow-hidden flex flex-col justify-center">
-      
-      {/* Header Section */}
-      <div className="text-center w-full max-w-4xl mx-auto px-4 mb-12 md:mb-16">
-        <h3 className="text-3xl sm:text-4xl md:text-6xl bungee-shade text-slate-900 mb-4">
-          <span className="text-blue-700">Social proof?</span> Here.
-        </h3>
-        <p className="text-slate-600 text-sm sm:text-base md:text-lg mb-8 max-w-2xl mx-auto">
-          Trusted by independent interior designers, luxury studios, and architectural firms.
-        </p>
+    <section className="relative w-full py-16 sm:py-24 bg-white overflow-hidden border-b border-black/10">
+      {/* 90% Max-Width Container strictly per user request */}
+      <div className="w-[90%] max-w-[90%] mx-auto">
         
-        {/* Fixed Button Layout */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full px-4 sm:px-0">
-          <Link href="/contact" className="w-full sm:w-auto">
-            <button className="w-full sm:w-auto bg-blue-600 border-2 border-black rounded-xl px-8 py-3.5 text-white font-semibold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer">
-              Book a Call
-            </button>
-          </Link>
-          <Link href="mailto:vaphersonline@gmail.com" className="w-full sm:w-auto">
-            <button className="w-full sm:w-auto bg-white border-2 border-black rounded-xl px-8 py-3.5 text-black font-semibold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-black/5 hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer">
-              Email Us Directly
-            </button>
-          </Link>
+        {/* Top Header / Context strictly in site font theme */}
+        <div className="text-center mb-10 sm:mb-14">
+          <h2 className="text-3xl sm:text-4xl lg:text-6xl montserrat-medium tracking-tight text-gray-950">
+            Trusted By Premier <span className="text-blue-600">Interior Designer & Studios</span>
+          </h2>
+          <p className="montserrat-regular text-sm sm:text-lg text-gray-600 max-w-2xl mx-auto mt-3">
+            Real feedback and measurable results from design firms scaling high-ticket residential and commercial projects.
+          </p>
         </div>
-      </div>
 
-      {/* Infinite Slider Section */}
-      <div className="relative w-full flex items-center">
-        <motion.div
-          className="flex gap-4 sm:gap-6 md:gap-8 w-max px-4 py-8 items-center"
-          animate={{
-            x: ["0%", "-50%"],
-          }}
-          transition={{
-            ease: "linear",
-            duration: 55, 
-            repeat: Infinity,
-          }}
-        >
-          {duplicatedTestimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              // {/* Adjusted Card Dimensions for Mobile */}
-              className={`bg-white p-5 sm:p-6 md:p-8 w-[280px] sm:w-[350px] md:w-[400px] h-[320px] sm:h-[350px] md:h-[400px] shrink-0 shadow-xl flex flex-col justify-between ${testimonial.rotation} transition-transform hover:rotate-0 hover:z-10`}
-              style={{
-                borderBottomRightRadius: index % 2 === 0 ? "2rem" : "0",
-                borderTopRightRadius: index % 2 !== 0 ? "2rem" : "0",
-              }}
+        {/* 5-Column by 2-Row Checkerboard Grid matching reference screenshot */}
+        <div className="w-full overflow-x-auto scrollbar-none pb-4 pt-6">
+          <div className="grid grid-cols-5 gap-4 lg:gap-5 xl:gap-6 min-w-[1100px] xl:min-w-0">
+            
+            {/* ================= ROW 1 ================= */}
+            
+            {/* 1. Accent Title Card (Royal Blue with Rotated "Real feedback.") */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.05 }}
+              className="relative aspect-[3/4.2] rounded-3xl overflow-hidden bg-blue-600 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all duration-300 p-6 flex flex-col justify-between"
             >
-              <p className="text-slate-600 leading-relaxed mb-4 md:mb-8 text-sm md:text-base overflow-y-auto custom-scrollbar">
-                "{testimonial.text}"
-              </p>
-              
-              {/* Fixed Bottom Content Layout */}
-              <div className="flex items-center justify-between mt-auto gap-2">
-                <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-                  {testimonial.avatar ? (
-                    <img
-                      src={testimonial.avatar}
-                      alt={testimonial.name}
-                      className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover border-2 border-blue-50 shrink-0"
-                    />
-                  ) : (
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center border-2 border-blue-50 shrink-0 text-sm md:text-base">
-                      {testimonial.initials}
-                    </div>
-                  )}
-                  
-                  {/* Added min-w-0 to allow standard CSS flex truncation */}
-                  <div className="overflow-hidden min-w-0">
-                    <h4 className="text-slate-800 font-bold text-sm truncate">
-                      {testimonial.name}
-                    </h4>
-                    <p className="text-slate-500 text-xs truncate">
-                      {testimonial.role}
-                    </p>
+              {/* Site Signature Brand Logo Top-Left */}
+              <div className="flex items-center">
+                <span className="bungee-shade text-3xl sm:text-4xl tracking-normal text-white drop-shadow-sm">
+                  vaphers
+                </span>
+              </div>
+
+              {/* Rotated "Real feedback." text matching exact angle & position from reference image */}
+              <div className="absolute left-6 bottom-6 pointer-events-none">
+                <div className="-rotate-90 origin-bottom-left translate-x-20 sm:translate-x-24 lg:translate-x-28">
+                  <div className="montserrat-bold text-4xl sm:text-5xl lg:text-[54px] xl:text-[58px] text-white leading-[0.92] tracking-tighter whitespace-nowrap">
+                    <div>Real</div>
+                    <div>feedback.</div>
                   </div>
                 </div>
-                
-                <div 
-                  className="text-lg sm:text-xl md:text-2xl text-slate-700 opacity-80 shrink-0 ml-auto whitespace-nowrap" 
-                  style={{ fontFamily: "'Caveat', 'Dancing Script', cursive" }}
-                >
-                  {testimonial.signature}
-                </div>
               </div>
-            </div>
-          ))}
-        </motion.div>
+            </motion.div>
+
+            {/* 2. Image Card 1 */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="relative aspect-[3/4.2] rounded-3xl overflow-hidden border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all duration-300 bg-slate-100 group"
+            >
+              <img
+                src="https://cdn-ilcpnnh.nitrocdn.com/JyfVQegtpLSTYrrHtkmaOaslRMIUIjPC/assets/images/optimized/rev-30ab41d/www.oraanj-interiors.co.uk/wp-content/uploads/2026/09/Rachana-Gupta-Founder-of-Oraanj-Interiors-281x403.jpeg"
+                alt="Luxury design project by Vance Interiors"
+                loading="lazy"
+                draggable={false}
+                className="w-full h-full object-cover object-center grayscale select-none"
+              />
+            </motion.div>
+
+            {/* 3. Text Card 1: Rachana (Oraanj Interiors) */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.15 }}
+              className="relative aspect-[3/4.2] rounded-3xl overflow-hidden border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all duration-300 bg-white p-5 sm:p-6 flex flex-col justify-start"
+            >
+              <h3 className="montserrat-bold text-2xl sm:text-[40px] text-gray-950 tracking-tight leading-tight">
+                Rachana
+              </h3>
+              <p className="montserrat-bold text-sm sm:text-lg text-blue-600 tracking-tight mt-0.5">
+                (Oraanj Interiors)
+              </p>
+
+              <div className="mt-4 sm:mt-5 space-y-3 montserrat-regular text-xs sm:text-[13px] lg:text-[14px] text-gray-800 leading-relaxed">
+                <p>
+                  These marketing systems should be a mandatory staple for every serious design firm.
+                </p>
+                <p>
+                  They actually deliver affluent homeowners and you might wanna check your project calendar before turning the campaigns on full speed.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* 4. Image Card 2 */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              className="relative aspect-[3/4.2] rounded-3xl overflow-hidden border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all duration-300 bg-slate-100 group"
+            >
+              <img
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1792244063/ed1b8469-06fa-4005-b72f-3e301c76a7f7_jnwjpk.webp"
+                alt="High-end spatial interior design renovation"
+                loading="lazy"
+                draggable={false}
+                className="w-full h-full object-cover object-center grayscale select-none"
+              />
+            </motion.div>
+
+            {/* 5. Text Card 2: Marcus (Studio Sterling) */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.25 }}
+              className="relative aspect-[3/4.2] rounded-3xl overflow-hidden border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all duration-300 bg-white p-5 sm:p-6 flex flex-col justify-start"
+            >
+              <h3 className="montserrat-bold text-2xl sm:text-[26px] text-gray-950 tracking-tight leading-tight">
+                Marcus
+              </h3>
+              <p className="montserrat-bold text-sm sm:text-base text-blue-600 tracking-tight mt-0.5">
+                (Studio Sterling)
+              </p>
+
+              <div className="mt-4 sm:mt-5 space-y-3 montserrat-regular text-xs sm:text-[13px] lg:text-[14px] text-gray-800 leading-relaxed">
+                <p>
+                  I used to have the hardest time getting clients to understand our premium retainers.
+                </p>
+                <p>
+                  Vaphers built an acquisition funnel that filters out budget tire-kickers. Our inquiries are now strictly high-net-worth homeowners ready to sign.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* ================= ROW 2 ================= */}
+
+            {/* 6. Image Card 3 */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.3 }}
+              className="relative aspect-[3/4.2] rounded-3xl overflow-hidden border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all duration-300 bg-slate-100 group"
+            >
+              <img
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1792244071/23f124ae-f317-49ac-bda4-c621072ee6f8_bekuny.webp"
+                alt="Bespoke luxury interior transformation"
+                loading="lazy"
+                draggable={false}
+                className="w-full h-full object-cover object-center grayscale  select-none"
+              />
+            </motion.div>
+
+            {/* 7. Text Card 3: Elena (Maison Rostova) */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.35 }}
+              className="relative aspect-[3/4.2] rounded-3xl overflow-hidden border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all duration-300 bg-white p-5 sm:p-6 flex flex-col justify-start"
+            >
+              <h3 className="montserrat-bold text-2xl sm:text-[26px] text-gray-950 tracking-tight leading-tight">
+                Elena
+              </h3>
+              <p className="montserrat-bold text-sm sm:text-base text-blue-600 tracking-tight mt-0.5">
+                (Maison Rostova)
+              </p>
+
+              <div className="mt-4 sm:mt-5 space-y-3 montserrat-regular text-xs sm:text-[13px] lg:text-[14px] text-gray-800 leading-relaxed">
+                <p>
+                  Elena will perform client intake presentations that she hasn&apos;t done in four years with confidence, because every lead is vetted.
+                </p>
+                <p>
+                  Within 90 days our pipeline doubled without diluting our boutique identity.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* 8. Image Card with Instagram Social Handle in Center */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.4 }}
+              className="relative aspect-[3/4.2] rounded-3xl overflow-hidden border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all duration-300 bg-slate-900 group"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80"
+                alt="Social media portfolio visual"
+                loading="lazy"
+                draggable={false}
+                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out select-none filter brightness-75"
+              />
+
+              {/* Instagram Badge in Center matching reference screenshot */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center pointer-events-none">
+                <div className="w-13 h-13 rounded-2xl bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] flex items-center justify-center shadow-lg border-2 border-black mb-2.5">
+                  <Instagram className="w-7 h-7 text-white stroke-[2.2]" />
+                </div>
+                <span className="font-jetbrains text-[12px] font-bold uppercase tracking-wider text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                  @vaphers.growth
+                </span>
+              </div>
+            </motion.div>
+
+            {/* 9. Text Card 4: Austin (OeDell Architecture) */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.45 }}
+              className="relative aspect-[3/4.2] rounded-3xl overflow-hidden border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all duration-300 bg-white p-5 sm:p-6 flex flex-col justify-start"
+            >
+              <h3 className="montserrat-bold text-2xl sm:text-[26px] text-gray-950 tracking-tight leading-tight">
+                Austin
+              </h3>
+              <p className="montserrat-bold text-sm sm:text-base text-blue-600 tracking-tight mt-0.5">
+                (OeDell Architecture)
+              </p>
+
+              <div className="mt-4 sm:mt-5 space-y-3 montserrat-regular text-xs sm:text-[13px] lg:text-[14px] text-gray-800 leading-relaxed">
+                <p>
+                  Our studio absolutely loves Vaphers! As soon as their Google Ads &amp; GEO campaigns launched, we were booking qualified consultations every week.
+                </p>
+                <p>
+                  Definitely a permanent staple for our growth strategy!
+                </p>
+              </div>
+            </motion.div>
+
+            {/* 10. Image Card 5 */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.5 }}
+              className="relative aspect-[3/4.2] rounded-3xl overflow-hidden border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all duration-300 bg-slate-100 group"
+            >
+              <img
+                src="https://res.cloudinary.com/dbwrnwa3l/image/upload/v1792244642/48c3050f-86fe-4d30-af4a-f3546baad188_pv5eam.webp"
+                alt="Client completed residential interior renovation"
+                loading="lazy"
+                draggable={false}
+                className="w-full h-full object-cover object-center grayscale select-none"
+              />
+            </motion.div>
+
+          </div>
+        </div>
+
       </div>
     </section>
   );

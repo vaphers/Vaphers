@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'motion/react';
 import React, { useMemo, useState, useEffect } from 'react';
-import { ChevronDown, ArrowUpRight, ArrowRight, Users, Sparkles, X, Check, ShieldCheck, Zap, Globe } from 'lucide-react';
+import { ChevronDown, ArrowUpRight, ArrowRight, Users, Sparkles, X, Check, ShieldCheck, Zap, Globe, Menu } from 'lucide-react';
 
 // Generates uniquely styled hand-drawn scribble paths based on archetype index
 function generateUniqueScribblePath(shapeType: number): string {
@@ -339,7 +339,9 @@ const chartDataOptions = [
 
 export default function HeroSection() {
   const [dataIndex, setDataIndex] = useState(0);
-  const [activeDropdown, setActiveDropdown] = useState<'marketing' | 'resources' | 'ai-seo' | null>(null);
+  const [activeDropdown, setActiveDropdown] = useState<'seo' | 'resources' | 'ai-seo' | 'paid-ads' | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -491,10 +493,10 @@ export default function HeroSection() {
       </div>
 
       {/* Top Nav with Brand, Pill Nav at Center, and CTA */}
-      <motion.header variants={itemVariants} className="relative z-40 w-full">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 py-2 w-full">
+      <motion.header variants={itemVariants} className="relative z-40 w-full max-w-[95%] sm:max-w-[90%] lg:max-w-[86%] mx-auto">
+        <div className="flex items-center justify-between gap-4 py-2 w-full">
           {/* Brand Name - Vaphers in Bungee Shade (V in blue-600, aphers in black and slightly smaller) */}
-          <div className="flex items-center md:flex-1 justify-center md:justify-start">
+          <div className="flex items-center md:flex-1 justify-start">
             <a 
               href="#" 
               className="inline-flex items-baseline group cursor-pointer select-none tracking-normal hover:opacity-90 transition-opacity bungee-shade" 
@@ -509,36 +511,56 @@ export default function HeroSection() {
             </a>
           </div>
           
-          {/* Pill Shaped Navigation Menu - Centered */}
-          <div className="flex items-center justify-center flex-shrink-0">
+          {/* Pill Shaped Navigation Menu - Centered (Desktop only) */}
+          <div className="hidden lg:flex items-center justify-center flex-shrink-0">
             <nav 
               id="pill-nav-menu"
               aria-label="Main navigation"
-              className="bg-white/95 backdrop-blur-md border-2 border-black rounded-full px-2 py-1.5 flex items-center gap-1 sm:gap-2 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+              className="bg-white/95 backdrop-blur-md border-2 border-black rounded-full px-3 py-1.5 flex items-center gap-2 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
             >
-              {/* Marketing Dropdown Trigger */}
-              <button 
-                id="nav-pill-marketing"
-                onClick={() => setActiveDropdown(activeDropdown === 'marketing' ? null : 'marketing')}
-                aria-expanded={activeDropdown === 'marketing'}
-                aria-haspopup="true"
-                className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 cursor-pointer select-none ${
-                  activeDropdown === 'marketing'
-                    ? 'bg-blue-600 text-white shadow-sm'
-                    : 'text-black hover:bg-black/5'
-                }`}
+              {/* SEO - Direct Link (No Dropdown) */}
+              <a 
+                id="nav-pill-seo"
+                href="/seo-services"
+                className="px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-black hover:bg-black/5 transition-all select-none cursor-pointer"
               >
-                <span>Marketing</span>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'marketing' ? 'rotate-180' : ''}`} />
-              </button>
+                SEO
+              </a>
 
-              {/* Resources Dropdown Trigger */}
+              {/* AI SEO - Direct Link (No Dropdown) */}
+              <a 
+                id="nav-pill-ai-seo"
+                href="/seo-services/ai-seo-services"
+                className="px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-black hover:bg-black/5 transition-all select-none cursor-pointer"
+              >
+                AI SEO
+              </a>
+
+              {/* Paid Ads - Direct Link (No Dropdown) */}
+              <a 
+                id="nav-pill-paid-ads"
+                href="/ppc-marketing"
+                className="px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-black hover:bg-black/5 transition-all select-none cursor-pointer"
+              >
+                Paid Ads
+              </a>
+
+              {/* Video Marketing - Direct Link (No Dropdown) */}
+              <a 
+                id="nav-pill-video"
+                href="/ppc-marketing/meta-ads-management-services"
+                className="px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-black hover:bg-black/5 transition-all select-none cursor-pointer"
+              >
+                Video Marketing
+              </a>
+
+              {/* Resources - With Dropdown */}
               <button 
                 id="nav-pill-resources"
                 onClick={() => setActiveDropdown(activeDropdown === 'resources' ? null : 'resources')}
                 aria-expanded={activeDropdown === 'resources'}
                 aria-haspopup="true"
-                className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 cursor-pointer select-none ${
+                className={`px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 cursor-pointer select-none ${
                   activeDropdown === 'resources'
                     ? 'bg-blue-600 text-white shadow-sm'
                     : 'text-black hover:bg-black/5'
@@ -547,36 +569,181 @@ export default function HeroSection() {
                 <span>Resources</span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'resources' ? 'rotate-180' : ''}`} />
               </button>
-
-              {/* AI SEO Dropdown Trigger */}
-              <button 
-                id="nav-pill-ai-seo"
-                onClick={() => setActiveDropdown(activeDropdown === 'ai-seo' ? null : 'ai-seo')}
-                aria-expanded={activeDropdown === 'ai-seo'}
-                aria-haspopup="true"
-                className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 cursor-pointer select-none ${
-                  activeDropdown === 'ai-seo'
-                    ? 'bg-blue-600 text-white shadow-sm'
-                    : 'text-black hover:bg-black/5'
-                }`}
-              >
-                <span>AI SEO</span>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'ai-seo' ? 'rotate-180' : ''}`} />
-              </button>
             </nav>
           </div>
 
-          {/* Right Action */}
-          <div className="flex items-center md:flex-1 justify-center md:justify-end">
-            <button 
+          {/* Right Action: Get A Proposal (Desktop) */}
+          <div className="hidden lg:flex items-center md:flex-1 justify-end">
+            <a 
+              href="/contact"
               id="header-proposal-btn"
-              onClick={() => setActiveDropdown(activeDropdown === 'marketing' ? null : 'marketing')}
-              className="bg-blue-600 border-2 border-black rounded-xl px-4 py-2 text-white text-xs sm:text-sm font-semibold hover:bg-blue-700 transition-colors shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer"
+              className="bg-blue-600 border-2 border-black rounded-xl px-4 py-2 text-white text-xs sm:text-sm font-semibold hover:bg-blue-700 transition-colors shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer inline-flex items-center"
             >
-              Get Studio Proposal
+              Get a Proposal
+            </a>
+          </div>
+
+          {/* Mobile Actions: CTA + Animated Hamburger */}
+          <div className="flex lg:hidden items-center gap-2">
+            <a 
+              href="/contact"
+              className="bg-blue-600 border-2 border-black rounded-xl px-3 py-1.5 text-white text-xs font-semibold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
+            >
+              Get a Proposal
+            </a>
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(true)}
+              className="bg-white border-2 border-black rounded-xl p-2 text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-black/5 active:translate-x-[1px] active:translate-y-[1px] cursor-pointer"
+              aria-label="Open mobile navigation"
+            >
+              <Menu className="w-5 h-5" />
             </button>
           </div>
         </div>
+
+        {/* Mobile Slide-over Drawer with Smooth Spring Animation */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <>
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm lg:hidden"
+                onClick={() => setMobileMenuOpen(false)}
+              />
+
+              {/* Drawer Container */}
+              <motion.div
+                initial={{ x: '100%' }}
+                animate={{ x: 0 }}
+                exit={{ x: '100%' }}
+                transition={{ type: 'spring', stiffness: 320, damping: 30 }}
+                className="fixed top-0 right-0 bottom-0 z-50 w-full max-w-sm bg-white border-l-2 border-black p-6 shadow-2xl flex flex-col justify-between overflow-y-auto lg:hidden"
+              >
+                <div>
+                  {/* Drawer Header */}
+                  <div className="flex items-center justify-between pb-6 border-b border-black/10">
+                    <a
+                      href="/"
+                      className="inline-flex items-baseline bungee-shade text-black text-2xl"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <span className="text-blue-600 text-3xl">V</span>aphers
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="p-2 rounded-xl border border-black/20 hover:border-black hover:bg-black/5 transition-all text-black cursor-pointer"
+                      aria-label="Close menu"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+
+                  {/* Navigation Links */}
+                  <div className="flex flex-col py-6 space-y-1">
+                    <a
+                      href="/seo-services"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="py-3 px-2 text-base font-bold text-gray-950 hover:text-blue-600 border-b border-black/10 transition-colors"
+                    >
+                      SEO
+                    </a>
+                    <a
+                      href="/seo-services/ai-seo-services"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="py-3 px-2 text-base font-bold text-gray-950 hover:text-blue-600 border-b border-black/10 transition-colors"
+                    >
+                      AI SEO
+                    </a>
+                    <a
+                      href="/ppc-marketing"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="py-3 px-2 text-base font-bold text-gray-950 hover:text-blue-600 border-b border-black/10 transition-colors"
+                    >
+                      Paid Ads
+                    </a>
+                    <a
+                      href="/ppc-marketing/meta-ads-management-services"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="py-3 px-2 text-base font-bold text-gray-950 hover:text-blue-600 border-b border-black/10 transition-colors"
+                    >
+                      Video Marketing
+                    </a>
+
+                    {/* Resources Accordion */}
+                    <div className="border-b border-black/10 py-1">
+                      <button
+                        type="button"
+                        onClick={() => setMobileResourcesOpen(!mobileResourcesOpen)}
+                        className="w-full flex items-center justify-between py-2.5 px-2 text-base font-bold text-gray-950 hover:text-blue-600 transition-colors cursor-pointer"
+                      >
+                        <span>Resources</span>
+                        <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileResourcesOpen ? 'rotate-180' : ''}`} />
+                      </button>
+
+                      <AnimatePresence>
+                        {mobileResourcesOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="overflow-hidden pl-4 pr-2 pb-3 space-y-2 text-sm"
+                          >
+                            <a
+                              href="/blogs"
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="block py-1.5 text-gray-700 hover:text-blue-600 font-medium"
+                            >
+                              Blogs & Insights
+                            </a>
+                            <a
+                              href="/common-questions"
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="block py-1.5 text-gray-700 hover:text-blue-600 font-medium"
+                            >
+                              Common Questions & FAQ
+                            </a>
+                            <a
+                              href="/about-us"
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="block py-1.5 text-gray-700 hover:text-blue-600 font-medium"
+                            >
+                              About Us
+                            </a>
+                            <a
+                              href="/pricing"
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="block py-1.5 text-gray-700 hover:text-blue-600 font-medium"
+                            >
+                              Pricing & Plans
+                            </a>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom CTA Button */}
+                <div className="pt-6 border-t border-black/10">
+                  <a
+                    href="/contact"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block w-full bg-blue-600 border-2 border-black rounded-xl py-3.5 text-center text-white font-bold shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[1px] hover:translate-y-[1px] active:shadow-none transition-all cursor-pointer text-sm"
+                  >
+                    Get a Proposal
+                  </a>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
 
         {/* Full-width Rectangular Mega Menu Dropdowns */}
         <AnimatePresence>
@@ -608,8 +775,8 @@ export default function HeroSection() {
                     <X className="w-4 h-4" />
                   </button>
 
-                  {/* 1. MARKETING MENU */}
-                  {activeDropdown === 'marketing' && (
+                  {/* 1. SEO MENU */}
+                  {activeDropdown === 'seo' && (
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
                       {/* Column 1: SERVICES WE PROVIDE */}
                       <div className="md:col-span-4 lg:col-span-4 pr-0 md:pr-6 md:border-r border-black/10 flex flex-col">
@@ -763,6 +930,168 @@ export default function HeroSection() {
                             </a>
                             <div className="text-center font-mono text-[10px] tracking-widest text-white/60 uppercase">
                               NO OBLIGATION • <span className="font-bold text-white">BUILT FOR STUDIOS</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* PAID ADS MENU */}
+                  {activeDropdown === 'paid-ads' && (
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+                      {/* Column 1: PAID ADVERTISING SERVICES */}
+                      <div className="md:col-span-4 lg:col-span-4 pr-0 md:pr-6 md:border-r border-black/10 flex flex-col">
+                        <div className="flex items-center gap-2 mb-4">
+                          <span className="w-2 h-2 rounded-full bg-blue-600" />
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-black/60 font-mono">
+                            PAID ADVERTISING SERVICES
+                          </span>
+                        </div>
+                        <div className="space-y-1.5 flex-1">
+                          {[
+                            {
+                              title: "Google Ads Management",
+                              desc: "Capture affluent clients searching for top architects & designers",
+                              href: "/ppc-marketing/google-ads-management-services",
+                            },
+                            {
+                              title: "Meta (Instagram) Ads",
+                              desc: "Visual portfolio campaigns targeting high-net-worth zip codes",
+                              href: "/ppc-marketing/meta-ads-management-services",
+                            },
+                            {
+                              title: "Search Engine Marketing (SEM)",
+                              desc: "High-intent keyword dominance across search ecosystems",
+                              href: "/ppc-marketing/search-engine-marketing",
+                            },
+                            {
+                              title: "Private Lead Generation",
+                              desc: "Multi-step consultation intake funnels that filter for high budgets",
+                              href: "/ppc-marketing/lead-generation-services",
+                            },
+                            {
+                              title: "Video Ads & Creative",
+                              desc: "Cinematic walkthroughs designed to stop scrolling luxury homeowners",
+                              href: "/ppc-marketing/meta-ads-management-services",
+                            },
+                            {
+                              title: "All Paid Marketing Plans",
+                              desc: "Explore full performance marketing and ad spend frameworks",
+                              href: "/ppc-marketing",
+                            },
+                          ].map((item) => (
+                            <a
+                              key={item.title}
+                              href={item.href}
+                              onClick={() => setActiveDropdown(null)}
+                              className="group p-2.5 rounded-xl flex items-start justify-between hover:bg-[#F3F6FF] border border-transparent hover:border-black/10 transition-all cursor-pointer"
+                            >
+                              <div className="flex flex-col pr-2">
+                                <span className="text-sm font-bold text-black group-hover:text-blue-600 transition-colors montserrat-semibold leading-tight">
+                                  {item.title}
+                                </span>
+                                <span className="text-[12px] text-black/55 montserrat-regular mt-0.5 leading-snug">
+                                  {item.desc}
+                                </span>
+                              </div>
+                              <ArrowUpRight className="w-4 h-4 shrink-0 text-black/30 group-hover:text-blue-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all mt-0.5" />
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Column 2: PAID ACQUISITION PLAYBOOK */}
+                      <div className="md:col-span-4 lg:col-span-4 px-0 md:px-6 md:border-r border-black/10 flex flex-col">
+                        <div className="flex items-center gap-2 mb-4">
+                          <span className="w-2 h-2 rounded-full bg-[#48BB36]" />
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-black/60 font-mono">
+                            PAID ACQUISITION PLAYBOOK
+                          </span>
+                        </div>
+                        <div className="space-y-1.5 flex-1">
+                          {[
+                            {
+                              title: "Why Generic Ads Burn Cash",
+                              desc: "Eliminating tire-kickers and low-budget inquiries permanently",
+                              href: "/blogs",
+                            },
+                            {
+                              title: "Hyper-Local Zip Code Targeting",
+                              desc: "Focusing ad spend only on prime residential property corridors",
+                              href: "/blogs",
+                            },
+                            {
+                              title: "High-Aesthetic Video Production",
+                              desc: "Showcasing completed spatial projects with editorial polish",
+                              href: "/blogs",
+                            },
+                            {
+                              title: "Conversions API & Offline Tracking",
+                              desc: "Connecting signed design retainers back to ad attribution",
+                              href: "/blogs",
+                            },
+                            {
+                              title: "Predictable Studio Pipeline",
+                              desc: "How top design firms forecast monthly client inquiries",
+                              href: "/blogs",
+                            },
+                            {
+                              title: "Free Ad Account Audit",
+                              desc: "Review your current campaign structure and wasted ad budget",
+                              href: "/contact",
+                            },
+                          ].map((item) => (
+                            <a
+                              key={item.title}
+                              href={item.href}
+                              onClick={() => setActiveDropdown(null)}
+                              className="group p-2.5 rounded-xl flex items-start justify-between hover:bg-[#F3F6FF] border border-transparent hover:border-black/10 transition-all cursor-pointer"
+                            >
+                              <div className="flex flex-col pr-2">
+                                <span className="text-sm font-bold text-black group-hover:text-blue-600 transition-colors montserrat-semibold leading-tight">
+                                  {item.title}
+                                </span>
+                                <span className="text-[12px] text-black/55 montserrat-regular mt-0.5 leading-snug">
+                                  {item.desc}
+                                </span>
+                              </div>
+                              <ArrowUpRight className="w-4 h-4 shrink-0 text-black/30 group-hover:text-blue-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all mt-0.5" />
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Column 3: Paid Acquisition CTA Card */}
+                      <div className="md:col-span-4 lg:col-span-4 pl-0 md:pl-6 flex flex-col justify-between">
+                        <div className="bg-[#1C2333] text-white rounded-2xl p-6 sm:p-7 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-between h-full min-h-[340px]">
+                          <div>
+                            <div className="inline-flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full text-[11px] font-mono tracking-wider uppercase text-white/90 mb-4 border border-white/15">
+                              <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+                              <span>PAID SEARCH & ADS</span>
+                            </div>
+                            <h3 className="text-2xl sm:text-3xl font-normal tracking-tight leading-tight montserrat-medium text-white">
+                              Unlock Consistent <br />
+                              <span className="font-bold text-blue-400 inline-block montserrat-bold">Client Inquiries</span>
+                            </h3>
+                            <p className="text-xs sm:text-sm text-white/80 mt-3 font-normal montserrat-regular leading-relaxed">
+                              Get immediate visibility in front of affluent homeowners actively searching for high-end design firms.
+                            </p>
+                          </div>
+
+                          <div className="mt-8 space-y-3">
+                            <a
+                              href="/contact"
+                              onClick={() => setActiveDropdown(null)}
+                              className="block w-full no-underline"
+                            >
+                              <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 px-6 rounded-xl border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all text-sm sm:text-base cursor-pointer flex items-center justify-center gap-2 montserrat-semibold">
+                                <span>Get Paid Ads Proposal</span>
+                                <ArrowUpRight className="w-4 h-4" />
+                              </button>
+                            </a>
+                            <div className="text-center font-mono text-[10px] tracking-widest text-white/60 uppercase">
+                              DATA-BACKED • <span className="font-bold text-white">MAXIMUM ROAS</span>
                             </div>
                           </div>
                         </div>
@@ -1104,7 +1433,7 @@ export default function HeroSection() {
       <div className="relative z-20 flex-grow flex flex-col items-center justify-center text-center my-auto py-12 md:py-16">
         <motion.h1 
           variants={itemVariants}
-          className="relative z-20 text-3xl sm:text-5xl md:text-6xl lg:text-[4.5rem] leading-[1.12] tracking-normal max-w-5xl mx-auto text-blue-600 font-normal drop-shadow-sm select-none bungee-shade"
+          className="relative z-20 text-3xl sm:text-5xl md:text-6xl lg:text-[4.5rem] leading-[1.12] tracking-normal max-w-5xl mx-auto text-blue-600 font-normal drop-shadow-sm bungee-shade"
         >
           Marketing for Interior designers
         </motion.h1>
@@ -1116,7 +1445,7 @@ export default function HeroSection() {
         <motion.div variants={itemVariants} className="relative z-20 mt-8 flex items-center gap-4 sm:gap-6 flex-wrap justify-center">
           <button 
             id="hero-start-subscription-btn"
-            onClick={() => setActiveDropdown('marketing')}
+            onClick={() => setActiveDropdown('seo')}
             className="bg-blue-600 border-2 border-black rounded-xl px-6 py-3.5 text-white font-semibold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer"
           >
             Start Your Subscription

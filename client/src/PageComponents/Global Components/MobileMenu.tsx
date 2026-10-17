@@ -325,26 +325,58 @@ export default function MobileMenu({ open, setOpen }: MobileMenuProps) {
                 </button>
               </div>
 
-              {/* Accordion sections */}
+              {/* Direct links for SEO, AI SEO, Paid Ads, Video Marketing */}
               <motion.div
                 initial="hidden"
                 animate="visible"
                 variants={{
                   hidden: {},
-                  visible: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
+                  visible: { transition: { staggerChildren: 0.05, delayChildren: 0.1 } },
+                }}
+                className="flex flex-col gap-1 mb-2"
+              >
+                {[
+                  { label: "SEO", href: "/seo-services" },
+                  { label: "AI SEO", href: "/seo-services/ai-seo-services" },
+                  { label: "Paid Ads", href: "/ppc-marketing" },
+                  { label: "Video Marketing", href: "/ppc-marketing/meta-ads-management-services" },
+                ].map(({ href, label }) => (
+                  <motion.div
+                    key={label}
+                    variants={{
+                      hidden: { opacity: 0, x: 12 },
+                      visible: { opacity: 1, x: 0, transition: { duration: 0.22 } },
+                    }}
+                  >
+                    <Link
+                      href={href}
+                      onClick={close}
+                      className="block py-3 px-1 text-white font-semibold text-base tracking-wide hover:text-blue-200 border-b border-white/10 transition-colors"
+                    >
+                      {label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              {/* Accordion for Resources (only Resources has dropdown) */}
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: {},
+                  visible: { transition: { staggerChildren: 0.07, delayChildren: 0.25 } },
                 }}
                 className="mb-4"
               >
                 {[
-                  { label: "Search Engine Optimization", items: digitalMarketing },
-                  { label: "Website Development", items: webDev },
-                  { label: "PPC Marketing", items: creativeServices },
                   { 
-                    label: "Learn", 
+                    label: "Resources", 
                     items: [
-                      { name: "Blogs", href: "/blogs" },
+                      { name: "Blogs & Insights", href: "/blogs" },
                       { name: "Common Questions", href: "/common-questions" },
                       { name: "About Us", href: "/about-us" },
+                      { name: "Pricing", href: "/pricing" },
                     ] 
                   },
                 ].map(({ label, items }) => (
@@ -360,48 +392,19 @@ export default function MobileMenu({ open, setOpen }: MobileMenuProps) {
                 ))}
               </motion.div>
 
-              {/* Direct links */}
-              <motion.div
-                initial="hidden"
-                animate="visible"
-                variants={{
-                  hidden: {},
-                  visible: { transition: { staggerChildren: 0.06, delayChildren: 0.32 } },
-                }}
-                className="flex flex-col gap-1 mt-2"
-              >
-                {directLinks.map(({ href, label }) => (
-                  <motion.div
-                    key={href}
-                    variants={{
-                      hidden: { opacity: 0, x: 14 },
-                      visible: { opacity: 1, x: 0, transition: { duration: 0.22 } },
-                    }}
-                  >
-                    <Link
-                      href={href}
-                      onClick={close}
-                      className="block py-2.5 px-1 text-white font-semibold text-sm tracking-wide hover:text-blue-200 border-b border-white/10 transition-colors"
-                    >
-                      {label}
-                    </Link>
-                  </motion.div>
-                ))}
-              </motion.div>
-
               {/* CTA */}
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.52, duration: 0.3 }}
+                transition={{ delay: 0.35, duration: 0.3 }}
                 className="mt-auto pt-8"
               >
                 <Link
                   href="/contact"
                   onClick={close}
-                  className="block w-full rounded-xl px-4 py-3.5 font-bold text-[#061d40] bg-white text-center text-sm tracking-wide hover:bg-blue-50 active:scale-95 transition-all"
+                  className="block w-full rounded-xl px-4 py-3.5 font-bold text-[#061d40] bg-white text-center text-sm tracking-wide hover:bg-blue-50 active:scale-95 transition-all shadow-lg"
                 >
-                  Work With Us
+                  Get A Proposal &rarr;
                 </Link>
               </motion.div>
             </div>
