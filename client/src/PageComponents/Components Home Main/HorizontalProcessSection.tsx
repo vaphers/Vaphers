@@ -1,448 +1,236 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
-
-// =========================================
-// CARD DATA
-// =========================================
-
-interface ProcessCard {
-  id: string;
-  stepNumber: string;
-  title: string;
-  subtext: string;
-  bgColor: string;
-  strokeColor: string;
-  artType: 'chair' | 'blocks' | 'vase' | 'blueprint';
-}
-
-const STEPS = [
-  'FIND AN OPPORTUNITY',
-  'BUILD THE STRATEGY',
-  'SHOW THE IMPACT',
-  'CLOSE WITH CONFIDENCE',
-];
-
-const CARDS: ProcessCard[] = [
-  {
-    id: 'discover',
-    stepNumber: '01.',
-    title: 'Find an Opportunity',
-    subtext:
-      'We map affluent neighborhoods, identify high-intent search patterns, and position your studio where discerning homeowners are already looking.',
-    bgColor: '#1D4D38',
-    strokeColor: '#A3E635',
-    artType: 'chair',
-  },
-  {
-    id: 'strategy',
-    stepNumber: '02.',
-    title: 'Build the Strategy',
-    subtext:
-      'We architect bespoke marketing systems—editorial content, visual SEO, and AI search optimization—that convert casual browsers into consultation-ready opportunities.',
-    bgColor: '#5E1E28',
-    strokeColor: '#FBCFE8',
-    artType: 'blocks',
-  },
-  {
-    id: 'impact',
-    stepNumber: '03.',
-    title: 'Show the Impact',
-    subtext:
-      'Real-time dashboards track every inquiry, consultation booking, and signed contract back to its source—so you see which channels drive commissions.',
-    bgColor: '#708CFB',
-    strokeColor: '#FFFFFF',
-    artType: 'vase',
-  },
-  {
-    id: 'close',
-    stepNumber: '04.',
-    title: 'Close with Confidence',
-    subtext:
-      'Structured proposal workflows, automated follow-ups, and refined intake funnels ensure warm leads convert into signed retainers.',
-    bgColor: '#E8710A',
-    strokeColor: '#FFFFFF',
-    artType: 'blueprint',
-  },
-];
-
-// =========================================
-// ANIMATED SVG LINE ART
-// =========================================
-
-const drawTransition = { duration: 2.2, ease: 'easeInOut' as const };
-const floatTransition = { duration: 4, repeat: Infinity, repeatType: 'reverse' as const, ease: 'easeInOut' as const };
-
-const CardArt: React.FC<{ type: ProcessCard['artType']; stroke: string }> = ({
-  type,
-  stroke,
-}) => {
-  const pathProps = {
-    stroke,
-    fill: 'none',
-    strokeLinecap: 'round' as const,
-  };
-
-  switch (type) {
-    case 'chair':
-      return (
-        <svg viewBox="0 0 240 260" fill="none" className="w-full h-full">
-          {/* Animated lounge chair contour */}
-          <motion.path
-            d="M 50 150 C 45 130, 50 85, 75 60 C 95 40, 135 40, 155 65 C 170 85, 175 125, 185 145 C 195 160, 165 170, 130 168 C 95 166, 60 170, 50 150 Z"
-            {...pathProps}
-            strokeWidth="2"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            transition={drawTransition}
-            viewport={{ once: true }}
-          />
-          {/* Cushion */}
-          <motion.path
-            d="M 68 128 C 85 110, 140 110, 165 130 C 145 145, 90 145, 68 128 Z"
-            {...pathProps}
-            strokeWidth="1.8"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            transition={{ ...drawTransition, delay: 0.6 }}
-            viewport={{ once: true }}
-          />
-          {/* Legs */}
-          <motion.path
-            d="M 75 165 L 60 200 M 160 165 L 175 200 M 100 167 L 95 200 M 140 167 L 145 200"
-            {...pathProps}
-            strokeWidth="1.8"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            transition={{ ...drawTransition, delay: 1 }}
-            viewport={{ once: true }}
-          />
-          {/* Floating gestural ground line */}
-          <motion.path
-            d="M 20 205 Q 60 195, 120 205 T 220 200"
-            {...pathProps}
-            strokeWidth="1.5"
-            animate={{ d: [
-              'M 20 205 Q 60 195, 120 205 T 220 200',
-              'M 20 200 Q 60 210, 120 198 T 220 205',
-              'M 20 205 Q 60 195, 120 205 T 220 200',
-            ]}}
-            transition={floatTransition}
-          />
-        </svg>
-      );
-
-    case 'blocks':
-      return (
-        <svg viewBox="0 0 260 260" fill="none" className="w-full h-full">
-          {/* Top block — drops in */}
-          <motion.rect
-            x="105" y="25" width="50" height="45" rx="6"
-            stroke={stroke} strokeWidth="1.8" fill="none"
-            initial={{ y: -30, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            viewport={{ once: true }}
-          />
-          {/* Middle row */}
-          <motion.rect
-            x="72" y="80" width="50" height="45" rx="6"
-            stroke={stroke} strokeWidth="1.8" fill="none"
-            initial={{ y: -30, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.35 }}
-            viewport={{ once: true }}
-          />
-          <motion.rect
-            x="132" y="80" width="50" height="45" rx="6"
-            stroke={stroke} strokeWidth="1.8" fill="none"
-            initial={{ y: -30, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
-            viewport={{ once: true }}
-          />
-          {/* Bottom row */}
-          <motion.rect
-            x="40" y="135" width="50" height="45" rx="6"
-            stroke={stroke} strokeWidth="1.8" fill="none"
-            initial={{ y: -30, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.65 }}
-            viewport={{ once: true }}
-          />
-          <motion.rect
-            x="100" y="135" width="50" height="45" rx="6"
-            stroke={stroke} strokeWidth="1.8" fill="none"
-            initial={{ y: -30, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.8 }}
-            viewport={{ once: true }}
-          />
-          <motion.rect
-            x="160" y="135" width="50" height="45" rx="6"
-            stroke={stroke} strokeWidth="1.8" fill="none"
-            initial={{ y: -30, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.95 }}
-            viewport={{ once: true }}
-          />
-          {/* Animated organic ground wave */}
-          <motion.path
-            d="M 20 205 C 50 195, 80 215, 130 203 C 180 191, 210 210, 245 205"
-            stroke={stroke} strokeWidth="1.5" strokeLinecap="round" fill="none"
-            animate={{ d: [
-              'M 20 205 C 50 195, 80 215, 130 203 C 180 191, 210 210, 245 205',
-              'M 20 208 C 50 215, 80 198, 130 210 C 180 200, 210 195, 245 208',
-              'M 20 205 C 50 195, 80 215, 130 203 C 180 191, 210 210, 245 205',
-            ]}}
-            transition={floatTransition}
-          />
-        </svg>
-      );
-
-    case 'vase':
-      return (
-        <svg viewBox="0 0 260 260" fill="none" className="w-full h-full">
-          {/* Vessel body — draw in */}
-          <motion.path
-            d="M 110 55 L 150 55 C 153 78, 175 108, 175 148 C 175 183, 155 198, 130 198 C 105 198, 85 183, 85 148 C 85 108, 107 78, 110 55 Z"
-            {...pathProps}
-            strokeWidth="1.8"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            transition={drawTransition}
-            viewport={{ once: true }}
-          />
-          {/* Lip ellipse */}
-          <motion.ellipse
-            cx="130" cy="55" rx="20" ry="5"
-            stroke={stroke} strokeWidth="1.8" fill="none"
-            initial={{ scale: 0, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 1.2 }}
-            viewport={{ once: true }}
-          />
-          {/* Animated branch swaying */}
-          <motion.path
-            d="M 130 53 C 125 30, 140 12, 150 5"
-            {...pathProps}
-            strokeWidth="1.8"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            transition={{ ...drawTransition, delay: 1.5 }}
-            viewport={{ once: true }}
-          />
-          <motion.circle
-            cx="150" cy="5" r="4"
-            stroke={stroke} strokeWidth="1.5" fill="none"
-            animate={{ cy: [5, 2, 5] }}
-            transition={floatTransition}
-          />
-          {/* Secondary branch */}
-          <motion.path
-            d="M 132 38 C 145 28, 162 32, 168 20"
-            {...pathProps}
-            strokeWidth="1.5"
-            animate={{ d: [
-              'M 132 38 C 145 28, 162 32, 168 20',
-              'M 132 38 C 148 25, 158 35, 170 22',
-              'M 132 38 C 145 28, 162 32, 168 20',
-            ]}}
-            transition={floatTransition}
-          />
-          {/* Ground line */}
-          <motion.path
-            d="M 50 198 L 210 198"
-            stroke={stroke} strokeWidth="1.2" strokeLinecap="round" fill="none"
-            initial={{ pathLength: 0 }}
-            whileInView={{ pathLength: 1 }}
-            transition={{ duration: 1.5, delay: 0.8 }}
-            viewport={{ once: true }}
-          />
-        </svg>
-      );
-
-    case 'blueprint':
-      return (
-        <svg viewBox="0 0 260 260" fill="none" className="w-full h-full">
-          {/* Isometric room — draw in */}
-          <motion.path
-            d="M 130 25 L 210 70 L 210 160 L 130 205 L 50 160 L 50 70 Z"
-            stroke={stroke} strokeWidth="1.8" fill="none"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            transition={drawTransition}
-            viewport={{ once: true }}
-          />
-          <motion.path
-            d="M 130 25 L 130 115 L 210 160 M 130 115 L 50 160"
-            stroke={stroke} strokeWidth="1.8" fill="none"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            transition={{ ...drawTransition, delay: 0.8 }}
-            viewport={{ once: true }}
-          />
-          {/* Animated pulsing dashed grid lines */}
-          <motion.path
-            d="M 90 47 L 90 138"
-            stroke={stroke} strokeWidth="1.2" strokeDasharray="4 3" fill="none"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 1.5, duration: 0.5 }}
-            viewport={{ once: true }}
-            animate={{ opacity: [0.4, 1, 0.4] }}
-          />
-          <motion.path
-            d="M 170 47 L 170 138"
-            stroke={stroke} strokeWidth="1.2" strokeDasharray="4 3" fill="none"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 1.7, duration: 0.5 }}
-            viewport={{ once: true }}
-            animate={{ opacity: [0.4, 1, 0.4] }}
-          />
-          {/* Animated pulsing center point */}
-          <motion.circle
-            cx="130" cy="115" r="4"
-            fill={stroke}
-            animate={{ r: [4, 6, 4], opacity: [1, 0.6, 1] }}
-            transition={{ ...floatTransition, duration: 2.5 }}
-          />
-          {/* Accent markers */}
-          <motion.rect
-            x="118" y="25" width="4" height="4" fill={stroke} rx="1"
-            animate={{ opacity: [1, 0.4, 1] }}
-            transition={{ ...floatTransition, duration: 3 }}
-          />
-          <motion.rect
-            x="200" y="67" width="4" height="4" fill={stroke} rx="1"
-            animate={{ opacity: [0.4, 1, 0.4] }}
-            transition={{ ...floatTransition, duration: 3 }}
-          />
-        </svg>
-      );
-  }
-};
-
-// =========================================
-// MAIN COMPONENT
-// =========================================
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { ArrowRight } from 'lucide-react';
 
 export default function HorizontalProcessSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [activeStep, setActiveStep] = useState(0);
+  const [cursorVisible, setCursorVisible] = useState(true);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
-  });
-
-  const x = useTransform(scrollYProgress, [0, 1], ['0%', '-65%']);
-
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    if (latest < 0.25) setActiveStep(0);
-    else if (latest < 0.5) setActiveStep(1);
-    else if (latest < 0.75) setActiveStep(2);
-    else setActiveStep(3);
-  });
-
-  const handleStepClick = (index: number) => {
-    if (!containerRef.current) return;
-    const top = containerRef.current.offsetTop;
-    const totalScroll = containerRef.current.offsetHeight - window.innerHeight;
-    window.scrollTo({
-      top: top + totalScroll * (index / (CARDS.length - 1)),
-      behavior: 'smooth',
-    });
-  };
+  // Blinking cursor in search box
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCursorVisible((prev) => !prev);
+    }, 550);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <section
-      ref={containerRef}
-      className="relative bg-[#F9F8F4] montserrat-regular"
-      style={{ height: '320vh' }}
-    >
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center">
-        <div className="max-w-[1600px] w-full mx-auto px-6 sm:px-10 md:px-14 lg:px-20 h-full flex flex-col lg:flex-row items-stretch gap-10 lg:gap-16 py-12 sm:py-16 md:py-20">
+    <section className="relative w-full py-16 sm:py-24 lg:py-28 bg-white overflow-hidden border-b border-gray-200">
+      {/* Subtle Dot Grid Background Pattern */}
+      <div 
+        className="absolute inset-0 pointer-events-none opacity-60"
+        style={{
+          backgroundImage: 'radial-gradient(#94a3b8 1.1px, transparent 1.1px)',
+          backgroundSize: '24px 24px',
+        }}
+        aria-hidden="true"
+      />
 
-          {/* ===== LEFT COLUMN ===== */}
-          <div className="w-full lg:w-[36%] xl:w-[32%] flex flex-col justify-between shrink-0 z-10">
+      <div className="relative z-10 w-[95%] sm:w-[90%] lg:w-[86%] max-w-[1550px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+          
+          {/* ========================================================= */}
+          {/* LEFT COLUMN: Editorial Serif Headline, Copy & CTA        */}
+          {/* ========================================================= */}
+          <div className="lg:col-span-6 flex flex-col justify-start">
+            {/* Headline matching site typography */}
+            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-[72px] xl:text-[80px] text-gray-950 montserrat-bold leading-[1.04] tracking-tight">
+              Get named <br />
+              when buyers <br />
+              ask{' '}
+              <span className="text-blue-600 relative inline-block border-b-4 sm:border-b-[5px] border-blue-600 pb-0.5">
+                AI.
+              </span>
+            </h2>
 
-            <div className="space-y-5 md:space-y-6">
-              {/* Heading */}
-              <h2 className="text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] lg:text-[3.2rem] font-normal text-[#1a1a1a] leading-[1.1] tracking-[-0.02em]">
-                From first inquiry to signed design commission.
-              </h2>
-
-              <p className="text-base sm:text-lg font-medium text-[#1a1a1a] leading-snug">
-                Clients get instant clarity on scope & vision. You stay in creative control.
-              </p>
-
-              <p className="text-sm sm:text-[15px] text-[#555555] leading-relaxed">
-                We bridge high-aesthetic portfolio storytelling with precision search positioning—local SEO, AI citations, and editorial content—so every inquiry that reaches your calendar is pre-qualified, high-budget, and ready to commission.
+            {/* Sub-headline */}
+            <div className="mt-8 sm:mt-10 max-w-xl">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-950 leading-snug font-sans">
+                AI visibility and SEO for software companies, done for you.
+              </h3>
+              <p className="mt-3 text-sm sm:text-base text-gray-600 leading-relaxed font-sans">
+                ChatGPT, Perplexity, AI Overviews and Google. One real change ships to your site every day, and we check each one before it goes live.
               </p>
             </div>
 
-            {/* Step Indicator Navigation */}
-            <div className="pt-8 lg:pt-0 flex flex-col items-start gap-2">
-              {STEPS.map((label, idx) => {
-                const isActive = activeStep === idx;
-                return (
-                  <button
-                    key={label}
-                    onClick={() => handleStepClick(idx)}
-                    className={`transition-all duration-300 text-left cursor-pointer select-none ${
-                      isActive
-                        ? 'bg-[#1D4D38] text-white text-[11px] sm:text-xs font-bold uppercase tracking-[0.12em] px-4 py-2.5 rounded-full'
-                        : 'text-[#999999] text-[11px] sm:text-xs font-semibold uppercase tracking-[0.1em] px-1 py-1.5 hover:text-[#555555]'
-                    }`}
-                  >
-                    {label}
-                  </button>
-                );
-              })}
+            {/* CTA Button and Founder Direct Card */}
+            <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-8 flex-wrap">
+              {/* Site Signature Neo-Brutalist Button */}
+              <Link
+                href="/contact"
+                className="bg-blue-600 border-2 border-black rounded-xl px-6 py-3.5 text-white font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer inline-flex items-center justify-center gap-3 text-sm sm:text-base select-none no-underline group"
+              >
+                <span>Get started</span>
+                <span className="p-1 rounded bg-blue-700/70 border border-white/20 group-hover:translate-x-0.5 transition-transform">
+                  <ArrowRight className="w-4 h-4 text-white" />
+                </span>
+              </Link>
+
+              {/* Founder Avatar & Direct Text Card */}
+              <div className="flex items-center gap-3.5">
+                <div className="relative w-12 h-12 rounded-lg overflow-hidden border border-gray-300 shadow-sm shrink-0 bg-gray-100">
+                  <Image
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150"
+                    alt="Josh, founder"
+                    fill
+                    sizes="48px"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex flex-col text-xs sm:text-[13px] leading-tight">
+                  <span className="text-gray-500 font-sans">Not sure it fits your site?</span>
+                  <div className="mt-1">
+                    <span className="font-bold text-gray-900 font-sans">Text Josh, the founder </span>
+                    <a
+                      href="tel:+12055390956"
+                      className="text-blue-600 font-bold underline hover:text-blue-700 transition-colors"
+                    >
+                      (205) 539-0956
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* ===== RIGHT COLUMN: Scrolling Cards ===== */}
-          <div className="w-full lg:w-[64%] xl:w-[68%] h-full flex items-center overflow-hidden">
-            <motion.div
-              style={{ x }}
-              className="flex items-stretch gap-5 sm:gap-6 md:gap-7 will-change-transform"
-            >
-              {CARDS.map((card) => (
-                <div
-                  key={card.id}
-                  style={{ backgroundColor: card.bgColor }}
-                  className="w-[300px] sm:w-[340px] md:w-[370px] h-[420px] sm:h-[480px] md:h-[530px] rounded-lg flex flex-col justify-between shrink-0 relative overflow-hidden"
-                >
-                  {/* Number Badge */}
-                  <div className="p-4 sm:p-5 relative z-10">
-                    <div className="bg-white/20 backdrop-blur-sm text-white/90 font-bold text-xs sm:text-sm px-2.5 py-1.5 rounded-md w-fit font-mono">
-                      {card.stepNumber}
-                    </div>
-                  </div>
+          {/* ========================================================= */}
+          {/* RIGHT COLUMN: Search Box & AI Output Feed                */}
+          {/* ========================================================= */}
+          <div className="lg:col-span-6 flex flex-col justify-start lg:pl-4 xl:pl-8">
+            
+            {/* 1. "Someone asks" label */}
+            <div className="text-[13px] text-gray-600 font-sans font-normal mb-2">
+              Someone asks
+            </div>
 
-                  {/* Center Art */}
-                  <div className="flex-1 flex items-center justify-center px-5 sm:px-6 relative z-10">
-                    <CardArt type={card.artType} stroke={card.strokeColor} />
-                  </div>
+            {/* 2. Sharp Blue Rectangle Search Input Box */}
+            <div className="w-full border-2 border-blue-600 bg-white px-4 py-3 sm:py-3.5 shadow-sm flex items-center">
+              <span className="text-xl sm:text-2xl text-gray-950 font-medium tracking-normal select-none montserrat-medium">
+                best help desk for small teams
+              </span>
+              <span 
+                className={`inline-block w-[1.5px] h-6 sm:h-7 ml-0.5 bg-blue-600 transition-opacity ${
+                  cursorVisible ? 'opacity-100' : 'opacity-0'
+                }`}
+              />
+            </div>
 
-                  {/* Bottom Banner */}
-                  <div className="bg-black/25 backdrop-blur-sm border-t border-white/10 px-5 sm:px-6 py-4 sm:py-5 relative z-10">
-                    <h3 className="text-base sm:text-lg font-semibold text-white tracking-tight leading-snug">
-                      {card.title}
-                    </h3>
-                    <p className="text-[11px] sm:text-xs text-white/70 mt-1.5 leading-relaxed line-clamp-2">
-                      {card.subtext}
-                    </p>
+            {/* 3. Sub-label */}
+            <div className="text-[13px] text-gray-600 font-sans mt-3 mb-8">
+              and every answer includes ExampleCo
+            </div>
+
+            {/* 4. Live Search Engine & AI Citations Feed */}
+            <div className="space-y-7">
+              
+              {/* --- GOOGLE RESULT --- */}
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="w-2 h-2 bg-blue-600 shrink-0 inline-block" />
+                  <span className="text-xs text-gray-600 font-sans font-medium">Google</span>
+                </div>
+                <div className="text-xs text-gray-500 font-sans mb-1">
+                  example.com
+                </div>
+                <h4 className="text-xl sm:text-2xl text-blue-700 underline font-semibold leading-snug hover:text-blue-800 transition-colors cursor-pointer montserrat-semibold">
+                  ExampleCo: help desk for small teams
+                </h4>
+              </div>
+
+              {/* --- CHATGPT RESULT --- */}
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="w-2 h-2 bg-blue-600 shrink-0 inline-block" />
+                  <span className="text-xs text-gray-600 font-sans font-medium">ChatGPT</span>
+                </div>
+                <p className="text-sm text-gray-800 leading-relaxed font-sans max-w-lg">
+                  For a small team, ExampleCo is the easiest pick. The pricing is clear and there is a free plan.
+                </p>
+                <div className="relative inline-block mt-0.5">
+                  <a
+                    href="https://example.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sm text-blue-700 underline hover:text-blue-800 font-sans font-medium"
+                  >
+                    example.com
+                  </a>
+
+                  {/* Classic Pixel-Crisp Hand Cursor Graphic Hovering Over Link */}
+                  <div className="absolute -bottom-4 right-1/2 translate-x-3 pointer-events-none select-none z-10">
+                    <svg
+                      width="26"
+                      height="26"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="drop-shadow-[1px_2px_3px_rgba(0,0,0,0.25)]"
+                    >
+                      <path
+                        d="M9 3C9 2.44772 9.44772 2 10 2C10.5523 2 11 2.44772 11 3V10.5H12V5C12 4.44772 12.4477 4 13 4C13.5523 4 14 4.44772 14 5V10.5H15V7C15 6.44772 15.5523 6 16 6C16.5523 6 17 6.44772 17 7V10.5H18V9C18 8.44772 18.4477 8 19 8C19.5523 8 20 8.44772 20 9V14.5C20 17.5376 17.5376 20 14.5 20H12.2C11.5 20 10.8 19.7 10.3 19.2L6 14.9L6.9 14C7.4 13.5 8.1 13.3 8.8 13.5L10 13.8V3C10 2.44772 9.44772 2 9 2"
+                        fill="#ffffff"
+                        stroke="#000000"
+                        strokeWidth="1.5"
+                        strokeLinejoin="round"
+                        strokeLinecap="round"
+                      />
+                    </svg>
                   </div>
                 </div>
-              ))}
+              </div>
 
-              <div className="w-16 sm:w-24 shrink-0" />
-            </motion.div>
+              {/* --- PERPLEXITY · SOURCES RESULT --- */}
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="w-2 h-2 bg-blue-600 shrink-0 inline-block" />
+                  <span className="text-xs text-gray-600 font-sans font-medium">Perplexity · Sources</span>
+                </div>
+                <div className="space-y-1 text-xs sm:text-[13px] font-sans">
+                  <div className="flex items-baseline gap-2.5">
+                    <span className="font-bold text-gray-950 text-xs">1</span>
+                    <a
+                      href="https://example.com/compare"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-blue-700 underline hover:text-blue-800"
+                    >
+                      example.com/compare
+                    </a>
+                  </div>
+                  <div className="flex items-baseline gap-2.5">
+                    <span className="font-bold text-gray-950 text-xs">2</span>
+                    <span className="text-gray-500">
+                      reddit.com/r/saas
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* --- GOOGLE AI OVERVIEWS RESULT --- */}
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="w-2 h-2 bg-blue-600 shrink-0 inline-block" />
+                  <span className="text-xs text-gray-600 font-sans font-medium">Google AI Overviews</span>
+                </div>
+                <p className="text-sm text-gray-800 leading-relaxed font-sans max-w-lg">
+                  Small teams often pick ExampleCo for its simple pricing.
+                </p>
+                <div>
+                  <a
+                    href="https://example.com/pricing"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sm text-blue-700 underline hover:text-blue-800 font-sans font-medium"
+                  >
+                    example.com/pricing
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
           </div>
 
         </div>

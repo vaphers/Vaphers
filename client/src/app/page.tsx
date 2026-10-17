@@ -9,6 +9,8 @@ import Result from "@/PageComponents/Landing Home/Results"
 import Grow from "@/PageComponents/Landing Home/Grow"
 import Banner from "@/PageComponents/Global Components/Banner"
 import TestimonialSection from '@/PageComponents/Global Components/Testimonial'
+import HowWeHelp from '@/PageComponents/Landing Home/HowWeHelp'
+import VideoSuiteCarousel from '@/PageComponents/Landing Home/VideoSuiteCarousel'
 import Services from '@/PageComponents/Landing Home/Services'
 import Stats from '@/PageComponents/Global Components/Stats'
 import BannerMarqee from '@/PageComponents/Landing Home/BannerMarqee'
@@ -19,13 +21,14 @@ import HomeFiller from '@/PageComponents/Landing Home/FillerSection'
 import WebsiteSection from '@/PageComponents/Landing Home/WebsiteSection'
 import NavBar from '@/PageComponents/Global Components/Header'
 import MarketingPriceCalculator from '@/PageComponents/Global Components/PriceCalc'
-import ImageComparisonSlider from '@/PageComponents/Landing Home/ImageComparison'
+import CreativeSuiteCarousel from '@/PageComponents/Landing Home/CreativeSuiteCarousel'
 import InternaionalSEO from '@/PageComponents/Landing Home/InternationalSEO'
 import Footer from '@/PageComponents/Global Components/Footer'
 import MarketingStagesSection from '@/PageComponents/Landing Home/MarketingStages'
 import ContactSection from '@/PageComponents/Landing Home/ContactSection'
 import WhyVaphers from '@/PageComponents/Landing Home/WhyVaphers'
 import HeroHomeMain from '../PageComponents/Components Home Main/Hero'
+import GrowthCaseStudy from '@/PageComponents/Landing Home/GrowthCaseStudy'
 import HorizontalProcessSection from '@/PageComponents/Components Home Main/HorizontalProcessSection'
 import SpiralPathSection from '@/PageComponents/Components Home Main/SpiralPathSection'
 import Charts from '@/PageComponents/Props Based Components/Chart'
@@ -277,16 +280,19 @@ export default function Page() {
         {/* <NavBar/> */}
         {/* <Hero /> */}
         <HeroHomeMain/>
-        <Result />
-        <ImageComparisonSlider/>
-        <InternaionalSEO/>
+        <GrowthCaseStudy />
+        {/* <Result /> */}
+        <CreativeSuiteCarousel/>
+        {/* <InternaionalSEO/>
         <HorizontalProcessSection />
         <SpiralPathSection />
-        <OnlineVisibility/>
+        <OnlineVisibility/> */}
         <TestimonialSection/>
+        <VideoSuiteCarousel />
+        <HowWeHelp />
         <AiSeoSection />
         {/* <Services/> */}
-        <WebsiteSection />
+        {/* <WebsiteSection /> */}
         <Charts {...heroData} />
         <ContactSection/>
         <Footer/>
